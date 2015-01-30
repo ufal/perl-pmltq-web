@@ -1,0 +1,66 @@
+@import "bower_components/bootstrap/less/bootstrap.less";
+//@import "bower_components/bootstrap/less/theme.less";
+@import "bower_components/font-awesome/less/font-awesome.less";
+//@import (css) "bower_components/metisMenu/src/metisMenu.css";
+@import "bower_components/jasny-bootstrap/less/jasny-bootstrap.less";
+
+
+/* Component LESS */
+@import "history/history.less";
+@import "partial/home/home.less";
+@import "partial/navigation/navigation.less";
+@import "directive/treebank-list-item/treebank-list-item.less";
+/* Add Component LESS Above */
+
+// Variables
+
+@gray-darker: lighten(#000, 13.5%);
+@gray-dark: lighten(#000, 20%);
+@gray: lighten(#000, 33.5%);
+@gray-light: lighten(#000, 60%);
+@gray-lighter: lighten(#000, 93.5%);
+@gray-lightest: lighten(#000, 97.25%);
+@brand-primary: #428bca;
+@brand-success: #5cb85c;
+@brand-info: #5bc0de;
+@brand-warning: #f0ad4e;
+@brand-danger: #d9534f;
+
+@fa-font-path: "bower_components/font-awesome/fonts";
+@icon-font-path: "bower_components/bootstrap/fonts/";
+
+@navmenu-width: 200px;
+
+//@navbar-height: 30px;
+
+/* Required for Angular UI Bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: @gray-lightest;
+}
+
+#page-wrapper {
+  position: relative;
+  left: 0;
+  z-index: 2;
+  padding: 0 15px;
+  min-height: 100%;
+  background-color: white;
+}
+
+/* Personal preference for BS modal.  The LESS below makes the backdrop white and
+   causes the modal to fade in rather than slide in. */
+//@modal-backdrop-bg: white;
+//.modal {
+//	&.fade {
+//		.transition(opacity .3s);
+//	}
+//	&.fade .modal-dialog {
+//		.translate(0,0);
+//	}
+//}

@@ -1,0 +1,41 @@
+.navbar-toggle {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  left: 10px;
+  float: none;
+  margin: 0;
+  .icon-bar {
+    background-color: @gray-dark;
+  }
+}
+
+.navmenu {
+  z-index: 1;
+}
+
+@media (min-width: 0) {
+  .navbar-toggle {
+    display: block; /* force showing the toggle */
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding: 0;
+  }
+  .navbar {
+    right: auto;
+    background: none;
+    border: none;
+  }
+}
+
+
+.lindat-logo {
+  display: block;
+  width: 100%;
+  position: absolute;
+  bottom: 20px;
+  text-align: center;
+}

@@ -1,0 +1,23 @@
+.container(ng-controller="HomeCtrl")
+  .jumbotron.text-center.promo
+    h1 PML Tree Query
+    p Tool for searching and browsing treebanks online
+    p.btn-toolbar
+      a.btn.btn-primary.btn-lg(href="#")
+        i.glyphicon.glyphicon-tree-conifer
+        |  Browse Treebanks
+      a.btn.btn-primary.btn-lg.btn-info(href="#")
+        i.glyphicon.glyphicon-info-sign
+        |  Guided Tour
+      a.btn.btn-primary.btn-lg.btn-info(href="#")
+        i.glyphicon.glyphicon-question-sign
+        |  Help
+  .row
+    .col-lg-6.col-md-6.col-sm-12
+      h2 Recently Used
+      .list-group
+        treebank-list-item/(treebank="tb",ng-repeat="tb in recentlyUsed track by tb.id")
+    .col-lg-6.col-md-6.col-sm-12
+      h2 Featured Treebanks
+      .list-group
+        treebank-list-item/(treebank="tb",ng-repeat="tb in featured track by tb.id")
