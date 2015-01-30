@@ -8,6 +8,10 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
     url: '/home',
     templateUrl: 'partial/home/home.html'
   });
+  $stateProvider.state('treebank', {
+    url: '/treebank/:treebank',
+    templateUrl: 'partial/treebank/treebank.html'
+  });
   /* Add New States Above */
   $urlRouterProvider.otherwise('/home');
 

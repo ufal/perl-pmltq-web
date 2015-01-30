@@ -1,4 +1,4 @@
-a.list-group-item(href="#")
+a.list-group-item(ui-sref="treebank({treebank: treebank.name})")
   span.badge(ng-repeat="sticker in treebank.stickers | orderBy:'-name'")
     {{sticker.name}}
   h4.list-group-item-heading
