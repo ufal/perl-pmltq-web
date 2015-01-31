@@ -4,7 +4,7 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
 
   RestangularProvider.setBaseUrl('/api');
 
-  $stateProvider.state('search', {
+  $stateProvider.state('home', {
     url: '/home',
     templateUrl: 'partial/home/home.html'
   });

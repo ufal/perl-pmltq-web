@@ -103,7 +103,7 @@ module.exports = function (grunt) {
       }
     },
     less: {
-      production: {
+      main: {
         options: {
         },
         files: {
@@ -248,8 +248,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build',['jshint','clean:before','less','dom_munger','ngtemplates','cssmin','concat','ngAnnotate','uglify','copy','htmlmin','clean:after']);
-  grunt.registerTask('serve', ['dom_munger:read', 'jshint', 'jade', 'configureProxies:main', 'connect', 'watch']);
-  grunt.registerTask('test',['dom_munger:read','karma:all_tests']);
+  grunt.registerTask('serve', ['clean:before','jade','less','dom_munger:read','jshint','configureProxies:main','connect','watch']);
+  grunt.registerTask('test',['clean:before','jade','dom_munger:read','karma:all_tests']);
 
   grunt.event.on('watch', function(action, filepath) {
     //https://github.com/gruntjs/grunt-contrib-watch/issues/156
@@ -280,6 +280,10 @@ module.exports = function (grunt) {
 
     if (filepath.lastIndexOf('.jade') !== -1 && filepath.lastIndexOf('.jade') === filepath.length - 5) {
       tasksToRun.push('jade');
+    }
+
+    if (filepath.lastIndexOf('.less') !== -1 && filepath.lastIndexOf('.less') === filepath.length - 5) {
+      tasksToRun.push('less');
     }
 
     //if index.jade changed, we need to reread the <script> tags so our next run of karma

@@ -5,13 +5,12 @@ html(ng-app="pmltqWeb")
     meta(name="keywords",content="treebank search query tree constituency dependency")
     meta(name="viewport",content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
-    link(href="app.less",type="text/css",rel="stylesheet/less")
+    link(href="app.css",type="text/css",rel="stylesheet")
   body
     //-  Livereload script for development only (stripped during dist build)
     script(src="http://localhost:35729/livereload.js",data-concat="false")
 
     //- JS from Bower Components
-    script(src="bower_components/less.js/dist/less-1.6.2.js",data-concat="false")
     script(src="bower_components/jquery/jquery.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.js")
     script(src="bower_components/jasny-bootstrap/js/offcanvas.js")
@@ -37,6 +36,7 @@ html(ng-app="pmltqWeb")
     script(src="partial/treebank/treebank.js")
     //- Add New Component JS Above
 
-    include ./partial/navigation/navigation.jade
+    div(ng-include="'partial/navigation/navigation.html'")
     #page-wrapper
+      div(ng-hide="'home' | isState",ng-include="'partial/navigation/toggle-button.html'")
       div(ui-view)
