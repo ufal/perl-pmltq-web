@@ -50,7 +50,7 @@ module.exports = function (grunt) {
         options: {
           port: 9001,
           open: true,
-          debug: true,
+          debug: false,
           base: [process.cwd(), 'temp'],
           middleware: function (connect, options) {
             var middlewares = [];

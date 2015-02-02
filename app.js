@@ -1,4 +1,4 @@
-angular.module('pmltqWeb', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'restangular', 'history']);
+angular.module('pmltqWeb', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'restangular', 'history', 'query']);
 
 angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
 

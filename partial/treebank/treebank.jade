@@ -1,5 +1,6 @@
 .container-fluid(ng-controller="TreebankCtrl")
   .row
     .col-lg-12
-      h1.page-header {{treebank.title}}
+      h3 {{treebank.title}}
+      div(ng-include="'query/partial/form/form.html'")
 

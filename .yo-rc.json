@@ -23,6 +23,10 @@
       {
         "name": "history",
         "file": "history/history.js"
+      },
+      {
+        "name": "query",
+        "file": "query/query.js"
       }
     ]
   }
