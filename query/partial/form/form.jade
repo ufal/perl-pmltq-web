@@ -1,42 +1,55 @@
 form#query-form(name="q")
   .form-group
     textarea.form-control.text-mono(
-      name="query",
-      id="query-text",
-      ng-model="queryText",
-      required="required",
-      rows="8",
-      tabindex="1",
-      placeholder="# Enter your query here",
+      name="query"
+      id="query-text"
+      ng-model="queryText"
+      required="required"
+      rows="8"
+      tabindex="1"
+      placeholder="# Enter your query here"
       accesskey="e")
   .form-group.btn-toolbar
     button.btn.btn-primary(
       type="button"
-      tooltip="Execute the query (including output filters)",
-      tabindex="2",
-      disabled=true,
+      tooltip="Execute the query (including output filters)"
+      tooltip-placement="bottom"
+      tabindex="2"
+      disabled=true
       ng-disabled="q.$invalid")
       i.fa.fa-search
       | &nbsp;Query
     button.btn.btn-default(
       type="button"
-      tooltip="Execute the query, excluding possible output filters",
-      tabindex="3",
-      disabled=true,
+      tooltip="Execute the query, excluding possible output filters"
+      tooltip-placement="bottom"
+      tabindex="3"
+      disabled=true
       ng-disabled="q.$invalid")
       i.fa.fa-filter
       | &nbsp;w/o Filters
     button.btn.btn-default(
       type="button"
-      tooltip="Suggest query based on nodes marked by you",
-      tabindex="4",
+      tooltip="Suggest query based on nodes marked by you"
+      tooltip-placement="bottom"
+      tabindex="4"
       disabled=true)
       i.fa.fa-question
       | &nbsp;Suggest
-    button.btn.btn-default(type="button")
+    button.btn.btn-default(
+      type="button"
+      tooltip="Display graphical visualization of the query"
+      tooltip-placement="bottom"
+      tabindex="5"
+      disabled=true
+      ng-disabled="q.$invalid")
       i.fa.fa-sun-o
       | &nbsp;Visualize
-    button.btn.btn-default(type="button")
+    button.btn.btn-default(
+      type="button"
+      tooltip="Empty the query form"
+      tooltip-placement="bottom"
+      tabindex="6")
       i.fa.fa-times
       | &nbsp;Clear
 
