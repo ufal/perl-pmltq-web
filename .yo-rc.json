@@ -27,6 +27,10 @@
       {
         "name": "query",
         "file": "query/query.js"
+      },
+      {
+        "name": "help",
+        "file": "help/help.js"
       }
     ]
   }

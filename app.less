@@ -12,6 +12,7 @@
 @import "directive/treebank-list-item/treebank-list-item.less";
 @import "partial/treebank/treebank.less";
 @import "query/query.less";
+@import "help/help.less";
 /* Add Component LESS Above */
 
 // Variables
@@ -53,6 +54,16 @@ body {
   padding: 0 15px;
   min-height: 100%;
   background-color: white;
+}
+
+.text-mono {
+  font-family: @font-family-monospace;
+}
+
+.table-without-borders {
+  &> tbody > tr > td {
+    border: none;
+  }
 }
 
 /* Personal preference for BS modal.  The LESS below makes the backdrop white and
