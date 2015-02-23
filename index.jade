@@ -41,5 +41,5 @@ html(ng-app="pmltqWeb")
 
     div(ng-include="'partial/navigation/navigation.html'")
     #page-wrapper
-      div(ng-hide="'home' | isState",ng-include="'partial/navigation/toggle-button.html'")
+      div(ng-if="!('home' | isState)",ng-include="'partial/navigation/toggle-button.html'")
       div(ui-view)
