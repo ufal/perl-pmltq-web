@@ -26,7 +26,8 @@
     "angular-local-storage": "~0.1.5",
     "restangular": "~1.4.0",
     "ace-builds": "~1.1.8",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "angular-scroll": "~0.6.5"
   },
   "resolutions": {
     "bootstrap": "~3.3.0"

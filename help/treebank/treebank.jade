@@ -16,7 +16,7 @@ mixin help-button(icon, text)
       tr
         td
           +help-button('fa-filter', 'w/o Filters')(class='btn-default')
-        td Submits the query without any <a href="#output-filters">output filters</a> (see below).
+        td Submits the query without any <a href="#output-filters" du-smooth-scroll>output filters</a> (see below).
       tr
         td
           +help-button('fa-sun-o', 'Visualize')(class='btn-default')
@@ -103,7 +103,7 @@ mixin help-button(icon, text)
         | ]
     p The symbol <code>0x</code>, stands for 'zero times'. Similarly, <code>1x</code> stands for 'exactly one', <code>3+x</code> for 'three and more',
       | <code>2-x</code> for 'at most two', or <code>1..10x</code> for 'one to ten'.
-    h2 Output Filters
+    h2#output-filters Output Filters
     p To count number of all matches of a query, append an output filter, e.g
     .code-listing(try-button="#query")
       pre
