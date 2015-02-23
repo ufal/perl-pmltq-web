@@ -5,12 +5,13 @@ form#query-form(name="q")
       id="query-text",
       ng-model="queryText",
       required="required",
-      rows="3",
+      rows="8",
       tabindex="1",
       placeholder="# Enter your query here",
       accesskey="e")
   .form-group.btn-toolbar
     button.btn.btn-primary(
+      type="button"
       tooltip="Execute the query (including output filters)",
       tabindex="2",
       disabled=true,
@@ -18,6 +19,7 @@ form#query-form(name="q")
       i.fa.fa-search
       | &nbsp;Query
     button.btn.btn-default(
+      type="button"
       tooltip="Execute the query, excluding possible output filters",
       tabindex="3",
       disabled=true,
@@ -25,15 +27,16 @@ form#query-form(name="q")
       i.fa.fa-filter
       | &nbsp;w/o Filters
     button.btn.btn-default(
+      type="button"
       tooltip="Suggest query based on nodes marked by you",
       tabindex="4",
       disabled=true)
       i.fa.fa-question
       | &nbsp;Suggest
-    button.btn.btn-default
+    button.btn.btn-default(type="button")
       i.fa.fa-sun-o
       | &nbsp;Visualize
-    button.btn.btn-default
+    button.btn.btn-default(type="button")
       i.fa.fa-times
       | &nbsp;Clear
 
