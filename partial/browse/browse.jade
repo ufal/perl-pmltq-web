@@ -1,0 +1,48 @@
+.container-fluid(ng-controller="BrowseTreebanksCtrl as browse")
+  .row
+    .col-lg-12
+      h1 Browse Available Treebanks
+      div(ng-if="browse.state == 'loading'")
+        p Loading ...
+      div(ng-if="browse.state == 'error'")
+        p.alert.alert-info
+          strong No treebanks available at this moment.
+          | Please try later.
+      div(ng-if="browse.state == 'results'")
+        .panel.panel-default
+          .panel-body
+            .form-group
+              input.form-control(
+                tabindex="1"
+                autofocus="autofocus"
+                type="text"
+                ng-model="filter.term"
+                placeholder="Filter treebanks ...")
+
+            .checkbox
+              label
+                input(
+                  type="checkbox"
+                  value=""
+                  ng-model="filter.accessible")
+                | Show publicly accessible treebanks
+
+            div(ng-repeat="(name, lbs) in labels")
+              strong {{name}}
+              .form-inline
+                .checkbox(ng-repeat="(name, count) in lbs")
+                  label
+                    input(
+                      type="checkbox"
+                      value=""
+                      ng-model="filter.labels[name]")
+                    | {{name}} ({{count}}) &nbsp;
+
+            button.btn.btn-default(
+              type="button"
+              ng-click="filter = {term: '', accessible: false, labels: {}}")
+              | Reset filter
+
+        .row
+          .col-lg-6.treebank-box(ng-repeat="tb in treebanks track by tb.id")
+            treebank-box/(treebank="tb")

@@ -1,0 +1,29 @@
+//- .panel.panel-default.treebank-box
+//-   .panel-heading
+//-     span.badge(ng-repeat="sticker in treebank.stickers | orderBy:'-name'")
+//-       | {{sticker.name}}
+//-     a(ui-sref="treebank({treebank: treebank.name})")
+//-       span(ng-if="treebank.access")
+//-         i.fa.fa-lock(tooltip="Login and permission required",tooltip-placement="right")
+//-         | &nbsp;
+//-       | {{treebank.title}}
+//-   .panel-body
+//-     | {{treebank.description}}
+
+//- (ui-sref="treebank({treebank: treebank.name})")
+
+//- .thumbnail
+//-   img(holder="holder.js/64x64/text:{{treebank.title | limitTo:1 | uppercase}}/size:45")
+//-   .caption
+//-     h3 {{treebank.title}}
+//-     p {{treebank.description}}
+
+.panel.panel-default
+  .panel-body
+    .media
+      .media-left
+        a(ui-sref="treebank({treebank: treebank.name})")
+          img.media-object(holder="holder.js/64x64/text:{{treebank.title | limitTo:1 | uppercase}}/size:45")
+      .media-body
+        h4.media-heading {{treebank.title}}
+        | {{treebank.description}}
