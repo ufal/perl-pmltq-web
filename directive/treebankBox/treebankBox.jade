@@ -12,18 +12,23 @@
 
 //- (ui-sref="treebank({treebank: treebank.name})")
 
-//- .thumbnail
-//-   img(holder="holder.js/64x64/text:{{treebank.title | limitTo:1 | uppercase}}/size:45")
-//-   .caption
-//-     h3 {{treebank.title}}
-//-     p {{treebank.description}}
+.thumbnail
+  a.treebank-banner(ui-sref="treebank({treebank: treebank.name})")
+    svg(height="50", width="100%", style="background: #eeeeee;")
+      text(x="50%",y="50%",dy=".3em",text-anchor="middle",fill="#dddddd",font-size="75")
+        tspan(font-weight="bold",alignment-baseline="baseline") {{treebank.title}}
+  .caption
+    h3.treebank-title
+      a(ui-sref="treebank({treebank: treebank.name})") {{treebank.title}}
+    p {{treebank.description}}
 
-.panel.panel-default
-  .panel-body
-    .media
-      .media-left
-        a(ui-sref="treebank({treebank: treebank.name})")
-          img.media-object(holder="holder.js/64x64/text:{{treebank.title | limitTo:1 | uppercase}}/size:45")
-      .media-body
-        h4.media-heading {{treebank.title}}
-        | {{treebank.description}}
+//- .panel.panel-default
+//-   .panel-body
+//-     .media
+//-       .media-left
+//-         a(ui-sref="treebank({treebank: treebank.name})")
+//-           img.media-object(holder="holder.js/64x64/text:{{treebank.title | limitTo:1 | uppercase}}/size:45")
+//-       .media-body
+//-         h4.media-heading
+//-           a(ui-sref="treebank({treebank: treebank.name})") {{treebank.title}}
+//-         | {{treebank.description}}

@@ -1,4 +1,4 @@
-.container-fluid(ng-controller="BrowseTreebanksCtrl as browse")
+.container(ng-controller="BrowseTreebanksCtrl as browse")
   .row
     .col-lg-12
       h1 Browse Available Treebanks
@@ -43,6 +43,5 @@
               ng-click="filter = {term: '', accessible: false, labels: {}}")
               | Reset filter
 
-        .row
-          .col-lg-6.treebank-box(ng-repeat="tb in treebanks track by tb.id")
-            treebank-box/(treebank="tb")
+        .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
+          treebank-box/(treebank="tb")
