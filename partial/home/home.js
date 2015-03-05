@@ -1,5 +1,6 @@
 angular.module('pmltqWeb').controller('HomeCtrl',function($scope, treebanks) {
-  var example_data = treebanks.getList();
-  $scope.featured = _.sample(example_data, 5);
-  $scope.recentlyUsed = _.sample(example_data, 2);
+  treebanks.getList().then(function(data) {
+    $scope.featured = _.sample(data, 5);
+    $scope.recentlyUsed = _.sample(data, 2);
+  });
 });

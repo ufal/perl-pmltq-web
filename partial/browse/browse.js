@@ -1,8 +1,8 @@
-angular.module('pmltqWeb').controller('BrowseTreebanksCtrl', function($scope, $http){
+angular.module('pmltqWeb').controller('BrowseTreebanksCtrl', function($scope, treebanks){
   var ctrl = this;
   ctrl.state = 'loading';
 
-  $http.get('treebanks.json').success(function(data) {
+  treebanks.getList().then(function(data) {
     if (data && data.length > 0) {
       var labels = {};
       $scope.treebanks = $.each(data, function(index, tb) {
@@ -52,7 +52,5 @@ angular.module('pmltqWeb').controller('BrowseTreebanksCtrl', function($scope, $h
     } else {
       ctrl.state = 'empty';
     }
-  }).error(function() {
-    ctrl.state = 'error';
   });
 });
