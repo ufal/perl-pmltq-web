@@ -15,11 +15,18 @@
 .thumbnail
   a.treebank-banner(ui-sref="treebank({treebank: treebank.name})")
     svg(height="50", width="100%", style="background: #eeeeee;")
-      text(x="50%",y="50%",dy=".3em",text-anchor="middle",fill="#dddddd",font-size="75")
-        tspan(font-weight="bold",alignment-baseline="baseline") {{treebank.title}}
+      text(x="0%",y="50%",dy="30px",text-anchor="left",fill="#dddddd",font-size="85")
+        tspan(font-weight="bold") {{treebank.title}}
   .caption
     h3.treebank-title
-      a(ui-sref="treebank({treebank: treebank.name})") {{treebank.title}}
+      a(ui-sref="treebank({treebank: treebank.name})")
+        span(ng-if="treebank.access")
+          i.fa.fa-lock(tooltip="Login and permission required",tooltip-placement="right")
+          | &nbsp;
+        | {{treebank.title}}
+      span.treebank-stickers.pull-right
+        span.label.label-default(ng-repeat="sticker in treebank.stickers | orderBy:'-name'")
+          | {{sticker.name}}
     p {{treebank.description}}
 
 //- .panel.panel-default
