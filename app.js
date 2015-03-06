@@ -1,4 +1,14 @@
-angular.module('pmltqWeb', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'restangular', 'duScroll', 'history', 'query', 'help']);
+angular.module('pmltqWeb', [
+  'ui.bootstrap',
+  'ui.utils',
+  'ui.router',
+  'ngAnimate',
+  'restangular',
+  'duScroll',
+  'angular-loading-bar',
+  'history',
+  'query',
+  'help']);
 
 angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
 
@@ -13,9 +23,9 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
     templateUrl: 'partial/treebank/treebank.html'
   });
   $stateProvider.state('browse', {
-        url: '/treebanks',
-        templateUrl: 'partial/browse/browse.html'
-    });
+    url: '/treebanks',
+    templateUrl: 'partial/browse/browse.html'
+  });
   /* Add New States Above */
   $urlRouterProvider.otherwise('/home');
 
