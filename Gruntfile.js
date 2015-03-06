@@ -49,7 +49,9 @@ module.exports = function (grunt) {
         }],
         options: {
           port: 9001,
-          open: true,
+          open: {
+            appName: 'google-chrome'
+          },
           debug: false,
           base: [process.cwd(), 'temp'],
           middleware: function (connect, options) {
