@@ -3,7 +3,7 @@ angular.module('pmltqWeb').directive('focusElement', function($document) {
 		restrict: 'A',
 		link: function(scope, element, attrs, fn) {
       $(element).focus();
-      $document.scrollToElementAnimated(element);
+      $document.scrollTopAnimated();
 		}
 	};
 });
