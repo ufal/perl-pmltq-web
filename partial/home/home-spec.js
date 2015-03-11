@@ -1,4 +1,4 @@
-describe('SearchCtrl', function() {
+describe('SearchController', function() {
 
 	beforeEach(module('pmltqWeb'));
 
@@ -6,13 +6,13 @@ describe('SearchCtrl', function() {
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('SearchCtrl', {$scope: scope});
-    }));	
+      ctrl = $controller('SearchController', {$scope: scope});
+    }));
 
 	it('should ...', inject(function() {
 
 		expect(1).toEqual(1);
-		
+
 	}));
 
 });

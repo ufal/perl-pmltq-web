@@ -1,18 +1,18 @@
-describe('TreebankCtrl', function() {
+describe('TreebankController', function() {
 
-	beforeEach(module('pmltqWeb'));
+  beforeEach(module('pmltqWeb'));
 
-	var scope,ctrl;
+  var scope,ctrl;
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('TreebankCtrl', {$scope: scope});
-    }));	
+      ctrl = $controller('TreebankController', {$scope: scope});
+    }));
 
-	it('should ...', inject(function() {
+  it('should ...', inject(function() {
 
-		expect(1).toEqual(1);
-		
-	}));
+    expect(1).toEqual(1);
+
+  }));
 
 });

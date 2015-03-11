@@ -21,16 +21,16 @@
     },
     "modules": [
       {
-        "name": "history",
-        "file": "history/history.js"
+        "name": "pmltqTreebank",
+        "file": "pmltqTreebank/pmltqTreebank.js"
       },
       {
-        "name": "query",
-        "file": "query/query.js"
+        "name": "pmltqHelp",
+        "file": "pmltqHelp/pmltqHelp.js"
       },
       {
-        "name": "help",
-        "file": "help/help.js"
+        "name": "pmltqHistory",
+        "file": "pmltqHistory/pmltqHistory.js"
       }
     ]
   }

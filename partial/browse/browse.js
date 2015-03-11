@@ -1,8 +1,8 @@
-angular.module('pmltqWeb').controller('BrowseTreebanksCtrl', function($scope, treebanks){
+angular.module('pmltqWeb').controller('BrowseTreebanksController', function($scope, treebanksApi){
   var ctrl = this;
   ctrl.state = 'loading';
 
-  treebanks.getList().then(function(data) {
+  treebanksApi.getList().then(function(data) {
     if (data && data.length > 0) {
       var labels = {};
       $scope.treebanks = $.each(data, function(index, tb) {

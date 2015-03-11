@@ -1,12 +1,12 @@
-describe('BrowseTreebanksController', function() {
+describe('TreebankHelpController', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('pmltqHelp'));
 
 	var scope,ctrl;
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('BrowseTreebanksController', {$scope: scope});
+      ctrl = $controller('TreebankHelpController', {$scope: scope});
     }));
 
 	it('should ...', inject(function() {

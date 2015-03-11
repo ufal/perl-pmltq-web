@@ -1,12 +1,12 @@
-describe('BrowseTreebanksController', function() {
+describe('QueryFormController', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('query'));
 
 	var scope,ctrl;
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('BrowseTreebanksController', {$scope: scope});
+      ctrl = $controller('QueryFormController', {$scope: scope});
     }));
 
 	it('should ...', inject(function() {
