@@ -1,0 +1,74 @@
+form(name="form")
+  .form-inline.pull-right.space-form-groups
+    .form-group
+      label Timeout
+      button.btn.btn-default.btn-xs(type="button", ng-model="params.timeout" bs-options="value for value in timeoutSelect", data-placement="auto", bs-select)
+    .form-group
+      label Result limit
+      button.btn.btn-default.btn-xs(type="button", ng-model="params.limit" bs-options="value for value in limitSelect", data-placement="auto", bs-select)
+  .form-group
+    textarea.form-control.text-mono(
+      name="query"
+      focus-element
+      id="query-text"
+      ng-model="params.query"
+      required="required"
+      rows="8"
+      tabindex="1"
+      placeholder="# Enter your query here"
+      accesskey="e")
+  .form-group
+    .row
+      .col-lg-6
+        .btn-toolbar
+          button.btn.btn-primary(
+            type="button"
+            bs-tooltip
+            data-title="Execute the query (including output filters)"
+            data-placement="bottom"
+            tabindex="2"
+            disabled=true
+            ng-disabled="form.$invalid"
+            ng-click="submit(params)")
+            i.fa.fa-search
+            | &nbsp;Query
+          button.btn.btn-default(
+            type="button"
+            bs-tooltip
+            data-title="Execute the query, excluding possible output filters"
+            data-placement="bottom"
+            tabindex="3"
+            disabled=true
+            ng-disabled="form.$invalid")
+            i.fa.fa-filter
+            | &nbsp;w/o Filters
+          //- button.btn.btn-default(
+          //-   type="button"
+          //-   bs-tooltip
+          //-   data-title="Suggest query based on nodes marked by you"
+          //-   data-placement="bottom"
+          //-   tabindex="4"
+          //-   disabled=true)
+          //-   i.fa.fa-question
+          //-   | &nbsp;Suggest
+          //- button.btn.btn-default(
+          //-   type="button"
+          //-   bs-tooltip
+          //-   data-title="Display graphical visualization of the query"
+          //-   data-placement="bottom"
+          //-   tabindex="5"
+          //-   disabled=true
+          //-   ng-disabled="form.$invalid")
+          //-   i.fa.fa-sun-o
+          //-   | &nbsp;Visualize
+          button.btn.btn-default(
+            type="button"
+            bs-tooltip
+            data-title="Empty the query form"
+            data-placement="bottom"
+            tabindex="6"
+            ng-click="params.query=''")
+            i.fa.fa-times
+            | &nbsp;Clear
+      .col-lg-6(ng-if="queryForm.hasResult()")
+        result-controls/

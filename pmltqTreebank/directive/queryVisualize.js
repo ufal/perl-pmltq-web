@@ -1,4 +1,4 @@
-angular.module('query').directive('resultControls', function() {
+angular.module('pmltqTreebank').directive('queryVisualize', function() {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs, fn) {

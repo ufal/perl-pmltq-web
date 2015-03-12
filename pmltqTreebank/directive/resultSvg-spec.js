@@ -1,6 +1,6 @@
-describe('resultControls', function() {
+describe('resultSvg', function() {
 
-  beforeEach(module('query'));
+  beforeEach(module('pmltqTreebank'));
 
   var scope,compile;
 
