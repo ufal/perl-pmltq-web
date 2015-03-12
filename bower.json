@@ -17,7 +17,6 @@
     "angular-cookies": "~1.4",
     "angular-mocks": "~1.4",
     "angular-ui-utils": "~0.1",
-    "angular-bootstrap": "~0.10",
     "moment": "~2.5",
     "less.js": "~1.6",
     "font-awesome": "~4.0",
@@ -27,7 +26,8 @@
     "ace-builds": "~1.1.8",
     "angular-ui-ace": "bower",
     "angular-scroll": "~0.6.5",
-    "angular-loading-bar": "~0.7.1"
+    "angular-loading-bar": "~0.7.1",
+    "angular-strap": "~2.2.1"
   },
   "resolutions": {
     "bootstrap": "~3.3.0",
