@@ -3,11 +3,11 @@ mixin help-button(icon, text)
     i.fa(class=icon)
     |  #{text}
 
-.row(ng-controller="TreebankHelpController")
-  .col-md-8.col-lg-7
-    h1 Welcome
-    p This quick introduction to PML-TQ is semi-automatically generated and covers the most basic topics only.
-    h2 Using This Interface
+.row.treebank-help
+  .col-md-9
+    h1#getting-started Getting Started
+    p.lead This quick introduction to PML-TQ is semi-automatically generated and covers the most basic topics only.
+    h2#using-this-interface Using This Interface
     table.table.table-without-borders
       tr
         td
@@ -34,12 +34,12 @@ mixin help-button(icon, text)
             b timeout
         td Complex or low-selective queries may take a few seconds to evaluate; the timeout option specifies maximum time the server should spend trying to evaluate the query.
 
-    h2 Annotation Schema of {{treebank.title}}
+    h2#annotation-schema Annotation Schema of {{metadata.title}}
     p This treebank consists of the following <b>annotation layer(s)</b> and <b>node type(s)</b>:
     ul.layers
       li(ng-repeat="schema in metadata.schemas") Layer <strong><code>{{schema}}</code></strong> consists of node types:<br>
         strong.text-mono(ng-repeat="type in metadata.node_types[schema]") {{type}}{{$last ? '' : ', '}}
-    h2 Query Language
+    h2#query-language Query Language
     p A basic <b>query</b> for nodes of the type, say <code>{{metadata.doc.type}}</code>, looks like this:</p>
     .code-listing(try-button="#query")
       pre {{metadata.doc.type}} [ ]
@@ -124,3 +124,18 @@ mixin help-button(icon, text)
       pre
         | {{metadata.doc.type}} $a := [ ]
         | &gt;&gt; for $a.{{metadata.doc.attr}} give $1, count()
+  .col-md-3.hidden-sm.hidden-xs.hidden-print(role="complementary")
+    .help-sidebar(bs-affix data-offset-top="-50")
+      ul.nav(bs-scrollspy-list)
+        li
+          a(href="#getting-started" du-smooth-scroll) Getting Started
+        li
+          a(href="#using-this-interface" du-smooth-scroll) Using This Interface
+        li
+          a(href="#annotation-schema" du-smooth-scroll) Annotation Schema
+        li
+          a(href="#query-language" du-smooth-scroll) Query Language
+        li
+          a(href="#output-filters" du-smooth-scroll) Output Filters
+
+

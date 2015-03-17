@@ -14,7 +14,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
         this.results = results;
         this.resultsCount = results.length;
         this.currentResult = this.resultsCount > 0 ? 1 : 0;
-      }
+      };
 
       ctrl.nextResult = function() {
         if (this.currentResult < this.resultsCount) {
