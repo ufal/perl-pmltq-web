@@ -40,7 +40,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       ctrl.setCurrentResult = function(resultNo) {
         if (resultNo > 0 && resultNo <= ctrl.resultsCount) {
           ctrl.currentResultNo = resultNo;
-          ctrl.currentResult = ctrl.results[resultNo];
+          ctrl.currentResult = ctrl.results[resultNo-1];
         } else {
           ctrl.currentResultNo = 0;
           ctrl.currentResult = [];
@@ -59,7 +59,8 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       // Save default params as they are changed
       $scope.params = {
         timeout: 30,
-        limit: 100
+        limit: 100,
+        query: 'a-root []'
       };
 
       $scope.submit = function(queryData) {
