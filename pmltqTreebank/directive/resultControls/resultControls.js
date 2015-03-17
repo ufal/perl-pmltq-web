@@ -6,7 +6,11 @@ angular.module('pmltqTreebank').directive('resultControls', function() {
     require: '^queryForm',
     templateUrl: 'pmltqTreebank/directive/resultControls/resultControls.html',
     link: function($scope, $element, $attrs, queryForm) {
-      //$scope.queryForm = queryForm;
+      $scope.queryForm = queryForm;
+
+      // $scope.$on('query.results', function() {
+      //   $
+      // });
     }
   };
 });

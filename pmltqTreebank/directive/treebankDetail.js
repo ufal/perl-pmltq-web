@@ -12,7 +12,9 @@ angular.module('pmltqTreebank').directive('treebankDetail', function() {
     // Only hold treebank instance in the controller
     controller: function TreebankDetailController($scope) {
       var ctrl = this;
-      ctrl.broadcast = $scope.$broadcast;
+      ctrl.notify = function() {
+        $scope.$broadcast.apply($scope, arguments);
+      };
       ctrl.getTreebank = function() {
         if (!ctrl.treebank) {
           throw new Error('Treebank is not defined');

@@ -46,13 +46,13 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       };
 
       $scope.submit = function(queryData) {
-        treebankDetail.broadcast('query.submited', queryData);
+        treebankDetail.notify('query.submited', queryData);
 
         treebankDetail.getTreebank().post('query', queryData).then(function (successResponse) {
-          treebankDetail.broadcast('query.results', successResponse.nodes, successResponse.results);
+          treebankDetail.notify('query.results', successResponse.nodes, successResponse.results);
           queryForm.setResults(successResponse.nodes, successResponse.results);
         }, function (errorResponse) {
-          treebankDetail.broadcast('query.error', errorResponse);
+          treebankDetail.notify('query.error', errorResponse);
         });
       };
     }

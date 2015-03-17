@@ -1,4 +1,4 @@
-.form-inline.pull-right.result-controls
+.form-inline.result-controls(ng-show="queryForm.hasResult()")
   .form-group
     p.form-control-static Result:
   .form-group
@@ -8,9 +8,9 @@
     tooltip-placement="bottom")
       | &lt;
   .form-group
-    input.form-control.input-sm(type="text",style="width: 50px;",ng-model="params.currentResult")
+    input.form-control.input-sm(type="text",style="width: 50px;",ng-model="queryForm.currentResult")
   .form-group
-    p.form-control-static {{params.currentResult}} of {{params.results.length}}
+    p.form-control-static of {{queryForm.resultsCount}}
   .form-group
     button.btn.btn-default.btn-sm(
       type="button"
