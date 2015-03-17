@@ -6,30 +6,47 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
     require: ['^treebankDetail', 'queryForm'],
     templateUrl: 'pmltqTreebank/directive/queryForm/queryForm.html',
     controllerAs: 'queryForm',
-    controller: function QueryFormController() {
+    controller: function QueryFormController($element) {
       var ctrl = this;
 
+      var treebankDetail = $element.controller('treebankDetail');
       ctrl.setResults = function(nodes, results) {
-        this.nodes = nodes;
-        this.results = results;
-        this.resultsCount = results.length;
-        this.currentResult = this.resultsCount > 0 ? 1 : 0;
+        ctrl.nodes = nodes;
+        ctrl.results = results;
+        ctrl.resultsCount = results.length;
+        ctrl.setCurrentResult(ctrl.resultsCount > 0 ? 1 : 0);
       };
 
       ctrl.nextResult = function() {
-        if (this.currentResult < this.resultsCount) {
-          this.currentResult++;
-        }
+        ctrl.setCurrentResult(ctrl.currentResultNo+1);
+      };
+
+      ctrl.nextResult.canExecute = function() {
+        return ctrl.currentResultNo < ctrl.resultsCount;
       };
 
       ctrl.prevResult = function() {
-        if (this.currentResult > 1) {
-          this.currentResult--;
-        }
+        ctrl.setCurrentResult(ctrl.currentResultNo-1);
+      };
+
+      ctrl.prevResult.canExecute = function() {
+        return ctrl.currentResultNo > 1;
       };
 
       ctrl.hasResult = function() {
-        return this.resultsCount > 0;
+        return ctrl.resultsCount > 0;
+      };
+
+      ctrl.setCurrentResult = function(resultNo) {
+        if (resultNo > 0 && resultNo <= ctrl.resultsCount) {
+          ctrl.currentResultNo = resultNo;
+          ctrl.currentResult = ctrl.results[resultNo];
+        } else {
+          ctrl.currentResultNo = 0;
+          ctrl.currentResult = [];
+        }
+
+        treebankDetail.notify('result.changed', ctrl.currentResult, ctrl.currentResultNo);
       };
     },
     link: function($scope, $element, $attrs, controllers) {

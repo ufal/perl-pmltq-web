@@ -3,17 +3,23 @@
     p.form-control-static Result:
   .form-group
     button.btn.btn-default.btn-sm(
-    type="button"
-    tooltip="Previous match"
-    tooltip-placement="bottom")
+      type="button"
+      ng-click="queryForm.prevResult()"
+      ng-disabled="!queryForm.prevResult.canExecute()"
+      bs-tooltip
+      data-title="Previous match"
+      data-placement="bottom")
       | &lt;
   .form-group
-    input.form-control.input-sm(type="text",style="width: 50px;",ng-model="queryForm.currentResult")
+    input.form-control.input-sm(type="text",style="width: 50px;",ng-model="queryForm.currentResultNo")
   .form-group
     p.form-control-static of {{queryForm.resultsCount}}
   .form-group
     button.btn.btn-default.btn-sm(
       type="button"
-      tooltip="Next match"
-      tooltip-placement="bottom")
+      ng-click="queryForm.nextResult()"
+      ng-disabled="!queryForm.nextResult.canExecute()"
+      bs-tooltip
+      data-title="Next match"
+      data-placement="bottom")
       | &gt;
