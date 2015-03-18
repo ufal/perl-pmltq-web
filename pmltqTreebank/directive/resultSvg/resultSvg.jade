@@ -1,0 +1,9 @@
+.result-svg
+  p.result-sentence(ng-if="!!svg.sentence()")
+    span(
+      ng-repeat="term in svg.sentence()"
+      ng-class="{{term.classes}}"
+      ng-bind="term.text"
+      ng-style="term.style"
+    )
+  .svg-pane(svg-content)

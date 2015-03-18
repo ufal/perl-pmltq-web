@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').factory('treebanksApi', function (Restangular, $cacheFactory, $q) {
+angular.module('pmltqTreebank').factory('treebanksApi', function (Restangular, $cacheFactory, $q, svgParser) {
   var svgCache = $cacheFactory('svg-result-cache');
 
   var restangular = Restangular.withConfig(function (RestangularConfigurer) {
@@ -14,6 +14,7 @@ angular.module('pmltqTreebank').factory('treebanksApi', function (Restangular, $
             nodes: [node],
             tree: tree
           }).then(function(svg) {
+            svg = svgParser(svg);
             svgCache.put(key, svg);
             deferred.resolve(svg);
           }, deferred.reject);
