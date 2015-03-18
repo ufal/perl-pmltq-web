@@ -1,37 +1,36 @@
-angular.module('pmltqTreebank').directive('resultSvg', function($cacheFactory) {
-  var cache = $cacheFactory('svg-result-cache');
-
+angular.module('pmltqTreebank').directive('resultSvg', function() {
   return {
     restrict: 'A',
-    require: '^treebankDetail',
+    scope: {
+      treebank: '=resultSvg',
+      tree: '@',
+      node: '@'
+    },
+    require: '?^treebankDetail',
     link: function($scope, $element, $attrs, treebankDetail) {
+      var lastNode, lastTree;
 
-      var lastResult;
-      $scope.$on('result.changed', function (e, result, resultNo) {
-        if (resultNo > 0) {
-          if (angular.equals(result, lastResult)) {
-            return;
-          }
-          var key = treebankDetail.getTreebank().id + result.join(':');
-          var cacheEntry = cache.get(key);
+      $scope.$watchGroup(['tree', 'node', 'treebank'], function showSvg() {
+        var node = $scope.node,
+            tree = $scope.tree,
+            treebank = $scope.treebank;
 
-          lastResult = result;
-          if (cacheEntry) {
-            $element.html(cacheEntry);
-          } else {
-            treebankDetail.getTreebank().post('svg', {
-              nodes: result,
-              tree_no: 0
-            }).then(function(response) {
-              cache.put(key, response);
-              $element.html(response);
-            });
-          }
-        } else {
+        if (_.some([treebank, node, tree], angular.isUndefined)) {
           $element.empty();
+          return;
         }
-      });
 
+        if (lastNode === node && lastTree === tree) {
+          return;
+        } else {
+          lastNode = node;
+          lastTree = tree;
+        }
+
+        treebank.loadSvg(node, tree).then(function(svg) {
+          $element.html(svg);
+        });
+      });
     }
   };
 });

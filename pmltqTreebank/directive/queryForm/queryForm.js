@@ -1,4 +1,7 @@
 angular.module('pmltqTreebank').directive('queryForm', function() {
+  var RESULT_TYPE_SVG = 'svg',
+      RESULT_TYPE_TABLE = 'table';
+
   return {
     restrict: 'E',
     replace: true,
@@ -12,6 +15,9 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       var treebankDetail = $element.controller('treebankDetail');
       ctrl.setResults = function(nodes, results) {
         ctrl.nodes = nodes;
+        ctrl.resultType = angular.isDefined(nodes) ? RESULT_TYPE_SVG : RESULT_TYPE_TABLE;
+        treebankDetail.notify('result.type', ctrl.resultType) // signal result type to prepare view
+
         ctrl.results = results;
         ctrl.resultsCount = results.length;
         ctrl.setCurrentResult(ctrl.resultsCount > 0 ? 1 : 0);
@@ -46,7 +52,14 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
           ctrl.currentResult = [];
         }
 
-        treebankDetail.notify('result.changed', ctrl.currentResult, ctrl.currentResultNo);
+        switch (ctrl.resultType) {
+          case RESULT_TYPE_SVG:
+            treebankDetail.notify('result.' + RESULT_TYPE_SVG, ctrl.currentResult, ctrl.currentResultNo);
+            break;
+          case RESULT_TYPE_TABLE:
+            treebankDetail.notify('result.' + RESULT_TYPE_TABLE, ctrl.results);
+            break;
+        }
       };
     },
     link: function($scope, $element, $attrs, controllers) {

@@ -70,5 +70,5 @@ form(name="form")
             ng-click="params.query=''")
             i.fa.fa-times
             | &nbsp;Clear
-      .col-lg-6(ng-if="queryForm.hasResult()")
+      .col-lg-6(ng-if="queryForm.hasResult() && queryForm.resultType == 'svg'")
         result-controls.pull-right

@@ -10,7 +10,7 @@ angular.module('pmltqTreebank').directive('resultControls', function() {
       $scope.queryForm = queryForm;
       $scope.resultNo = queryForm.currentResultNo;
 
-      $scope.$on('result.changed', function(e, result, resultNo) {
+      $scope.$on('result.svg', function(e, result, resultNo) {
         if (!isChanging) {
           $scope.resultNo = resultNo;
         }

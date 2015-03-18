@@ -4,7 +4,7 @@ angular.module('pmltqWeb').directive('updateModelOnEnterKeyPressed', function() 
     require: 'ngModel',
 		link: function($scope, $element, $attrs, ngModel) {
       $element.bind('keyup', function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
           ngModel.$commitViewValue();
         }
       });
