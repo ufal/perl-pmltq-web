@@ -3,7 +3,7 @@
     p Loading ...
   .result-svg(ng-switch-when="svg")
     .svg-pane(result-svg="treebank" node="{{result.node}}" tree="{{result.tree}}")
-  .result-table(ng-switch-when="table" result-table)
+  .result-table(ng-switch-when="table" result-table="result.table")
   .result-help(ng-switch-default)
     treebank-help(tb="treebank")
 
