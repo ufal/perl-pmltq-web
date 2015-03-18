@@ -16,6 +16,7 @@ angular.module('pmltqTreebank').directive('resultSvg', function() {
             treebank = $scope.treebank;
 
         if (_.some([treebank, node, tree], angular.isUndefined)) {
+          lastNode = lastTree = undefined;
           $element.empty();
           return;
         }
