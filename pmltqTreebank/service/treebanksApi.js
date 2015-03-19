@@ -21,9 +21,9 @@ angular.module('pmltqTreebank').factory('treebanksApi', function (Restangular, $
         }
 
         return deferred.promise;
-      }
+      };
       return model;
     });
-  })
+  });
   return restangular.service('treebanks');
 });

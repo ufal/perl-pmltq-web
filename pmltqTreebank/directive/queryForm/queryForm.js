@@ -16,7 +16,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       ctrl.setResults = function(nodes, results) {
         ctrl.nodes = nodes;
         ctrl.resultType = angular.isDefined(nodes) ? RESULT_TYPE_SVG : RESULT_TYPE_TABLE;
-        treebankDetail.notify('result.type', ctrl.resultType) // signal result type to prepare view
+        treebankDetail.notify('result.type', ctrl.resultType); // signal result type to prepare view
 
         ctrl.results = results;
         ctrl.resultsCount = results.length;
