@@ -28,9 +28,11 @@ angular.module('pmltqTreebank').directive('resultView', function() {
             resultNodes: results,
             nodesCount: results.length,
             currentResult: firstResult,
+            queryNodes: nodes,
             activeNode: 0,
             resultNo: 1,
-            tree: 0
+            tree: 0,
+            svg: {}
           };
         } else {
           $scope.show = RESULT_TYPE_TABLE;

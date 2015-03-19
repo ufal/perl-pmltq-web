@@ -1,10 +1,4 @@
 .result-svg
+  div(result-sentence="svg.sentence()")
   div(ng-transclude)
-  p.result-sentence(ng-if="result && !!result.sentence()")
-    span(
-      ng-repeat="term in result.sentence()"
-      ng-class="term.classes"
-      ng-bind="term.text"
-      ng-style="term.style"
-    )
-  .svg-pane(svg-content="result.svg")
+  .svg-pane(svg-content="svg.content")

@@ -1,14 +1,9 @@
 .form-inline.result-controls
   .form-group
-    p.form-control-static Result:
-  .form-group
     button.btn.btn-default.btn-sm(
       type="button"
       ng-click="result.resultNo = result.resultNo - 1"
-      ng-disabled="result.resultNo <= 1"
-      bs-tooltip
-      data-title="Previous match"
-      data-placement="bottom")
+      ng-disabled="result.resultNo <= 1")
       | &lt;
   .form-group
     input.form-control.input-sm(
@@ -17,17 +12,14 @@
       ng-model="result.resultNo"
       ng-model-options="{updateOn:'blur'}"
       update-model-on-enter-key-pressed
-      max="{{resultsCount}}"
+      max="{{result.nodesCount}}"
       min="1"
       )
   .form-group
-    p.form-control-static of {{resultsCount}}
+    p.form-control-static of {{result.nodesCount}}
   .form-group
     button.btn.btn-default.btn-sm(
       type="button"
       ng-click="result.resultNo = result.resultNo + 1"
-      ng-disabled="result.resultNo >= result.resultsCount"
-      bs-tooltip
-      data-title="Next match"
-      data-placement="bottom")
+      ng-disabled="result.resultNo >= result.resultsCount")
       | &gt;

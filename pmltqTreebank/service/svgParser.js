@@ -41,11 +41,11 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
 	function SvgParserFactory(svg) {
     var parser = { data: {} };
 
-    svg = parser.svg = $(svg);
+    svg = parser.content = $(svg);
 
     function buildSentence() {
       var sentence = [],
-          descNode = parser.svg.children('desc').remove();
+          descNode = parser.content.children('desc').remove();
 
       if (_.isEmpty(descNode)) {
         return;

@@ -5,7 +5,8 @@ angular.module('pmltqTreebank')
       scope: {
         treebank: '=resultSvg',
         tree: '@',
-        node: '@'
+        node: '@',
+        svg: '=*?'
       },
       transclude: true,
       templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
@@ -19,8 +20,7 @@ angular.module('pmltqTreebank')
 
           if (_.some([treebank, node, tree], angular.isUndefined)) {
             lastNode = lastTree = undefined;
-            $scope.result = {};
-            $element.empty();
+            $scope.svg.empty = true;
             return;
           }
 
@@ -33,7 +33,10 @@ angular.module('pmltqTreebank')
 
           // TODO: handle error
           treebank.loadSvg(node, tree).then(function (svgParsed) {
-            $scope.result = svgParsed;
+            $scope.svg.empty = false;
+            angular.extend($scope.svg, svgParsed);
+          }, function() {
+            $scope.svg.empty = true;
           });
         });
       }

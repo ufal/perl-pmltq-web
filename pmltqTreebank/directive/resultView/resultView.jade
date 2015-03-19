@@ -2,8 +2,22 @@
   .result-svg(ng-switch-when="loading")
     p Loading ...
   div(ng-switch-when="svg")
-    div(result-svg="treebank" node="{{result.currentResult[result.activeNode]}}" tree="{{result.tree}}")
-      .result-controls(result-controls="result")
+    div(result-svg="treebank"
+      node="{{result.currentResult[result.activeNode]}}"
+      tree="{{result.tree}}"
+      svg="result.svg")
+      .row
+        .col-lg-4
+          div(result-controls="result")
+        .col-lg-4.text-center
+          ul.list-inline
+            li(ng-repeat="node in result.queryNodes")
+              span.label.label-default
+                | {{$index + 1}} {{node[1]}}
+                span(ng-if="node[0]") &nbsp;${{node[0]}}
+        .col-lg-4.text-right
+          .result-title(ng-bind="result.svg.title()")
+
   div(ng-switch-when="table" result-table="result.table")
   div(ng-switch-default)
     treebank-help(tb="treebank")
