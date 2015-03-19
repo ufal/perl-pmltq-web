@@ -8,11 +8,6 @@ angular.module('pmltqTreebank')
         node: '@'
       },
       templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
-      controller: function ResultSvgController() {
-        this.contentSvg = function (elem) {
-          this.svgContentElement = elem;
-        };
-      },
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;
 
@@ -23,7 +18,7 @@ angular.module('pmltqTreebank')
 
           if (_.some([treebank, node, tree], angular.isUndefined)) {
             lastNode = lastTree = undefined;
-            $scope.svg = null;
+            $scope.result = {};
             $element.empty();
             return;
           }
@@ -35,13 +30,9 @@ angular.module('pmltqTreebank')
             lastTree = tree;
           }
 
-          if (!controller.svgContentElement) {
-            throw new Error('No element to set result svg into');
-          }
-
+          // TODO: handle error
           treebank.loadSvg(node, tree).then(function (svgParsed) {
-            $scope.svg = svgParsed;
-            controller.svgContentElement.html(svgParsed.$svg);
+            $scope.result = svgParsed;
           });
         });
       }
@@ -50,9 +41,17 @@ angular.module('pmltqTreebank')
   .directive('svgContent', function() {
     return {
       restrict: 'A',
-      require: '^resultSvg',
+      scope: {
+        svg: '=svgContent'
+      },
       link: function ($scope, $element, $attrs, resultSvg) {
-        resultSvg.contentSvg($element);
+        $scope.$watch('svg', function (svg) {
+          if (!svg) {
+            $element.empty();
+          } else {
+            $element.html(svg);
+          }
+        }, false);
       }
     };
   });
