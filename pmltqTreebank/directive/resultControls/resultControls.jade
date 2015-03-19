@@ -4,8 +4,8 @@
   .form-group
     button.btn.btn-default.btn-sm(
       type="button"
-      ng-click="queryForm.prevResult()"
-      ng-disabled="!queryForm.prevResult.canExecute()"
+      ng-click="result.resultNo = result.resultNo - 1"
+      ng-disabled="result.resultNo <= 1"
       bs-tooltip
       data-title="Previous match"
       data-placement="bottom")
@@ -14,19 +14,19 @@
     input.form-control.input-sm(
       type="number"
       style="width: 50px;"
-      ng-model="resultNo"
+      ng-model="result.resultNo"
       ng-model-options="{updateOn:'blur'}"
       update-model-on-enter-key-pressed
-      max="{{queryForm.resultsCount}}"
+      max="{{resultsCount}}"
       min="1"
       )
   .form-group
-    p.form-control-static of {{queryForm.resultsCount}}
+    p.form-control-static of {{resultsCount}}
   .form-group
     button.btn.btn-default.btn-sm(
       type="button"
-      ng-click="queryForm.nextResult()"
-      ng-disabled="!queryForm.nextResult.canExecute()"
+      ng-click="result.resultNo = result.resultNo + 1"
+      ng-disabled="result.resultNo >= result.resultsCount"
       bs-tooltip
       data-title="Next match"
       data-placement="bottom")

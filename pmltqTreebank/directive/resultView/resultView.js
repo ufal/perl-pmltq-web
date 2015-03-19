@@ -6,7 +6,6 @@ angular.module('pmltqTreebank').directive('resultView', function() {
 
   return {
     restrict: 'A',
-    replace: true,
     scope: {
       treebank: '=resultView'
     },
@@ -18,30 +17,31 @@ angular.module('pmltqTreebank').directive('resultView', function() {
         $scope.show = LOADING;
       });
 
-      $scope.$on('result.' + RESULT_TYPE_SVG, function (e, result, resultNo) {
-        $scope.result = {
-          resultType: RESULT_TYPE_SVG,
-          node: _.first(result),
-          resultNo: resultNo,
-          tree: 0
-        };
+      $scope.$on('query.results', function(e, response) {
+        var nodes = response.nodes,
+            results = response.results,
+            firstResult = results && results.length > 0 ? _.first(results) : [];
+
+        if (nodes) {
+          $scope.show = RESULT_TYPE_SVG;
+          $scope.result = {
+            resultNodes: results,
+            nodesCount: results.length,
+            currentResult: firstResult,
+            activeNode: 0,
+            resultNo: 1,
+            tree: 0
+          };
+        } else {
+          $scope.show = RESULT_TYPE_TABLE;
+          $scope.result = {
+            table: results
+          };
+        }
       });
 
-      $scope.$on('result.' + RESULT_TYPE_TABLE, function(e, resultsTable) {
-        $scope.result = {
-          resultType: RESULT_TYPE_TABLE,
-          table: resultsTable
-        };
-      });
-
-      // $scope.$on('query.error', function (e, err) {
-      //   console.log(err);
-      //   $scope.show = HELP;
-      //   $scope.error = err;
-      // });
-
-      $scope.$on('result.type', function (e, type) {
-        $scope.show = type;
+      $scope.$on('query.error', function (e, err) {
+        console.log(err);
       });
     }
   };

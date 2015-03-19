@@ -1,8 +1,8 @@
 angular.module('pmltqTreebank').directive('treebankDetail', function() {
   return {
-    restrict: 'E',
+    restrict: 'A',
     scope: {
-      treebank: '=tb'
+      treebank: '=treebankDetail'
     },
     transclude: true,
     replace: true,
@@ -15,6 +15,7 @@ angular.module('pmltqTreebank').directive('treebankDetail', function() {
       ctrl.notify = function() {
         $scope.$broadcast.apply($scope, arguments);
       };
+
       ctrl.getTreebank = function() {
         if (!ctrl.treebank) {
           throw new Error('Treebank is not defined');

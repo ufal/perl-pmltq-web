@@ -1,7 +1,9 @@
 .result-view(ng-switch="show")
   .result-svg(ng-switch-when="loading")
     p Loading ...
-  div(ng-switch-when="svg" result-svg="treebank" node="{{result.node}}" tree="{{result.tree}}")
+  div(ng-switch-when="svg")
+    div(result-svg="treebank" node="{{result.currentResult[result.activeNode]}}" tree="{{result.tree}}")
+      .result-controls(result-controls="result")
   div(ng-switch-when="table" result-table="result.table")
   div(ng-switch-default)
     treebank-help(tb="treebank")

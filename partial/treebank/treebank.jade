@@ -2,16 +2,12 @@
   .row(ng-if="state == 'loading'")
     .col-lg-12
       p Loading...
-  .row(ng-if="state == 'success'")
+  .row(ng-if="state == 'success'" treebank-detail="treebank")
     .col-lg-12
-      treebank-detail(tb="treebank")
-        h1 {{treebank.title}}
-        query-form
-        .query-result(result-view="treebank")
+      p {{treebank.title}}
+      .query-form(query-form="treebank")
+      .query-result(result-view="treebank")
 
-      //- h1 {{treebank.title}}
-      //- div(ng-include="'query/partial/form/form.html'")
-      //- div(ng-include="'pmltqHelp/treebank/treebank.html'")
   .row(ng-if="state == 'error'")
     .col-lg-12
       p TODO: error page

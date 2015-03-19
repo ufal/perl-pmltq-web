@@ -7,6 +7,7 @@ angular.module('pmltqTreebank')
         tree: '@',
         node: '@'
       },
+      transclude: true,
       templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;

@@ -1,4 +1,5 @@
 .result-svg
+  div(ng-transclude)
   p.result-sentence(ng-if="result && !!result.sentence()")
     span(
       ng-repeat="term in result.sentence()"
