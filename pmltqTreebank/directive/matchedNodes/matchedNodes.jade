@@ -1,0 +1,4 @@
+.btn-group
+  button.btn.btn-default(type="button" ng-model="result.activeNode" ng-repeat="node in result.queryNodes" value="{{$index}}" bs-radio)
+    | {{$index + 1}} {{node[1]}}
+    span(ng-if="node[0]") &nbsp;${{node[0]}}

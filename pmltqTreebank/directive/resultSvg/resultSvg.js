@@ -13,6 +13,10 @@ angular.module('pmltqTreebank')
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;
 
+        if ($scope.svg) {
+          $scope.svg = {};
+        }
+
         $scope.$watchGroup(['tree', 'node', 'treebank'], function showSvg () {
           var node = $scope.node,
               tree = $scope.tree,
@@ -48,7 +52,7 @@ angular.module('pmltqTreebank')
       scope: {
         svg: '=svgContent'
       },
-      link: function ($scope, $element, $attrs, resultSvg) {
+      link: function ($scope, $element, $attrs) {
         $scope.$watch('svg', function (svg) {
           if (!svg) {
             $element.empty();

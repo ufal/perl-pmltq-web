@@ -41,11 +41,11 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
 	function SvgParserFactory(svg) {
     var parser = { data: {} };
 
-    svg = parser.content = $(svg);
+    svg = $(svg);
 
     function buildSentence() {
       var sentence = [],
-          descNode = parser.content.children('desc').remove();
+          descNode = parser.content().children('desc').remove();
 
       if (_.isEmpty(descNode)) {
         return;
@@ -62,6 +62,10 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
 
       return sentence;
     }
+
+    parser.content = function() {
+      return svg;
+    };
 
     parser.sentence = function() {
       if (angular.isUndefined(parser.data.sentence)) {

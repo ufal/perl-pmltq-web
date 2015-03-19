@@ -10,13 +10,12 @@
         .col-lg-4
           div(result-controls="result")
         .col-lg-4.text-center
-          ul.list-inline
-            li(ng-repeat="node in result.queryNodes")
-              span.label.label-default
-                | {{$index + 1}} {{node[1]}}
-                span(ng-if="node[0]") &nbsp;${{node[0]}}
+          div(matched-nodes="result")
         .col-lg-4.text-right
           .result-title(ng-bind="result.svg.title()")
+      .row
+        .col-lg-12
+          div(result-sentence="result.svg.sentence()")
 
   div(ng-switch-when="table" result-table="result.table")
   div(ng-switch-default)

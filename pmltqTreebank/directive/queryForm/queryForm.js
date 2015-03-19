@@ -18,7 +18,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       $scope.params = {
         timeout: 30,
         limit: 100,
-        query: 'a-root []'
+        query: "t-node [ gram/deontmod ~ '(deb|hrt|vol|perm|poss|fac)', a/lex.rf a-node [] ];"
       };
 
       $scope.submit = function(queryData) {
