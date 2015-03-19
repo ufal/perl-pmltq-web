@@ -16,6 +16,7 @@
       .row
         .col-lg-12
           div(result-sentence="result.svg.sentence()")
+      .svg-pane(svg-content="result.svg.content")
 
   div(ng-switch-when="table" result-table="result.table")
   div(ng-switch-default)
