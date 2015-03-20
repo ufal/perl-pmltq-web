@@ -1,13 +1,41 @@
-.container-fluid(ng-controller="TreebankController")
-  .row(ng-if="state == 'loading'")
-    .col-lg-12
-      p Loading...
-  .row(ng-if="state == 'success'" treebank-detail="treebank")
-    .col-lg-12
-      p {{treebank.title}}
-      .query-form(query-form="treebank")
-      .query-result(result-view="treebank")
+#treebank-page(ng-controller="TreebankController")
+  nav.navbar.navbar-default
+    .container-fluid
+      .navbar-head
+        button.btn.btn-default.side-bar-toggle(
+          type="button"
+          bs-aside="aside"
+          data-template="partial/navigation/navigation.html"
+          data-placement="left"
+          data-animation="am-slide-left"
+          data-container="body"
+          )
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      ul.nav.navbar-nav(ng-hide="state != 'success'")
+        li.active
+          a
+            i.fa.fa-search
+            | &nbsp; Query
+        li
+          a
+            i.fa.fa-clock-o
+            | &nbsp; History
+      .navbar-right
+        p.navbar-text(ng-bind="treebank.title")
+        a.navbar-brand(href="#")
+          i.fa.fa-question-circle.fa-lg
 
-  .row(ng-if="state == 'error'")
-    .col-lg-12
-      p TODO: error page
+  .container-fluid
+    .row(ng-if="state == 'loading'")
+      .col-lg-12
+        p Loading...
+    .row(ng-if="state == 'success'" treebank-detail="treebank")
+      .col-lg-12
+        .query-form(query-form="treebank")
+        .query-result(result-view="treebank")
+
+    .row(ng-if="state == 'error'")
+      .col-lg-12
+        p TODO: error page

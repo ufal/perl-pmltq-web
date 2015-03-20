@@ -1,41 +1,125 @@
-.navbar-toggle {
-  position: absolute;
-  z-index: 3;
-  top: 10px;
-  left: 10px;
-  float: none;
-  margin: 0;
+// .main-navbar {
+//   .container-fluid();
+//   min-height: @navbar-height;
+//   margin-bottom: @navbar-margin-bottom;
+
+//   background-color: @navbar-default-bg;
+//   border: 1px solid @navbar-default-border;
+
+//   ul {
+//     .nav();
+//     margin: 0;
+//     > li {
+//         display: inline-block;
+//     }
+//     > li > a {
+//       padding-top:    10px;
+//       padding-bottom: 10px;
+//       line-height: @line-height-computed;
+//     }
+//   }
+// }
+
+.side-bar-toggle {
+  // position: absolute;
+  // z-index: 3;
+  // top: 10px;
+  // left: 10px;
+  // float: none;
+  // margin: 0;
+  .navbar-toggle();
+  float: left;
   .icon-bar {
-    background-color: @gray-dark;
+    background-color: @gray-light
   }
 }
 
-.navmenu {
-  z-index: 1;
-}
+// .navmenu {
+//   z-index: 1;
+// }
 
 @media (min-width: 0) {
-  .navbar-toggle {
+  .side-bar-toggle {
     display: block; /* force showing the toggle */
   }
 }
 
-@media (min-width: 992px) {
-  body {
-    padding: 0;
+// @media (min-width: 992px) {
+//   body {
+//     padding: 0;
+//   }
+//   .navbar {
+//     right: auto;
+//     background: none;
+//     border: none;
+//   }
+// }
+
+
+// .lindat-logo {
+//   display: block;
+//   width: 100%;
+//   position: absolute;
+//   bottom: 20px;
+//   text-align: center;
+// }
+
+/*
+ * Aside element
+ */
+
+.aside {
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: @zindex-modal - 1;
+  overflow: auto;
+  min-width: 320px;
+  background: white;
+
+  &:focus {
+    outline: none;
   }
-  .navbar {
+  @media (max-width: @screen-sm-max) {
+    min-width: 240px;
+  }
+
+  &.left {
     right: auto;
-    background: none;
-    border: none;
+    left: 0;
   }
+  &.right {
+    right: 0;
+    left: auto;
+  }
+
+  .aside-dialog {
+    .aside-header {
+      .modal-header;
+      padding: 6px 15px;
+      background: @brand-primary;
+      color: white;
+      .close {
+        margin-right: -8px;
+        padding: 4px 8px;
+        color: white;
+        font-size: 25px;
+        opacity: .8;
+      }
+    }
+    .aside-body {
+      .modal-body;
+    }
+    .aside-footer {
+      .modal-footer;
+    }
+  }
+
+}
+
+.aside-backdrop {
+  .modal-backdrop;
 }
 
 
-.lindat-logo {
-  display: block;
-  width: 100%;
-  position: absolute;
-  bottom: 20px;
-  text-align: center;
-}

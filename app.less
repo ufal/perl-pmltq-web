@@ -4,6 +4,13 @@
 @import (css) "bower_components/angular-loading-bar/src/loading-bar.css";
 @import "bower_components/jasny-bootstrap/less/jasny-bootstrap.less";
 
+@import "bower_components/angular-motion/src/collapse/collapse.less";
+@import "bower_components/angular-motion/src/fade/fade.less";
+@import "bower_components/angular-motion/src/fade-and-scale/fade-and-scale.less";
+@import "bower_components/angular-motion/src/fade-and-slide/fade-and-slide.less";
+@import "bower_components/angular-motion/src/flip/flip.less";
+@import "bower_components/angular-motion/src/slide/slide.less";
+
 
 /* Component LESS */
 @import "partial/home/home.less";
@@ -32,29 +39,33 @@
 @fa-font-path: "bower_components/font-awesome/fonts";
 @icon-font-path: "bower_components/bootstrap/fonts/";
 
-@navmenu-width: 200px;
+//@navmenu-width: 200px;
 
 //@navbar-height: 30px;
 
 /* Required for Angular UI Bootstrap */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+.nav, .pagination, .carousel, .panel-title, .navbar-header {
+  a {
+    cursor: pointer;
+  }
+}
 
 html, body {
   height: 100%;
 }
 
-body {
-  background-color: @gray-lightest;
-}
+// body {
+//   background-color: @gray-lightest;
+// }
 
-#page-wrapper {
-  position: relative;
-  left: 0;
-  z-index: 2;
-  padding: 0 15px;
-  min-height: 100%;
-  background-color: white;
-}
+// #page-wrapper {
+//   position: relative;
+//   left: 0;
+//   z-index: 2;
+//   padding: 0 15px;
+//   min-height: 100%;
+//   background-color: white;
+// }
 
 .text-mono {
   font-family: @font-family-monospace;
