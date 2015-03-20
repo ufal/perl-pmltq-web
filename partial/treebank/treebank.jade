@@ -4,11 +4,7 @@
       .navbar-head
         button.btn.btn-default.side-bar-toggle(
           type="button"
-          bs-aside="aside"
-          data-template="partial/navigation/navigation.html"
-          data-placement="left"
-          data-animation="am-slide-left"
-          data-container="body"
+          ng-click="showNavigation()"
           )
           span.icon-bar
           span.icon-bar
@@ -24,7 +20,7 @@
             | &nbsp; History
       .navbar-right
         p.navbar-text(ng-bind="treebank.title")
-        a.navbar-brand(href="#")
+        a.navbar-brand(ng-click="showHelp()")
           i.fa.fa-question-circle.fa-lg
 
   .container-fluid
@@ -39,3 +35,9 @@
     .row(ng-if="state == 'error'")
       .col-lg-12
         p TODO: error page
+
+          //- bs-aside="aside"
+          //- data-template="partial/navigation/navigation.html"
+          //- data-placement="left"
+          //- data-animation="am-slide-left"
+          //- data-container="body"
