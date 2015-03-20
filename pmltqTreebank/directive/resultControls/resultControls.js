@@ -12,6 +12,7 @@ angular.module('pmltqTreebank').directive('resultControls', function() {
         } else {
           $scope.result.currentResult = [];
         }
+        $scope.result.tree = 0;
       });
     }
   };

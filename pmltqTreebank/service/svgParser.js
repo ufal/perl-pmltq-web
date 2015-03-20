@@ -1,5 +1,13 @@
 angular.module('pmltqTreebank').factory('svgParser', function() {
 
+  var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
+
+  function parseTitle(str) {
+    var matches = titleTreeRe.exec(str);
+    matches.shift();
+    return matches;
+  }
+
   var styleRe = new RegExp('-(.+)=>(.+)');
   var styleMap = {
     foreground: function(m) { return {color: m[2]}; },
@@ -39,7 +47,8 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
   }
 
 	function SvgParserFactory(svg) {
-    var parser = { data: {} };
+    var parser = {},
+        data = {};
 
     function buildSentence() {
       var sentence = [],
@@ -53,9 +62,9 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
         var style = '',
             $this = $(this),
             classStr = $this.attr('class'),
-            data = parseClasses(classStr);
-        data.text = $this.text();
-        sentence.push(data);
+            parsedData = parseClasses(classStr);
+        parsedData.text = $this.text();
+        sentence.push(parsedData);
       });
 
       return sentence;
@@ -66,18 +75,30 @@ angular.module('pmltqTreebank').factory('svgParser', function() {
     };
 
     parser.sentence = function() {
-      if (angular.isUndefined(parser.data.sentence)) {
-        parser.data.sentence = buildSentence();
+      if (angular.isUndefined(data.sentence)) {
+        data.sentence = buildSentence();
       }
-      return parser.data.sentence;
+      return data.sentence;
     };
 
-    parser.title = function () {
-      if (angular.isUndefined(parser.data.title)) {
+    parser.title = function() {
+      if (angular.isUndefined(data.title)) {
         var title = parser.content().children('title');
-        parser.data.title = _.isEmpty(title) ? '' : title.text();
+        data.title = _.isEmpty(title) ? '' : title.text();
       }
-      return parser.data.title;
+      return data.title;
+    };
+
+    parser.tree = function() {
+      if (angular.isUndefined(data.tree)) {
+        var arr = parseTitle(parser.title());
+        data.tree = {
+          current: parseInt(arr[0]),
+          total: parseInt(arr[1])
+        };
+      }
+
+      return data.tree;
     };
 
     return parser;
