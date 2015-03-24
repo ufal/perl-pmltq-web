@@ -1,32 +1,4 @@
-// .main-navbar {
-//   .container-fluid();
-//   min-height: @navbar-height;
-//   margin-bottom: @navbar-margin-bottom;
-
-//   background-color: @navbar-default-bg;
-//   border: 1px solid @navbar-default-border;
-
-//   ul {
-//     .nav();
-//     margin: 0;
-//     > li {
-//         display: inline-block;
-//     }
-//     > li > a {
-//       padding-top:    10px;
-//       padding-bottom: 10px;
-//       line-height: @line-height-computed;
-//     }
-//   }
-// }
-
 .side-bar-toggle {
-  // position: absolute;
-  // z-index: 3;
-  // top: 10px;
-  // left: 10px;
-  // float: none;
-  // margin: 0;
   .navbar-toggle();
   float: left;
   .icon-bar {
@@ -34,59 +6,28 @@
   }
 }
 
-// .navmenu {
-//   z-index: 1;
-// }
-
 @media (min-width: 0) {
   .side-bar-toggle {
     display: block; /* force showing the toggle */
   }
 }
 
-// @media (min-width: 992px) {
-//   body {
-//     padding: 0;
-//   }
-//   .navbar {
-//     right: auto;
-//     background: none;
-//     border: none;
-//   }
-// }
-
-
-// .lindat-logo {
-//   display: block;
-//   width: 100%;
-//   position: absolute;
-//   bottom: 20px;
-//   text-align: center;
-// }
+.navbar {
+  border-width: 0 0 1px 0;
+}
 
 .navmenu {
   z-index: 1;
 }
 
-@media (min-width: 0) {
-  .navbar-toggle {
-    display: block; /* force showing the toggle */
-  }
+.pmltq-nav {
+  position: relative;
+  background-color: @gray-lightest;
+  z-index: 1;
 }
-
-@media (min-width: 992px) {
-  body {
-    padding: 0;
-  }
-  .navbar {
-    right: auto;
-    background: none;
-    border: none;
-  }
-}
-
 
 .lindat-logo {
+  z-index: 0;
   display: block;
   width: 100%;
   position: absolute;

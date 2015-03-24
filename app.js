@@ -21,7 +21,8 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
 
 });
 
-angular.module('pmltqWeb').run(function($rootScope) {
+angular.module('pmltqWeb')
+.run(function($rootScope) {
 
   $rootScope.safeApply = function(fn) {
     var phase = $rootScope.$$phase;
@@ -34,7 +35,8 @@ angular.module('pmltqWeb').run(function($rootScope) {
     }
   };
 
-});
+})
+.constant('$', jQuery); // have jquery as a service
 
 // $(function() {
 //   $(window).bind("load resize", function() {

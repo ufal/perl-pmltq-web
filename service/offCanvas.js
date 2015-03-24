@@ -1,4 +1,5 @@
-angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templateCache, $document, $rootScope) {
+// Inspired by https://github.com/jasny/bootstrap/blob/master/js/offcanvas.js
+angular.module('pmltqWeb').factory('offCanvas',function($, $http, $timeout, $compile, $templateCache, $document, $rootScope) {
 
   var defaults = {
     template: '',
@@ -8,7 +9,7 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
     autohide: true,
     recalc: true,
     disableScrolling: true,
-    show: false
+    toggle: false
   };
 
   var forEach = angular.forEach;
@@ -27,8 +28,9 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
     var offCanvas = {};
 
     var options = offCanvas.options = angular.extend({}, defaults, config);
+    var Constructor = $.fn.offcanvas.Constructor;
 
-    var offCanvasElement, offCanvasLinker, element;
+    var offCanvasElement, offCanvasLinker, offCanvasObject;
     offCanvas.promise = fetchTemplate(options.template);
     var scope = offCanvas.scope = options.scope && options.scope.$new() || $rootScope.$new();
     if(!options.container) {
@@ -48,6 +50,10 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
       };
     });
 
+    offCanvas.isShown = function() {
+      return offCanvasObject && offCanvasObject.state === 'slid';
+    };
+
     offCanvas.init = function() {
       if(options.show) {
         scope.$$postDigest(function() {
@@ -62,22 +68,16 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
         offCanvasElement = null;
       }
 
-      if (element) {
-        element.remove();
-        element = null;
-      }
-
       scope.$destroy();
     };
 
     offCanvas.show = function() {
-      if (offCanvas.isShown) {
+      if (offCanvas.isShown()) {
         return;
       }
 
-      if (offCanvasElement) {
-        offCanvasElement.data('bs.offcanvas').show();
-        offCanvas.isShown = true;
+      if (offCanvasObject) {
+        offCanvasObject.show();
         return;
       }
 
@@ -86,32 +86,22 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
       }
 
       offCanvasElement = offCanvasLinker(scope, angular.noop);
-      element = $('<a/>').hide();
-      offCanvasElement.append(element);
       options.container.prepend(offCanvasElement);
 
-      options.target = offCanvasElement;
-      offCanvasElement.offcanvas(options);
-      if (options.show) {
-        offCanvas.isShown = true;
-      }
+      options.toggle = true; // will show
+      offCanvasObject = new Constructor(offCanvasElement, options);
     };
 
     offCanvas.hide = function() {
-      if (!offCanvas.isShown) {
+      if (!offCanvasObject) {
         return;
       }
 
-      offCanvasElement.data('bs.offcanvas').hide();
-      offCanvas.isShown = false;
+      offCanvasObject.hide();
     };
 
     offCanvas.toggle = function() {
-      if (offCanvas.isShown) {
-        offCanvas.hide();
-      } else {
-        offCanvas.show();
-      }
+      offCanvas[offCanvas.isShown() ? 'hide' : 'show']();
     };
 
     return offCanvas;
