@@ -1,4 +1,4 @@
-angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templateCache, $document) {
+angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templateCache, $document, $rootScope) {
 
   var defaults = {
     template: '',
@@ -15,7 +15,9 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
 
   var fetchPromises = {};
   function fetchTemplate(template) {
-    if(fetchPromises[template]) return fetchPromises[template];
+    if(fetchPromises[template]) {
+      return fetchPromises[template];
+    }
     return (fetchPromises[template] = $http.get(template, {cache: $templateCache}).then(function(res) {
       return res.data;
     }));
@@ -105,7 +107,11 @@ angular.module('pmltqWeb').factory('offCanvas',function($http, $compile, $templa
     };
 
     offCanvas.toggle = function() {
-      offCanvas.isShown ? offCanvas.hide() : offCanvas.show();
+      if (offCanvas.isShown) {
+        offCanvas.hide();
+      } else {
+        offCanvas.show();
+      }
     };
 
     return offCanvas;
