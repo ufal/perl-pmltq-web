@@ -6,13 +6,19 @@ angular.module('pmltqTreebank').directive('resultControls', function() {
     },
     templateUrl: 'pmltqTreebank/directive/resultControls/resultControls.html',
     link: function($scope) {
-      $scope.$watch('result.resultNo', function(resultNo) {
-        if (angular.isDefined(resultNo)) {
-          $scope.result.currentResult = $scope.result.resultNodes[resultNo - 1];
-        } else {
-          $scope.result.currentResult = [];
+      $scope.$watch('result.resultNo', function(resultNo, oldResultNo) {
+        var result = $scope.result;
+
+        if (resultNo === oldResultNo) {
+          return;
         }
-        $scope.result.tree = 0;
+
+        if (angular.isDefined(resultNo)) {
+          result.currentResult = result.get()[resultNo - 1];
+        } else {
+          result.currentResult = [];
+        }
+        result.tree = 0;
       });
     }
   };

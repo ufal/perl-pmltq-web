@@ -1,5 +1,6 @@
-angular.module('pmltqWeb').controller('TreebankController',function($scope, $stateParams, offCanvas, treebanksApi) {
+angular.module('pmltqWeb').controller('TreebankController', function($scope, $stateParams, resultHolder, offCanvas, treebanksApi) {
   $scope.state = 'loading';
+  $scope.result = resultHolder();
 
   treebanksApi.one($stateParams.treebank).get().then(function(treebank) {
     $scope.treebank = treebank;
@@ -32,7 +33,7 @@ angular.module('pmltqWeb').controller('TreebankController',function($scope, $sta
       scope : $scope,
       canvas: '#page-wrapper',
       placement: 'right',
-      template: 'pmltqHelp/treebank/treebankHelpAside.html',
+      template: 'pmltqHelp/treebank/helpOffCanvas.html',
       show: true
     });
     // if (!helpAside) {

@@ -16,12 +16,18 @@ angular.module('pmltqTreebank').directive('resultTable', function() {
   return {
     restrict: 'A',
     scope: {
-      table: '=resultTable'
+      result: '=resultTable'
     },
     link: function($scope, $element, $attrs) {
       var lastTable;
 
-      $scope.$watch('table', function(table) {
+      $scope.$watch('result.resultId', function(resultId) {
+        if (!resultId) {
+          return;
+        }
+
+        var result = $scope.result,
+            table = result.get();
         if (angular.equals(table, lastTable)) {
           return;
         }

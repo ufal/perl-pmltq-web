@@ -20,7 +20,7 @@
             | &nbsp; History
       .navbar-right
         p.navbar-text(ng-bind="treebank.title")
-        a.navbar-brand(ng-click="showHelp()")
+        a.navbar-brand(ng-click="showHelp()" ng-hide="result.isEmpty")
           i.fa.fa-question-circle.fa-lg
 
   .container-fluid
@@ -29,8 +29,9 @@
         p Loading...
     .row(ng-if="state == 'success'" treebank-detail="treebank")
       .col-lg-12
-        .query-form(query-form="treebank")
-        .query-result(result-view="treebank")
+        .query-form(query-form="treebank" query-result="result")
+        .query-result(result-view="treebank" query-result="result")
+        div(ng-if="result.isEmpty" treebank-help="treebank")
 
     .row(ng-if="state == 'error'")
       .col-lg-12

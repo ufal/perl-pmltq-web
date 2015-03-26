@@ -1,10 +1,16 @@
 angular.module('pmltqHelp').directive('treebankHelp', function() {
   return {
-    restrict: 'E',
+    restrict: 'A',
     replace: true,
     scope: {
-      metadata: '=tb'
+      metadata: '=treebankHelp',
+      navigation: '='
     },
-    templateUrl: 'pmltqHelp/treebank/treebankHelp.html'
+    templateUrl: 'pmltqHelp/treebank/treebankHelp.html',
+    link: function($scope) {
+      if (angular.isUndefined($scope.navigation)) {
+        $scope.navigation = true;
+      }
+    }
   };
 });

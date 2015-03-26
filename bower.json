@@ -9,7 +9,7 @@
   ],
   "dependencies": {
     "jquery": "~2.0",
-    "underscore": "~1.5",
+    "lodash": "~3.6.0",
     "bootstrap": "~3.3.0",
     "angular": "~1.4",
     "angular-ui-router": "~0.2",

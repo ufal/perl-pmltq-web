@@ -35,8 +35,7 @@ angular.module('pmltqWeb')
     }
   };
 
-})
-.constant('$', jQuery); // have jquery as a service
+});
 
 // $(function() {
 //   $(window).bind("load resize", function() {
