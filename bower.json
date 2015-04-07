@@ -28,7 +28,8 @@
     "angular-scroll": "~0.6.5",
     "angular-loading-bar": "~0.7.1",
     "angular-strap": "~2.2.1",
-    "angular-motion": "~0.3.4"
+    "angular-motion": "~0.3.4",
+    "semantic-ui": "~1.11.6"
   },
   "resolutions": {
     "bootstrap": "~3.3.0",

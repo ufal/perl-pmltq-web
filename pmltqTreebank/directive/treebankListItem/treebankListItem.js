@@ -1,9 +1,9 @@
 angular.module('pmltqTreebank').directive('treebankListItem', function() {
   return {
-    restrict: 'E',
+    restrict: 'A',
     replace: true,
     scope: {
-      treebank: '='
+      treebank: '=treebankListItem'
     },
     templateUrl: 'pmltqTreebank/directive/treebankListItem/treebankListItem.html'
   };

@@ -1,4 +1,4 @@
-angular.module('pmltqWeb', ['mgcrea.ngStrap', 'ui.utils', 'ui.router', 'ngAnimate', 'restangular', 'duScroll', 'angular-loading-bar', 'pmltqTreebank', 'pmltqHelp', 'pmltqHistory']);
+angular.module('pmltqWeb', ['ui.router', 'restangular', 'duScroll', 'angular-loading-bar', 'pmltqTreebank', 'pmltqHelp', 'pmltqHistory', 'semanticUI']);
 
 angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
 

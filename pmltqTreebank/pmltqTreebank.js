@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank', ['mgcrea.ngStrap', 'ui.utils', 'ui.router', 'ngAnimate', 'restangular']);
+angular.module('pmltqTreebank', ['ui.router', 'restangular', 'semanticUI']);
 
 angular.module('pmltqTreebank').config(function($stateProvider) {
 

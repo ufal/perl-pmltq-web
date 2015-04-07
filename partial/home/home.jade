@@ -1,23 +1,25 @@
-.container(ng-controller="HomeController")
-  .jumbotron.text-center.promo
-    h1 PML Tree Query
-    p Tool for searching and browsing treebanks online
-    p.btn-toolbar
-      a.btn.btn-primary.btn-lg(ui-sref="browse")
-        i.glyphicon.glyphicon-tree-conifer
-        |  Browse Treebanks
-      a.btn.btn-primary.btn-lg.btn-info(href="#")
-        i.glyphicon.glyphicon-info-sign
-        |  Guided Tour
-      a.btn.btn-primary.btn-lg.btn-info(href="#")
-        i.glyphicon.glyphicon-question-sign
-        |  Help
+main.ui.page.grid(ng-controller="HomeController")
   .row
-    .col-lg-6.col-md-6.col-sm-12
-      h2 Recently Used
-      .list-group
-        treebank-list-item/(treebank="tb",ng-repeat="tb in recentlyUsed track by tb.id")
-    .col-lg-6.col-md-6.col-sm-12
+    .column
+      .ui.message.promo
+        h1.ui.header PML Tree Query
+        p Tool for searching and browsing treebanks online
+        p
+          a.large.ui.blue.button(ui-sref="browse")
+            i.icon.tree
+            |  Browse Treebanks
+          a.large.ui.orange.button(href="#")
+            i.info.circle.icon
+            |  Guided Tour
+          a.large.ui.teal.button(href="#")
+            i.icon.help
+            |  Help
+  .row
+    .eight.wide.column
+      h2.header Recently Used
+      .ui.divided.items
+        div(treebank-list-item="tb" ng-repeat="tb in recentlyUsed track by tb.id")
+    .eight.wide.column
       h2 Featured Treebanks
-      .list-group
-        treebank-list-item/(treebank="tb",ng-repeat="tb in featured track by tb.id")
+      .ui.divided.items
+        div(treebank-list-item="tb" ng-repeat="tb in featured track by tb.id")

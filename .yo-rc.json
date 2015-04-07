@@ -31,6 +31,10 @@
       {
         "name": "pmltqHistory",
         "file": "pmltqHistory/pmltqHistory.js"
+      },
+      {
+        "name": "semanticUI",
+        "file": "semanticUI/semanticUI.js"
       }
     ]
   }

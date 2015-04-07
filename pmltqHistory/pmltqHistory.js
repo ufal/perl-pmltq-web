@@ -1,4 +1,4 @@
-angular.module('pmltqHistory', ['mgcrea.ngStrap','ui.utils','ui.router','ngAnimate']);
+angular.module('pmltqHistory', ['ui.router']);
 
 angular.module('pmltqHistory').config(function($stateProvider) {
 
