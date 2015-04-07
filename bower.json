@@ -32,6 +32,7 @@
   },
   "resolutions": {
     "bootstrap": "~3.3.0",
-    "angular": "~1.4"
+    "angular": "~1.4",
+    "lodash": "~3.6.0"
   }
 }
