@@ -29,9 +29,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
           return;
         }
 
-        result.submit();
-        $scope.treebank.post('query', queryData)
-                       .then(result.set, result.setErr);
+        result.submit($scope.treebank, queryData);
       };
     }
   };

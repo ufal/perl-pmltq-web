@@ -27,9 +27,11 @@ angular.module('pmltqTreebank').factory('resultHolder',function(constants, _) {
       resultHolder.isEmpty = true;
     };
 
-    resultHolder.submit = function(queryParams) {
+    resultHolder.submit = function(treebank, queryParams) {
       resultHolder.submited = true;
       resultHolder.queryParams = queryParams;
+      treebank.post('query', queryParams)
+              .then(resultHolder.set, resultHolder.setErr);
     };
 
     resultHolder.get = function() {
