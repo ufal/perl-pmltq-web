@@ -18,6 +18,11 @@
 }
 
 .help-sidebar {
+  position: relative;
+  .affix-top {
+    position: fixed;
+    top: 80px;
+  }
   .nav {
     &>li>a {
       display: block;
@@ -32,6 +37,11 @@
         text-decoration: none;
         background-color: transparent;
         border-left: 1px solid @brand-primary;
+      }
+
+      &:focus {
+        text-decoration: none;
+        background-color: transparent;
       }
     }
     &>.active>a {

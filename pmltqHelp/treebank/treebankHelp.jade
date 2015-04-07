@@ -3,7 +3,7 @@ mixin help-button(icon, text)
     i.fa(class=icon)
     |  #{text}
 
-.row.treebank-help
+.row.treebank-help(bs-affix-target)
   div(ng-class="{'col-md-9' : navigation, 'col-md-12': !navigation}")
     h1#getting-started Getting Started
     p.lead This quick introduction to PML-TQ is semi-automatically generated and covers the most basic topics only.
@@ -124,8 +124,8 @@ mixin help-button(icon, text)
       pre
         | {{metadata.doc.type}} $a := [ ]
         | &gt;&gt; for $a.{{metadata.doc.attr}} give $1, count()
-  .hidden-sm.hidden-xs.hidden-print(role="complementary" ng-if="navigation" ng-class="{'col-md-3': navigation}")
-    .help-sidebar(bs-affix data-offset-top="-50")
+  .hidden-sm.hidden-xs.hidden-print.help-sidebar(role="complementary" ng-if="navigation" ng-class="{'col-md-3': navigation}")
+    .affix(bs-affix data-offset-top="-50")
       ul.nav(bs-scrollspy-list)
         li
           a(href="#getting-started" du-smooth-scroll) Getting Started
