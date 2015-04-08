@@ -1,47 +1,50 @@
-.container(ng-controller="BrowseTreebanksController as browse")
-  .row
-    .col-lg-12
-      h1 Browse Available Treebanks
-      div(ng-if="browse.state == 'loading'")
-        p Loading ...
-      div(ng-if="browse.state == 'error'")
-        p.alert.alert-info
-          strong No treebanks available at this moment.
-          | Please try later.
-      div(ng-if="browse.state == 'results'")
-        .panel.panel-default
-          .panel-body
-            .form-group
-              input.form-control(
+main.ui.page.grid(ng-controller="BrowseTreebanksController as browse")
+  .column.filter-form
+    h1.ui.header Browse Available Treebanks
+    div(ng-if="browse.state == 'loading'")
+      p Loading ...
+    div(ng-if="browse.state == 'error'")
+      p.alert.alert-info
+        strong No treebanks available at this moment.
+        | Please try later.
+    div(ng-if="browse.state == 'results'")
+      .ui.segment
+        form.ui.form
+          .field
+            .ui.big.fluid.icon.input
+              input(
                 tabindex="1"
                 autofocus="autofocus"
                 type="text"
                 ng-model="filter.term"
                 placeholder="Filter treebanks ...")
+              i.search.icon
+          .field
+            checkbox(type="toggle")
+              input#filter-accessible(type="checkbox" ng-model="filter.accessible")
+              label(for="filter-accessible") Show only publicly accessible treebanks
+          .field
+            .ui.list
+              .item(ng-repeat="(name, lbs) in labels")
+                .ui.horizontal.labels
+                  strong {{name}}: &nbsp;
+                  .ui.label(ng-repeat="(name, count) in lbs" ng-model="filter.labels[name]")
+                    | {{name}}
+                    .detail {{count}}
+              .item
+                .ui.horizontal.labels
+                  strong Others: &nbsp;
+                  .ui.label(ng-repeat="(name, count) in freeLabels")
+                    | {{name}}
+                    .detail {{count}}
 
-            .checkbox
-              label
-                input(
-                  type="checkbox"
-                  value=""
-                  ng-model="filter.accessible")
-                | Show publicly accessible treebanks
-
-            div(ng-repeat="(name, lbs) in labels")
-              strong {{name}}
-              .form-inline
-                .checkbox(ng-repeat="(name, count) in lbs")
-                  label
-                    input(
-                      type="checkbox"
-                      value=""
-                      ng-model="filter.labels[name]")
-                    | {{name}} ({{count}}) &nbsp;
-
-            button.btn.btn-default(
+          .ui.right.floated.column
+            button.ui.basic.button(
               type="button"
               ng-click="filter = {term: '', accessible: false, labels: {}}")
               | Reset filter
 
-        .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
-          treebank-box/(treebank="tb")
+      .ui.divided.items
+        div(treebank-list-item="tb" ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
+      //- .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
+      //-   treebank-box/(treebank="tb")

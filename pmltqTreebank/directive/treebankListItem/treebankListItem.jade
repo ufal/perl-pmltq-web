@@ -1,12 +1,12 @@
 .item
   .image
-    a(ui-sref="treebank({treebank: treebank.name})")
+    a(ui-sref="treebank({treebank: treebank.id})")
       svg(width="100%" style="background: #eeeeee;")
         text(x="0%",y="50%",dy=".3em",text-anchor="left",fill="#999999",font-size="35")
           tspan(font-weight="bold") {{treebank.title}}
   .content
-    a.header(ui-sref="treebank({treebank: treebank.name})")
-      span(ng-if="treebank.access")
+    a.header(ui-sref="treebank({treebank: treebank.id})")
+      span(ng-if="!treebank.access")
         i.fa.fa-lock(title="Login and permission required" ui-popup="" data-position="right center")
         | &nbsp;
       | {{treebank.title}}

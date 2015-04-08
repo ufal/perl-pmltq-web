@@ -14,12 +14,12 @@ main.ui.page.grid(ng-controller="HomeController")
           a.large.ui.teal.button(href="#")
             i.icon.help
             |  Help
-  .row
-    .eight.wide.column
+  .ui.two.columns.grid
+    .column
       h2.header Recently Used
       .ui.divided.items
         div(treebank-list-item="tb" ng-repeat="tb in recentlyUsed track by tb.id")
-    .eight.wide.column
+    .column
       h2 Featured Treebanks
       .ui.divided.items
         div(treebank-list-item="tb" ng-repeat="tb in featured track by tb.id")

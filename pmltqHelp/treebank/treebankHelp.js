@@ -1,18 +1,18 @@
-angular.module('pmltqHelp').directive('treebankHelp', function($affix, $window, $timeout) {
+angular.module('pmltqHelp').directive('treebankHelp', function($window, $timeout) {
   function affixFactory (element, options) {
-    var affix = $affix(element, options);
-    options.scope.$on('$destroy', function() {
-      if (!affix) {
-        return;
-      }
+    // var affix = $affix(element, options);
+    // options.scope.$on('$destroy', function() {
+    //   if (!affix) {
+    //     return;
+    //   }
 
-      affix.destroy();
-      affix = null;
-    });
-    $timeout(function() {
-      affix.$onResize();
-    });
-    return affix;
+    //   affix.destroy();
+    //   affix = null;
+    // });
+    // $timeout(function() {
+    //   affix.$onResize();
+    // });
+    // return affix;
   }
 
   return {

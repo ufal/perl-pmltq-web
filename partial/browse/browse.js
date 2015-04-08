@@ -2,6 +2,8 @@ angular.module('pmltqWeb').controller('BrowseTreebanksController', function($sco
   var ctrl = this;
   ctrl.state = 'loading';
 
+  $scope.filter = {term: '', accessible: true, labels: {}};
+
   treebanksApi.getList().then(function(data) {
     if (data && data.length > 0) {
       var labels = {};
