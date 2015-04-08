@@ -1,44 +1,26 @@
-#treebank-page(ng-controller="TreebankController")
-  nav.navbar.navbar-default
-    .container-fluid
-      .navbar-head
-        button.btn.btn-default.side-bar-toggle(
-          type="button"
-          ng-click="showNavigation()"
-          )
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-      ul.nav.navbar-nav(ng-hide="state != 'success'")
-        li.active
-          a
-            i.fa.fa-search
-            | &nbsp; Query
-        li
-          a
-            i.fa.fa-clock-o
-            | &nbsp; History
-      .navbar-right
-        p.navbar-text(ng-bind="treebank.title")
-        a.navbar-brand(ng-click="showHelp()" ng-hide="result.isEmpty")
-          i.fa.fa-question-circle.fa-lg
+main.ui.page.grid(ng-controller="TreebankController")
+  .row
+    .ui.large.pointing.menu
+      .header.item(ng-bind="treebank.title")
+      a.item(ui-sref="treebank.history" ui-sref-active="active")
+        i.history.icon
+        | History
+      a.item(ui-sref="treebank.query({query: 'new'})" ui-sref-active="active")
+        i.search.icon
+        | Query
+      a.item(ui-sref="treebank.help" ui-sref-active="active")
+        i.help.circle.icon
+        | Help
+      //- a.item(ui-sref="treebank.query.result({query: 'new'})" ui-sref-active="active")
+      //-   i.server.icon
+      //-   | Result
+      //- a.item(ui-sref="treebank.suggest" ui-sref-active="active")
+      //-   i.code.icon
+      //-   | Suggest
+      .right.menu
+        a.item
+          i.external.icon
+          | Get data
 
-  .container-fluid
-    .row(ng-if="state == 'loading'")
-      .col-lg-12
-        p Loading...
-    .row(ng-if="state == 'success'" treebank-detail="treebank")
-      .col-lg-12
-        .query-form(query-form="treebank" query-result="result")
-        .query-result(result-view="treebank" query-result="result")
-        div(ng-if="result.isEmpty" treebank-help="treebank")
 
-    .row(ng-if="state == 'error'")
-      .col-lg-12
-        p TODO: error page
-
-          //- bs-aside="aside"
-          //- data-template="partial/navigation/navigation.html"
-          //- data-placement="left"
-          //- data-animation="am-slide-left"
-          //- data-container="body"
+  .ui.relaxed.grid(ui-view="")

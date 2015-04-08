@@ -12,9 +12,30 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
     url: '/treebank/:treebank',
     templateUrl: 'partial/treebank/treebank.html'
   });
+
   $stateProvider.state('browse', {
     url: '/treebanks',
     templateUrl: 'partial/browse/browse.html'
+  });
+  $stateProvider.state('treebank.query', {
+    url: '/query/:query',
+    templateUrl: 'partial/query/query.html'
+  });
+  $stateProvider.state('treebank.suggest', {
+    url: '/suggest',
+    templateUrl: 'partial/suggest/suggest.html'
+  });
+  $stateProvider.state('treebank.history', {
+    url: '/history',
+    templateUrl: 'partial/history/history.html'
+  });
+  $stateProvider.state('treebank.query.result', {
+    url: '/result',
+    templateUrl: 'partial/result/result.html'
+  });
+  $stateProvider.state('treebank.help', {
+    url: '/help',
+    templateUrl: 'partial/help/help.html'
   });
   /* Add New States Above */
   $urlRouterProvider.otherwise('/home');

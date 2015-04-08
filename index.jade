@@ -59,7 +59,12 @@ html(ng-app="pmltqWeb")
     script(src="semanticUI/semanticUI.js")
     script(src="semanticUI/directive/uiPopup.js")
     script(src="semanticUI/directive/uiCheckbox.js")
+    script(src="partial/query/query.js")
+    script(src="partial/suggest/suggest.js")
+    script(src="partial/history/history.js")
+    script(src="partial/result/result.js")
+    script(src="partial/help/help.js")
+    script(src="semanticUI/directive/uiDropdown.js")
     //- Add New Component JS Above
 
-    #page-wrapper
-      div(ui-view)
+    .page-view(ui-view)
