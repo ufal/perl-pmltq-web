@@ -1,7 +1,21 @@
-form.ui.form(name="form")
-  .ui.secondary.menu
-    a.item(style="display:none")
-      i.chevron.down.icon
+form.ui.form(name="form" ng-class="{collapsed: collapsed}")
+  .stackable.ui.grid
+    .column(ng-hide="collapsed")
+      .ui.horizontal.list
+        .item
+          button.ui.compact.mini.icon.button(type="button" ng-click="collapsed = true")
+            i.chevron.down.icon
+    .right.aligned.fifteen.wide.column(ng-hide="collapsed")
+      .ui.horizontal.list
+        .item
+          .content.aligned
+            .ui.inline.dropdown(ui-dropdown="timeoutSelect" title="Timeout" ng-model="params.timeout")
+        .item
+          .content.aligned
+            .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
+    .sixteen.wide.column(ng-show="collapsed")
+        pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
+
     //- a.horizontally.fitted.item
     //-   i.angle.double.left.icon
     //- .horizontally.fitted.text.item Query (1/3)
@@ -11,11 +25,7 @@ form.ui.form(name="form")
     //-   a.ui.basic.button
     //-     i.file.outline.icon
     //-     | New
-
-    .right.menu
-      .ui.dropdown.item(ui-dropdown="timeoutSelect" title="Timeout" ng-model="params.timeout")
-      .ui.dropdown.item(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
-  .field
+  .field(ng-hide="collapsed")
     textarea.text.mono(
       name="query"
       spellcheck="false"
@@ -28,9 +38,10 @@ form.ui.form(name="form")
       placeholder="# Enter your query here"
       accesskey="e")
   .field
-    .ui.relaxed.two.column.grid
+    .two.column.ui.grid
       .left.aligned.column
-        button.ui.small.primary.button(
+        button.ui.primary.button(
+          ng-class="{small: !collapsed, mini: collapsed}"
           type="button"
           bs-tooltip
           data-title="Execute the query (including output filters)"
@@ -41,7 +52,8 @@ form.ui.form(name="form")
           ng-click="submit(params)")
           i.search.icon
           | Execute query
-        button.ui.small.submit.button(
+        button.ui.submit.button(
+          ng-class="{small: !collapsed, mini: collapsed}"
           type="button"
           bs-tooltip
           data-title="Execute the query, excluding possible output filters"
@@ -51,7 +63,8 @@ form.ui.form(name="form")
           ng-disabled="form.$invalid")
           i.filter.icon
           | w/o Filters
-        button.ui.small.submit.button(
+        button.ui.submit.button(
+          ng-class="{small: !collapsed, mini: collapsed}"
           type="button"
           bs-tooltip
           data-title="Suggest query based on nodes marked by you"
@@ -60,7 +73,7 @@ form.ui.form(name="form")
           disabled=true)
           i.code.icon
           | Suggest
-      .right.aligned.column
+      .right.aligned.column(ng-hide="collapsed")
         button.ui.small.basic.button(
           type="button"
           bs-tooltip
