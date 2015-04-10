@@ -1,52 +1,13 @@
-.treebank-help {
-  position: relative;
-}
+.ui.secondary.vertical.right.pointing.menu {
+  border-right: none;
+  border-left: 3px solid rgba(0, 0, 0, 0.1);
 
-.treebank-help-offcanvas {
-  width: 500px;
-  font-size: 90%;
-  position: fixed;
-  left: auto;
-  right: 0;
-  // border-left: 1px solid @navmenu-default-border;
-  // background-color: @navmenu-default-bg;
-  z-index: 1;
-  top: 0;
-  bottom: 0;
-  overflow-y: auto;
-  border-radius: 0;
-}
-
-.help-sidebar {
-  position: relative;
-  .nav {
-    &>li>a {
-      display: block;
-      padding: 4px 20px;
-      font-size: 13px;
-      font-weight: 500;
-      // color: @text-color;
-
-      &:hover {
-        padding-left: 19px;
-        color: @brand-primary;
-        text-decoration: none;
-        background-color: transparent;
-        border-left: 1px solid @brand-primary;
-      }
-
-      &:focus {
-        text-decoration: none;
-        background-color: transparent;
-      }
-    }
-    &>.active>a {
-      padding-left: 18px;
-      font-weight: 700;
-      color: @brand-primary;
-      background-color: transparent;
-      border-left: 2px solid @brand-primary;
+  &>.item {
+    margin: 0em 0em 0em -3px;
+    border-right: none;
+    border-left: 3px solid transparent;
+    &.active {
+      border-color: rgba(0, 0, 0, 0.4);
     }
   }
-
 }
