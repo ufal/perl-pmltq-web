@@ -8,9 +8,31 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
     url: '/home',
     templateUrl: 'partial/home/home.html'
   });
+
   $stateProvider.state('treebank', {
-    url: '/treebank/:treebank',
-    templateUrl: 'partial/treebank/treebank.html'
+    url: '/treebank/:treebankId',
+    templateUrl: 'partial/treebank/treebank.html',
+    controller: 'TreebankController',
+    abstract: true,
+    resolve: {
+      treebank: ['treebanksApi', '$stateParams', function(treebanksApi, $stateParams) {
+        return treebanksApi.one($stateParams.treebankId).get();
+      }],
+      history: ['historyApi', function(historyApi) {
+        return historyApi.getList();
+      }]
+    }
+  });
+
+  $stateProvider.state('treebank.index', {
+    url: '',
+    controller: ['$state', 'history', function($state, history) {
+      if (history.length === 0) {
+        $state.go('treebank.help');
+      } else {
+        $state.go('treebank.query');
+      }
+    }]
   });
 
   $stateProvider.state('browse', {

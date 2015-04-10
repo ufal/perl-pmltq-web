@@ -1,8 +1,3 @@
-angular.module('pmltqHistory', ['ui.router']);
+angular.module('pmltqHistory', ['restangular']);
 
-angular.module('pmltqHistory').config(function($stateProvider) {
-
-    /* Add New States Above */
-
-});
 

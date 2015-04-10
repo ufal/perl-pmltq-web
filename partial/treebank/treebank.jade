@@ -1,11 +1,11 @@
-main.ui.page.grid(ng-controller="TreebankController")
+main.ui.page.grid
   .row
     .ui.large.pointing.menu
       .header.item(ng-bind="treebank.title")
       a.item(ui-sref="treebank.history" ui-sref-active="active")
         i.history.icon
         | History
-      a.item(ui-sref="treebank.query({query: 'new'})" ui-sref-active="active")
+      a.item(ui-sref="treebank.query" ui-sref-active="active")
         i.search.icon
         | Query
       a.item(ui-sref="treebank.help" ui-sref-active="active")
