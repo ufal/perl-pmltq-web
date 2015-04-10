@@ -1,18 +1,17 @@
-.result-title
-  ul.list-inline
-    li
-      button.btn.btn-default(
-        type="button"
-        ng-click="result.tree = result.svg.tree().current - 1"
-        ng-disabled="result.svg.tree().current <= 1"
-        )
-        | &laquo;
-    li
-      span(ng-bind="result.svg.title()")
-    li
-      button.btn.btn-default(
-        type="button"
-        ng-click="result.tree = result.svg.tree().current + 1"
-        ng-disabled="result.svg.tree().current >= result.svg.tree().total"
-        )
-        | &raquo;
+.ui.small.horizontal.list
+  .item
+    button.ui.mini.icon.button(
+      type="button"
+      ng-click="result.tree = result.svg.tree().current - 1"
+      ng-disabled="result.svg.tree().current <= 1"
+      )
+      i.angle.double.left.icon
+  .item
+    .content.aligned(ng-bind="result.svg.title()")
+  .item
+    button.ui.mini.icon.button(
+      type="button"
+      ng-click="result.tree = result.svg.tree().current + 1"
+      ng-disabled="result.svg.tree().current >= result.svg.tree().total"
+      )
+      i.angle.double.right.icon

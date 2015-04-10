@@ -30,7 +30,7 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
       if (history.length === 0) {
         $state.go('treebank.help');
       } else {
-        $state.go('treebank.query');
+        $state.go('treebank.query.index');
       }
     }]
   });
@@ -39,10 +39,27 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
     url: '/treebanks',
     templateUrl: 'partial/browse/browse.html'
   });
+
   $stateProvider.state('treebank.query', {
     url: '/query/:query',
+    abstract: true,
     templateUrl: 'partial/query/query.html'
   });
+
+  $stateProvider.state('treebank.query.index', {
+    url: '',
+    controller: ['$scope', '$state', function($scope, $state) {
+      if ($scope.result && !$scope.result.isEmpty) {
+        $state.go('treebank.query.result');
+      }
+    }]
+  });
+
+  $stateProvider.state('treebank.query.result', {
+    url: '/result',
+    templateUrl: 'partial/result/result.html'
+  });
+
   $stateProvider.state('treebank.suggest', {
     url: '/suggest',
     templateUrl: 'partial/suggest/suggest.html'
@@ -50,10 +67,6 @@ angular.module('pmltqWeb').config(function($stateProvider, $urlRouterProvider, R
   $stateProvider.state('treebank.history', {
     url: '/history',
     templateUrl: 'partial/history/history.html'
-  });
-  $stateProvider.state('treebank.query.result', {
-    url: '/result',
-    templateUrl: 'partial/result/result.html'
   });
   $stateProvider.state('treebank.help', {
     url: '/help',

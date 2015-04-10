@@ -8,8 +8,9 @@ angular.module('pmltqTreebank')
         node: '@',
         svg: '=*?'
       },
-      transclude: true,
-      templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
+      // transclude: true,
+      // replace: true,
+      // templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;
 

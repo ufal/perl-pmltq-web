@@ -2,4 +2,7 @@
   .column
     .ui.segment
       .query-form(query-form="treebank" query-result="result" params="queryParams")
-.ui.relaxed.grid(ui-view="")
+.one.column.row
+  .column
+    .query-result(result-view="treebank" query-result="result")
+

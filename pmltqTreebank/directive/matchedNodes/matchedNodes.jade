@@ -1,4 +1,9 @@
-.btn-group
-  button.btn.btn-default(type="button" ng-model="result.activeNode" ng-repeat="node in result.queryNodes" value="{{$index}}" bs-radio)
-    | {{$index + 1}} {{node[1]}}
-    span(ng-if="node[0]") &nbsp;${{node[0]}}
+.ui.small.horizontal.list
+  .item(ng-repeat="node in result.queryNodes")
+    button.ui.tiny.circular.button(
+      type="button"
+      ng-class="{positive: result.activeNode == $index}"
+      ng-click="result.activeNode = $index")
+      strong {{$index + 1}} &nbsp;
+      | {{node[1]}}
+      span(ng-if="node[0]") &nbsp;${{node[0]}}

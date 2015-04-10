@@ -1,25 +1,25 @@
-.form-inline.result-controls
-  .form-group
-    button.btn.btn-default.btn-sm(
+.ui.small.horizontal.list.result-controls
+  .item
+    button.ui.small.icon.button(
       type="button"
       ng-click="result.resultNo = result.resultNo - 1"
       ng-disabled="result.resultNo <= 1")
-      | &lt;
-  .form-group
-    input.form-control.input-sm(
-      type="number"
-      style="width: 50px;"
-      ng-model="result.resultNo"
-      ng-model-options="{updateOn:'blur'}"
-      update-model-on-enter-key-pressed
-      max="{{result.nodesCount}}"
-      min="1"
-      )
-  .form-group
-    p.form-control-static of {{result.nodesCount}}
-  .form-group
-    button.btn.btn-default.btn-sm(
+      i.arrow.left.icon
+  .item
+    .ui.mini.input
+      input(
+        type="number"
+        ng-model="result.resultNo"
+        ng-model-options="{updateOn:'blur'}"
+        update-model-on-enter-key-pressed
+        max="{{result.nodesCount}}"
+        min="1"
+        )
+  .item
+    .content.aligned of {{result.nodesCount}}
+  .item
+    button.ui.small.icon.button(
       type="button"
       ng-click="result.resultNo = result.resultNo + 1"
       ng-disabled="result.resultNo >= result.resultsCount")
-      | &gt;
+      i.arrow.right.icon
