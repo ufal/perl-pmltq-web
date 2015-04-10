@@ -39,7 +39,7 @@ mixin help-button(icon, text)
       section.ui.basic.segment#annotation-schema
         h2.ui.header Annotation Schema of {{metadata.title}}
         p This treebank consists of the following <b>annotation layer(s)</b> and <b>node type(s)</b>:
-        ul.layers
+        ul.ui.list
           li(ng-repeat="schema in metadata.schemas") Layer <strong><code>{{schema}}</code></strong> consists of node types:<br>
             strong.text.mono(ng-repeat="type in metadata.node_types[schema]") {{type}}{{$last ? '' : ', '}}
       section.ui.basic.segment#query-language
