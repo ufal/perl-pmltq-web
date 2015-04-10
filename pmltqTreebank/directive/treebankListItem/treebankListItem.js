@@ -5,6 +5,11 @@ angular.module('pmltqTreebank').directive('treebankListItem', function() {
     scope: {
       treebank: '=treebankListItem'
     },
-    templateUrl: 'pmltqTreebank/directive/treebankListItem/treebankListItem.html'
+    templateUrl: 'pmltqTreebank/directive/treebankListItem/treebankListItem.html',
+    link: function($scope, $element, $attr) {
+      $attr.$observe('href', function(url) {
+        $scope.url = url;
+      });
+    }
   };
 });

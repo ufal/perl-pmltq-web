@@ -45,6 +45,6 @@ main.ui.page.grid(ng-controller="BrowseTreebanksController as browse")
               | Reset filter
 
       .ui.divided.items
-        div(treebank-list-item="tb" ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
+        div(treebank-list-item="tb" ui-sref="treebank.index({treebankId: tb.id})" ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
       //- .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
       //-   treebank-box/(treebank="tb")
