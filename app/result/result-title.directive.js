@@ -4,6 +4,6 @@ angular.module('pmltq.result').directive('resultTitle', function() {
     scope: {
       result: '=resultTitle'
     },
-    templateUrl: 'pmltq.result/directive/resultTitle/resultTitle.html'
+    templateUrl: 'result/result-title.directive.html'
   };
 });

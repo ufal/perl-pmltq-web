@@ -4,7 +4,7 @@ angular.module('pmltq.result').directive('resultControls', function() {
     scope: {
       result: '=resultControls',
     },
-    templateUrl: 'pmltq.result/directive/resultControls/resultControls.html',
+    templateUrl: 'result/result-controls.directive.html'
     link: function($scope) {
       $scope.$watch('result.resultNo', function(resultNo, oldResultNo) {
         var result = $scope.result;

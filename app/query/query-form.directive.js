@@ -9,7 +9,7 @@ angular.module('pmltq.query').directive('queryForm', function() {
       params:   '=*?',
       result:   '=*?queryResult'
     },
-    templateUrl: 'pmltq.query/directive/queryForm/queryForm.html',
+    templateUrl: 'query/query-form.directive.html'
     link: function($scope, $element, $attrs) {
       if (!$scope.params) {
         // Save default params as they are changed

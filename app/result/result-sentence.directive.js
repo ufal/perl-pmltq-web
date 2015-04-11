@@ -4,7 +4,7 @@ angular.module('pmltq.result').directive('resultSentence', function() {
     scope: {
       sentence: '=resultSentence'
     },
-    templateUrl: 'pmltq.result/directive/resultSentence/resultSentence.html',
+    templateUrl: 'result/result-sentence.directive.html'
     link: function($scope, element, attrs, fn) {
 
 

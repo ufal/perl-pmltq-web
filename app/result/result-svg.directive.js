@@ -10,7 +10,7 @@ angular.module('pmltq.result')
       },
       // transclude: true,
       // replace: true,
-      // templateUrl: 'pmltq.result/directive/resultSvg/resultSvg.html',
+      // templateUrl: 'result/result-svg.directive.html'
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;
 

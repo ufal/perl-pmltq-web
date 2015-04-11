@@ -5,7 +5,7 @@ angular.module('pmltq.treebank').directive('treebankListItem', function() {
     scope: {
       treebank: '=treebankListItem'
     },
-    templateUrl: 'pmltq.treebank/directive/treebankListItem/treebankListItem.html',
+    templateUrl: 'treebank/treebank-list-item.directive.html'
     link: function($scope, $element, $attr) {
       $attr.$observe('href', function(url) {
         $scope.url = url;
