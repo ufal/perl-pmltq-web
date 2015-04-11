@@ -1,36 +1,36 @@
-angular.module('pmltqTreebank', ['ui.router', 'restangular', 'semanticUI']);
+angular.module('pmltq.treebank', ['pmltq.shared', 'pmltq.history', 'pmltq.help']);
 
-angular.module('pmltqTreebank').config(function($stateProvider) {
+angular.module('pmltq.treebank').config(function($stateProvider) {
 
-    /* Add New States Above */
-})
-.provider('constants', function constantsProvider() {
-  function extractTo(where) {
-    for (var c in constants) {
-      if (constants.hasOwnProperty(c) && 'function' !== typeof constants[c]) {
-        where[c] = constants[c];
-      }
+  $stateProvider.state('treebank', {
+    url: '/treebank/:treebankId',
+    templateUrl: 'partial/treebank/treebank.html',
+    controller: 'TreebankController',
+    abstract: true,
+    resolve: {
+      treebank: ['treebanksApi', '$stateParams', function(treebanksApi, $stateParams) {
+        return treebanksApi.one($stateParams.treebankId).get();
+      }],
+      history: ['historyApi', function(historyApi) {
+        return historyApi.getList();
+      }]
     }
-  }
+  });
 
-  var constants = {
-    STATE_LOADING:     'loading',
-    STATE_SUCCESS:     'success',
-    STATE_ERROR:       'error',
-    RESULT_TYPE_NODES: 'nodes',
-    RESULT_TYPE_TABLE: 'table',
-    extractTo: extractTo
-  };
+  $stateProvider.state('treebank.index', {
+    url: '',
+    controller: ['$state', 'history', function($state, history) {
+      if (history.length === 0) {
+        $state.go('treebank.help');
+      } else {
+        $state.go('treebank.query.index');
+      }
+    }]
+  });
 
-  this.setConstants = function(consts) {
-    angular.extend(constants, consts);
-  };
-
-  this.$get = function() {
-    return constants;
-  };
-
-})
-.constant('$', jQuery) // have jquery as a service
-.constant('_', _.runInContext()); // have lodash as a service;
+  $stateProvider.state('browse', {
+    url: '/treebanks',
+    templateUrl: 'treebank/browse.html'
+  });
+});
 

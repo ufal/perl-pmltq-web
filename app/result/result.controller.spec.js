@@ -1,6 +1,6 @@
 describe('ResultCtrl', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('pmltq.result'));
 
 	var scope,ctrl;
 

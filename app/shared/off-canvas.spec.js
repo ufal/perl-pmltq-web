@@ -1,6 +1,6 @@
 describe('offCanvas', function() {
 
-  beforeEach(module('pmltqWeb'));
+  beforeEach(module('pmltq.shared'));
 
   it('should ...', inject(function(offCanvas) {
 

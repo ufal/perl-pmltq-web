@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').directive('queryForm', function() {
+angular.module('pmltq.query').directive('queryForm', function() {
   var RESULT_TYPE_SVG = 'svg',
       RESULT_TYPE_TABLE = 'table';
 
@@ -9,7 +9,7 @@ angular.module('pmltqTreebank').directive('queryForm', function() {
       params:   '=*?',
       result:   '=*?queryResult'
     },
-    templateUrl: 'pmltqTreebank/directive/queryForm/queryForm.html',
+    templateUrl: 'pmltq.query/directive/queryForm/queryForm.html',
     link: function($scope, $element, $attrs) {
       if (!$scope.params) {
         // Save default params as they are changed

@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').factory('resultHolder',function(constants, _) {
+angular.module('pmltq.result').factory('resultHolder',function(constants, _) {
   var RESULT_TYPE_NODES = constants.RESULT_TYPE_NODES,
       RESULT_TYPE_TABLE = constants.RESULT_TYPE_TABLE;
 

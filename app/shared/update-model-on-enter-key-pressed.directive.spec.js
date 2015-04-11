@@ -1,6 +1,6 @@
 describe('updateModelOnEnterKeyPressed', function() {
 
-  beforeEach(module('pmltqWeb'));
+  beforeEach(module('pmltq.shared'));
 
   var scope,compile;
 

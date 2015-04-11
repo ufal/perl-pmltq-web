@@ -1,6 +1,6 @@
 describe('historyApi', function() {
 
-  beforeEach(module('pmltqHistory'));
+  beforeEach(module('pmltq.history'));
 
   it('should ...', inject(function(historyApi) {
 

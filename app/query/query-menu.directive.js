@@ -1,11 +1,11 @@
-angular.module('pmltqTreebank').directive('queryMenu', function() {
+angular.module('pmltq.query').directive('queryMenu', function() {
 	return {
 		restrict: 'E',
 		replace: true,
 		scope: {
 
 		},
-		templateUrl: 'pmltqTreebank/directive/queryMenu/queryMenu.html',
+		templateUrl: 'pmltq.query/directive/queryMenu/queryMenu.html',
 		link: function(scope, element, attrs, fn) {
 
 

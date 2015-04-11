@@ -1,4 +1,4 @@
-angular.module('pmltqWeb').directive('toggleOffcanvas', function() {
+angular.module('pmltq.shared').directive('toggleOffcanvas', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs, fn) {

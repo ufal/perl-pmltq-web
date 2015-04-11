@@ -1,4 +1,4 @@
-angular.module('pmltqWeb').directive('updateModelOnEnterKeyPressed', function() {
+angular.module('pmltq.shared').directive('updateModelOnEnterKeyPressed', function() {
 	return {
 		restrict: 'A',
     require: 'ngModel',

@@ -1,10 +1,10 @@
-angular.module('pmltqTreebank').directive('matchedNodes', function() {
+angular.module('pmltq.result').directive('matchedNodes', function() {
 	return {
 		restrict: 'A',
 		scope: {
       result: '=matchedNodes'
 		},
-		templateUrl: 'pmltqTreebank/directive/matchedNodes/matchedNodes.html',
+		templateUrl: 'pmltq.result/directive/matchedNodes/matchedNodes.html',
 		link: function(scope, element, attrs, fn) {
 
 

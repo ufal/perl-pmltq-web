@@ -1,9 +1,9 @@
-angular.module('pmltqTreebank').directive('resultTitle', function() {
+angular.module('pmltq.result').directive('resultTitle', function() {
   return {
     restrict: 'A',
     scope: {
       result: '=resultTitle'
     },
-    templateUrl: 'pmltqTreebank/directive/resultTitle/resultTitle.html'
+    templateUrl: 'pmltq.result/directive/resultTitle/resultTitle.html'
   };
 });

@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank')
+angular.module('pmltq.result')
   .directive('resultSvg', function () {
     return {
       restrict: 'A',
@@ -10,7 +10,7 @@ angular.module('pmltqTreebank')
       },
       // transclude: true,
       // replace: true,
-      // templateUrl: 'pmltqTreebank/directive/resultSvg/resultSvg.html',
+      // templateUrl: 'pmltq.result/directive/resultSvg/resultSvg.html',
       link: function ($scope, $element, $attrs, controller) {
         var lastNode, lastTree;
 

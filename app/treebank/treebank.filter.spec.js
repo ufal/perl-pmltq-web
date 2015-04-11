@@ -1,6 +1,6 @@
 describe('treebankFilter', function() {
 
-    beforeEach(module('pmltqTreebank'));
+    beforeEach(module('pmltq.treebank'));
 
     it('should ...', inject(function($filter) {
 

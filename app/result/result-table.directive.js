@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').directive('resultTable', function() {
+angular.module('pmltq.result').directive('resultTable', function() {
   function buildTable(dataTable) {
     var table = $('<table></table>').addClass('table');
     for (var row = 0; row < dataTable.length; row++) {

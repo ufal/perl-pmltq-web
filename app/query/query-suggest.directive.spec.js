@@ -1,6 +1,6 @@
 describe('querySuggest', function() {
 
-  beforeEach(module('pmltqTreebank'));
+  beforeEach(module('pmltq.query'));
 
   var scope,compile;
 

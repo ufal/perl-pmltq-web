@@ -1,8 +1,11 @@
-angular.module('pmltqHelp', ['ui.router', 'duScroll']);
+angular.module('pmltq.help', ['pmltq.shared']);
 
-angular.module('pmltqHelp').config(function($stateProvider) {
+angular.module('pmltq.help').config(function($stateProvider) {
 
-    /* Add New States Above */
+  $stateProvider.state('treebank.help', {
+    url: '/help',
+    templateUrl: 'help/help.html'
+  });
 
 });
 

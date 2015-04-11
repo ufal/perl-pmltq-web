@@ -1,6 +1,6 @@
 describe('resultHolder', function() {
 
-  beforeEach(module('pmltqTreebank'));
+  beforeEach(module('pmltq.result'));
 
   it('should ...', inject(function(resultHolder) {
 

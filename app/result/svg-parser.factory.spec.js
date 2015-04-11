@@ -1,6 +1,6 @@
 describe('svgParser', function() {
 
-  beforeEach(module('pmltqTreebank'));
+  beforeEach(module('pmltq.result'));
 
   it('should ...', inject(function(svgParser) {
 

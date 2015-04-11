@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').filter('treebankFilter', function() {
+angular.module('pmltq.treebank').filter('treebankFilter', function() {
   return function(list, filter) {
     if (!filter) {
       return list;

@@ -1,4 +1,4 @@
-angular.module('pmltqHelp').directive('treebankHelp', function($window, $timeout) {
+angular.module('pmltq.help').directive('treebankHelp', function($window, $timeout) {
   function affixFactory (element, options) {
     // var affix = $affix(element, options);
     // options.scope.$on('$destroy', function() {
@@ -22,7 +22,7 @@ angular.module('pmltqHelp').directive('treebankHelp', function($window, $timeout
       metadata: '=treebankHelp',
       navigation: '='
     },
-    templateUrl: 'pmltqHelp/treebank/treebankHelp.html',
+    templateUrl: 'pmltq.help/treebank/treebankHelp.html',
     link: function($scope, $element, $attrs) {
       if (angular.isUndefined($scope.navigation)) {
         $scope.navigation = true;

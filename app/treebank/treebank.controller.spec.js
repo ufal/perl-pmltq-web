@@ -1,6 +1,6 @@
 describe('TreebankController', function() {
 
-  beforeEach(module('pmltqWeb'));
+  beforeEach(module('pmltq.treebank'));
 
   var scope,ctrl;
 

@@ -1,4 +1,4 @@
-angular.module('pmltqWeb').directive('focusElement', function($document) {
+angular.module('pmltq.shared').directive('focusElement', function($document) {
 	return {
 		restrict: 'A',
 		link: function(scope, element, attrs, fn) {

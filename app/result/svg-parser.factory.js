@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').factory('svgParser', function() {
+angular.module('pmltq.result').factory('svgParser', function() {
 
   var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
 

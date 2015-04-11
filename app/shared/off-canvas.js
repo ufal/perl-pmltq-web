@@ -1,5 +1,5 @@
 // Inspired by https://github.com/jasny/bootstrap/blob/master/js/offcanvas.js
-angular.module('pmltqWeb').factory('offCanvas',function($, $http, $timeout, $compile, $templateCache, $document, $rootScope) {
+angular.module('pmltq.shared').factory('offCanvas',function($, $http, $timeout, $compile, $templateCache, $document, $rootScope) {
 
   var defaults = {
     template: '',

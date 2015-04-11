@@ -1,6 +1,6 @@
 describe('SearchController', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('pmltq.home'));
 
 	var scope,ctrl;
 

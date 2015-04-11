@@ -1,6 +1,6 @@
 describe('HelpCtrl', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('pmltq.help'));
 
 	var scope,ctrl;
 

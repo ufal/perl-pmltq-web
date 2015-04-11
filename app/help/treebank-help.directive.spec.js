@@ -1,6 +1,6 @@
 describe('treebankHelp', function() {
 
-  beforeEach(module('pmltqHelp'));
+  beforeEach(module('pmltq.help'));
 
   var scope,compile;
 

@@ -1,10 +1,10 @@
-angular.module('pmltqTreebank').directive('resultControls', function() {
+angular.module('pmltq.result').directive('resultControls', function() {
   return {
     restrict: 'A',
     scope: {
       result: '=resultControls',
     },
-    templateUrl: 'pmltqTreebank/directive/resultControls/resultControls.html',
+    templateUrl: 'pmltq.result/directive/resultControls/resultControls.html',
     link: function($scope) {
       $scope.$watch('result.resultNo', function(resultNo, oldResultNo) {
         var result = $scope.result;

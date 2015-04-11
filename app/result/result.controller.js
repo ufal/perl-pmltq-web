@@ -1,4 +1,4 @@
-angular.module('pmltqWeb').controller('ResultCtrl',function($scope){
+angular.module('pmltq.result').controller('ResultCtrl',function($scope){
 
 
 });

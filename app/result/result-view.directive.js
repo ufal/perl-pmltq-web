@@ -1,4 +1,4 @@
-angular.module('pmltqTreebank').directive('resultView', function(constants) {
+angular.module('pmltq.result').directive('resultView', function(constants) {
   var STATE_LOADING = constants.STATE_LOADING;
 
   return {
@@ -7,7 +7,7 @@ angular.module('pmltqTreebank').directive('resultView', function(constants) {
       treebank: '=resultView',
       result:   '=*queryResult'
     },
-    templateUrl: 'pmltqTreebank/directive/resultView/resultView.html',
+    templateUrl: 'pmltq.result/directive/resultView/resultView.html',
     link: function($scope, $element, $attrs) {
       constants.extractTo($scope);
       $scope.$watch('result.submited', function(val) {

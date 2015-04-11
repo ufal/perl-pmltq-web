@@ -1,6 +1,6 @@
 describe('HistoryCtrl', function() {
 
-	beforeEach(module('pmltqWeb'));
+	beforeEach(module('pmltq.history'));
 
 	var scope,ctrl;
 

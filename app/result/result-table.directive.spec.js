@@ -1,6 +1,6 @@
 describe('resultTable', function() {
 
-  beforeEach(module('pmltqTreebank'));
+  beforeEach(module('pmltq.result'));
 
   var scope,compile;
 
