@@ -5,7 +5,7 @@ angular.module('pmltq.query').directive('queryMenu', function() {
 		scope: {
 
 		},
-		templateUrl: 'query/query-menu.directive.html'
+		templateUrl: 'query/query-menu.directive.html',
 		link: function(scope, element, attrs, fn) {
 
 

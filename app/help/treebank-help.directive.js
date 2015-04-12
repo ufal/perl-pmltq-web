@@ -22,7 +22,7 @@ angular.module('pmltq.help').directive('treebankHelp', function($window, $timeou
       metadata: '=treebankHelp',
       navigation: '='
     },
-    templateUrl: 'help/treebank-help.directive.html'
+    templateUrl: 'help/treebank-help.directive.html',
     link: function($scope, $element, $attrs) {
       if (angular.isUndefined($scope.navigation)) {
         $scope.navigation = true;

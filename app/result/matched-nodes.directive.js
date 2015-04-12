@@ -4,7 +4,7 @@ angular.module('pmltq.result').directive('matchedNodes', function() {
 		scope: {
       result: '=matchedNodes'
 		},
-		templateUrl: 'result/matched-nodes.directive.html'
+		templateUrl: 'result/matched-nodes.directive.html',
 		link: function(scope, element, attrs, fn) {
 
 

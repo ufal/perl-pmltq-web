@@ -7,7 +7,7 @@ angular.module('pmltq.result').directive('resultView', function(constants) {
       treebank: '=resultView',
       result:   '=*queryResult'
     },
-    templateUrl: 'result/result-view.directive.html'
+    templateUrl: 'result/result-view.directive.html',
     link: function($scope, $element, $attrs) {
       constants.extractTo($scope);
       $scope.$watch('result.submited', function(val) {

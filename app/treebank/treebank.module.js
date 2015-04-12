@@ -4,7 +4,7 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
 
   $stateProvider.state('treebank', {
     url: '/treebank/:treebankId',
-    templateUrl: 'partial/treebank/treebank.html',
+    templateUrl: 'treebank/treebank.html',
     controller: 'TreebankController',
     abstract: true,
     resolve: {
