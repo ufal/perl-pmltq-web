@@ -1,71 +1,86 @@
 doctype html
-html(ng-app="pmltqWeb")
+html(ng-app="pmltq")
   head
     title PML Tree-Query Engine
     meta(name="keywords",content="treebank search query tree constituency dependency")
     meta(name="viewport",content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
-    link(href="bower_components/semantic-ui/dist/semantic.css",type="text/css",rel="stylesheet")
-    link(href="app.css",type="text/css",rel="stylesheet")
+    // build:css styles/vendor.css
+    // bower:css
+    link(rel='stylesheet', href='bower_components/angular-loading-bar/build/loading-bar.css')
+    link(rel='stylesheet', href='bower_components/semantic-ui/dist/semantic.css')
+    // endbower
+    // endbuild
+    // build:css({.tmp/serve,app}) styles/app.css
+    // inject:css
+    link(rel="stylesheet", href="pmltq.css")
+    // endinject
+    // endbuild
   body
-    //-  Livereload script for development only (stripped during dist build)
-    script(src="http://localhost:35729/livereload.js",data-concat="false")
-
-    //- JS from Bower Components
-    script(src="bower_components/jquery/jquery.js")
-    script(src="bower_components/semantic-ui/dist/semantic.js")
-    script(src="bower_components/lodash/lodash.js")
-    script(src="bower_components/moment/moment.js")
-    script(src="bower_components/angular/angular.js")
-    script(src="bower_components/restangular/dist/restangular.js")
-    script(src="bower_components/angular-ui-router/release/angular-ui-router.js")
-    script(src="bower_components/angular-local-storage/dist/angular-local-storage.js")
-    script(src="bower_components/angular-scroll/angular-scroll.js")
-    script(src="bower_components/angular-loading-bar/src/loading-bar.js")
-    //- Add New Bower Component JS Above
-
-    //- Main App JS
-    script(src="app.js")
-    script(src="directive/focusElement.js")
-    script(src="directive/toggleOffcanvas.js")
-    script(src="partial/browse/browse.js")
-    script(src="partial/home/home.js")
-    script(src="partial/treebank/treebank.js")
-    script(src="pmltqHelp/pmltqHelp.js")
-    script(src="pmltqHelp/treebank/treebankHelp.js")
-    script(src="pmltqHistory/pmltqHistory.js")
-    script(src="pmltqTreebank/pmltqTreebank.js")
-    script(src="pmltqTreebank/directive/treebankListItem/treebankListItem.js")
-    script(src="pmltqTreebank/service/treebanksApi.js")
-    script(src="pmltqTreebank/filter/treebankFilter.js")
-    script(src="pmltqTreebank/directive/treebankDetail.js")
-    script(src="pmltqTreebank/directive/queryForm/queryForm.js")
-    script(src="pmltqTreebank/directive/queryMenu/queryMenu.js")
-    script(src="pmltqTreebank/directive/querySuggest/querySuggest.js")
-    script(src="pmltqTreebank/directive/queryVisualize.js")
-    script(src="pmltqTreebank/directive/resultControls/resultControls.js")
-    script(src="directive/updateModelOnEnterKeyPressed.js")
-    script(src="pmltqTreebank/directive/resultView/resultView.js")
-    script(src="pmltqTreebank/directive/resultTable.js")
-    script(src="pmltqTreebank/directive/resultSvg/resultSvg.js")
-    script(src="pmltqTreebank/service/svgParser.js")
-    script(src="pmltqTreebank/directive/resultSentence/resultSentence.js")
-    script(src="pmltqTreebank/directive/matchedNodes/matchedNodes.js")
-    script(src="pmltqTreebank/directive/resultTitle/resultTitle.js")
-    script(src="service/offCanvas.js")
-    script(src="pmltqTreebank/service/resultHolder.js")
-    script(src="pmltqTreebank/directive/queryTextbox/queryTextbox.js")
-    script(src="semanticUI/semanticUI.js")
-    script(src="semanticUI/directive/uiPopup.js")
-    script(src="semanticUI/directive/uiCheckbox.js")
-    script(src="partial/query/query.js")
-    script(src="partial/suggest/suggest.js")
-    script(src="partial/history/history.js")
-    script(src="partial/result/result.js")
-    script(src="partial/help/help.js")
-    script(src="semanticUI/directive/uiDropdown.js")
-    script(src="pmltqHistory/service/historyApi.js")
-    script(src="semanticUI/directive/uiSticky.js")
-    //- Add New Component JS Above
-
     .page-view(ui-view)
+    // build:js scripts/vendor.js
+    // bower:js
+    script(src='bower_components/jquery/jquery.js')
+    script(src='bower_components/lodash/lodash.js')
+    script(src='bower_components/angular/angular.js')
+    script(src='bower_components/angular-ui-router/release/angular-ui-router.js')
+    script(src='bower_components/angular-cookies/angular-cookies.js')
+    script(src='bower_components/angular-mocks/angular-mocks.js')
+    script(src='bower_components/moment/moment.js')
+    script(src='bower_components/angular-local-storage/dist/angular-local-storage.js')
+    script(src='bower_components/restangular/dist/restangular.js')
+    script(src='bower_components/angular-ui-ace/ui-ace.js')
+    script(src='bower_components/angular-scroll/angular-scroll.js')
+    script(src='bower_components/angular-loading-bar/build/loading-bar.js')
+    script(src='bower_components/semantic-ui/dist/semantic.js')
+    // endbower
+    // endbuild
+    // build:js({.tmp/serve,.tmp/partials,.tmp,app}) scripts/app.js
+    // inject:js
+    script(src="treebank/treebank.module.js")
+    script(src="treebank/treebanks-api.service.js")
+    script(src="treebank/treebank.filter.js")
+    script(src="treebank/treebank.controller.js")
+    script(src="treebank/treebank-list-item.directive.js")
+    script(src="treebank/browse.controller.js")
+    script(src="shared/shared.module.js")
+    script(src="shared/update-model-on-enter-key-pressed.directive.js")
+    script(src="shared/toggle-offcanvas.directive.js")
+    script(src="shared/off-canvas.js")
+    script(src="shared/focus-element.directive.js")
+    script(src="semantic-ui/semantic-ui.module.js")
+    script(src="semantic-ui/ui-sticky.directive.js")
+    script(src="semantic-ui/ui-popup.directive.js")
+    script(src="semantic-ui/ui-dropdown.directive.js")
+    script(src="semantic-ui/ui-checkbox.directive.js")
+    script(src="result/result.module.js")
+    script(src="result/svg-parser.factory.js")
+    script(src="result/result.controller.js")
+    script(src="result/result-view.directive.js")
+    script(src="result/result-title.directive.js")
+    script(src="result/result-table.directive.js")
+    script(src="result/result-svg.directive.js")
+    script(src="result/result-sentence.directive.js")
+    script(src="result/result-holder.factory.js")
+    script(src="result/result-controls.directive.js")
+    script(src="result/matched-nodes.directive.js")
+    script(src="query/query.module.js")
+    script(src="query/query.controller.js")
+    script(src="query/query-visualize.directive.js")
+    script(src="query/query-suggest.directive.js")
+    script(src="query/query-menu.directive.js")
+    script(src="query/query-form.directive.js")
+    script(src="home/home.module.js")
+    script(src="home/home.controller.js")
+    script(src="history/history.module.js")
+    script(src="history/history.controller.js")
+    script(src="history/history-api.service.js")
+    script(src="help/help.module.js")
+    script(src="help/treebank-help.directive.js")
+    script(src="help/help.controller.js")
+    script(src="pmltq.module.js")
+    // endinject
+    // inject:partials
+    // angular templates will be automatically inserted here
+    // endinject
+    // endbuild
