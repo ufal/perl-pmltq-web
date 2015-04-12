@@ -17,7 +17,7 @@ angular.module('pmltq').config(function($stateProvider, $urlRouterProvider, Rest
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module('pmltqWeb')
+angular.module('pmltq')
 .run(function($rootScope) {
 
   $rootScope.safeApply = function(fn) {
