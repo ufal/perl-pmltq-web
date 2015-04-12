@@ -1,33 +1,12 @@
-//@import "bower_components/semantic-ui/src/semantic.less";
-// @import "bower_components/bootstrap/less/bootstrap.less";
-//@import "bower_components/bootstrap/less/theme.less";
-@import "bower_components/font-awesome/less/font-awesome.less";
-@import (css) "bower_components/angular-loading-bar/src/loading-bar.css";
-// @import "bower_components/jasny-bootstrap/less/jasny-bootstrap.less";
-
-// @import "bower_components/angular-motion/src/collapse/collapse.less";
-// @import "bower_components/angular-motion/src/fade/fade.less";
-// @import "bower_components/angular-motion/src/fade-and-scale/fade-and-scale.less";
-// @import "bower_components/angular-motion/src/fade-and-slide/fade-and-slide.less";
-// @import "bower_components/angular-motion/src/flip/flip.less";
-// @import "bower_components/angular-motion/src/slide/slide.less";
-
-
-/* Component LESS */
-@import "partial/home/home.less";
-@import "partial/navigation/navigation.less";
-@import "partial/treebank/treebank.less";
-@import "partial/browse/browse.less";
-@import "pmltqTreebank/pmltqTreebank.less";
-@import "pmltqHelp/pmltqHelp.less";
-@import "pmltqHistory/pmltqHistory.less";
-@import "semanticUI/semanticUI.less";
-@import "partial/query/query.less";
-@import "partial/suggest/suggest.less";
-@import "partial/history/history.less";
-@import "partial/result/result.less";
-@import "partial/help/help.less";
-/* Add Component LESS Above */
+// injector
+@import 'help/help.less';
+@import 'history/history.less';
+@import 'home/home.less';
+@import 'query/query.less';
+@import 'result/result.less';
+@import 'semantic-ui/semantic-ui.less';
+@import 'treebank/treebank.less';
+// endinjector
 
 // Variables
 
@@ -116,15 +95,3 @@ pre {
     border: none;
   }
 }
-
-/* Personal preference for BS modal.  The LESS below makes the backdrop white and
-   causes the modal to fade in rather than slide in. */
-//@modal-backdrop-bg: white;
-//.modal {
-//	&.fade {
-//		.transition(opacity .3s);
-//	}
-//	&.fade .modal-dialog {
-//		.translate(0,0);
-//	}
-//}
