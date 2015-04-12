@@ -4,7 +4,7 @@ describe('offCanvas', function() {
 
   it('should ...', inject(function(offCanvas) {
 
-	//expect(offCanvas.doSomething()).toEqual('something');
+    //expect(offCanvas.doSomething()).toEqual('something');
 
   }));
 

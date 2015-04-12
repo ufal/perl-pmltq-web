@@ -2,9 +2,9 @@ describe('TreebankController', function() {
 
   beforeEach(module('pmltq.treebank'));
 
-  var scope,ctrl;
+  var scope, ctrl;
 
-    beforeEach(inject(function($rootScope, $controller) {
+  beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
       ctrl = $controller('TreebankController', {$scope: scope, treebank: {}, history: {}});
     }));

@@ -1,13 +1,12 @@
 angular.module('pmltq.result').directive('matchedNodes', function() {
-	return {
-		restrict: 'A',
-		scope: {
+  return {
+    restrict: 'A',
+    scope: {
       result: '=matchedNodes'
-		},
-		templateUrl: 'result/matched-nodes.directive.html',
-		link: function(scope, element, attrs, fn) {
+    },
+    templateUrl: 'result/matched-nodes.directive.html',
+    link: function(scope, element, attrs, fn) {
 
-
-		}
-	};
+    }
+  };
 });

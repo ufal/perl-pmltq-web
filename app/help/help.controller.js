@@ -1,4 +1,3 @@
-angular.module('pmltq.help').controller('HelpCtrl',function($scope){
-
+angular.module('pmltq.help').controller('HelpCtrl', function($scope) {
 
 });

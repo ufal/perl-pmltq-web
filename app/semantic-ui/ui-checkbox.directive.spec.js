@@ -4,7 +4,7 @@ describe('uiCheckbox', function() {
 
   var scope, compile;
 
-  beforeEach(inject(function($rootScope,$compile) {
+  beforeEach(inject(function($rootScope, $compile) {
     scope = $rootScope.$new();
     compile = $compile;
   }));

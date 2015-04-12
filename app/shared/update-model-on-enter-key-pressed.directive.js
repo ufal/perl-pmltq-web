@@ -1,13 +1,13 @@
 angular.module('pmltq.shared').directive('updateModelOnEnterKeyPressed', function() {
-	return {
-		restrict: 'A',
+  return {
+    restrict: 'A',
     require: 'ngModel',
-		link: function($scope, $element, $attrs, ngModel) {
+    link: function($scope, $element, $attrs, ngModel) {
       $element.bind('keyup', function(e) {
         if (e.keyCode === 13) {
           ngModel.$commitViewValue();
         }
       });
-		}
-	};
+    }
+  };
 });

@@ -6,7 +6,7 @@ angular.module('semanticUI').directive('uiSticky', function() {
     },
     link: function($scope, $element, $attrs) {
       $scope.$watch('options', function(options) {
-        if (angular.isUndefined(options) || options === $attrs['uiSticky']) {
+        if (angular.isUndefined(options) || options === $attrs.uiSticky) {
           options = {};
         }
         $($element).sticky(options);

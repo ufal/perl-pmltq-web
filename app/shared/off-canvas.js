@@ -1,5 +1,6 @@
 // Inspired by https://github.com/jasny/bootstrap/blob/master/js/offcanvas.js
-angular.module('pmltq.shared').factory('offCanvas',function($, $http, $timeout, $compile, $templateCache, $document, $rootScope) {
+angular.module('pmltq.shared').factory('offCanvas',
+function($, $http, $timeout, $compile, $templateCache, $document, $rootScope) {
 
   var defaults = {
     template: '',
@@ -16,7 +17,7 @@ angular.module('pmltq.shared').factory('offCanvas',function($, $http, $timeout, 
 
   var fetchPromises = {};
   function fetchTemplate(template) {
-    if(fetchPromises[template]) {
+    if (fetchPromises[template]) {
       return fetchPromises[template];
     }
     return (fetchPromises[template] = $http.get(template, {cache: $templateCache}).then(function(res) {
@@ -33,7 +34,7 @@ angular.module('pmltq.shared').factory('offCanvas',function($, $http, $timeout, 
     var offCanvasElement, offCanvasLinker, offCanvasObject;
     offCanvas.promise = fetchTemplate(options.template);
     var scope = offCanvas.scope = options.scope && options.scope.$new() || $rootScope.$new();
-    if(!options.container) {
+    if (!options.container) {
       options.container = 'body';
     }
 
@@ -55,7 +56,7 @@ angular.module('pmltq.shared').factory('offCanvas',function($, $http, $timeout, 
     };
 
     offCanvas.init = function() {
-      if(options.show) {
+      if (options.show) {
         scope.$$postDigest(function() {
           offCanvas.show();
         });

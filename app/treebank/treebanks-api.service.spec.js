@@ -4,7 +4,7 @@ describe('treebanksApi', function() {
 
   it('should ...', inject(function(treebanksApi) {
 
-	//expect(treebanks.doSomething()).toEqual('something');
+    //expect(treebanks.doSomething()).toEqual('something');
 
   }));
 

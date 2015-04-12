@@ -1,4 +1,4 @@
-angular.module('pmltq.treebank').controller('BrowseTreebanksController', function($scope, treebanksApi){
+angular.module('pmltq.treebank').controller('BrowseTreebanksController', function($scope, treebanksApi) {
   var ctrl = this;
   ctrl.state = 'loading';
 

@@ -1,4 +1,4 @@
-angular.module('pmltq.treebank').controller('TreebankController', function($scope, $state, resultHolder, treebank, history) {
+angular.module('pmltq.treebank').controller('TreebankController', function($scope, resultHolder, treebank, history) {
   $scope.treebank = treebank;
   $scope.history = history;
   $scope.result = resultHolder();

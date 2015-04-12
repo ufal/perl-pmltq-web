@@ -47,7 +47,7 @@ angular.module('semanticUI').directive('uiDropdown', function($timeout) {
     for (var i = 0, ii = items.length; i < ii; i++) {
       var item = items[i];
       if (!angular.isObject(item)) {
-        item = { value: item, title: item };
+        item = {value: item, title: item};
       }
       filtered.push(item);
     }

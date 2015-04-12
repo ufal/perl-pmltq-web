@@ -2,7 +2,7 @@ angular.module('pmltq.result').directive('resultControls', function() {
   return {
     restrict: 'A',
     scope: {
-      result: '=resultControls',
+      result: '=resultControls'
     },
     templateUrl: 'result/result-controls.directive.html',
     link: function($scope) {

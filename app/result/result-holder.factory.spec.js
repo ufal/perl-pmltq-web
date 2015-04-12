@@ -4,7 +4,7 @@ describe('resultHolder', function() {
 
   it('should ...', inject(function(resultHolder) {
 
-	//expect(resultHolder.doSomething()).toEqual('something');
+    //expect(resultHolder.doSomething()).toEqual('something');
 
   }));
 

@@ -7,7 +7,6 @@ angular.module('pmltq.result').directive('resultSentence', function() {
     templateUrl: 'result/result-sentence.directive.html',
     link: function($scope, element, attrs, fn) {
 
-
     }
   };
 });

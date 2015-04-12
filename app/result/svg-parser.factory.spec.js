@@ -4,7 +4,7 @@ describe('svgParser', function() {
 
   it('should ...', inject(function(svgParser) {
 
-	//expect(svgParser.doSomething()).toEqual('something');
+    //expect(svgParser.doSomething()).toEqual('something');
 
   }));
 

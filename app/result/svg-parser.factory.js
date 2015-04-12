@@ -22,7 +22,7 @@ angular.module('pmltq.result').factory('svgParser', function() {
         },
         parts = str.split(/\s+/);
 
-    while(parts.length > 0) {
+    while (parts.length > 0) {
       var part = parts.shift();
 
       switch (part.charAt(0)) {
@@ -46,7 +46,7 @@ angular.module('pmltq.result').factory('svgParser', function() {
     return res;
   }
 
-	function SvgParserFactory(svg) {
+  function SvgParserFactory(svg) {
     var parser = {},
         data = {};
 
@@ -104,5 +104,5 @@ angular.module('pmltq.result').factory('svgParser', function() {
     return parser;
   }
 
-	return SvgParserFactory;
+  return SvgParserFactory;
 });

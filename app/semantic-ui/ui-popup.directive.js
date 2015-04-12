@@ -6,7 +6,7 @@ angular.module('semanticUI').directive('uiPopup', function() {
     },
     link: function($scope, $element, $attrs) {
       $scope.$watch('options', function(options) {
-        if (angular.isUndefined(options) || options === $attrs['uiPopup']) {
+        if (angular.isUndefined(options) || options === $attrs.uiPopup) {
           options = {};
         }
         $($element).popup(options);

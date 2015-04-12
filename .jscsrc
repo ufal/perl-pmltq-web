@@ -13,12 +13,12 @@
     "requireOperatorBeforeLineBreak": true,
     "requireCamelCaseOrUpperCaseIdentifiers": true,
     "maximumLineLength": {
-      "value": 100,
+      "value": 120,
       "allowComments": true,
       "allowRegex": true
     },
-    "validateIndentation": 4,
-    "validateQuoteMarks": "'",
+    "validateIndentation": 2,
+    "validateQuoteMarks": {"mark" : "'", "escape": true},
 
     "disallowMultipleLineStrings": true,
     "disallowMixedSpacesAndTabs": true,
@@ -64,9 +64,10 @@
     "disallowDanglingUnderscores": null,
     "disallowEmptyBlocks": null,
     "disallowMultipleLineStrings": null,
-    "disallowTrailingComma": null,
+    "disallowTrailingComma": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
     "requireCommaBeforeLineBreak": null,
-    "requireDotNotation": null,
+    "requireDotNotation": true,
     "requireMultipleVarDecl": null,
     "requireParenthesesAroundIIFE": true
 }

@@ -1,4 +1,4 @@
-angular.module('pmltq.result').factory('resultHolder',function(constants, _) {
+angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
   var RESULT_TYPE_NODES = constants.RESULT_TYPE_NODES,
       RESULT_TYPE_TABLE = constants.RESULT_TYPE_TABLE;
 
@@ -6,7 +6,7 @@ angular.module('pmltq.result').factory('resultHolder',function(constants, _) {
       forEach = angular.forEach;
 
   function ResultFactory(initial) {
-    var resultHolder = initial || { isEmpty: true },
+    var resultHolder = initial || {isEmpty: true},
         resultData = null;
 
     resultHolder.empty = function() {
