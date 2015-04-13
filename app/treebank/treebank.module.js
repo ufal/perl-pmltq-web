@@ -1,4 +1,4 @@
-angular.module('pmltq.treebank', ['pmltq.shared', 'pmltq.history', 'pmltq.help']);
+angular.module('pmltq.treebank', ['pmltq.shared', 'pmltq.history', 'pmltq.query', 'pmltq.result', 'pmltq.help']);
 
 angular.module('pmltq.treebank').config(function($stateProvider) {
 

@@ -8,13 +8,11 @@ function isOnlyChange(event) {
 }
 
 module.exports = function(options) {
-  gulp.task('watch', ['markups', 'inject'], function () {
-
-    gulp.watch([options.src + '/*.{html,jade}', 'bower.json'], ['inject']);
+  gulp.task('watch', ['markups'], function () {
 
     gulp.watch([
-      options.src + '/{app,components}/**/*.css',
-      options.src + '/{app,components}/**/*.less'
+      options.src + '/**/*.css',
+      options.src + '/**/*.less'
     ], function(event) {
       if(isOnlyChange(event)) {
         gulp.start('styles');
@@ -23,21 +21,14 @@ module.exports = function(options) {
       }
     });
 
-    gulp.watch([
-      options.src + '/{app,components}/**/*.js',
-      options.src + '/{app,components}/**/*.coffee'
-    ], function(event) {
+    gulp.watch([ options.src + '/**/*.js' ], function(event) {
       if(isOnlyChange(event)) {
-        gulp.start('scripts');
+        gulp.start('scripts:watch');
       } else {
         gulp.start('inject');
       }
     });
 
-    gulp.watch(options.src + '/{app,components}/**/*.jade', ['markups']);
-
-    gulp.watch(options.src + '/{app,components}/**/*.html', function(event) {
-      browserSync.reload(event.path);
-    });
+    gulp.watch(options.src + '/**/*.jade', ['markups']);
   });
 };

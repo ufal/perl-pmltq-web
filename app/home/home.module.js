@@ -1,4 +1,4 @@
-angular.module('pmltq.home', ['pmltq.shared']);
+angular.module('pmltq.home', ['pmltq.shared', 'pmltq.treebank']);
 
 angular.module('pmltq.home').config(function($stateProvider) {
 

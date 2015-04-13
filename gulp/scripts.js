@@ -8,13 +8,22 @@ var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
 
+  var jsSources = [options.src + '/*.js', options.src + '/**/*.js'];
+
   gulp.task('scripts', function () {
-    return gulp.src([options.src + '/*.js', options.src + '/**/*.js'])
-        .pipe($.if(args.verbose, $.print()))
-        .pipe($.jshint())
-        .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
-        .pipe($.jshint.reporter('fail'))
-        .pipe($.jscs());
+    return gulp.src(jsSources)
+      .pipe($.if(args.verbose, $.print()))
+      .pipe($.jshint())
+      .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
+      .pipe($.jshint.reporter('fail'))
+      .pipe($.jscs());
+  });
+
+  gulp.task('scripts:watch', function () {
+    return gulp.src(jsSources)
+      .pipe($.jshint())
+      .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
+      .pipe($.jscs());
   });
 
   /**

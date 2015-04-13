@@ -1,4 +1,4 @@
-describe('SearchController', function() {
+describe('HomeController', function() {
 
   beforeEach(module('pmltq.home'));
 
@@ -6,7 +6,7 @@ describe('SearchController', function() {
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('SearchController', {$scope: scope});
+      ctrl = $controller('HomeController', {$scope: scope});
     }));
 
   it('should ...', inject(function() {
