@@ -1,3 +1,3 @@
-angular.module('pmltq.query').controller('QueryCtrl', function($scope) {
-
+angular.module('pmltq.query').controller('QueryController', function($scope, treebank) {
+  $scope.treebank = treebank;
 });

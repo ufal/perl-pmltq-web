@@ -1,4 +1,4 @@
-describe('QueryCtrl', function() {
+describe('QueryController', function() {
 
   beforeEach(module('pmltq.query'));
 
@@ -6,7 +6,7 @@ describe('QueryCtrl', function() {
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('QueryCtrl', {$scope: scope});
+      ctrl = $controller('QueryController', {$scope: scope, treebank: {}});
     }));
 
   it('should ...', inject(function() {

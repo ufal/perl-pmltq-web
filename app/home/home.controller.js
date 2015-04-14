@@ -1,6 +1,4 @@
-angular.module('pmltq.home').controller('HomeController', function($scope, treebanksApi) {
-  treebanksApi.getList().then(function(data) {
-    $scope.featured = _.sample(data, 5);
-    $scope.recentlyUsed = _.sample(data, 2);
-  });
+angular.module('pmltq.home').controller('HomeController', function($scope, treebanks, _) {
+  $scope.featured = _.sample(treebanks, 5);
+  $scope.recentlyUsed = _.sample(treebanks, 3);
 });

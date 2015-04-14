@@ -6,7 +6,7 @@ describe('HomeController', function() {
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('HomeController', {$scope: scope});
+      ctrl = $controller('HomeController', {$scope: scope, treebanks: []});
     }));
 
   it('should ...', inject(function() {
