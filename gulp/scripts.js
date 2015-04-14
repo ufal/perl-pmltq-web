@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var glob = require('glob');
 var log = require('gulp-util').log;
 var $ = require('gulp-load-plugins')();
+var browserSync = require('browser-sync');
 
 module.exports = function(options) {
 
@@ -23,7 +24,8 @@ module.exports = function(options) {
     return gulp.src(jsSources)
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
-      .pipe($.jscs());
+      .pipe($.jscs())
+      .pipe(browserSync.reload({ stream: true }));
   });
 
   /**

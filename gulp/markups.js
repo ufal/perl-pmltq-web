@@ -6,15 +6,25 @@ var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
-  gulp.task('markups', ['inject'], function() {
+
+  function compileJade() {
     function renameToHtml(path) {
       path.extname = '.html';
     }
 
     return gulp.src(options.src + '/**/*.jade')
+      .pipe($.cached('jade'))
       .pipe($.consolidate('jade', { basedir: options.src, doctype: 'html', pretty: '  ' })).on('error', options.errorHandler('Jade'))
       .pipe($.rename(renameToHtml))
       .pipe(gulp.dest(options.tmp + '/serve/'))
       .pipe(browserSync.reload({ stream: true }));
+  }
+
+  gulp.task('markups:watch', function() {
+    return compileJade();
+  });
+
+  gulp.task('markups', ['inject'], function() {
+    return compileJade();
   });
 };

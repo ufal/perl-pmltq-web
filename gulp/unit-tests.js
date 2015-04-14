@@ -42,7 +42,7 @@ module.exports = function(options) {
       karma.server.start({
         configFile: __dirname + '/../karma.conf.js',
         files: files,
-        reporters: singleRun ? ['dots'] : ['notify', 'mocha'], 
+        reporters: singleRun ? ['dots'] : ['notify', 'mocha'],
         singleRun: singleRun,
         autoWatch: !singleRun,
       }, done);
@@ -53,7 +53,7 @@ module.exports = function(options) {
     runTests(true, done);
   });
 
-  gulp.task('tdd', ['watch'], function(done) {
+  gulp.task('tdd', function(done) {
     runTests(false, done);
   });
 };

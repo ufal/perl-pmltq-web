@@ -29,6 +29,6 @@ module.exports = function(options) {
       }
     });
 
-    gulp.watch(options.src + '/**/*.jade', ['markups']);
+    gulp.watch(options.src + '/**/*.jade', ['markups:watch']);
   });
 };
