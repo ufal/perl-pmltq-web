@@ -28,6 +28,13 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
 
   $stateProvider.state('browse', {
     url: '/treebanks',
-    templateUrl: 'treebank/browse.html'
+    controller: 'BrowseTreebanksController',
+    controllerAs: 'vm',
+    templateUrl: 'treebank/browse.html',
+    resolve: {
+      treebanksList: function(treebanksApi) {
+        return treebanksApi.getList();
+      }
+    }
   });
 });

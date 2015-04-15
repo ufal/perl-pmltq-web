@@ -7,8 +7,7 @@
   .content
     a.header(ng-href="{{url}}")
       span(ng-if="!treebank.access")
-        i.fa.fa-lock(title="Login and permission required" ui-popup="" data-position="right center")
-        | &nbsp;
+        i.icon.lock(title="Login and permission required" ui-popup="" data-position="right center")
       | {{treebank.title}}
     .description {{treebank.description}}
     .extra

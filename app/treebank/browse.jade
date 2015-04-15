@@ -1,13 +1,11 @@
-main.ui.page.grid(ng-controller="BrowseTreebanksController as browse")
+main.ui.page.grid
   .column.filter-form
     h1.ui.header Browse Available Treebanks
-    div(ng-if="browse.state == 'loading'")
-      p Loading ...
-    div(ng-if="browse.state == 'error'")
-      p.alert.alert-info
-        strong No treebanks available at this moment.
-        | Please try later.
-    div(ng-if="browse.state == 'results'")
+    div(ng-if="vm.noTreebanks")
+      .ui.negative.message
+        .header No treebanks available at this moment.
+        p Please try later.
+    div(ng-if="!vm.noTreebanks")
       .ui.segment
         form.ui.form
           .field
@@ -16,35 +14,35 @@ main.ui.page.grid(ng-controller="BrowseTreebanksController as browse")
                 tabindex="1"
                 autofocus="autofocus"
                 type="text"
-                ng-model="filter.term"
+                ng-model="vm.filter.term"
                 placeholder="Filter treebanks ...")
               i.search.icon
           .field
             checkbox(type="toggle")
-              input#filter-accessible(type="checkbox" ng-model="filter.accessible")
+              input#filter-accessible(type="checkbox" ng-model="vm.filter.onlyAccessible")
               label(for="filter-accessible") Show only publicly accessible treebanks
           .field
             .ui.list
-              .item(ng-repeat="(name, lbs) in labels")
+              .item(ng-repeat="category in vm.filter.stickerCategories")
                 .ui.horizontal.labels
-                  strong {{name}}: &nbsp;
-                  .ui.label(ng-repeat="(name, count) in lbs" ng-model="filter.labels[name]")
-                    | {{name}}
-                    .detail {{count}}
-              .item
-                .ui.horizontal.labels
-                  strong Others: &nbsp;
-                  .ui.label(ng-repeat="(name, count) in freeLabels")
-                    | {{name}}
-                    .detail {{count}}
+                  strong {{category}}: &nbsp;
+                  .ui.clickable.label(
+                    ng-repeat="sticker in vm.filter.stickersByCategory[category]"
+                    ng-class="{ green: sticker.selected }"
+                    ng-click="sticker.toggle()")
+                    | {{sticker.name}}
+                    .detail {{sticker.remaining}}
 
           .ui.right.floated.column
             button.ui.basic.button(
               type="button"
-              ng-click="filter = {term: '', accessible: false, labels: {}}")
+              ng-click="vm.filter.reset()")
               | Reset filter
 
-      .ui.divided.items
-        div(treebank-list-item="tb" ui-sref="treebank.index({treebankId: tb.id})" ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
+      .ui.warning.message(ng-if="vm.filter.isEmpty")
+        .header These aren't the treebanks you're looking for...
+        | Sorry, no treebanks match the current filter. Try deselect the labels or reset the filter entirely.
+      .ui.divided.items(ng-hide="vm.filter.isEmpty")
+        div(treebank-list-item="tb" ui-sref="treebank.index({treebankId: tb.id})" ng-repeat="tb in vm.filter.treebanksList() track by tb.id")
       //- .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
       //-   treebank-box/(treebank="tb")
