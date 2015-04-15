@@ -139,10 +139,9 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
       if (!_.isEqual(newFiltered, oldFiltered)) {
         oldFiltered = newFiltered;
         updateRemaining(filter.stickersList, newFiltered);
-
-        filter.saveParams();
       }
 
+      filter.saveParams();
       filter.isEmpty = oldFiltered.length === 0;
 
       return oldFiltered;
