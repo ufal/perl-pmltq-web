@@ -24,7 +24,7 @@ module.exports = function(options) {
     return gulp.src(jsSources)
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
-      .pipe($.jscs())
+      .pipe($.jscs()).on('error', options.errorHandler('JSCS'))
       .pipe(browserSync.reload({ stream: true }));
   });
 
