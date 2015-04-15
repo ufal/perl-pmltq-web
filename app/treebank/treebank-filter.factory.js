@@ -170,6 +170,10 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
           sticker.selected = !!stickerMap[sticker.name];
         }
       }
+
+      // TODO(remove or improve): Initial load of label
+      var list = filter.treebanksList();
+      updateRemaining(filter.stickersList, list);
     };
 
     filter.reset = function () {
