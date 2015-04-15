@@ -1,4 +1,11 @@
-angular.module('pmltq.shared', ['ui.router', 'restangular', 'duScroll', 'angular-loading-bar', 'semanticUI']);
+angular.module('pmltq.shared', [
+  'angular-loading-bar',
+  'duScroll',
+  'LocalStorageModule',
+  'restangular',
+  'semanticUI',
+  'ui.router'
+]);
 
 angular.module('pmltq.shared')
 // TODO: Refactor - Move to separate module
