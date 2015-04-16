@@ -1,4 +1,4 @@
-angular.module('pmltq.result').factory('svgParser', function() {
+angular.module('pmltq.result').factory('svgParser', function($) {
 
   var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
 
@@ -46,6 +46,13 @@ angular.module('pmltq.result').factory('svgParser', function() {
     return res;
   }
 
+  function extractSvg(svgString) {
+    var svg = $($.trim(svgString.replace(/<\?[\s\S]*?\?>/, '')));
+    if (svg.length === 0) { return $('<svg />'); }
+    svg.attr('width', '100%');
+    return svg;
+  }
+
   function SvgParserFactory(svg) {
     var parser = {},
         data = {};
@@ -71,7 +78,7 @@ angular.module('pmltq.result').factory('svgParser', function() {
     }
 
     parser.content = function() {
-      return _.isString(svg) ? (svg = $(svg)) : svg;
+      return _.isString(svg) ? (svg = extractSvg(svg)) : svg;
     };
 
     parser.sentence = function() {

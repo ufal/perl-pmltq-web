@@ -47,20 +47,50 @@ angular.module('pmltq.result')
       }
     };
   })
-  .directive('svgContent', function() {
+  .directive('svgContent', function($, svgPanZoom, $window) {
+    var panOptions = {
+      fit: 1,
+      minZoom: 0.5,
+      maxZoom: 1.5,
+      zoomEnabled: false
+    };
+
     return {
       restrict: 'A',
       scope: {
         svg: '=svgContent'
       },
       link: function ($scope, $element, $attrs) {
+        var panZoom = null;
+
+        function resizeHandler () {
+          if (panZoom) {
+            panZoom.resize();
+            panZoom.fit();
+          }
+        }
+
+        $($element).css({overflow: 'hidden'});
+        $($window).bind('resize', resizeHandler);
+
         $scope.$watch('svg', function (svg) {
           if (!svg) {
+            if (panZoom) {
+              panZoom.destroy();
+            }
             $element.empty();
           } else {
-            $element.html(svg);
+            var content = svg();
+            $element.html(content);
+            panZoom = svgPanZoom(content[0], panOptions);
+            $('#svg-pan-zoom-controls', $element)
+              .attr('transform', 'translate(' + (content[0].clientWidth - 70) + ' 0) scale(0.75)');
           }
         }, false);
+
+        $scope.$on('destroy', function() {
+          $($window).unbind('resize', resizeHandler);
+        });
       }
     };
   });
