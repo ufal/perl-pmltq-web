@@ -179,7 +179,7 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
     filter.reset = function () {
       _.merge(filter, options.filterDefaults);
       _.forEach(filter.stickersList, function(sticker) { sticker.selected = false; });
-    }
+    };
 
     filter.reset();
 
