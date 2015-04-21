@@ -49,7 +49,6 @@ angular.module('pmltq.result').factory('svgParser', function($) {
   function extractSvg(svgString) {
     var svg = $($.trim(svgString.replace(/<\?[\s\S]*?\?>/, '')));
     if (svg.length === 0) { return $('<svg />'); }
-    svg.attr('width', '100%');
     svg.removeAttr('onload onmousemove onmouseout');
     svg.find('script').remove();
     return svg;

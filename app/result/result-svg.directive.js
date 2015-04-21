@@ -49,7 +49,9 @@ angular.module('pmltq.result')
   })
   .directive('svgContent', function($, svgPanZoom, $window) {
     var panOptions = {
-      fit: 1,
+      fit: false,
+      center: false,
+      viewportSelector: 'g[transform="translate(5 5)"]',
       minZoom: 0.5,
       maxZoom: 1.5,
       zoomEnabled: false
@@ -66,11 +68,9 @@ angular.module('pmltq.result')
         function resizeHandler () {
           if (panZoom) {
             panZoom.resize();
-            panZoom.fit();
           }
         }
 
-        $($element).css({overflow: 'hidden'});
         $($window).bind('resize', resizeHandler);
 
         $scope.$watch('svg', function (svg) {
@@ -83,13 +83,17 @@ angular.module('pmltq.result')
             var content = svg();
             $element.html(content);
             panZoom = svgPanZoom(content[0], panOptions);
-            $('#svg-pan-zoom-controls', $element)
-              .attr('transform', 'translate(' + (content[0].clientWidth - 70) + ' 0) scale(0.75)');
+            // $('#svg-pan-zoom-controls', $element)
+            //   .attr('transform', 'translate(' + (content[0].clientWidth - 70) + ' 0) scale(0.75)');
           }
         }, false);
 
         $scope.$on('destroy', function() {
           $($window).unbind('resize', resizeHandler);
+
+          if (panZoom) {
+            panZoom.destroy();
+          }
         });
       }
     };
