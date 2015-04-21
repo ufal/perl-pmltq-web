@@ -2,8 +2,8 @@
   .one.column.center.aligned.row(ng-switch-when="loading")
     .column
       .ui.text.active.inline.loader Loading
-  .one.column.row
-    .column(ng-switch-when="nodes")
+  .one.column.row(ng-switch-when="nodes")
+    .column
       .ui.grid(result-svg="treebank"
         node="{{result.currentResult[result.activeNode]}}"
         tree="{{result.tree}}"

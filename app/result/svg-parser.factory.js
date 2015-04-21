@@ -50,6 +50,8 @@ angular.module('pmltq.result').factory('svgParser', function($) {
     var svg = $($.trim(svgString.replace(/<\?[\s\S]*?\?>/, '')));
     if (svg.length === 0) { return $('<svg />'); }
     svg.attr('width', '100%');
+    svg.removeAttr('onload onmousemove onmouseout');
+    svg.find('script').remove();
     return svg;
   }
 
@@ -92,6 +94,9 @@ angular.module('pmltq.result').factory('svgParser', function($) {
       if (angular.isUndefined(data.title)) {
         var title = parser.content().children('title');
         data.title = _.isEmpty(title) ? '' : title.text();
+        if (!_.isEmpty(title)) {
+          title.remove();
+        }
       }
       return data.title;
     };
