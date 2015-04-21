@@ -8,18 +8,18 @@
         node="{{result.currentResult[result.activeNode]}}"
         tree="{{result.tree}}"
         svg="result.svg")
-        .three.column.row
+        .fitted.three.column.row
           .column
             div(result-controls="result")
           .column.center.aligned
             div(matched-nodes="result")
           .column.right.aligned
             div(result-title="result")
-        .one.column.white.row
+        .one.column.row
           .column
             .ui.segment(result-sentence="result.svg.sentence()")
-        .one.column.white.row
-          .column
+        .one.column.row
+          .white.column
             .svg-pane(svg-content="result.svg.content")
 
   div(ng-switch-when="table" result-table="result")

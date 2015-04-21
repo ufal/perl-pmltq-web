@@ -1,5 +1,5 @@
-main.ui.page.grid
-  .row
+main.ui.horizontally.padded.one.column.grid
+  .column
     .ui.large.pointing.menu
       .header.item(ng-bind="treebank.title")
       a.item(ui-sref="treebank.history" ui-sref-active="active")
@@ -22,5 +22,5 @@ main.ui.page.grid
           i.external.icon
           | Get data
 
-
-  .ui.grid(ui-view="")
+  .fitted.column
+    .ui.grid(ui-view="")
