@@ -45,7 +45,13 @@ module.exports = function(options) {
         reporters: singleRun ? ['dots'] : ['notify', 'mocha'],
         singleRun: singleRun,
         autoWatch: !singleRun,
-      }, done);
+      }, function(exitStatus) {
+        if (singleRun) {
+          done(exitStatus ? "There are failing unit tests" : undefined);
+        } else {
+          done(exitStatus);
+        }
+      });
     });
   }
 
