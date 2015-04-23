@@ -4,7 +4,7 @@ angular.module('pmltq.result').directive('sentenceToken', function($) {
     scope: {
       token: '=sentenceToken'
     },
-    require: '^resultSentence',
+    require: '^sentence',
     replace: true,
     template:
 
