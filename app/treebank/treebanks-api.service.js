@@ -1,4 +1,4 @@
-angular.module('pmltq.treebank').factory('treebanksApi', function (Restangular, $cacheFactory, $q, svgParser, sticker) {
+angular.module('pmltq.treebank').factory('treebanksApi', function (Restangular, $cacheFactory, $q, svgResult, sticker) {
   var svgCache = $cacheFactory('svg-result-cache');
   var stickerFactory = sticker({defaultCategory: 'Others'});
 
@@ -44,7 +44,7 @@ angular.module('pmltq.treebank').factory('treebanksApi', function (Restangular, 
             nodes: [node],
             tree: tree
           }).then(function(svg) {
-            svg = svgParser(svg);
+            svg = svgResult(svg);
             svgCache.put(key, svg);
             deferred.resolve(svg);
           }, deferred.reject);

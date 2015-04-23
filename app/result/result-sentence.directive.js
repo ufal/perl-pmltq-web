@@ -4,9 +4,10 @@ angular.module('pmltq.result').directive('resultSentence', function() {
     scope: {
       sentence: '=resultSentence'
     },
-    templateUrl: 'result/result-sentence.directive.html',
-    link: function($scope, element, attrs, fn) {
+    template:
 
-    }
+'<p class="result-sentence"><span ng-repeat="token in sentence" sentence-token="token"></span></p>',
+
+    controller: 'ResultSentenceController'
   };
 });
