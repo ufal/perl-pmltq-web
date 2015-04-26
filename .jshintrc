@@ -15,7 +15,7 @@
         "jQuery": true,
         "angular": true,
         "console": true,
-        "svgPanZoom": true,
+        "Snap": true,
         "$": true,
         "_": true,
         "moment": true,

@@ -20,7 +20,7 @@
             .ui.segment(sentence="result.svg.sentence()")
         .one.column.row
           .white.column
-            .svg-pane(svg-content="result.svg.content")
+            .svg-pane(svg-content="result.svg" nodes="result.currentResult")
 
   div(ng-switch-when="table" result-table="result")
   //- div(ng-switch-default)

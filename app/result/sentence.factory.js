@@ -41,20 +41,20 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
   function Sentence() { /* Intentionally empty */ }
 
   Sentence.prototype = _.create(Array.prototype, {
-    highlightNode: function(nodeId) {
-      if (this.lastHighlightedNode === nodeId) {
+    highlightToken: function(tokenId) {
+      if (this.lastHighlightedToken === tokenId) {
         return;
       }
 
       if (!this.idsIndex) {
-        this.rebuildNodeIndex();
+        this.rebuildtokenIndex();
       }
 
-      var nodes = this.idsIndex[nodeId];
-      if (nodes) {
-        for (var i = nodes.length - 1; i >= 0; i--) {
-          var node = nodes[i];
-          node.classes.highlight = true;
+      var tokens = this.idsIndex[tokenId];
+      if (tokens) {
+        for (var i = tokens.length - 1; i >= 0; i--) {
+          var token = tokens[i];
+          token.classes.highlight = true;
         }
       }
     },
@@ -63,7 +63,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
         this[i].classes.highlight = false;
       }
     },
-    rebuildNodeIndex: function() {
+    rebuildTokenIndex: function() {
       var index = this.idsIndex = {};
 
       for (var i = this.length - 1; i >= 0; i--) {
@@ -78,15 +78,14 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
     }
   });
 
-  function SentenceFactory(svgResult) {
-    var sentence = new Sentence(),
-        descNode = svgResult.content().children('desc').remove();
+  function SentenceFactory(tokens, result) {
+    var sentence = new Sentence();
 
-    if (_.isEmpty(descNode)) {
+    if (_.isEmpty(tokens)) {
       return sentence;
     }
 
-    descNode.find('span[class]').each(function() {
+    tokens.each(function() {
       var $this = $(this),
           classStr = $this.attr('class'),
           parsedData = parseClasses(classStr); // TODO: Convert this to some class maybe

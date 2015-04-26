@@ -1,0 +1,62 @@
+
+@node-colors: #66B032,
+              #ff9300,
+              #4a01c8,
+              #b901f2,
+              #0392CE,
+              #ffe100,
+              #96c944,
+              #fe662d,
+              #007FFF,
+              #C154C1,
+              #CC7722,
+              #FBFB00,
+              #00A86B,
+              #feb35b,
+              #CCCCFF,
+              #8844AA,
+              #987654,
+              #F0E68C,
+              #BFFF00,
+              #E68FAC,
+              #00FFFF,
+              #FFAAFF,
+              #996515,
+              #f3bd15,
+              #ADDFAD,
+              #FFCBA4,
+              #007BA7,
+              #CC99CC,
+              #B1A171,
+              #dddd00,
+              #6B8E23,
+              #FF8855,
+              #9BDDFF,
+              #FF00FF,
+              #654321,
+              #FFFACD,
+              #00FF00,
+              #FF2400,
+              #1560BD,
+              #997A8D,
+              #cda23d,
+              #FFFF77,
+              #D0EA2B,
+              #b71c0d,
+              #E2F9FF,
+              #c11d57,
+              #0247FE;
+
+@nodes-count: length(@node-colors);
+.generate-node-classes (@index) when (@index > 0) {
+  @color: extract(@node-colors, @index);
+  .matched-node-@{index} {
+    color: @color;
+    stroke: @color;
+    fill: @color;
+    stroke-width: 3;
+  }
+  .generate-node-classes ((@index - 1));
+}
+//.generate-node-classes(0) {}
+.generate-node-classes (@nodes-count);
