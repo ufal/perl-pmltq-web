@@ -16,6 +16,7 @@
         "angular": true,
         "console": true,
         "Snap": true,
+        "mina": true,
         "$": true,
         "_": true,
         "moment": true,

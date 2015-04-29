@@ -19,7 +19,9 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
       .replace(/<\?[\s\S]*?\?>/, '')
       .replace(/<svg[^>]*?>/mi, '<svg xmlns="http://www.w3.org/2000/svg" version="1.1">')
       .replace(/<script[^>]*?>[^]*?<\/script>/gmi, '');
-    return Snap.parse(_.trim(svgString));
+    var fragment = Snap.parse(_.trim(svgString));
+    fragment.select('g').node.removeAttribute('transform');
+    return fragment;
   }
 
   function parseNodeName (name) {
@@ -38,6 +40,15 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
     str = str.substr(pos + 1);
     str = str.split(' ', 1);
     return str[0];
+  }
+
+  /**
+   * @param {Snap.Element} node
+   */
+  function animateNode(node) {
+    node.animate({rx: '*=4', ry: '*=4'}, 1000, mina.easein, function () {
+      node.animate({rx: '/=4', ry: '/=4'}, 1000, mina.easeout);
+    });
   }
 
   /**
@@ -110,7 +121,8 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
         var svgNode = self.nodesMap[id];
         if (svgNode) {
           svgNode.addClass('matched-node-' + (i + 1));
-          svgNode.animate();
+          // TODO: replace with better animation
+          animateNode(svgNode);
         }
       }
     },
