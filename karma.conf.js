@@ -1,13 +1,36 @@
 'use strict';
 
+var wiredep = require('wiredep');
+var bowerDeps = wiredep({
+  directory: 'bower_components',
+  dependencies: true,
+  devDependencies: true
+});
+
+var files = [];
+
+bowerDeps.js.forEach(function(file) {
+  files.push({pattern: __dirname + '/' + file, included: true, served: true, watched: false});
+});
+
+files.push('app/**/*.js');
+
 module.exports = function(config) {
 
   var configuration = {
-    frameworks: ['jasmine'],
+    frameworks: ['angular-filesort', 'jasmine'],
 
     ngHtml2JsPreprocessor: {
       stripPrefix: '.tmp/serve/',
       moduleName: 'pmltq.shared'
+    },
+
+    files: files,
+
+    angularFilesort: {
+      whitelist: [
+        'app/**/*.js', '!app/**/*.(spec|mock).js'
+      ]
     },
 
     reporters : 'dots',
@@ -17,11 +40,12 @@ module.exports = function(config) {
     browsers : ['PhantomJS'],
 
     plugins : [
-      'karma-phantomjs-launcher',
+      'karma-angular-filesort',
       'karma-jasmine',
-      'karma-ng-html2js-preprocessor',
       'karma-mocha-reporter',
-      'karma-notify-reporter'
+      'karma-ng-html2js-preprocessor',
+      'karma-notify-reporter',
+      'karma-phantomjs-launcher'
     ],
 
     // reporter options
