@@ -59,7 +59,7 @@ module.exports = function(options) {
     runTests(true, done);
   });
 
-  gulp.task('tdd', function(done) {
+  gulp.task('tdd', ['serve'], function(done) {
     runTests(false, done);
   });
 };
