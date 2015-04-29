@@ -11,7 +11,7 @@ angular.module('pmltq.result')
       // transclude: true,
       // replace: true,
       // templateUrl: 'result/result-svg.directive.html',
-      link: function ($scope, $element, $attrs, controller) {
+      link: function ($scope) {
         var lastNode, lastTree;
 
         $scope.$watchGroup(['tree', 'node', 'treebank'], function showSvg () {
@@ -42,14 +42,14 @@ angular.module('pmltq.result')
       }
     };
   })
-  .directive('svgContent', function($, _, Snap, $window) {
+  .directive('svgContent', function ($, _) {
     return {
       restrict: 'A',
       scope: {
         svgResult: '=svgContent',
         nodes: '=?'
       },
-      link: function ($scope, $element, $attrs) {
+      link: function ($scope, $element) {
         $scope.$watch('svgResult', function (svgResult) {
           if (_.isEmpty(svgResult)) {
             $element.empty();
@@ -57,6 +57,7 @@ angular.module('pmltq.result')
             var content = svgResult.content();
             svgResult.highlightNodes($scope.nodes);
             $element.html(content.node);
+            svgResult.resize();
           }
         });
       }

@@ -8,6 +8,11 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
     return matches;
   }
 
+  /**
+   * Cleans up TrEd's svg and converts it to {Snap.Fragment}.
+   * @param {string} svgString
+   * @returns {Snap.Fragment}
+   */
   function extractSvg(svgString) {
     // cleanup string
     svgString = svgString
@@ -35,18 +40,35 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
     return str[0];
   }
 
+  /**
+   * @param {string} svg
+   * @constructor
+   */
   function TredSvg(svg) {
     this.svg = svg;
     this.data = {};
   }
 
   TredSvg.prototype = {
+    /**
+     * @returns {Snap.Fragment}
+     * @public
+     */
     content: function() {
       return _.isString(this.svg) ? (this.svg = extractSvg(this.svg)) : this.svg;
     },
+    /**
+     * @returns {jQuery}
+     * @private
+     */
     $content: function() {
       return _.isUndefined(this.$svg) ? (this.$svg = $(this.content().node)) : this.$svg;
     },
+    /**
+     * Get all tree nodes. Also fixes node classes.
+     * @returns {Snap.Set}
+     * @private
+     */
     extractNodes: function() {
       var self = this;
 
@@ -66,6 +88,10 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
 
       return self.nodes;
     },
+    /**
+     * Attach 'matched-node-*' classes specified nodes
+     * @param {Array} nodes
+     */
     highlightNodes: function(nodes) {
       var self = this;
 
@@ -84,9 +110,17 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
         var svgNode = self.nodesMap[id];
         if (svgNode) {
           svgNode.addClass('matched-node-' + (i + 1));
-          svgNode.animate()
+          svgNode.animate();
         }
       }
+    },
+    resize: function () {
+      var self = this,
+        content = self.content(),
+        g = content.select('g'),
+        box = g.getBBox();
+      content.node.setAttribute('width', Math.round(box.width + 10));
+      content.node.setAttribute('height', Math.round(box.height + 20));
     },
     sentence: function() {
       var self = this, data = self.data;

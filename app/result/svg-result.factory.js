@@ -5,7 +5,7 @@ angular.module('pmltq.result').factory('svgResult', function ($, _, sentence, tr
 
     svg = tredSvg(svg);
 
-    _.forEach(['content', 'sentence', 'title', 'tree', 'highlightNodes'], function(method) {
+    _.forEach(['content', 'sentence', 'title', 'tree', 'highlightNodes', 'resize'], function (method) {
       svgResult[method] = function() { return svg[method].apply(svg, arguments); };
     });
 
