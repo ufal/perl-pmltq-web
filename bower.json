@@ -22,10 +22,15 @@
     "angular-scroll": "~0.6.5",
     "angular-loading-bar": "~0.7.1",
     "semantic-ui": "~1.11.6",
-    "svg-pan-zoom": "~3.1.3"
+    "snap.svg": "~0.4.1"
   },
   "resolutions": {
     "angular": "~1.4",
     "lodash": "~3.6.0"
+  },
+  "overrides": {
+    "snap.svg": {
+      "main": "dist/snap.svg.js"
+    }
   }
 }

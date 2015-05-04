@@ -6,17 +6,13 @@ angular.module('pmltq.result')
         treebank: '=resultSvg',
         tree: '@',
         node: '@',
-        svg: '=*?'
+        svg: '=?'
       },
       // transclude: true,
       // replace: true,
       // templateUrl: 'result/result-svg.directive.html',
-      link: function ($scope, $element, $attrs, controller) {
+      link: function ($scope) {
         var lastNode, lastTree;
-
-        if ($scope.svg) {
-          $scope.svg = {};
-        }
 
         $scope.$watchGroup(['tree', 'node', 'treebank'], function showSvg () {
           var node = $scope.node,
@@ -25,7 +21,7 @@ angular.module('pmltq.result')
 
           if (_.some([treebank, node, tree], angular.isUndefined)) {
             lastNode = lastTree = undefined;
-            $scope.svg.empty = true;
+            $scope.svg = null;
             return;
           }
 
@@ -38,61 +34,30 @@ angular.module('pmltq.result')
 
           // TODO: handle error
           treebank.loadSvg(node, tree).then(function (svgParsed) {
-            $scope.svg.empty = false;
-            angular.extend($scope.svg, svgParsed);
+            $scope.svg = svgParsed;
           }, function() {
-            $scope.svg.empty = true;
+            $scope.svg = null;
           });
         });
       }
     };
   })
-  .directive('svgContent', function($, svgPanZoom, $window) {
-    var panOptions = {
-      fit: false,
-      center: false,
-      viewportSelector: 'g[transform="translate(5 5)"]',
-      minZoom: 0.5,
-      maxZoom: 1.5,
-      zoomEnabled: false
-    };
-
+  .directive('svgContent', function ($, _) {
     return {
       restrict: 'A',
       scope: {
-        svg: '=svgContent'
+        svgResult: '=svgContent',
+        nodes: '=?'
       },
-      link: function ($scope, $element, $attrs) {
-        var panZoom = null;
-
-        function resizeHandler () {
-          if (panZoom) {
-            panZoom.resize();
-          }
-        }
-
-        $($window).bind('resize', resizeHandler);
-
-        $scope.$watch('svg', function (svg) {
-          if (!svg) {
-            if (panZoom) {
-              panZoom.destroy();
-            }
+      link: function ($scope, $element) {
+        $scope.$watch('svgResult', function (svgResult) {
+          if (_.isEmpty(svgResult)) {
             $element.empty();
           } else {
-            var content = svg();
-            $element.html(content);
-            panZoom = svgPanZoom(content[0], panOptions);
-            // $('#svg-pan-zoom-controls', $element)
-            //   .attr('transform', 'translate(' + (content[0].clientWidth - 70) + ' 0) scale(0.75)');
-          }
-        }, false);
-
-        $scope.$on('destroy', function() {
-          $($window).unbind('resize', resizeHandler);
-
-          if (panZoom) {
-            panZoom.destroy();
+            var content = svgResult.content();
+            svgResult.highlightNodes($scope.nodes);
+            $element.html(content.node);
+            svgResult.resize();
           }
         });
       }

@@ -38,5 +38,5 @@ angular.module('pmltq.shared')
 })
 .constant('$', jQuery) // have jquery as a service
 .constant('_', _.runInContext()) // have lodash as a service;
-.constant('svgPanZoom', svgPanZoom);
+.constant('Snap', Snap);
 
