@@ -7,6 +7,9 @@ angular.module('pmltq.home').config(function($stateProvider) {
     resolve: /*@ngInject*/ {
       treebanks: function(treebanksApi) {
         return treebanksApi.getList();
+      },
+      recentlyUsed: function(treebanksApi) {
+        return treebanksApi.recentlyUsed();
       }
     }
   });

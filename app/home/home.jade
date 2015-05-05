@@ -17,8 +17,11 @@ main.ui.page.grid
   .ui.two.columns.grid
     .column
       h2.header Recently Used
-      .ui.divided.items
+      .ui.divided.items(ng-if="recentlyUsed.length > 0")
         div(treebank-list-item="tb" ui-sref="treebank.index({treebankId: tb.id})" ng-repeat="tb in recentlyUsed track by tb.id")
+      .ui.info.message(ng-if="recentlyUsed.length == 0")
+        .header No recent treebanks
+        | You will find recently used treebanks here.
     .column
       h2 Featured Treebanks
       .ui.divided.items
