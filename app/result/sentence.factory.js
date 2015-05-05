@@ -93,6 +93,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
           classStr = $this.attr('class'),
           parsedData = parseClasses(classStr); // TODO: Convert this to some class maybe
       parsedData.text = $this.text();
+      parsedData.result = result;
       sentence.push(parsedData);
     });
 

@@ -46,16 +46,16 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
    * @param {Snap.Element} node
    */
   function animateNode(node) {
-    if (!node.data('original-attrs')) {
-      node.data('original-attrs', {
-        rx: node.attr('rx'),
-        ry: node.attr('ry')
-      });
-    }
-    var originalAttrs = node.data('original-attrs');
+    var mark = createNodeMark(node);
+    mark.attr({
+      fill: 'none',
+      stroke: 'red',
+      strokeWidth: 2
+    });
+    node.parent().append(mark);
 
-    node.animate({rx: originalAttrs.rx * 4, ry: originalAttrs.ry * 4}, 1000, mina.easein, function () {
-      node.animate(originalAttrs, 1000, mina.easeout);
+    mark.animate({rx: '*=2', ry: '*=2', r: '*=2', opacity: 0}, 1000, mina.easein, function () {
+      mark.remove();
     });
   }
 
@@ -220,6 +220,21 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
         box = g.getBBox();
       content.node.setAttribute('width', Math.round(box.width + 10));
       content.node.setAttribute('height', Math.round(box.height + 20));
+    },
+
+    animateNodes: function (nodeIds) {
+      var self = this;
+
+      if (!nodeIds) { return; }
+      self.extractNodes();
+
+      for (var i = 0; i < nodeIds.length; i++) {
+        var nodeId = nodeIds[i],
+            node = self.nodesMap[nodeId];
+        if (node) {
+          animateNode(node);
+        }
+      }
     },
 
     /**

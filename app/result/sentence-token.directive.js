@@ -15,6 +15,10 @@ angular.module('pmltq.result').directive('sentenceToken', function($) {
       $scope.token.update = function () {
         $scope.$apply();
       };
+
+      $element.on('click', function () {
+        $scope.token.result.animateNodes($scope.token.ids);
+      });
     }
   };
 });
