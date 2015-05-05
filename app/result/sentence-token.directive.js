@@ -12,11 +12,9 @@ angular.module('pmltq.result').directive('sentenceToken', function($) {
 
     link: function($scope, $element, $attrs, sentenceController) {
 
-      $($element).bind({
-        click: function() {
-
-        }
-      });
+      $scope.token.update = function () {
+        $scope.$apply();
+      };
     }
   };
 });

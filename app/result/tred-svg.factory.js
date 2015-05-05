@@ -129,6 +129,18 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
               self.unmarkNode(this);
             }
           });
+
+          node.hover(function () {
+            var s = self.data.sentence;
+            if (s) {
+              s.highlightToken(nodeId);
+            }
+          }, function () {
+            var s = self.data.sentence;
+            if (s) {
+              s.clearHighlight();
+            }
+          });
         });
       }
 
