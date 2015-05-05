@@ -10,7 +10,8 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
     var res = {
           classes: {},
           style: {},
-          ids: []
+          ids: [],
+          update: angular.noop
         },
         parts = str.split(/\s+/);
 
@@ -28,7 +29,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
           }
           break;
         case '#':
-          res.ids.push(part);
+          res.ids.push(part.substring(1));
           break;
         default:
           res.classes[part] = true;
@@ -47,7 +48,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
       }
 
       if (!this.idsIndex) {
-        this.rebuildtokenIndex();
+        this.rebuildTokenIndex();
       }
 
       var tokens = this.idsIndex[tokenId];
@@ -55,12 +56,14 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
         for (var i = tokens.length - 1; i >= 0; i--) {
           var token = tokens[i];
           token.classes.highlight = true;
+          token.update();
         }
       }
     },
     clearHighlight: function() {
       for (var i = this.length - 1; i >= 0; i--) {
         this[i].classes.highlight = false;
+        this[i].update();
       }
     },
     rebuildTokenIndex: function() {
@@ -90,6 +93,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
           classStr = $this.attr('class'),
           parsedData = parseClasses(classStr); // TODO: Convert this to some class maybe
       parsedData.text = $this.text();
+      parsedData.result = result;
       sentence.push(parsedData);
     });
 

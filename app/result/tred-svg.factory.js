@@ -46,9 +46,35 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
    * @param {Snap.Element} node
    */
   function animateNode(node) {
-    node.animate({rx: '*=4', ry: '*=4'}, 1000, mina.easein, function () {
-      node.animate({rx: '/=4', ry: '/=4'}, 1000, mina.easeout);
+    var mark = createNodeMark(node);
+    mark.attr({
+      fill: 'none',
+      stroke: 'red',
+      strokeWidth: 2
     });
+    node.parent().append(mark);
+
+    mark.animate({rx: '*=2', ry: '*=2', r: '*=2', opacity: 0}, 1000, mina.easein, function () {
+      mark.remove();
+    });
+  }
+
+  /**
+   * Creates mark element (Ellipse or Circle)
+   * @param {Snap.Element} node
+   * @return {Snap.Element}
+   */
+  function createNodeMark(node) {
+    var bbox = node.getBBox();
+
+    switch (node.type) {
+      case 'rect':
+      case 'ellipse':
+        return node.paper.ellipse(bbox.cx, bbox.cy, bbox.w + 5, bbox.h + 5);
+      // case 'circle':
+      default:
+        return node.paper.circle(bbox.cx, bbox.cy, bbox.r0 + 5);
+    }
   }
 
   /**
@@ -58,6 +84,7 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
   function TredSvg(svg) {
     this.svg = svg;
     this.data = {};
+    this.markedNodes = {};
   }
 
   TredSvg.prototype = {
@@ -94,11 +121,71 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
           if (nodeId) {
             self.nodesMap[nodeId] = node;
           }
+          node.click(function () {
+            //noinspection JSPotentiallyInvalidUsageOfThis
+            if (!this.data('marked')) {
+              self.markNode(this);
+            } else {
+              self.unmarkNode(this);
+            }
+          });
+
+          node.hover(function () {
+            var s = self.data.sentence;
+            if (s) {
+              s.highlightToken(nodeId);
+            }
+          }, function () {
+            var s = self.data.sentence;
+            if (s) {
+              s.clearHighlight();
+            }
+          });
         });
       }
 
       return self.nodes;
     },
+
+    /**
+     * @param {Snap.Element} node
+     * @private
+     */
+    markNode: function(node) {
+      var self = this;
+
+      if (self.markedNodes[node.id]) {
+        return;
+      }
+
+      var mark = self.markedNodes[node.id] = createNodeMark(node);
+      mark.attr({
+        fill: 'none',
+        stroke: 'red',
+        strokeWidth: 2
+      });
+      node.parent().append(mark);
+      node.data('marked', true);
+
+      return mark;
+    },
+
+    /**
+     * @param {Snap.Element} node
+     * @private
+     */
+    unmarkNode: function(node) {
+      var self = this;
+
+      if (!self.markedNodes[node.id]) {
+        return;
+      }
+
+      self.markedNodes[node.id].remove();
+      node.data('marked', false);
+      delete self.markedNodes[node.id];
+    },
+
     /**
      * Attach 'matched-node-*' classes specified nodes
      * @param {Array} nodes
@@ -134,12 +221,31 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
       content.node.setAttribute('width', Math.round(box.width + 10));
       content.node.setAttribute('height', Math.round(box.height + 20));
     },
+
+    animateNodes: function (nodeIds) {
+      var self = this;
+
+      if (!nodeIds) { return; }
+      self.extractNodes();
+
+      for (var i = 0; i < nodeIds.length; i++) {
+        var nodeId = nodeIds[i],
+            node = self.nodesMap[nodeId];
+        if (node) {
+          animateNode(node);
+        }
+      }
+    },
+
+    /**
+     * @return {sentence}
+     */
     sentence: function() {
       var self = this, data = self.data;
 
       if (_.isUndefined(data.sentence)) {
         var descNode = self.$content().children('desc').remove();
-        data.sentence = sentence(descNode.find('span[class]'));
+        data.sentence = sentence(descNode.find('span[class]'), self);
       }
 
       return data.sentence;
