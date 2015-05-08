@@ -60,12 +60,12 @@ angular.module('pmltq.shared')
   };
 
   //noinspection JSUnusedGlobalSymbols
-    this.setConstants = function(consts) {
+  this.setConstants = function(consts) {
     angular.extend(constants, consts);
   };
 
   //noinspection JSUnusedGlobalSymbols
-    this.$get = function() {
+  this.$get = function() {
     return constants;
   };
 

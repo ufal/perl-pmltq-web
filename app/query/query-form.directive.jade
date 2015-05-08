@@ -64,15 +64,19 @@ form.ui.form(name="form" ng-class="{collapsed: collapsed}")
           i.filter.icon
           | w/o Filters
         button.ui.submit.button(
+          ng-if="result"
           ng-class="{small: !collapsed, mini: collapsed}"
           type="button"
           bs-tooltip
           data-title="Suggest query based on nodes marked by you"
           data-placement="bottom"
           tabindex="4"
-          disabled=true)
+          disabled=true
+          ng-disabled="!result.svg.marked.any()")
           i.code.icon
           | Suggest
+          span(ng-show="result.svg.marked.any()")
+            |  ({{result.svg.marked.count()}})
       .right.aligned.column(ng-hide="collapsed")
         button.ui.small.basic.button(
           type="button"
