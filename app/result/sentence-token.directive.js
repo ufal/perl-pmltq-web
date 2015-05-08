@@ -1,4 +1,4 @@
-angular.module('pmltq.result').directive('sentenceToken', function($) {
+angular.module('pmltq.result').directive('sentenceToken', function() {
   return {
     restrict: 'A',
     scope: {
@@ -10,14 +10,11 @@ angular.module('pmltq.result').directive('sentenceToken', function($) {
 
 '<span class="sentence-token" ng-bind="token.text" ng-class="token.classes" ng-style="token.style"></span>',
 
-    link: function($scope, $element, $attrs, sentenceController) {
-
-      $scope.token.update = function () {
-        $scope.$apply();
-      };
+    link: function($scope, $element) {
+      var token = $scope.token;
 
       $element.on('click', function () {
-        $scope.token.result.animateNodes($scope.token.ids);
+        token.result.animateNodes(token.ids);
       });
     }
   };

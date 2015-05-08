@@ -1,6 +1,7 @@
 angular.module('pmltq.result').factory('sentence', function(_, $) {
 
   var styleRe = new RegExp('-(.+)=>(.+)');
+  //noinspection JSUnusedGlobalSymbols
   var styleMap = {
     foreground: function(m) { return {color: m[2]}; },
     over: function() { return {'text-decoration': 'line-through'}; }
@@ -10,8 +11,7 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
     var res = {
           classes: {},
           style: {},
-          ids: [],
-          update: angular.noop
+          ids: []
         },
         parts = str.split(/\s+/);
 
@@ -54,16 +54,13 @@ angular.module('pmltq.result').factory('sentence', function(_, $) {
       var tokens = this.idsIndex[tokenId];
       if (tokens) {
         for (var i = tokens.length - 1; i >= 0; i--) {
-          var token = tokens[i];
-          token.classes.highlight = true;
-          token.update();
+          tokens[i].classes.highlight = true;
         }
       }
     },
     clearHighlight: function() {
       for (var i = this.length - 1; i >= 0; i--) {
         this[i].classes.highlight = false;
-        this[i].update();
       }
     },
     rebuildTokenIndex: function() {

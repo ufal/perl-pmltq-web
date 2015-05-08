@@ -1,4 +1,4 @@
-angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence) {
+angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence, $rootScope) {
 
   var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
 
@@ -115,30 +115,36 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
         self.nodes = snap.selectAll('.node');
         self.nodesMap = {};
 
-        self.nodes.forEach(function(node) {
-          var nodeId = extractNodeId(node.attr('class'), '#');
-          node.attr('class', 'node');
+        self.nodes.forEach(function(element) {
+          var nodeId = extractNodeId(element.attr('class'), '#');
+          element.attr('class', 'node');
           if (nodeId) {
-            self.nodesMap[nodeId] = node;
+            self.nodesMap[nodeId] = element;
           }
-          node.click(function () {
+
+          var el = angular.element(element.node);
+
+          el.click(function () {
             //noinspection JSPotentiallyInvalidUsageOfThis
-            if (!this.data('marked')) {
-              self.markNode(this);
+            if (!element.data('marked')) {
+              self.markNode(element);
             } else {
-              self.unmarkNode(this);
+              self.unmarkNode(element);
             }
+            $rootScope.$safeApply();
           });
 
-          node.hover(function () {
+          el.hover(function () {
             var s = self.data.sentence;
             if (s) {
               s.highlightToken(nodeId);
+              $rootScope.$safeApply();
             }
           }, function () {
             var s = self.data.sentence;
             if (s) {
               s.clearHighlight();
+              $rootScope.$safeApply();
             }
           });
         });

@@ -7,6 +7,38 @@ angular.module('pmltq.shared', [
   'ui.router'
 ]);
 
+angular.module('pmltq.shared').run(function ($rootScope) {
+  $rootScope.$safeApply = function() {
+    var $scope, fn, force = false;
+    if (arguments.length === 1) {
+      var arg = arguments[0];
+      if (typeof arg === 'function') {
+        fn = arg;
+      }
+      else {
+        $scope = arg;
+      }
+    } else {
+      $scope = arguments[0];
+      fn = arguments[1];
+      if (arguments.length === 3) {
+        force = !!arguments[2];
+      }
+    }
+    $scope = $scope || this;
+    fn = fn || function() { };
+    if (force || !$scope.$$phase) {
+      if ($scope.$apply) {
+        $scope.$apply(fn);
+      } else {
+        $scope.apply(fn);
+      }
+    } else {
+      fn();
+    }
+  };
+});
+
 angular.module('pmltq.shared')
 // TODO: Refactor - Move to separate module
 .provider('constants', function constantsProvider() {
@@ -27,11 +59,13 @@ angular.module('pmltq.shared')
     extractTo: extractTo
   };
 
-  this.setConstants = function(consts) {
+  //noinspection JSUnusedGlobalSymbols
+    this.setConstants = function(consts) {
     angular.extend(constants, consts);
   };
 
-  this.$get = function() {
+  //noinspection JSUnusedGlobalSymbols
+    this.$get = function() {
     return constants;
   };
 
