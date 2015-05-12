@@ -15,16 +15,6 @@ form.ui.form(name="form" ng-class="{collapsed: collapsed}")
             .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
     .sixteen.wide.column(ng-show="collapsed")
         pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
-
-    //- a.horizontally.fitted.item
-    //-   i.angle.double.left.icon
-    //- .horizontally.fitted.text.item Query (1/3)
-    //- a.horizontally.fitted.item
-    //-   i.angle.double.right.icon
-    //- .item
-    //-   a.ui.basic.button
-    //-     i.file.outline.icon
-    //-     | New
   .field(ng-hide="collapsed")
     textarea.text.mono(
       name="query"
@@ -73,7 +63,7 @@ form.ui.form(name="form" ng-class="{collapsed: collapsed}")
           tabindex="4"
           disabled=true
           ng-disabled="!result.svg.marked.any()")
-          i.code.icon
+          i.life.ring.icon
           | Suggest
           span(ng-show="result.svg.marked.any()")
             |  ({{result.svg.marked.count()}})
@@ -87,23 +77,3 @@ form.ui.form(name="form" ng-class="{collapsed: collapsed}")
           ng-click="params.query=''")
           i.cut.icon
           | Clear
-        //- button.ui.small.negative.button(
-        //-   type="button"
-        //-   bs-tooltip
-        //-   data-title="Empty the query form"
-        //-   data-placement="bottom"
-        //-   tabindex="6"
-        //-   ng-click="params.query=''")
-        //-   i.close.icon
-        //-   | Delete
-
-    //- button.btn.btn-default(
-    //-   type="button"
-    //-   bs-tooltip
-    //-   data-title="Display graphical visualization of the query"
-    //-   data-placement="bottom"
-    //-   tabindex="5"
-    //-   disabled=true
-    //-   ng-disabled="form.$invalid")
-    //-   i.fa.fa-sun-o
-    //-   | &nbsp;Visualize
