@@ -10,7 +10,7 @@ var proxy = require('proxy-middleware');
 /*
  * Location of backend server
  */
-var proxyOptions = url.parse('http://euler-dev:9090/v1');
+var proxyOptions = url.parse('http://localhost:9090/v1');
 proxyOptions.route = '/api';
 
 var util = require('util');
