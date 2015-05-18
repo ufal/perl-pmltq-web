@@ -14,6 +14,7 @@
     "globals": {
         "jQuery": true,
         "angular": true,
+        "jasmine": true,
         "console": true,
         "Snap": true,
         "mina": true,
