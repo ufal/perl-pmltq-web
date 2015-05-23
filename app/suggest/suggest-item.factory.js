@@ -10,8 +10,6 @@ function SuggestItemFactory(_) {
    * @constructor
    */
   function SuggestItem(text, index, list) {
-    var enabled = !/^\s*#/.test(text);
-
     if (!(this instanceof SuggestItem)) {
       return new SuggestItem(text, index, list);
     }
@@ -19,24 +17,47 @@ function SuggestItemFactory(_) {
     extend(this, /** @lends SuggestItem.prototype */ {
       start: index,
       end: index,
-      text: _.trim(text, ' \t#'),
       indent: text.length - _.trimLeft(text).length,
       parsedQuery: list,
+      enabledValue: !/^\s*#/.test(text),
+      canEnable: !/^\s*],?\s*$/.test(text),
+      hidden: false,
+      textValue: _.trim(text, ' \t#'),
+      /**
+       * Return text value
+       * @return {String} Actual text
+       */
+      text: function () {
+        var text = this.textValue;
+        if (!this.enabledValue) {
+          text = '# ' + text;
+          if (this.start !== this.end) {
+            text += ' ... ]';
+          }
+        }
+        return text;
+      },
       /**
        * Toggles enabled/disabled or set it to the value
        * @param {boolean=} value
        */
       enabled: function(value) {
         if (_.isUndefined(value)) {
-          return enabled;
+          return this.enabledValue;
         }
 
-        enabled = value;
-        for (var i = this.start + 1; i <= this.end; i++) {
-          list[i].enabled(value);
+        this.enabledValue = value;
+        var index = this.start + 1;
+        while (index <= this.end) {
+          var item = this.parsedQuery[index];
+          if (!item.enabledValue) {
+            index = item.end;
+          }
+          item.hidden = !value;
+          index += 1;
         }
 
-        return enabled;
+        return value;
       }
     });
   }

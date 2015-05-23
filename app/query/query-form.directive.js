@@ -1,4 +1,4 @@
-angular.module('pmltq.query').directive('queryForm', function(SuggestModal) {
+angular.module('pmltq.query').directive('queryForm', function() {
   return {
     restrict: 'A',
     scope: {
@@ -29,31 +29,31 @@ angular.module('pmltq.query').directive('queryForm', function(SuggestModal) {
         result.submit($scope.treebank, queryData);
       };
 
-      var suggestModal;
-      $scope.suggest = function (ids, vars) {
-        if (!suggestModal) {
-          suggestModal = new SuggestModal($scope.treebank, function onSuggest(suggest, replace) {
-            var query = suggest.query();
-            if (replace) {
-              $scope.params.query = query;
-            } else {
-              $scope.params.query += query;
-            }
-          });
-        }
-
-        suggestModal.suggest(ids, vars);
-        suggestModal.promise.then(function () {
-          suggestModal.show();
-        });
-      };
-
-      $scope.$on('$destroy', function () {
-        if (suggestModal) {
-          suggestModal.destroy();
-        }
-        suggestModal = null;
-      });
+      //var suggestModal;
+      //$scope.suggest = function (ids, vars) {
+      //  if (!suggestModal) {
+      //    suggestModal = new SuggestModal($scope.treebank, function onSuggest(suggest, replace) {
+      //      var query = suggest.query();
+      //      if (replace) {
+      //        $scope.params.query = query;
+      //      } else {
+      //        $scope.params.query += query;
+      //      }
+      //    });
+      //  }
+      //
+      //  suggestModal.suggest(ids, vars);
+      //  suggestModal.promise.then(function () {
+      //    suggestModal.show();
+      //  });
+      //};
+      //
+      //$scope.$on('$destroy', function () {
+      //  if (suggestModal) {
+      //    suggestModal.destroy();
+      //  }
+      //  suggestModal = null;
+      //});
     }
   };
 });

@@ -1,4 +1,4 @@
-angular.module('semanticUI').directive('checkbox', function($timeout) {
+angular.module('semanticUI').directive('checkbox', function() {
   return {
     restrict: 'E',
     replace: true,
@@ -7,6 +7,9 @@ angular.module('semanticUI').directive('checkbox', function($timeout) {
       var type = tAttrs.type || '';
 
       return '<div class="ui' + (type ? ' ' + type : '') + ' checkbox" ng-transclude></div>';
+    },
+    link: function ($scope, $element) {
+      // TODO: sync ng-model
     }
   };
 });

@@ -6,7 +6,8 @@ function SuggestModalFactory(_, Suggest, uiModal, $rootScope) {
       scope = $rootScope.$new(),
       config = {
         template: 'suggest/suggest-modal.html',
-        scope: scope
+        scope: scope,
+        padding: 0
       };
 
     modal.treebank = treebank;
@@ -26,6 +27,20 @@ function SuggestModalFactory(_, Suggest, uiModal, $rootScope) {
       }
     };
 
+    scope.$watch('isVisible', function (visible) {
+      if (!visible || !modal.suggestParams) {
+        return;
+      }
+
+      var params = modal.suggestParams;
+      modal.suggestParams = null;
+      modal.treebank.post('suggest', params).then(function (data) {
+        scope.suggest = new Suggest(data.query);
+      }).finally(function () {
+        scope.loading = false;
+      });
+    });
+
     uiModal.call(modal, config);
   }
 
@@ -40,14 +55,7 @@ function SuggestModalFactory(_, Suggest, uiModal, $rootScope) {
       }
 
       scope.loading = true;
-      return modal.treebank.post('suggest', {
-        ids: ids,
-        vars: vars
-      }).then(function (data) {
-        scope.suggest = new Suggest(data.query);
-      }).finally(function () {
-        scope.loading = false;
-      });
+      modal.suggestParams = {ids: ids, vars: vars};
     }
   });
 

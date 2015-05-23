@@ -183,15 +183,16 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
      * @private
      */
     unmarkNode: function(node) {
-      var self = this;
+      var self = this,
+        nodeId = node.data('nodeId');
 
-      if (!self.markedNodes[node.id]) {
+      if (!self.markedNodes[nodeId]) {
         return;
       }
 
-      self.markedNodes[node.id].remove();
+      self.markedNodes[nodeId].remove();
       node.data('marked', false);
-      delete self.markedNodes[node.id];
+      delete self.markedNodes[nodeId];
     },
 
     /**

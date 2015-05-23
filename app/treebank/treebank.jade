@@ -8,6 +8,12 @@ main.ui.horizontally.padded.one.column.grid
       a.item(ui-sref="treebank.query.index" ui-sref-active="active")
         i.search.icon
         | Query
+      a.item(ui-sref="treebank.suggest.index({basedOn: result.svg.marked.nodes()})" ui-sref-active="active" ng-class="{disabled: !result.svg.marked.any()}")
+        i.life.ring.icon
+        | Suggest
+        span(ng-show="result.svg.marked.any()")
+          = ' '
+          | ({{result.svg.marked.count()}})
       a.item(ui-sref="treebank.help" ui-sref-active="active")
         i.help.circle.icon
         | Help

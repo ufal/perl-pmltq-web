@@ -1,0 +1,22 @@
+.row(ng-if="!suggest")
+  .column
+    .ui.info.message
+      .header Can't give you any suggest
+      p Please first select some nodes on which we can base the suggested query.
+.row(ng-if="suggest")
+  .column
+    .ui.segment
+      .ui.message(ng-show="showHelp")
+        .header Suggested Query
+        p This is a PML-TQ query generated from the marked nodes. Use the checkboxes to include/exclude parts of the query.
+          | Then run the resulting query or append it the current query.
+        button.ui.positive.tiny.button(ng-click="hideHelp()") Got it!
+      .ui.secondary.menu
+        .item
+          button.ui.primary.button Run Query
+        .item
+          button.ui.button Append To Existing Query
+        .item
+          button.ui.button Clean Up
+      .ui.divider
+      .suggest-container(suggest-query="suggest")

@@ -1,5 +1,5 @@
 /* @ngInject */
-function ModalFactory($, $rootScope, $compile, uiUtils) {
+function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
   function Modal(config) {
     if (!(this instanceof Modal)) {
       return new Modal(config);
@@ -9,13 +9,23 @@ function ModalFactory($, $rootScope, $compile, uiUtils) {
     var modal = this,
       promise = modal.promise = uiUtils.fetchTemplate(config.template),
       scope = modal.scope = config.scope ? config.scope : $rootScope.$new(),
-      onHide = config.onHide;
+      onHide = config.onHide, onVisible = config.onVisible;
 
     config.onHide = function () {
       if (onHide) {
         onHide();
       }
-      scope.isShown = modal.isShown = false;
+      scope.isShown = modal.isShown = scope.isVisible = modal.isVisible = false;
+      uiUtils.safeDigest(scope);
+    };
+
+    config.onVisible = function () {
+      if (onVisible) {
+        onVisible();
+      }
+
+      scope.isVisible = modal.isVisible = true;
+      uiUtils.safeDigest(scope);
     };
 
     delete config.template;
@@ -85,6 +95,13 @@ function ModalFactory($, $rootScope, $compile, uiUtils) {
     } else {
       this.show();
     }
+  };
+
+  Modal.prototype.refresh = function() {
+    var modal = this;
+    $timeout(function () {
+      modal.modalElement.modal('refresh');
+    });
   };
 
   return Modal;

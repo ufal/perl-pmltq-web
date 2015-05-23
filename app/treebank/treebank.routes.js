@@ -9,6 +9,9 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
       treebank: function(treebanksApi, $stateParams) {
         return treebanksApi.one($stateParams.treebankId).get();
       },
+      result: function(resultHolder) {
+        return resultHolder();
+      },
       history: function(historyApi) {
         return historyApi.getList();
       }
