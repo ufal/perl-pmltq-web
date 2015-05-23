@@ -62,7 +62,8 @@ form.ui.form(name="form" ng-class="{collapsed: collapsed}")
           data-placement="bottom"
           tabindex="4"
           disabled=true
-          ng-disabled="!result.svg.marked.any()")
+          ng-disabled="!result.svg.marked.any()"
+          ng-click="suggest(result.svg.marked.nodes())")
           i.life.ring.icon
           | Suggest
           span(ng-show="result.svg.marked.any()")

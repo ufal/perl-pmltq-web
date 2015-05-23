@@ -10,33 +10,33 @@ function SuggestItemFactory(_) {
    * @constructor
    */
   function SuggestItem(text, index, list) {
+    var enabled = !/^\s*#/.test(text);
 
     if (!(this instanceof SuggestItem)) {
       return new SuggestItem(text, index, list);
-    }
-
-    /**
-     * @this {SuggestItem}
-     * @param {boolean} value
-     */
-    function setDisabled(value) {
-      for (var i = this.start; i <= this.end; i++) {
-        list[i].disabled = value;
-      }
     }
 
     extend(this, /** @lends SuggestItem.prototype */ {
       start: index,
       end: index,
       text: _.trim(text, ' \t#'),
-      parsedQuery: list,
-      disabled: /^\s*#/.test(text),
       indent: text.length - _.trimLeft(text).length,
-      enable: _.bind(setDisabled, this, false),
-      disable: _.bind(setDisabled, this, true),
-      toggle: function () {
-        if (this.disabled) { this.enable(); }
-        else { this.disable(); }
+      parsedQuery: list,
+      /**
+       * Toggles enabled/disabled or set it to the value
+       * @param {boolean=} value
+       */
+      enabled: function(value) {
+        if (_.isUndefined(value)) {
+          return enabled;
+        }
+
+        enabled = value;
+        for (var i = this.start + 1; i <= this.end; i++) {
+          list[i].enabled(value);
+        }
+
+        return enabled;
       }
     });
   }

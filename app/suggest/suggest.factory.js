@@ -59,8 +59,8 @@ function SuggestFactory(SuggestItem, _) {
     var parsedQuery = this.parsedQuery, query = [];
     for (var i = 0; i < parsedQuery.length; i++) {
       var item = parsedQuery[i];
-      if (!item.disabled) {
-        query.push(_.repeat(' ',item.indent) + item.text);
+      if (item.enabled()) {
+        query.push(_.repeat(' ', item.indent) + item.text);
       }
     }
 

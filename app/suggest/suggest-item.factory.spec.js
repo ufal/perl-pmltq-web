@@ -20,39 +20,39 @@ describe('Suggest', function() {
   });
 
   it('should enable', function () {
-    expect(item2.disabled).toBeTruthy();
-    item2.enable();
-    expect(item2.disabled).toBeFalsy();
+    expect(item2.enabled()).toBeFalsy();
+    item2.enabled(true);
+    expect(item2.enabled()).toBeTruthy();
   });
 
   it('should disable', function () {
-    expect(item3.disabled).toBeFalsy();
-    item3.disable();
-    expect(item3.disabled).toBeTruthy();
+    expect(item3.enabled()).toBeTruthy();
+    item3.enabled(false);
+    expect(item3.enabled()).toBeFalsy();
   });
 
   it('should disable range', function () {
-    expect(item1.disabled).toBeFalsy();
-    expect(item2.disabled).toBeTruthy();
-    expect(item3.disabled).toBeFalsy();
-    item1.disable();
+    expect(item1.enabled()).toBeTruthy();
+    expect(item2.enabled()).toBeFalsy();
+    expect(item3.enabled()).toBeTruthy();
+    item1.enabled(false);
 
-    expect(item1.disabled).toBeTruthy();
-    expect(item2.disabled).toBeTruthy();
-    expect(item3.disabled).toBeTruthy();
-    item1.enable();
+    expect(item1.enabled()).toBeFalsy();
+    expect(item2.enabled()).toBeFalsy();
+    expect(item3.enabled()).toBeFalsy();
+    item1.enabled(true);
 
-    expect(item1.disabled).toBeFalsy();
-    expect(item2.disabled).toBeFalsy();
-    expect(item3.disabled).toBeFalsy();
+    expect(item1.enabled()).toBeTruthy();
+    expect(item2.enabled()).toBeTruthy();
+    expect(item3.enabled()).toBeTruthy();
   });
 
   it('should toggle', function () {
-    expect(item2.disabled).toBeTruthy();
-    item2.toggle();
-    expect(item2.disabled).toBeFalsy();
-    item2.toggle();
-    expect(item2.disabled).toBeTruthy();
+    expect(item2.enabled()).toBeFalsy();
+    item2.enabled(true);
+    expect(item2.enabled()).toBeTruthy();
+    item2.enabled(false);
+    expect(item2.enabled()).toBeFalsy();
   });
 
 });

@@ -120,6 +120,7 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
           element.attr('class', 'node');
           if (nodeId) {
             self.nodesMap[nodeId] = element;
+            element.data('nodeId', nodeId);
           }
 
           var el = angular.element(element.node);
@@ -158,13 +159,14 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
      * @private
      */
     markNode: function(node) {
-      var self = this;
+      var self = this,
+        nodeId = node.data('nodeId');
 
-      if (self.markedNodes[node.id]) {
+      if (self.markedNodes[nodeId]) {
         return;
       }
 
-      var mark = self.markedNodes[node.id] = createNodeMark(node);
+      var mark = self.markedNodes[nodeId] = createNodeMark(node);
       mark.attr({
         fill: 'none',
         stroke: 'red',

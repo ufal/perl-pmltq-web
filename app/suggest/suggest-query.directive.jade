@@ -1,0 +1,10 @@
+table
+  tr(ng-repeat="item in suggest.parsedQuery")
+    td
+      checkbox
+        input(type="checkbox" ng-model="item.enabled" ng-model-options="{getterSetter: true}")
+    td(ng-class="{'disabled': !item.enabled()}")
+      span(ng-style="{width: (item.indent * 2) + 'px'}")
+      span(ng-if="!item.enabled()")
+        = '# '
+      span(ng-bind="item.text")

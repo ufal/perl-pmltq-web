@@ -17,7 +17,7 @@ module.exports = function(options) {
       .pipe($.jshint())
       .pipe($.jshint.reporter('jshint-stylish', {verbose: true}))
       .pipe($.jshint.reporter('fail'))
-      .pipe($.jscs())
+      .pipe($.jscs()).on('error', options.errorHandler('JSCS'))
       .pipe($.wrap(options.iifeTemplate))
       .pipe(gulp.dest(options.tmp + '/serve/'));
   });

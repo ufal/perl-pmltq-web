@@ -14,6 +14,7 @@ bowerDeps.js.forEach(function(file) {
 });
 
 files.push('app/**/*.js');
+files.push('.tmp/serve/**/*.html');
 
 module.exports = function(config) {
 
