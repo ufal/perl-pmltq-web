@@ -1,3 +1,25 @@
+mixin menu()
+  .one.column.ui.grid
+    .left.aligned.column
+      button.ui.small.primary.button(
+        type="button"
+        tabindex="1"
+        ng-click="submit(suggest.query())")
+        i.search.icon
+        | Execute query
+      button.ui.small.submit.button(
+        type="button"
+        tabindex="2"
+        ng-click="append(suggest.query())")
+        i.paragraph.icon
+        | Append to existing query
+      button.ui.small.button(
+        type="button"
+        tabindex="3"
+        ng-click="suggest.cleanup()")
+        i.erase.icon
+        | Clean Up
+
 .row(ng-if="!suggest")
   .column
     .ui.info.message
@@ -11,12 +33,9 @@
         p This is a PML-TQ query generated from the marked nodes. Use the checkboxes to include/exclude parts of the query.
           | Then run the resulting query or append it the current query.
         button.ui.positive.tiny.button(ng-click="hideHelp()") Got it!
-      .ui.secondary.menu
-        .item
-          button.ui.primary.button Run Query
-        .item
-          button.ui.button Append To Existing Query
-        .item
-          button.ui.button Clean Up
-      .ui.divider
+      //+menu()
       .suggest-container(suggest-query="suggest")
+      +menu()
+.one.column.row
+  .column
+    .query-result(result-view="treebank" query-result="result")

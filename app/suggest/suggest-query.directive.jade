@@ -1,6 +1,6 @@
 table.suggest
   tbody
-    tr(ng-repeat="item in suggest.parsedQuery" ng-hide="item.hidden")
+    tr(ng-repeat="item in suggest.parsedQuery" ng-if="!item.hidden")
       td.collapsing
         checkbox(ng-show="item.canEnable")
           input(id="{{'suggest-item-' + $index}}" type="checkbox" ng-model="item.enabled" ng-model-options="{getterSetter: true}")

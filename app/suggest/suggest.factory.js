@@ -60,11 +60,28 @@ function SuggestFactory(SuggestItem, _) {
     for (var i = 0; i < parsedQuery.length; i++) {
       var item = parsedQuery[i];
       if (item.enabled()) {
-        query.push(_.repeat(' ', item.indent) + item.text);
+        query.push(_.repeat(' ', item.indent) + item.text());
       }
     }
 
     return query.join('\n');
+  };
+
+  Suggest.prototype.cleanup = function() {
+    var parsedQuery = this.parsedQuery;
+    var index = 0;
+    while (index < parsedQuery.length) {
+      var item = parsedQuery[index];
+      if (!item.enabled()) {
+        item.remove();
+      } else {
+        index += 1;
+      }
+    }
+  };
+
+  Suggest.prototype.reset = function() {
+    this.parsedQuery = Suggest.parseQuery(this.originalQuery);
   };
 
   return Suggest;
