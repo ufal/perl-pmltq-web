@@ -57,11 +57,15 @@ function SuggestFactory(SuggestItem, _) {
    */
   Suggest.prototype.query = function() {
     var parsedQuery = this.parsedQuery, query = [];
-    for (var i = 0; i < parsedQuery.length; i++) {
-      var item = parsedQuery[i];
+    var index = 0;
+    while (index < parsedQuery.length) {
+      var item = parsedQuery[index];
       if (item.enabled()) {
         query.push(_.repeat(' ', item.indent) + item.text());
+      } else {
+        index = item.end;
       }
+      index += 1;
     }
 
     return query.join('\n');
