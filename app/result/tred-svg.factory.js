@@ -123,35 +123,56 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
             element.data('nodeId', nodeId);
           }
 
-          var el = angular.element(element.node);
-
-          el.click(function () {
-            //noinspection JSPotentiallyInvalidUsageOfThis
-            if (!element.data('marked')) {
-              self.markNode(element);
-            } else {
-              self.unmarkNode(element);
-            }
-            $rootScope.$safeApply();
-          });
-
-          el.hover(function () {
-            var s = self.data.sentence;
-            if (s) {
-              s.highlightToken(nodeId);
-              $rootScope.$safeApply();
-            }
-          }, function () {
-            var s = self.data.sentence;
-            if (s) {
-              s.clearHighlight();
-              $rootScope.$safeApply();
-            }
-          });
+          self.attachNodeEvents(element);
         });
       }
 
       return self.nodes;
+    },
+
+    reattachEvents: function() {
+      var self = this;
+
+      if (self.nodes) {
+        self.nodes.forEach(function(element) {
+          self.attachNodeEvents(element);
+        });
+      } else {
+        self.extractNodes();
+      }
+    },
+
+    /**
+     * @param {Snap.Element} element
+     * @private
+     */
+    attachNodeEvents: function(element) {
+      var el = angular.element(element.node),
+        self = this;
+
+      el.click(function () {
+        //noinspection JSPotentiallyInvalidUsageOfThis
+        if (!element.data('marked')) {
+          self.markNode(element);
+        } else {
+          self.unmarkNode(element);
+        }
+        $rootScope.$safeApply();
+      });
+
+      el.hover(function () {
+        var s = self.data.sentence;
+        if (s) {
+          s.highlightToken(element.data('nodeId'));
+          $rootScope.$safeApply();
+        }
+      }, function () {
+        var s = self.data.sentence;
+        if (s) {
+          s.clearHighlight();
+          $rootScope.$safeApply();
+        }
+      });
     },
 
     /**
