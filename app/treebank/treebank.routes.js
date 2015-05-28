@@ -14,6 +14,13 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
       },
       history: function(historyApi) {
         return historyApi.getList();
+      },
+      queryParams: function (QueryParams) {
+        return new QueryParams(
+          "t-node [ gram/deontmod ~ '(deb|hrt|vol|perm|poss|fac)', a/lex.rf a-node [] ];",
+          100,
+          30
+        );
       }
     }
   });
