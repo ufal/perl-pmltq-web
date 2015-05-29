@@ -18,7 +18,6 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
         'nodesCount',
         'queryNodes',
         'resultNo',
-        'svg',
         'tree',
         'type'
       ], function(value) {
@@ -59,8 +58,7 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
           currentResult: firstResult,
           activeNode: 0,
           resultNo: 1,
-          tree: 0,
-          svg: {}
+          tree: 0
         });
       } else {
         extend(resultHolder, {
