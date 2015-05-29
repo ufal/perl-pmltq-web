@@ -9,6 +9,21 @@ angular.module('pmltq.result').factory('svgResult', function ($, _, sentence, tr
       svgResult[method] = function() { return svg[method].apply(svg, arguments); };
     });
 
+    svgResult.restore = function() {
+      svg.reattachEvents();
+    };
+
+    svgResult.marked = {
+      any: function() {
+        return !_.isEmpty(svg.markedNodes);
+      },
+      nodes: function() {
+        return _.keys(svg.markedNodes);
+      },
+      count: function() {
+        return _.size(svg.markedNodes);
+      }
+    };
     return svgResult;
   }
 

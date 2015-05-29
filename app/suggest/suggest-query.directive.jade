@@ -1,0 +1,10 @@
+table.suggest
+  tbody
+    tr(ng-repeat="item in suggest.parsedQuery" ng-if="!item.hidden")
+      td.collapsing
+        checkbox(ng-show="item.canEnable")
+          input(id="{{'suggest-item-' + $index}}" type="checkbox" ng-model="item.enabled" ng-model-options="{getterSetter: true}")
+          label(for="{{'suggest-item-' + $index}}")
+      td(ng-class="{'disabled': !item.enabled()}")
+        span.indent(ng-style="{width: (item.indent * 10) + 'px'}")
+        span(ng-bind="item.text()")

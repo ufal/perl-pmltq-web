@@ -11,6 +11,7 @@ var options = {
   dist: 'dist',
   tmp: '.tmp',
   e2e: 'e2e',
+  iifeTemplate: '(function(){\n<%= contents %>\n}());',
   errorHandler: function(title) {
     return function(err) {
       gutil.log(gutil.colors.red('[' + title + ']'), err.toString());

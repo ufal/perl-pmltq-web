@@ -1,1 +1,9 @@
-angular.module('pmltq.treebank', ['pmltq.shared', 'pmltq.history', 'pmltq.query', 'pmltq.result', 'pmltq.help']);
+angular.module('pmltq.treebank',
+  [
+    'pmltq.shared',
+    'pmltq.history',
+    'pmltq.query',
+    'pmltq.suggest',
+    'pmltq.result',
+    'pmltq.help'
+  ]);

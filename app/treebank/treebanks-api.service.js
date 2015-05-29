@@ -41,6 +41,7 @@ angular.module('pmltq.treebank')
           var key = [this.id, node, tree].join(':');
           var cachedSvg = svgCache.get(key);
           if (cachedSvg) {
+            cachedSvg.restore();
             deferred.resolve(cachedSvg);
           } else {
             this.post('svg', {

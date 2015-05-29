@@ -1,6 +1,5 @@
-angular.module('pmltq.query').directive('queryForm', function() {
-  var RESULT_TYPE_SVG = 'svg',
-      RESULT_TYPE_TABLE = 'table';
+angular.module('pmltq.query').directive('queryForm', function(QueryParams, Suggest, localStorageService, _) {
+  var suggestHelpKey = 'suggest-hide-help';
 
   return {
     restrict: 'A',
@@ -10,26 +9,37 @@ angular.module('pmltq.query').directive('queryForm', function() {
       result:   '=*?queryResult'
     },
     templateUrl: 'query/query-form.directive.html',
-    link: function($scope, $element, $attrs) {
+    link: function($scope) {
       if (!$scope.params) {
         // Save default params as they are changed
-        $scope.params = {
-          timeout: 30,
-          limit: 100,
-          query: "t-node [ gram/deontmod ~ '(deb|hrt|vol|perm|poss|fac)', a/lex.rf a-node [] ];"
-        };
+        $scope.params = new QueryParams();
       }
 
       $scope.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       $scope.limitSelect = [1, 10, 100, 1000, 10000];
 
-      $scope.submit = function(queryData) {
+      $scope.submit = function(queryParams) {
         var result = $scope.result;
         if (!result) {
           return;
         }
 
-        result.submit($scope.treebank, queryData);
+        result.submit($scope.treebank, queryParams);
+      };
+
+      $scope.showHelp = !localStorageService.get(suggestHelpKey);
+
+      $scope.hideHelp = function() {
+        localStorageService.set(suggestHelpKey, true);
+        $scope.showHelp = false;
+      };
+
+      $scope.suggest = function(basedOn) {
+        if (!basedOn) { return; }
+        if (!_.isArray(basedOn)) { basedOn = [basedOn]; }
+        return $scope.treebank.post('suggest', {ids: basedOn}).then(function(data) {
+          $scope.suggestObj = new Suggest(data.query);
+        });
       };
     }
   };

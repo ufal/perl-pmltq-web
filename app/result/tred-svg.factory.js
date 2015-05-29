@@ -1,4 +1,4 @@
-angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence) {
+angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence, $rootScope) {
 
   var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
 
@@ -115,36 +115,64 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
         self.nodes = snap.selectAll('.node');
         self.nodesMap = {};
 
-        self.nodes.forEach(function(node) {
-          var nodeId = extractNodeId(node.attr('class'), '#');
-          node.attr('class', 'node');
+        self.nodes.forEach(function(element) {
+          var nodeId = extractNodeId(element.attr('class'), '#');
+          element.attr('class', 'node');
           if (nodeId) {
-            self.nodesMap[nodeId] = node;
+            self.nodesMap[nodeId] = element;
+            element.data('nodeId', nodeId);
           }
-          node.click(function () {
-            //noinspection JSPotentiallyInvalidUsageOfThis
-            if (!this.data('marked')) {
-              self.markNode(this);
-            } else {
-              self.unmarkNode(this);
-            }
-          });
 
-          node.hover(function () {
-            var s = self.data.sentence;
-            if (s) {
-              s.highlightToken(nodeId);
-            }
-          }, function () {
-            var s = self.data.sentence;
-            if (s) {
-              s.clearHighlight();
-            }
-          });
+          self.attachNodeEvents(element);
         });
       }
 
       return self.nodes;
+    },
+
+    reattachEvents: function() {
+      var self = this;
+
+      if (self.nodes) {
+        self.nodes.forEach(function(element) {
+          self.attachNodeEvents(element);
+        });
+      } else {
+        self.extractNodes();
+      }
+    },
+
+    /**
+     * @param {Snap.Element} element
+     * @private
+     */
+    attachNodeEvents: function(element) {
+      var el = angular.element(element.node),
+        self = this;
+
+      el.click(function () {
+        //noinspection JSPotentiallyInvalidUsageOfThis
+        if (!element.data('marked')) {
+          self.markNode(element);
+        } else {
+          self.unmarkNode(element);
+        }
+        $rootScope.$safeApply();
+      });
+
+      el.hover(function () {
+        var s = self.data.sentence;
+        if (s) {
+          s.highlightToken(element.data('nodeId'));
+          $rootScope.$safeApply();
+        }
+      }, function () {
+        var s = self.data.sentence;
+        if (s) {
+          s.clearHighlight();
+          $rootScope.$safeApply();
+        }
+      });
     },
 
     /**
@@ -152,13 +180,14 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
      * @private
      */
     markNode: function(node) {
-      var self = this;
+      var self = this,
+        nodeId = node.data('nodeId');
 
-      if (self.markedNodes[node.id]) {
+      if (self.markedNodes[nodeId]) {
         return;
       }
 
-      var mark = self.markedNodes[node.id] = createNodeMark(node);
+      var mark = self.markedNodes[nodeId] = createNodeMark(node);
       mark.attr({
         fill: 'none',
         stroke: 'red',
@@ -175,15 +204,16 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
      * @private
      */
     unmarkNode: function(node) {
-      var self = this;
+      var self = this,
+        nodeId = node.data('nodeId');
 
-      if (!self.markedNodes[node.id]) {
+      if (!self.markedNodes[nodeId]) {
         return;
       }
 
-      self.markedNodes[node.id].remove();
+      self.markedNodes[nodeId].remove();
       node.data('marked', false);
-      delete self.markedNodes[node.id];
+      delete self.markedNodes[nodeId];
     },
 
     /**

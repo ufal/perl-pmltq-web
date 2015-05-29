@@ -1,105 +1,115 @@
-form.ui.form(name="form" ng-class="{collapsed: collapsed}")
-  .stackable.ui.grid
-    .column(ng-hide="collapsed")
-      .ui.horizontal.list
-        .item
-          button.ui.compact.mini.icon.button(type="button" ng-click="collapsed = true")
-            i.chevron.down.icon
-    .right.aligned.fifteen.wide.column(ng-hide="collapsed")
-      .ui.horizontal.list
-        .item
-          .content.aligned
-            .ui.inline.dropdown(ui-dropdown="timeoutSelect" title="Timeout" ng-model="params.timeout")
-        .item
-          .content.aligned
-            .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
-    .sixteen.wide.column(ng-show="collapsed")
-        pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
-
-    //- a.horizontally.fitted.item
-    //-   i.angle.double.left.icon
-    //- .horizontally.fitted.text.item Query (1/3)
-    //- a.horizontally.fitted.item
-    //-   i.angle.double.right.icon
-    //- .item
-    //-   a.ui.basic.button
-    //-     i.file.outline.icon
-    //-     | New
-  .field(ng-hide="collapsed")
-    textarea.text.mono(
-      name="query"
-      spellcheck="false"
-      focus-element
-      id="query-text"
-      ng-model="params.query"
-      required="required"
-      rows="8"
-      tabindex="1"
-      placeholder="# Enter your query here"
-      accesskey="e")
-  .field
-    .two.column.ui.grid
+.query-form
+  form.ui.form(name="form" ng-class="{collapsed: collapsed}")
+    .stackable.ui.grid
+      .column(ng-hide="collapsed")
+        .ui.horizontal.list
+          .item
+            button.ui.compact.mini.icon.button(type="button" ng-click="collapsed = true")
+              i.chevron.down.icon
+      .right.aligned.fifteen.wide.column(ng-hide="collapsed")
+        .ui.horizontal.list
+          .item
+            .content.aligned
+              .ui.inline.dropdown(ui-dropdown="timeoutSelect" title="Timeout" ng-model="params.timeout")
+          .item
+            .content.aligned
+              .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
+      .sixteen.wide.column(ng-show="collapsed")
+          pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
+    .field(ng-hide="collapsed")
+      textarea.text.mono(
+        name="query"
+        spellcheck="false"
+        focus-element
+        id="query-text"
+        ng-model="params.query"
+        required="required"
+        rows="8"
+        tabindex="1"
+        placeholder="# Enter your query here"
+        accesskey="e")
+    .field
+      .two.column.ui.grid
+        .left.aligned.column
+          button.ui.primary.button(
+            ng-class="{small: !collapsed, mini: collapsed}"
+            type="button"
+            ui-popup
+            title="Execute the query (including output filters)"
+            data-position="bottom left"
+            tabindex="2"
+            disabled=true
+            ng-disabled="form.$invalid"
+            ng-click="submit(params)")
+            i.search.icon
+            | Execute query
+          button.ui.submit.button(
+            ng-class="{small: !collapsed, mini: collapsed}"
+            type="button"
+            ui-popup
+            title="Execute the query, excluding possible output filters"
+            data-position="bottom left"
+            tabindex="3"
+            disabled=true
+            ng-disabled="form.$invalid")
+            i.filter.icon
+            | w/o Filters
+          button.ui.submit.button(
+            ng-if="result"
+            ng-class="{small: !collapsed, mini: collapsed}"
+            type="button"
+            ui-popup
+            title="Suggest query based on nodes marked by you"
+            data-position="bottom left"
+            tabindex="4"
+            disabled=true
+            ng-disabled="!result.svg.marked.any()"
+            ng-click="suggest(result.svg.marked.nodes())")
+            i.life.ring.icon
+            | Suggest
+            span(ng-show="result.svg.marked.any()")
+              = ' '
+              | ({{result.svg.marked.count()}})
+        .right.aligned.column(ng-hide="collapsed")
+          button.ui.small.basic.button(
+            type="button"
+            ui-popup
+            title="Empty the query form"
+            data-position="bottom right"
+            tabindex="6"
+            ng-click="params.query=''")
+            i.cut.icon
+            | Clear
+  .ui.secondary.segment(ng-show="suggestObj")
+    .one.column.ui.grid
       .left.aligned.column
-        button.ui.primary.button(
-          ng-class="{small: !collapsed, mini: collapsed}"
-          type="button"
-          bs-tooltip
-          data-title="Execute the query (including output filters)"
-          data-placement="bottom"
-          tabindex="2"
-          disabled=true
-          ng-disabled="form.$invalid"
-          ng-click="submit(params)")
-          i.search.icon
-          | Execute query
-        button.ui.submit.button(
-          ng-class="{small: !collapsed, mini: collapsed}"
-          type="button"
-          bs-tooltip
-          data-title="Execute the query, excluding possible output filters"
-          data-placement="bottom"
-          tabindex="3"
-          disabled=true
-          ng-disabled="form.$invalid")
-          i.filter.icon
-          | w/o Filters
-        button.ui.submit.button(
-          ng-class="{small: !collapsed, mini: collapsed}"
-          type="button"
-          bs-tooltip
-          data-title="Suggest query based on nodes marked by you"
-          data-placement="bottom"
-          tabindex="4"
-          disabled=true)
-          i.code.icon
-          | Suggest
-      .right.aligned.column(ng-hide="collapsed")
-        button.ui.small.basic.button(
-          type="button"
-          bs-tooltip
-          data-title="Empty the query form"
-          data-placement="bottom"
-          tabindex="6"
-          ng-click="params.query=''")
-          i.cut.icon
-          | Clear
-        //- button.ui.small.negative.button(
-        //-   type="button"
-        //-   bs-tooltip
-        //-   data-title="Empty the query form"
-        //-   data-placement="bottom"
-        //-   tabindex="6"
-        //-   ng-click="params.query=''")
-        //-   i.close.icon
-        //-   | Delete
-
-    //- button.btn.btn-default(
-    //-   type="button"
-    //-   bs-tooltip
-    //-   data-title="Display graphical visualization of the query"
-    //-   data-placement="bottom"
-    //-   tabindex="5"
-    //-   disabled=true
-    //-   ng-disabled="form.$invalid")
-    //-   i.fa.fa-sun-o
-    //-   | &nbsp;Visualize
+        button.ui.small.button(
+        type="button"
+        tabindex="1"
+        ng-click="params.query = suggestObj.query(); suggestObj = null")
+          | Replace query
+        button.ui.small.submit.button(
+        type="button"
+        tabindex="2"
+        ng-click="params.query = params.query + \"\n\" + suggestObj.query(); suggestObj = null")
+          | Append to existing query
+        button.ui.small.button(
+        type="button"
+        tabindex="3"
+        ng-click="suggestObj.cleanup()")
+          i.erase.icon
+          | Clean Up
+        button.ui.small.icon.left.aligned.button(
+        type="button"
+        tabindex="4"
+        ng-click="suggestObj = null")
+          i.close.icon
+          | Close
+      .iu.column(ng-show="showHelp")
+        .ui.info.message
+          i.close.icon(ng-click="hideHelp()")
+          .header Suggested Query
+          p This is a PML-TQ query generated from the marked nodes. Use the checkboxes to include/exclude parts of the query.
+            | Then run the resulting query or append it the current query.
+      .ui.column
+        div(suggest-query="suggestObj")

@@ -35,4 +35,14 @@ describe('uiCheckbox', function() {
 
     expect(element.attr('class')).toContain('xfoox');
   });
+
+  xit('should propagate to model', function () {
+    scope.model = false;
+    var element = compile('<checkbox>' +
+      '<input id="foo" type="checkbox" ng-model="model" />' +
+      '<label for="foo">Some label</label>' +
+      '</checkbox>')(scope);
+    $(element).click();
+    expect(scope.model).toBeTruthy();
+  });
 });
