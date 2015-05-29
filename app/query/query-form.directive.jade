@@ -80,8 +80,7 @@
             ng-click="params.query=''")
             i.cut.icon
             | Clear
-  .ui.message(ng-show="suggestObj")
-    i.close.icon
+  .ui.secondary.segment(ng-show="suggestObj")
     .one.column.ui.grid
       .left.aligned.column
         button.ui.small.button(
@@ -100,6 +99,12 @@
         ng-click="suggestObj.cleanup()")
           i.erase.icon
           | Clean Up
+        button.ui.small.icon.left.aligned.button(
+        type="button"
+        tabindex="4"
+        ng-click="suggestObj = null")
+          i.close.icon
+          | Close
       .iu.column(ng-show="showHelp")
         .ui.info.message
           i.close.icon(ng-click="hideHelp()")
