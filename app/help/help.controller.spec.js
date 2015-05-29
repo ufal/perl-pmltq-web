@@ -1,4 +1,4 @@
-describe('HelpCtrl', function() {
+describe('HelpController', function() {
 
   beforeEach(module('pmltq.help'));
 
@@ -6,7 +6,7 @@ describe('HelpCtrl', function() {
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('HelpCtrl', {$scope: scope});
+      ctrl = $controller('HelpController', {$scope: scope});
     }));
 
   it('should ...', inject(function() {

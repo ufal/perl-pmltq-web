@@ -1,5 +1,5 @@
 /* @ngInject */
-function QueryParamsFactory() {
+function QueryParamsFactory($state) {
 
   /**
    * Encapsulation of suggest item (a query line) properties
@@ -17,6 +17,22 @@ function QueryParamsFactory() {
     this.limit = limit;
     this.timeout = timeout;
   }
+
+  QueryParams.prototype.runQuery = function(query) {
+    this.query = query;
+    this.execute = true;
+    if ($state.$current.name !== 'treebank.query.index') {
+      $state.go('treebank.query.index');
+    }
+  };
+
+  QueryParams.prototype.params = function() {
+    return {
+      query: this.query,
+      limit: this.limit,
+      timeout: this.timeout
+    };
+  };
 
   return QueryParams;
 }

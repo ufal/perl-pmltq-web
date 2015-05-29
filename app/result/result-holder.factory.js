@@ -18,7 +18,6 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
         'nodesCount',
         'queryNodes',
         'resultNo',
-        'svg',
         'tree',
         'type'
       ], function(value) {
@@ -30,7 +29,7 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
     resultHolder.submit = function(treebank, queryParams) {
       resultHolder.submited = true;
       resultHolder.queryParams = queryParams;
-      treebank.post('query', queryParams)
+      treebank.post('query', queryParams.params())
               .then(resultHolder.set, resultHolder.setErr);
     };
 
@@ -59,8 +58,7 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
           currentResult: firstResult,
           activeNode: 0,
           resultNo: 1,
-          tree: 0,
-          svg: {}
+          tree: 0
         });
       } else {
         extend(resultHolder, {
