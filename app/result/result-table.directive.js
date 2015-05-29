@@ -1,6 +1,6 @@
 angular.module('pmltq.result').directive('resultTable', function() {
   function buildTable(dataTable) {
-    var table = $('<table></table>').addClass('table');
+    var table = $('<table></table>').addClass('ui collapsing striped celled table');
     for (var row = 0; row < dataTable.length; row++) {
       var tr = $('<tr/>');
       table.append(tr);
@@ -18,7 +18,7 @@ angular.module('pmltq.result').directive('resultTable', function() {
     scope: {
       result: '=resultTable'
     },
-    link: function($scope, $element, $attrs) {
+    link: function($scope, $element) {
       var lastTable;
 
       $scope.$watch('result.resultId', function(resultId) {

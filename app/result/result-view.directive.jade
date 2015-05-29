@@ -22,8 +22,7 @@
           .white.column
             .svg-pane(svg-content="result.svg" nodes="result.currentResult")
 
-  div(ng-switch-when="table" result-table="result")
-  //- div(ng-switch-default)
-  //-   treebank-help(tb="treebank")
+  .one.column.row(ng-switch-when="table")
+    .column(result-table="result")
 
 
