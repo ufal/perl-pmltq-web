@@ -30,7 +30,7 @@ angular.module('pmltq.result').factory('resultHolder', function(constants, _) {
     resultHolder.submit = function(treebank, queryParams) {
       resultHolder.submited = true;
       resultHolder.queryParams = queryParams;
-      treebank.post('query', queryParams)
+      treebank.post('query', queryParams.params())
               .then(resultHolder.set, resultHolder.setErr);
     };
 
