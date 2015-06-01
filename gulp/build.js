@@ -12,7 +12,7 @@ module.exports = function(options) {
       options.src + '/**/*.html',
       options.tmp + '/serve/**/*.html',
       '!' + options.src + '/*.html',
-      '!' + options.tmp + '/*.html'
+      '!' + options.tmp + '/serve/*.html'
     ])
       .pipe($.minifyHtml({
         empty: true,
