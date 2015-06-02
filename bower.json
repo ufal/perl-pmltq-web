@@ -31,6 +31,9 @@
   "overrides": {
     "snap.svg": {
       "main": "dist/snap.svg.js"
+    },
+    "ace-builds": {
+      "main": ["src/ace.js", "src/ext-language_tools.js"]
     }
   }
 }

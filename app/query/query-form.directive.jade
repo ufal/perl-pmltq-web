@@ -17,9 +17,11 @@
       .sixteen.wide.column(ng-show="collapsed")
           pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
     .field(ng-hide="collapsed")
-      textarea.text.mono(
+      div(
         name="query"
         spellcheck="false"
+        query-editor=""
+        style="height:200px"
         focus-element
         id="query-text"
         ng-model="params.query"
