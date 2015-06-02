@@ -15,11 +15,13 @@
             .content.aligned
               .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit")
       .sixteen.wide.column(ng-show="collapsed")
-          pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
+          div.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false" query-editor="{treebank: treebank, readonly: false}")
     .field(ng-hide="collapsed")
-      textarea.text.mono(
+      div(
         name="query"
         spellcheck="false"
+        query-editor="{treebank: treebank}"
+        style="height:200px"
         focus-element
         id="query-text"
         ng-model="params.query"

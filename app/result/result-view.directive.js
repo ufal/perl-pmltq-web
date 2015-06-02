@@ -11,6 +11,7 @@ angular.module('pmltq.result').directive('resultView', function(constants) {
     link: function($scope) {
       constants.extractTo($scope);
       $scope.$watch('result.submited', function(val) {
+
         if (val === true) {
           $scope.state = STATE_LOADING;
         }
@@ -21,6 +22,14 @@ angular.module('pmltq.result').directive('resultView', function(constants) {
 
         if (resultId) {
           $scope.state = result.type;
+        }
+      });
+
+      $scope.$watch('result.lastError', function(lastError) {
+        var result = $scope.result;
+
+        if (lastError) {
+          $scope.state = 'error';
         }
       });
     }

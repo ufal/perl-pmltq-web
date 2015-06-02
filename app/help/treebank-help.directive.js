@@ -4,7 +4,7 @@ angular.module('pmltq.help').directive('treebankHelp', function() {
     restrict: 'A',
     replace: true,
     scope: {
-      metadata: '=treebankHelp',
+      treebank: '=treebankHelp',
       queryParams: '=?'
     },
     templateUrl: 'help/treebank-help.directive.html',

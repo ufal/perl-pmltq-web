@@ -29,7 +29,8 @@ module.exports = function(options) {
     });
 
     gulp.watch(options.src + '/*.json', ['constants']);
+    gulp.watch(options.src + '/*.jade', ['inject']);
 
-    gulp.watch([options.inject + '/**/*.jade', options.src + '/**/*.jade'], ['markups:watch']);
+    gulp.watch([options.inject + '/**/*.jade', options.src + '/*/*.jade'], ['markups:watch']);
   });
 };
