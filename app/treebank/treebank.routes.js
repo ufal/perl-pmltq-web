@@ -29,9 +29,9 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     url: '',
     controller: function($state, history) {
       if (history.length === 0) {
-        $state.go('treebank.help');
+        $state.go('treebank.help', {location: 'replace'});
       } else {
-        $state.go('treebank.query.index');
+        $state.go('treebank.query.index', {location: 'replace'});
       }
     }
   });
