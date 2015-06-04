@@ -1,27 +1,25 @@
 main.ui.horizontally.padded.one.column.grid
   .column
     .ui.large.pointing.menu
-      .header.item(ng-bind="treebank.title")
+      .header.item
+        .ui.breadcrumb
+          a.section(ui-sref="home")
+            i.home.icon
+          i.right.chevron.icon.divider
+          a.section(ui-sref="browse") All Treebanks
+          i.right.chevron.icon.divider
+          .active.section(ng-bind="treebank.title")
       a.item(ui-sref="treebank.history" ui-sref-active="active")
         i.history.icon
         | History
       a.item(ui-sref="treebank.query.index" ui-sref-active="active")
         i.search.icon
         | Query
-      //a.item(ui-sref="treebank.suggest.index({basedOn: result.svg.marked.nodes()})"
-      //       ui-sref-active="active"
-      //       ng-disabled="!result.svg.marked.any()"
-      //       ng-class="{disabled: !result.svg.marked.any()}")
-      //  i.life.ring.icon
-      //  | Suggest
-      //  span(ng-show="result.svg.marked.any()")
-      //    = ' '
-      //    | ({{result.svg.marked.count()}})
       a.item(ui-sref="treebank.help" ui-sref-active="active")
         i.help.circle.icon
         | Help
-      .right.menu
-        a.item
+      .right.menu(ng-if="treebank.homepage")
+        a.item(ng-href="{{treebank.homepage}}" target="_blank")
           i.external.icon
           | Get data
 

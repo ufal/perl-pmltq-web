@@ -1,6 +1,13 @@
-main.ui.page.grid
+main.ui.page.one.column.grid
   .column.filter-form
-    h1.ui.header Browse Available Treebanks
+    .ui.large.pointing.menu
+      .header.item
+        .ui.breadcrumb
+          a.section(ui-sref="home")
+            i.home.icon
+          i.right.chevron.icon.divider
+          .active.section Browse Available Treebanks
+
     div(ng-if="vm.noTreebanks")
       .ui.negative.message
         .header No treebanks available at this moment.
