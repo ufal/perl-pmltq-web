@@ -10,8 +10,9 @@ angular.module('pmltq', [
   'pmltq.treebank'
 ]);
 
-angular.module('pmltq').config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
+angular.module('pmltq').config(function($stateProvider, $locationProvider, $urlRouterProvider, RestangularProvider) {
 
+  $locationProvider.hashPrefix('!');
   RestangularProvider.setBaseUrl('/api');
 
   $urlRouterProvider.otherwise('/home');

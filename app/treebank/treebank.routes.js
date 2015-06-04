@@ -4,6 +4,7 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     url: '/treebank/:treebankId',
     templateUrl: 'treebank/treebank.html',
     controller: 'TreebankController',
+    title: '{{treebank.title}}',
     abstract: true,
     resolve: {
       treebank: function(treebanksApi, $stateParams) {
@@ -25,14 +26,17 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     }
   });
 
+  //noinspection JSUnusedGlobalSymbols
   $stateProvider.state('treebank.index', {
     url: '',
-    controller: function($state, history) {
-      if (history.length === 0) {
-        $state.go('treebank.help');
-      } else {
-        $state.go('treebank.query.index');
-      }
+    onEnter: function($state, $stateParams, $timeout, history) {
+      $timeout(function () {
+        if (history.length === 0) {
+          $state.go('treebank.help', $stateParams, {location: 'replace'});
+        } else {
+          $state.go('treebank.query.index', $stateParams, {location: 'replace'});
+        }
+      });
     }
   });
 
@@ -41,6 +45,7 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     controller: 'BrowseTreebanksController',
     controllerAs: 'vm',
     templateUrl: 'treebank/browse.html',
+    title: 'Browse Treebanks',
     resolve: {
       treebanksList: function(treebanksApi) {
         return treebanksApi.getList();
