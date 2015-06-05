@@ -13,6 +13,12 @@ var app = angular.module('pmltq.query')
         '|address|abs|exp|power|log|sqrt|ln').split('|'),
         AFUNC: 'min|max|sum|avg|count|ratio|concat|row_number|rank|dense_rank'.split('|')
       };
+      if (angular.isDefined(opts.treebank)) {
+        treebank = opts.treebank;
+      }
+      if (angular.isDefined(opts.readonly)) {
+        acee.setReadOnly(opts.readonly);
+      }
       acee.setTheme('ace/theme/pmltq');
       acee.setOptions({
         showGutter: false,
