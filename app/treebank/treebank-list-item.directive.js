@@ -1,4 +1,4 @@
-angular.module('pmltq.treebank').directive('treebankListItem', function() {
+angular.module('pmltq.treebank').directive('treebankListItem', function($state) {
   return {
     restrict: 'A',
     replace: true,
@@ -6,9 +6,14 @@ angular.module('pmltq.treebank').directive('treebankListItem', function() {
       treebank: '=treebankListItem'
     },
     templateUrl: 'treebank/treebank-list-item.directive.html',
-    link: function($scope, $element, $attr) {
-      $attr.$observe('href', function(url) {
-        $scope.url = url;
+    link: function($scope) {
+
+      $scope.$watch('treebank', function(treebank) {
+        if (treebank) {
+          $scope.url = $state.href('treebank.index', {treebankId: treebank.name});
+        } else {
+          $scope.url = '';
+        }
       });
     }
   };
