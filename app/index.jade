@@ -34,6 +34,7 @@ html(ng-app="pmltq")
     script(src='bower_components/angular-loading-bar/build/loading-bar.js')
     script(src='bower_components/semantic-ui/dist/semantic.js')
     script(src='bower_components/snap.svg/dist/snap.svg.js')
+    script(src='bower_components/angular-http-auth/src/http-auth-interceptor.js')
     // endbower
     // endbuild
     // build:js({app,.tmp/partials}) scripts/app.js
@@ -92,14 +93,17 @@ html(ng-app="pmltq")
     script(src="home/home.module.js")
     script(src="home/home.routes.js")
     script(src="home/home.controller.js")
+    script(src="history/history.module.js")
+    script(src="history/history.controller.js")
+    script(src="history/history-api.service.js")
     script(src="help/help.module.js")
     script(src="help/treebank-help.directive.js")
     script(src="help/query-example.directive.js")
     script(src="help/help.routes.js")
     script(src="help/help.controller.js")
-    script(src="history/history.module.js")
-    script(src="history/history.controller.js")
-    script(src="history/history-api.service.js")
+    script(src="auth/auth.module.js")
+    script(src="auth/auth.factory.js")
+    script(src="auth/auth-api.factory.js")
     script(src="pmltq.module.js")
     // endinject
     // inject:partials
