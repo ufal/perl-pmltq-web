@@ -4,6 +4,7 @@ angular.module('pmltq.home').config(function($stateProvider) {
     url: '/home',
     templateUrl: 'home/home.html',
     controller: 'HomeController',
+    controllerAs: 'vm',
     resolve: /*@ngInject*/ {
       treebanks: function(treebanksApi) {
         return treebanksApi.getList();
