@@ -15,7 +15,7 @@
             .content.aligned
               .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
       .sixteen.wide.column(ng-show="collapsed")
-          pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
+          div.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false" query-editor="{treebank: treebank, readonly: false}")
     .field(ng-hide="collapsed")
       div(
         name="query"

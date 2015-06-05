@@ -5,7 +5,7 @@ var app = angular.module('pmltq.query')
       throw new Error('query-editor need ace to work... (o rly?)');
     }
 
-    var setOptions = function(acee, session, opts, treebank) {
+    var setOptions = function(acee, session, opts, treebank, elm) {
       var defKeywords = 'for|give|distinct|sort|by|desc|asc|filter|where|over|all'.split('|');
       var functions = {
         FUNC: ('descendants|lbrothers|rbrothers|sons|depth_first_order|order_span_min|order_span_max|depth|lower' +
@@ -16,8 +16,15 @@ var app = angular.module('pmltq.query')
       if (angular.isDefined(opts.treebank)) {
         treebank = opts.treebank;
       }
-      if (angular.isDefined(opts.readonly)) {
-        acee.setReadOnly(opts.readonly);
+      console.log('TREEBANK: ', treebank);
+      if (angular.isDefined(opts.readonly) && opts.readonly) {
+        acee.setOptions({
+          readOnly: true,
+          highlightActiveLine: false,
+          highlightGutterLine: false
+        });
+        acee.renderer.$cursorLayer.element.style.opacity = 0;
+        acee.textInput.getElement().disabled = true;
       }
       acee.setTheme('ace/theme/pmltq');
       acee.setOptions({
@@ -96,6 +103,15 @@ var app = angular.module('pmltq.query')
 
       PMLTQMode.$highlightRules.addKeywords(keywords);
       PMLTQMode.$tokenizer = null; // force recreation of tokenizer
+      if (angular.isDefined(opts.query)) {
+        acee.setValue(opts.query, 1);
+      }
+      if (angular.isDefined(opts.adjustheight) && opts.adjustheight) {
+        var newHeight = session.getScreenLength() * acee.renderer.lineHeight + acee.renderer.scrollBar.getWidth();
+        elm.height(newHeight.toString() + 'px');
+        acee.resize();
+      }
+
       acee.session.bgTokenizer.setTokenizer(PMLTQMode.getTokenizer(PMLTQMode.$highlightRules.getRules()));
       acee.session.bgTokenizer.start(0);
     };
@@ -198,7 +214,7 @@ var app = angular.module('pmltq.query')
           onBlurListener = listenerFactory.onBlur(opts.onBlur);
           acee.on('blur', onBlurListener);
 
-          setOptions(acee, session, opts, scope.treebank);
+          setOptions(acee, session, opts, scope.treebank, elm);
         };
 
         scope.$watch(attrs.queryEditor, updateOptions, /* deep watch */ true);
@@ -206,7 +222,7 @@ var app = angular.module('pmltq.query')
         // set the options here, even if we try to watch later, if this
         // line is missing things go wrong (and the tests will also fail)
         updateOptions(options);
-
+        elm.editor = acee;
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
           acee.destroy();

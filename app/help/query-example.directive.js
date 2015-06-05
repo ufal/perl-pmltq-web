@@ -1,16 +1,18 @@
 angular.module('pmltq.help').directive('queryExample', function() {
 
   return {
-    restrict: 'E',
+    restrict: 'A', //'E'
     replace: true,
-    transclude: true,
-    scope: {},
+    //transclude: true,
+    scope: {
+      treebank: '=queryExample',
+      query:    '=?'
+    },
     templateUrl: 'help/query-example.directive.html',
     link: function($scope, $element) {
       $scope.tryQuery = function() {
-        $scope.$emit('tryQuery', $element.find('pre').text());
+        $scope.$emit('tryQuery', $scope.query); // NOT taken from editor !!!
       };
-      // DO syntax highlighting
     }
   };
 });

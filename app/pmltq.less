@@ -1,11 +1,11 @@
 // injector
+@import 'history/history.less';
 @import 'help/help.less';
 @import 'home/home.less';
 @import 'query/query.less';
-@import 'history/history.less';
+@import 'result/result.less';
 @import 'semantic-ui/semantic-ui.less';
 @import 'suggest/suggest.less';
-@import 'result/result.less';
 @import 'treebank/treebank.less';
 // endinjector
 
@@ -83,7 +83,7 @@ code {
   border-radius: 4px;
 }
 
-pre {
+pre, .query-example {
   display: block;
   padding: 9.5px;
   margin: 0 0 10px;
@@ -95,6 +95,10 @@ pre {
   background-color: #f5f5f5;
   border: 1px solid #cccccc;
   border-radius: 4px;
+}
+
+.query-example .code-listing {
+  background-color: inherit !important;
 }
 
 .table-without-borders {
