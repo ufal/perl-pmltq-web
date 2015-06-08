@@ -1,15 +1,21 @@
-angular.module('pmltq.help').directive('queryExample', function() {
+angular.module('pmltq.help').directive('queryExample', function($interpolate) {
 
   return {
-    restrict: 'A', //'E'
+    restrict: 'E',
+    transclude: true,
     replace: true,
-    //transclude: true,
     scope: {
-      treebank: '=queryExample',
-      query:    '=?'
+      treebank: '='
     },
     templateUrl: 'help/query-example.directive.html',
-    link: function($scope, $element) {
+    link: function ($scope, $element, $attr, $controller, $transclude) {
+      $transclude(function (clone, tScope) {
+        var queryText = clone.filter(function () {
+          return this.nodeType !== 3;
+        }).text();
+        $scope.query = $interpolate(queryText)(tScope);
+      });
+
       $scope.tryQuery = function() {
         $scope.$emit('tryQuery', $scope.query); // NOT taken from editor !!!
       };
