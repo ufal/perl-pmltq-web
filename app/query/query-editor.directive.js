@@ -16,7 +16,6 @@ var app = angular.module('pmltq.query')
       if (angular.isDefined(opts.treebank)) {
         treebank = opts.treebank;
       }
-      console.log('TREEBANK: ', treebank);
       if (angular.isDefined(opts.readonly) && opts.readonly) {
         acee.setOptions({
           readOnly: true,
