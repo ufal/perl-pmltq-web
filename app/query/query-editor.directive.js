@@ -13,6 +13,7 @@ var app = angular.module('pmltq.query')
         '|address|abs|exp|power|log|sqrt|ln').split('|'),
         AFUNC: 'min|max|sum|avg|count|ratio|concat|row_number|rank|dense_rank'.split('|')
       };
+      var PMLTQMode;
       if (angular.isDefined(opts.treebank)) {
         treebank = opts.treebank;
       }
@@ -38,70 +39,92 @@ var app = angular.module('pmltq.query')
         enableLiveAutocompletion: true
       });
       acee.$blockScrolling = Infinity;
-      acee.session.setMode('ace/mode/pmltq');
-      var PMLTQMode =   acee.session.$mode;
-      var keywords = {};
-      Object.keys(functions).forEach(function(type) {
-        var a = functions[type];
-        keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
-        for (var i = a.length; i--;) {
-          PMLTQMode.$highlightRules.addNewRule('start', [type, 'PAR'], '(\\b' + a[i] + '\\b)(\\()');
-          PMLTQMode.$completer.addCompletion(a[i], type, type);
-        }
-      });
+      if (angular.isDefined(treebank.highlightMode)) {
+        console.log('loading mode', treebank.highlightMode);
+        PMLTQMode = treebank.highlightMode;
+        console.log('PMLTQMode ', PMLTQMode);
+        //PMLTQMode.prototype = window.ace.require('ace/mode/pmltq').Mode;
+        console.log('PMLTQMode constructor', PMLTQMode);
 
-      var type = 'KEYWORD';
-      keywords[type] = defKeywords.join('|') + (keywords[type] ? '|' + keywords[type] : '');
-      for (var i = defKeywords.length; i--;) {
-        PMLTQMode.$highlightRules.addNewRule('start', type, '\\b' + defKeywords[i] + '\\b');
-        PMLTQMode.$completer.addCompletion(defKeywords[i], type, type);
-      }
+      } else {
+        console.log('new mode');
+        var m = window.ace.require('ace/mode/pmltq');
+        PMLTQMode = new m.Mode();//acee.session.$mode;
 
-      // jscs:disable requireDotNotation
-      Object.keys(treebank['node_types']).forEach(function(type) {
-        var a = treebank['node_types'][type];
-        type = 'TYPE.' + type;
-        keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
-        for (var i = a.length; i--;) {
-          PMLTQMode.$highlightRules.addNewRule('start', type, '\\b' + a[i] + '\\b');
-          PMLTQMode.$completer.addCompletion(a[i], type, type);
-        }
-      });
-      // jscs:enable requireDotNotation
-
-      Object.keys(treebank.attributes).forEach(function(type) {
-        var a = treebank.attributes[type];
-        keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
-        for (var i = a.length; i--;) {
-          PMLTQMode.$highlightRules.addAtributes(type, a[i]);
-          PMLTQMode.$completer.addCompletion(a[i], 'ATTRIBUTE.' + type, 'ATTRIBUTE.' + type);
-        }
-      });
-
-      var relations = [[treebank.relations, 'RELATION']];
-      var r;
-      var relationfunc = function(t2) {
-        var a = data[t2];
-        t2 = type2 + '.' + t2;
-        if (Array.isArray(a)) {
-          keywords[t2] = a.join('|') + (keywords[t2] ? '|' + keywords[t2] : '');
+        var hl = window.ace.require('ace/mode/pmltq_highlight_rules');
+        var com = window.ace.require('ace/mode/pmltq_completions');
+        PMLTQMode.$highlightRules = new hl.PmltqHighlightRules();
+        PMLTQMode.$completer = new com.PmltqCompletions();
+        var keywords = {};
+        Object.keys(functions).forEach(function (type) {
+          var a = functions[type];
+          keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
           for (var i = a.length; i--;) {
-            PMLTQMode.$highlightRules.addNewRule('start', t2, '\\b' + a[i] + '\\b');
-            PMLTQMode.$completer.addCompletion(a[i], t2, t2);
+            PMLTQMode.$highlightRules.addNewRule('start', [type, 'PAR'], '(\\b' + a[i] + '\\b)(\\()');
+            PMLTQMode.$completer.addCompletion(a[i], type, type);
           }
-        } else {
-          relations.push([a, t2]);
-        }
-      };
-      while (r = relations.shift()) {
-        var data = r[0];
-        var type2 = r[1];
-        Object.keys(data).forEach(relationfunc);
-      }
-      PMLTQMode.$highlightRules.addDefaultPopRule('step');
+        });
 
-      PMLTQMode.$highlightRules.addKeywords(keywords);
-      PMLTQMode.$tokenizer = null; // force recreation of tokenizer
+        var type = 'KEYWORD';
+        keywords[type] = defKeywords.join('|') + (keywords[type] ? '|' + keywords[type] : '');
+        for (var i = defKeywords.length; i--;) {
+          PMLTQMode.$highlightRules.addNewRule('start', type, '\\b' + defKeywords[i] + '\\b');
+          PMLTQMode.$completer.addCompletion(defKeywords[i], type, type);
+        }
+
+        // jscs:disable requireDotNotation
+        Object.keys(treebank['node_types']).forEach(function (type) {
+          var a = treebank['node_types'][type];
+          type = 'TYPE.' + type;
+          keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
+          for (var i = a.length; i--;) {
+            PMLTQMode.$highlightRules.addNewRule('start', type, '\\b' + a[i] + '\\b');
+            PMLTQMode.$completer.addCompletion(a[i], type, type);
+          }
+        });
+        // jscs:enable requireDotNotation
+
+        Object.keys(treebank.attributes).forEach(function (type) {
+          var a = treebank.attributes[type];
+          keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
+          for (var i = a.length; i--;) {
+            PMLTQMode.$highlightRules.addAtributes(type, a[i]);
+            PMLTQMode.$completer.addCompletion(a[i], 'ATTRIBUTE.' + type, 'ATTRIBUTE.' + type);
+          }
+        });
+
+        var relations = [[treebank.relations, 'RELATION']];
+        var r;
+        var relationfunc = function (t2) {
+          var a = data[t2];
+          t2 = type2 + '.' + t2;
+          if (Array.isArray(a)) {
+            keywords[t2] = a.join('|') + (keywords[t2] ? '|' + keywords[t2] : '');
+            for (var i = a.length; i--;) {
+              PMLTQMode.$highlightRules.addNewRule('start', t2, '\\b' + a[i] + '\\b');
+              PMLTQMode.$completer.addCompletion(a[i], t2, t2);
+            }
+          } else {
+            relations.push([a, t2]);
+          }
+        };
+        while (r = relations.shift()) {
+          var data = r[0];
+          var type2 = r[1];
+          Object.keys(data).forEach(relationfunc);
+        }
+        PMLTQMode.$highlightRules.addDefaultPopRule('step');
+        PMLTQMode.$highlightRules.addKeywords(keywords);
+        PMLTQMode.$tokenizer = null; // force recreation of tokenizer
+        console.log('saving mode', PMLTQMode);
+        // THIS DOES NOT WORK:
+        // treebank.highlightMode = angular.copy(PMLTQMode);
+        console.log('############# mode saved', treebank.highlightMode, treebank);
+      }
+      console.log('setting mode');
+      acee.session.setMode(PMLTQMode);
+      console.log('mode setted', PMLTQMode, acee.session.$mode);
+
       if (angular.isDefined(opts.adjustheight) && opts.adjustheight) {
         acee.on('change', function() {
           var newHeight = session.getScreenLength() * acee.renderer.lineHeight + acee.renderer.scrollBar.getWidth();
@@ -112,7 +135,6 @@ var app = angular.module('pmltq.query')
       if (angular.isDefined(opts.query)) {
         acee.setValue(opts.query, 1);
       }
-
       acee.session.bgTokenizer.setTokenizer(PMLTQMode.getTokenizer(PMLTQMode.$highlightRules.getRules()));
       acee.session.bgTokenizer.start(0);
     };
