@@ -14,6 +14,7 @@ angular.module('pmltq.help').directive('queryExample', function($interpolate) {
           return this.nodeType !== 3;
         }).text();
         $scope.query = $interpolate(queryText)(tScope);
+        // TODO resize minimized readonly editor
       });
 
       $scope.tryQuery = function() {
