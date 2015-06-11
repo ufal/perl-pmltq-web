@@ -4,8 +4,10 @@ var app = angular.module('pmltq.query')
     if (angular.isUndefined(window.ace)) {
       throw new Error('query-editor need ace to work... (o rly?)');
     }
-
-    var pmltqInit = function pmltqModeFactory(treebank) {
+    var pmltqModeInit = function (treebank) {
+      if(angular.isDefined(treebank.highlightMode)) {
+        return angular.copy(treebank.highlightMode);
+      }
       var m = window.ace.require('ace/mode/pmltq');
       var defKeywords = 'for|give|distinct|sort|by|desc|asc|filter|where|over|all'.split('|');
       var functions = {
@@ -78,6 +80,7 @@ var app = angular.module('pmltq.query')
       PMLTQMode.$highlightRules.addDefaultPopRule('step');
       PMLTQMode.$highlightRules.addKeywords(keywords);
       PMLTQMode.$tokenizer = null;
+      treebank.highlightMode = angular.copy(PMLTQMode);
       return PMLTQMode;
     };
 
@@ -108,15 +111,7 @@ var app = angular.module('pmltq.query')
         enableLiveAutocompletion: true
       });
       acee.$blockScrolling = Infinity;
-      if (angular.isDefined(treebank.highlightMode)) {
-        console.log('loading mode', treebank.highlightMode);
-        PMLTQMode = treebank.highlightMode;
-        console.log('PMLTQMode ', PMLTQMode);
-        //PMLTQMode.prototype = window.ace.require('ace/mode/pmltq').Mode;
-        console.log('PMLTQMode constructor', PMLTQMode);
-      } else {
-        PMLTQMode = pmltqInit(treebank);
-      }
+      PMLTQMode = pmltqModeInit(treebank);
       console.log('setting mode');
       acee.session.setMode(PMLTQMode);
       console.log('mode setted', PMLTQMode);
