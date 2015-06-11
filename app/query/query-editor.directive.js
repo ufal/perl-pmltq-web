@@ -5,7 +5,7 @@ var app = angular.module('pmltq.query')
       throw new Error('query-editor need ace to work... (o rly?)');
     }
     var pmltqModeInit = function (treebank) {
-      if(angular.isDefined(treebank.highlightMode)) {
+      if (angular.isDefined(treebank.highlightMode)) {
         return angular.copy(treebank.highlightMode);
       }
       var m = window.ace.require('ace/mode/pmltq');
