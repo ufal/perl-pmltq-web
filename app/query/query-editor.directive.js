@@ -103,7 +103,7 @@ var app = angular.module('pmltq.query')
       PMLTQMode.$highlightRules.addKeywords(keywords);
       PMLTQMode.$tokenizer = null; // force recreation of tokenizer
       if (angular.isDefined(opts.adjustheight) && opts.adjustheight) {
-        acee.on('change',function(){
+        acee.on('change', function() {
           var newHeight = session.getScreenLength() * acee.renderer.lineHeight + acee.renderer.scrollBar.getWidth();
           elm.height(newHeight.toString() + 'px');
           acee.resize();
