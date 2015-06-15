@@ -1,1 +1,1 @@
-angular.module('pmltq.auth', ['http-auth-interceptor']);
+angular.module('pmltq.auth', ['http-auth-interceptor', 'restangular', 'semanticUI']);

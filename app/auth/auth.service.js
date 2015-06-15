@@ -1,14 +1,15 @@
 /* @ngInject */
-function AuthService($rootScope, authService, authApi) {
+function AuthService($rootScope, authService, Restangular) {
   var auth = this,
-    loggedIn = false;
+    loggedIn = false,
+    authApi = Restangular.service('auth');
 
   $rootScope.$on('event:auth-loginConfirmed', function () {
     loggedIn = true;
   });
 
   auth.ping = function () {
-    return authApi.get().then(function (authData) {
+    return authApi.one().get().then(function (authData) {
       if (authData.user === false) {
         loggedIn = false;
       } else {
@@ -24,13 +25,14 @@ function AuthService($rootScope, authService, authApi) {
   };
 
   auth.login = function (params) {
-    return authApi.post(params).then(function (authData) {
+    return authApi.post({auth: {username: params.username, password: params.password}}).then(function (authData) {
       authService.loginConfirmed(authData.user);
+      return authData.user;
     });
   };
 
   auth.logout = function () {
-    return authApi.delete().then(function () {
+    return authApi.one().remove().then(function () {
       loggedIn = false;
       $rootScope.$broadcast('event:auth-loggedOut');
     });

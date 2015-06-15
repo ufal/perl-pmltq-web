@@ -4,7 +4,8 @@ angular.module('pmltq.shared', [
   'LocalStorageModule',
   'restangular',
   'semanticUI',
-  'ui.router'
+  'ui.router',
+  'pmltq.auth'
 ]);
 
 angular.module('pmltq.shared').run(function ($rootScope) {

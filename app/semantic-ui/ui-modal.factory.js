@@ -1,5 +1,5 @@
 /* @ngInject */
-function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
+function ModalFactory($, $rootScope, $controller, $compile, $timeout, uiUtils) {
   function Modal(config) {
     if (!(this instanceof Modal)) {
       return new Modal(config);
@@ -8,6 +8,8 @@ function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
     this.config = config = angular.extend({}, config);
     var modal = this,
       promise = modal.promise = uiUtils.fetchTemplate(config.template),
+      controller = config.controller,
+      controllerAs = config.controllerAs,
       scope = modal.scope = config.scope ? config.scope : $rootScope.$new(),
       onHide = config.onHide, onVisible = config.onVisible;
 
@@ -25,6 +27,7 @@ function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
       }
 
       scope.isVisible = modal.isVisible = true;
+      modal.modalElement.modal('refresh');
       uiUtils.safeDigest(scope);
     };
 
@@ -51,6 +54,12 @@ function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
 
     promise.then(function (template) {
       modal.modalLinker = $compile(template);
+      if (controller) {
+        var ctrl = $controller(controller, {$scope: scope});
+        if (controllerAs) {
+          scope[controllerAs] = ctrl;
+        }
+      }
       modal.init();
     });
   }
@@ -63,6 +72,7 @@ function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
 
   Modal.prototype.destroy = function () {
     if (this.modalElement) {
+      this.modalElement.modal('destroy');
       this.modalElement.remove();
       this.modalElement = null;
     }
@@ -82,7 +92,7 @@ function ModalFactory($, $rootScope, $compile, $timeout, uiUtils) {
     }
     this.modalElement.modal('show');
     this.scope.isShown = this.isShown = true;
-    uiUtils.safeDigest(this.scope);
+    //uiUtils.safeDigest(this.scope);
   };
 
   Modal.prototype.hide = function () {
