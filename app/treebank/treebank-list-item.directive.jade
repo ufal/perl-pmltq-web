@@ -6,7 +6,7 @@
           tspan(font-weight="bold") {{treebank.title}}
   .content
     a.header(ng-href="{{url}}")
-      span(ng-if="!treebank.access")
+      span(ng-if="!treebank.anonymous")
         i.icon.lock(title="Login and permission required" ui-popup="" data-position="right center")
       | {{treebank.title}}
     .description {{treebank.description}}

@@ -1,27 +1,21 @@
 main.ui.horizontally.padded.one.column.grid
   .column
-    .ui.large.pointing.menu
-      .header.item
-        .ui.breadcrumb
-          a.section(ui-sref="home")
-            i.home.icon
-          i.right.chevron.icon.divider
-          a.section(ui-sref="browse") All Treebanks
-          i.right.chevron.icon.divider
-          .active.section(ng-bind="treebank.title")
-      a.item(ui-sref="treebank.history" ui-sref-active="active")
+    navigation
+      a.section(breadcrumb ui-sref="browse") Browse Treebanks
+      i.right.chevron.icon.divider(breadcrumb)
+      .active.section(breadcrumb ng-bind="treebank.title")
+      a.item(menu ui-sref="treebank.history" ui-sref-active="active")
         i.history.icon
         | History
-      a.item(ui-sref="treebank.query.index" ui-sref-active="active")
+      a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
         i.search.icon
         | Query
-      a.item(ui-sref="treebank.help" ui-sref-active="active")
+      a.item(menu ui-sref="treebank.help" ui-sref-active="active")
         i.help.circle.icon
         | Help
-      .right.menu(ng-if="treebank.homepage")
-        a.item(ng-href="{{treebank.homepage}}" target="_blank")
-          i.external.icon
-          | Get data
+      a.item(right ng-href="{{treebank.homepage}}" ng-show="treebank.homepage" target="_blank")
+        i.external.icon
+        | Get data
 
   .fitted.column
     .ui.grid(ui-view="")

@@ -1,0 +1,19 @@
+.ui.large.pointing.menu
+  .header.item
+    .ui.breadcrumb
+      a.section(ui-sref="home")
+        i.home.icon
+      i.right.chevron.icon.divider
+      div(transclude-select="[breadcrumb]")
+  div(transclude-select="[menu]")
+  .right.menu
+    div(transclude-select="[right]")
+    .ui.dropdown.item(ui-dropdown ng-show="loggedIn")
+      i.user.icon
+      | {{username}}
+      i.dropdown.icon
+      .menu
+        a.item(logout) Logout
+    a.item(login ng-hide="loggedIn")
+      i.user.icon
+      | Login

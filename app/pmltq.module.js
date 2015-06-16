@@ -2,6 +2,7 @@ angular.module('pmltq', [
   'pmltq.shared',
 
   // modules
+  'pmltq.auth',
   'pmltq.help',
   'pmltq.history',
   'pmltq.home',
@@ -18,18 +19,15 @@ angular.module('pmltq').config(function($stateProvider, $locationProvider, $urlR
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module('pmltq')
-.run(function($rootScope) {
+angular.module('pmltq').run(function(Auth, $state, $rootScope, cfpLoadingBar) {
+  Auth.ping();
 
-  $rootScope.safeApply = function(fn) {
-    var phase = $rootScope.$$phase;
-    if (phase === '$apply' || phase === '$digest') {
-      if (fn && (typeof(fn) === 'function')) {
-        fn();
-      }
+  $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams) {
+    cfpLoadingBar.complete();
+    if (fromState && !fromState.abstract) {
+      $state.go(fromState, fromParams);
     } else {
-      this.$apply(fn);
+      $state.go('home');
     }
-  };
-
+  });
 });

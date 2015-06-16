@@ -1,12 +1,7 @@
 main.ui.page.one.column.grid
   .column.filter-form
-    .ui.large.pointing.menu
-      .header.item
-        .ui.breadcrumb
-          a.section(ui-sref="home")
-            i.home.icon
-          i.right.chevron.icon.divider
-          .active.section Browse Available Treebanks
+    navigation
+      .active.section(breadcrumb) Browse Treebanks
 
     div(ng-if="vm.noTreebanks")
       .ui.negative.message
