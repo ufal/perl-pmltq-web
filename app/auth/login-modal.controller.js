@@ -14,7 +14,9 @@ function LoginModalController($scope, Discojuice, Auth) {
       vm.discojuiceResult = result;
       Auth.ping().then(function () {
         $scope.hide();
-      })
+      });
+    }).catch(function () {
+      vm.discojuiceResult = null;
     });
   };
 

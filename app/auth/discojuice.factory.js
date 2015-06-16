@@ -22,7 +22,11 @@ function DiscojuiceFactory($window, $q, $, discojuiceUrl) {
         return;
       }
 
-      deferred.resolve(oe.data);
+      if (oe.data) {
+        deferred.resolve(oe.data);
+      } else {
+        deferred.reject();
+      }
       $frame.remove();
       $(this).off(e);
     });
