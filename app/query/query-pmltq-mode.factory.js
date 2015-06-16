@@ -1,10 +1,12 @@
-angular.module('pmltq.query').factory('PmltqMode', function () {
-  return {
-    init: function (treebank) {
+angular.module('pmltq.query').factory('PmltqMode', function ($cacheFactory) {
+  var modeCache = $cacheFactory('mode-cache');
 
-      if (angular.isDefined(treebank.highlightMode)) {
-        return angular.copy(treebank.highlightMode);
+  function BuildPmltqMode (treebank) {
+      var PMLTQMode = modeCache.get(treebank.id);
+      if (PMLTQMode) {
+        return PMLTQMode;
       }
+
       var m = window.ace.require('ace/mode/pmltq');
       var defKeywords = 'for|give|distinct|sort|by|desc|asc|filter|where|over|all'.split('|');
       var functions = {
@@ -13,7 +15,7 @@ angular.module('pmltq.query').factory('PmltqMode', function () {
         '|address|abs|exp|power|log|sqrt|ln').split('|'),
         AFUNC: 'min|max|sum|avg|count|ratio|concat|row_number|rank|dense_rank'.split('|')
       };
-      var PMLTQMode = new m.Mode();
+      PMLTQMode = new m.Mode();
       var hl = window.ace.require('ace/mode/pmltq_highlight_rules');
       var com = window.ace.require('ace/mode/pmltq_completions');
       PMLTQMode.$highlightRules = new hl.PmltqHighlightRules();
@@ -77,8 +79,9 @@ angular.module('pmltq.query').factory('PmltqMode', function () {
       PMLTQMode.$highlightRules.addDefaultPopRule('step');
       PMLTQMode.$highlightRules.addKeywords(keywords);
       PMLTQMode.$tokenizer = null;
-      treebank.highlightMode = angular.copy(PMLTQMode);
+      modeCache.put(treebank.id, PMLTQMode);
       return PMLTQMode;
     }
-  };
+
+  return BuildPmltqMode;
 });

@@ -32,7 +32,7 @@ var app = angular.module('pmltq.query')
         enableLiveAutocompletion: true
       });
       acee.$blockScrolling = Infinity;
-      PMLTQMode = PmltqMode.init(treebank); //pmltqModeInit(treebank);
+      PMLTQMode = PmltqMode(treebank); //pmltqModeInit(treebank);
       console.log('setting mode');
       acee.session.setMode(PMLTQMode);
       console.log('mode setted', PMLTQMode);
