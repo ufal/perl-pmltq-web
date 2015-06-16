@@ -14,6 +14,7 @@ angular.module('pmltq.treebank').directive('treebankListItem', function($state) 
         } else {
           $scope.url = '';
         }
+        console.log(treebank);
       });
     }
   };

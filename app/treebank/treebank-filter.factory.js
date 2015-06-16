@@ -105,7 +105,7 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
         var tb = treebanksList[i];
 
         // Filter out inaccessible
-        if (filter.onlyAccessible && !tb.access) {
+        if (filter.onlyAccessible && !tb.anonymous) {
           continue;
         }
 

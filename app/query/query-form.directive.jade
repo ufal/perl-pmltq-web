@@ -10,10 +10,10 @@
         .ui.horizontal.list
           .item
             .content.aligned
-              .ui.inline.dropdown(ui-dropdown="timeoutSelect" title="Timeout" ng-model="params.timeout")
+              .ui.inline.dropdown(ui-selectbox="timeoutSelect" title="Timeout" ng-model="params.timeout")
           .item
             .content.aligned
-              .ui.inline.dropdown(ui-dropdown="limitSelect" title="Result limit" ng-model="params.limit")
+              .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit")
       .sixteen.wide.column(ng-show="collapsed")
           pre.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false")
     .field(ng-hide="collapsed")

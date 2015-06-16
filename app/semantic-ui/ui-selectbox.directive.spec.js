@@ -1,4 +1,4 @@
-describe('uiDropdown', function() {
+describe('uiSelectbox', function() {
 
   beforeEach(module('semanticUI'));
 
