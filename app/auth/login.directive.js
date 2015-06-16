@@ -9,7 +9,11 @@ angular.module('pmltq.auth').directive('login', function(uiModal) {
         m = uiModal({
           template: 'auth/login-modal.html',
           controller: 'LoginModalController',
-          controllerAs: 'vm'
+          controllerAs: 'vm',
+          onHidden: function () {
+            m.destroy();
+            m = null;
+          }
         });
         m.promise.then(function () {
           m.show();

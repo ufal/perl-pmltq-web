@@ -81,17 +81,23 @@ function ModalFactory($, $rootScope, $controller, $compile, $timeout, uiUtils) {
   };
 
   Modal.prototype.show = function () {
-    if (this.isShown) {
+    var modal = this;
+    if (modal.isShown) {
       return;
     }
 
-    if (!this.modalElement) {
-      this.modalElement = $(this.modalLinker(this.scope));
-      this.modalElement.appendTo($('body'));
-      this.modalElement.modal(this.config);
+    if (!modal.modalElement) {
+      modal.modalElement = $(modal.modalLinker(modal.scope));
+      modal.modalElement.appendTo($('body'));
+      modal.modalElement.modal(modal.config);
     }
-    this.modalElement.modal('show');
-    this.scope.isShown = this.isShown = true;
+
+    // This is here to fix the animations
+    $timeout(function () {
+      modal.modalElement.modal('show');
+      modal.scope.isShown = modal.isShown = true;
+    });
+
     //uiUtils.safeDigest(this.scope);
   };
 
