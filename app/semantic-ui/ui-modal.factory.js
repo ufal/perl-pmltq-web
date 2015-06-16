@@ -11,7 +11,8 @@ function ModalFactory($, $rootScope, $controller, $compile, $timeout, uiUtils) {
       controller = config.controller,
       controllerAs = config.controllerAs,
       scope = modal.scope = config.scope ? config.scope : $rootScope.$new(),
-      onHide = config.onHide, onVisible = config.onVisible;
+      onHide = config.onHide, onVisible = config.onVisible,
+      locals = config.locals;
 
     config.onHide = function () {
       if (onHide) {
@@ -55,9 +56,19 @@ function ModalFactory($, $rootScope, $controller, $compile, $timeout, uiUtils) {
     promise.then(function (template) {
       modal.modalLinker = $compile(template);
       if (controller) {
-        var ctrl = $controller(controller, {$scope: scope});
+        if (!locals) {
+          locals = {};
+        }
+        locals.$scope = scope;
+        var ctrl = $controller(controller, locals);
         if (controllerAs) {
           scope[controllerAs] = ctrl;
+        }
+      } else if (locals) {
+        for (var prop in locals) {
+          if (locals.hasOwnProperty(prop)) {
+            scope[prop] = locals[prop];
+          }
         }
       }
       modal.init();

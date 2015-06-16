@@ -19,6 +19,15 @@ angular.module('pmltq').config(function($stateProvider, $locationProvider, $urlR
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module('pmltq').run(function(Auth) {
+angular.module('pmltq').run(function(Auth, $state, $rootScope, cfpLoadingBar) {
   Auth.ping();
+
+  $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams) {
+    cfpLoadingBar.complete();
+    if (fromState && !fromState.abstract) {
+      $state.go(fromState, fromParams);
+    } else {
+      $state.go('home');
+    }
+  });
 });

@@ -1,7 +1,12 @@
 /* @ngInject */
-function LoginModalController($scope, Discojuice, Auth) {
+function LoginModalController($scope, required, Discojuice, Auth) {
   var vm = this;
 
+  $scope.$on('$stateChangeStart', function () {
+    $scope.hide();
+  });
+
+  vm.required = required;
   vm.auth = {
     email: '',
     password: '',

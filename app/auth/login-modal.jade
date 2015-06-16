@@ -1,6 +1,10 @@
 .ui.small.modal
   i.close.icon
-  .header Login
+  .header
+    | Login
+    span(ng-if="vm.required")
+      = ' '
+      | Required
   .content
     .ui.info.message
       | To sign in, you can use any account with an <b>Identity Provider</b> that is a member of <b>EduGAIN</b> federation.

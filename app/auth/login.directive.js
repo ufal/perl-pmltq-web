@@ -1,4 +1,4 @@
-angular.module('pmltq.auth').directive('login', function(uiModal) {
+angular.module('pmltq.auth').directive('login', function(loginModal) {
   return {
     restrict: 'A',
     link: function($scope, $element) {
@@ -6,15 +6,7 @@ angular.module('pmltq.auth').directive('login', function(uiModal) {
       $element.click(function (e) {
         e.preventDefault();
 
-        m = uiModal({
-          template: 'auth/login-modal.html',
-          controller: 'LoginModalController',
-          controllerAs: 'vm',
-          onHidden: function () {
-            m.destroy();
-            m = null;
-          }
-        });
+        m = loginModal();
         m.promise.then(function () {
           m.show();
         });
