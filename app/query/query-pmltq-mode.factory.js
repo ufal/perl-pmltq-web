@@ -1,7 +1,7 @@
-angular.module('pmltq.query').factory('PmltqMode', function ($cacheFactory) {
+angular.module('pmltq.query').factory('pmltqMode', function ($cacheFactory) {
   var modeCache = $cacheFactory('mode-cache');
 
-  function BuildPmltqMode (treebank) {
+  function buildPmltqMode (treebank) {
       var PMLTQMode = modeCache.get(treebank.id);
       if (PMLTQMode) {
         return PMLTQMode;
@@ -83,5 +83,5 @@ angular.module('pmltq.query').factory('PmltqMode', function ($cacheFactory) {
       return PMLTQMode;
     }
 
-  return BuildPmltqMode;
+  return buildPmltqMode;
 });

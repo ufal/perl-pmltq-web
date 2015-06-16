@@ -1,6 +1,6 @@
 var app = angular.module('pmltq.query')
   .constant('pmltqAceConfig', {})
-  .directive('queryHighlighter', ['PmltqMode', function (PmltqMode) {
+  .directive('queryHighlighter', function (pmltqMode) {
 
     return {
       restrict: 'EA',
@@ -10,7 +10,7 @@ var app = angular.module('pmltq.query')
         var EditSession = window.ace.require('ace/edit_session').EditSession;
         var TextLayer = window.ace.require('ace/layer/text').Text;
         var dom = window.ace.require('ace/lib/dom');
-        var mode = PmltqMode(scope.treebank);
+        var mode = pmltqMode(scope.treebank);
         var theme = window.ace.require('ace/theme/pmltq');
         dom.importCssString(theme.cssText, theme.cssClass);
         var session = new EditSession('');
@@ -47,5 +47,4 @@ var app = angular.module('pmltq.query')
         }
       }
     };
-  }
-  ]);
+  });

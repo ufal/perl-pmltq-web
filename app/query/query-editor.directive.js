@@ -1,6 +1,6 @@
 var app = angular.module('pmltq.query')
   .constant('pmltqAceConfig', {})
-  .directive('queryEditor', ['pmltqAceConfig', 'PmltqMode', function (pmltqAceConfig, PmltqMode) {
+  .directive('queryEditor', function (pmltqAceConfig, pmltqMode) {
     if (angular.isUndefined(window.ace)) {
       throw new Error('query-editor need ace to work... (o rly?)');
     }
@@ -32,7 +32,7 @@ var app = angular.module('pmltq.query')
         enableLiveAutocompletion: true
       });
       acee.$blockScrolling = Infinity;
-      PMLTQMode = PmltqMode(treebank); //pmltqModeInit(treebank);
+      PMLTQMode = pmltqMode(treebank); //pmltqModeInit(treebank);
       console.log('setting mode');
       acee.session.setMode(PMLTQMode);
       console.log('mode setted', PMLTQMode);
@@ -172,5 +172,4 @@ var app = angular.module('pmltq.query')
 
       }
     };
-  }
-  ]);
+  });
