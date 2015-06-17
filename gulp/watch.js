@@ -1,7 +1,6 @@
 'use strict';
 
 var gulp = require('gulp');
-var browserSync = require('browser-sync');
 
 function isOnlyChange(event) {
   return event.type === 'changed';
@@ -29,6 +28,6 @@ module.exports = function(options) {
       }
     });
 
-    gulp.watch(options.src + '/**/*.jade', ['markups:watch']);
+    gulp.watch([options.inject + '/**/*.jade', options.src + '/**/*.jade'], ['markups:watch']);
   });
 };

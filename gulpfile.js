@@ -10,6 +10,7 @@ var options = {
   src: 'app',
   dist: 'dist',
   tmp: '.tmp',
+  inject: '.tmp/inject',
   e2e: 'e2e',
   iifeTemplate: '(function(){\n<%= contents %>\n}());',
   errorHandler: function(title) {

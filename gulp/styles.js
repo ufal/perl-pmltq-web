@@ -15,15 +15,14 @@ module.exports = function(options) {
       ]
     };
 
-    var indexFile = options.src + 'pmltq.less';
     var moduleFiles = /.*\/([^\/]+)\/\1\.less$/;
 
     var injectFiles = gulp.src([
       options.src + '/**/*.less'
-    ], { read: false });
+    ], { read: false }).pipe($.sort());
 
     var injectIndexOptions = {
-      transform: function(filePath, file) {
+      transform: function(filePath) {
         if (filePath.match(moduleFiles)) {
           filePath = filePath.replace(options.src + '/', '');
           return '@import \'' + filePath + '\';';

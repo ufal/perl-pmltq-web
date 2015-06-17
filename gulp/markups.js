@@ -12,7 +12,16 @@ module.exports = function(options) {
       path.extname = '.html';
     }
 
-    return gulp.src(options.src + '/**/*.jade')
+    var seenHash = {};
+    var injectFilter = $.filter(function(file) {
+      if (!seenHash[file.relative]) {
+        seenHash[file.relative] = true;
+        return file
+      }
+    });
+
+    return gulp.src([options.inject + '/**/*.jade', options.src + '/**/*.jade'])
+      .pipe(injectFilter)
       .pipe($.cached('jade'))
       .pipe($.consolidate('jade', { basedir: options.src, doctype: 'html', pretty: '  ' })).on('error', options.errorHandler('Jade'))
       .pipe($.rename(renameToHtml))
