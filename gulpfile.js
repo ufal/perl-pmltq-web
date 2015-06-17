@@ -12,6 +12,7 @@ var options = {
   tmp: '.tmp',
   inject: '.tmp/inject',
   e2e: 'e2e',
+  env: 'development',
   iifeTemplate: '(function(){\n<%= contents %>\n}());',
   errorHandler: function(title) {
     return function(err) {

@@ -12,13 +12,14 @@ angular.module('pmltq', [
 ]);
 
 angular.module('pmltq').config(function(
+  apiBaseUrl,
   $locationProvider,
   $urlRouterProvider,
   RestangularProvider
 ) {
 
   $locationProvider.hashPrefix('!');
-  RestangularProvider.setBaseUrl('/api');
+  RestangularProvider.setBaseUrl(apiBaseUrl);
 
   $urlRouterProvider.otherwise('/home');
 });
