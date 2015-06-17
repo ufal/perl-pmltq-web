@@ -1,0 +1,34 @@
+.ui.middle.aligned.one.column.centered.page.padded.grid
+  .column
+    .ui.basic.segment(ng-switch="vm.status")
+      div(ng-switch-when="404")
+        h1.ui.huge.center.aligned.icon.orange.header
+          i.trash.icon
+          .content Pardon this mess.
+          .sub.header 404: Page not found
+        .ui.huge.warning.message
+          .header Sorry about that!
+          P Double check the URL in the browser. If you keep running into this page, let us know...
+      div(ng-switch-default)
+        h1.ui.huge.center.aligned.icon.red.header
+          i.bomb.icon
+          .content BOOOOOOM!
+          .sub.header {{vm.status}}: {{vm.message}}
+        .ui.huge.warning.message
+          .header We are sorry. Some bad things happened and we are unable to recover.
+          P The incident has been recorded and we most likely already working on it.
+          p If however you keep running into this page, please let us know...
+      .ui.huge.selection.list
+        a.item(href="https://github.com/ufal/perl-pmltq-web/issues" target="_blank")
+          i.github.icon
+          .content
+            .header
+              | Report as an issue on GitHub
+        a.item(href="mailto:lindat-help@ufal.mff.cuni.cz")
+          i.mail.icon
+          .content
+            .header
+              | Contact our support at: lindat-help@ufal.mff.cuni.cz
+    .ui.secondary.segment(ng-show="!!vm.response")
+      h2.ui.header Server Response
+      p(ng-bind-html="vm.response")

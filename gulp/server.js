@@ -14,11 +14,12 @@ var proxyOptions = url.parse('http://localhost:9090/v1');
 proxyOptions.route = '/api';
 
 var util = require('util');
+var definedBrowser = process.env.BROWSER;
 
 module.exports = function(options) {
 
-  function browserSyncInit(baseDir, browser) {
-    browser = browser === undefined ? 'google-chrome' : browser;
+  function browserSyncInit(baseDir) {
+    var browser = definedBrowser ? definedBrowser : undefined;
 
     var routes = null;
     if(baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
@@ -35,6 +36,8 @@ module.exports = function(options) {
 
     browserSync.instance = browserSync.init({
       startPath: '/',
+      notify: false,
+      reloadDebounce: 1000,
       server: server,
       browser: browser
     });
@@ -53,10 +56,10 @@ module.exports = function(options) {
   });
 
   gulp.task('serve:e2e', ['inject'], function () {
-    browserSyncInit([options.tmp + '/serve', options.src], []);
+    browserSyncInit([options.tmp + '/serve', options.src]);
   });
 
   gulp.task('serve:e2e-dist', ['build'], function () {
-    browserSyncInit(options.dist, []);
+    browserSyncInit(options.dist);
   });
 };
