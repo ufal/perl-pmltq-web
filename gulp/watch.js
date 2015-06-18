@@ -28,6 +28,8 @@ module.exports = function(options) {
       }
     });
 
+    gulp.watch(options.src + '/*.json', ['constants']);
+
     gulp.watch([options.inject + '/**/*.jade', options.src + '/**/*.jade'], ['markups:watch']);
   });
 };

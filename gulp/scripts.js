@@ -4,12 +4,28 @@ var args = require('yargs').argv;
 var gulp = require('gulp');
 var glob = require('glob');
 var log = require('gulp-util').log;
+var ngConstant = require('gulp-ng-constant');
 var $ = require('gulp-load-plugins')();
 var browserSync = require('browser-sync');
 
 module.exports = function(options) {
 
   var jsSources = [options.src + '/*.js', options.src + '/**/*.js'];
+
+  gulp.task('constants', function () {
+    var env = options.env || 'development';
+    var config = require('../app/config.json');
+    config = config[env];
+
+    return ngConstant({
+        name: 'pmltq',
+        deps: false,
+        constants: config,
+        stream: true
+      })
+      .pipe($.rename('pmltq.config.js'))
+      .pipe(gulp.dest(options.tmp + '/serve/'));
+  });
 
   gulp.task('scripts', function () {
     return gulp.src(jsSources)

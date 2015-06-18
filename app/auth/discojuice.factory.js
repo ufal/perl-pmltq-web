@@ -2,11 +2,16 @@
 function DiscojuiceFactory($window, $q, $, discojuiceUrl) {
 
   function Discojuice() {
+    if (!discojuiceUrl) {
+      throw new Error('discojuiceUrl not defined');
+    }
+
     var $frame = $('<iframe></iframe>'), deferred = $q.defer();
     $frame
       .appendTo($('body'))
       .css({
         position: 'fixed',
+        background: 'white',
         zIndex: '1099',
         border: '0',
         width: '100%',
@@ -39,5 +44,5 @@ function DiscojuiceFactory($window, $q, $, discojuiceUrl) {
 
 angular
   .module('pmltq.auth')
-  .constant('discojuiceUrl', 'discojuice.html?service=PML Tree Query&target=/api/v1/auth/shibboleth')
+  .constant('discojuiceUrl', '')
   .factory('Discojuice', DiscojuiceFactory);

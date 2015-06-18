@@ -39,7 +39,7 @@ module.exports = function(options) {
     var cssFilter = $.filter('**/*.css');
     var assets;
 
-    return gulp.src(options.tmp + '/serve/*.html')
+    return gulp.src([options.tmp + '/serve/*.html', options.src + '/*.html'])
       .pipe($.inject(partialsInjectFile, partialsInjectOptions))
       .pipe(assets = $.useref.assets({searchPath: '.'}))
       .pipe($.rev())
@@ -92,9 +92,10 @@ module.exports = function(options) {
     $.del([options.dist + '/', options.tmp + '/'], done);
   });
 
-  gulp.task('build', ['html', 'fonts', 'static', 'semantic-assets']);
+  gulp.task('compile', ['html', 'fonts', 'static', 'semantic-assets']);
 
-  gulp.task('rebuild', ['clean'], function () {
-    gulp.start('build');
+  gulp.task('build', ['clean'], function () {
+    options.env = 'production';
+    gulp.start('compile');
   });
 };
