@@ -37,6 +37,10 @@
   }
 }
 
+.ui.main.menu .active.item {
+  box-shadow: none;
+}
+
 .right.aligned {
   .button {
     margin: 0 0 0 0.25em;
@@ -53,14 +57,29 @@
   user-select: none;
 }
 
-html, body {
+body {
+  display: flex;
   height: 100%;
-  // overflow-x: hidden;
+  flex-direction: column;
 }
 
-// body {
-//   background-color: @gray-lightest;
-// }
+footer, header {
+  flex: none;
+}
+
+.page-view {
+  flex: 1 0 auto;
+  width: 100%;
+
+  &::after {
+    content: '\00a0'; /* &nbsp; */
+    display: block;
+    height: 0;
+    clear: both;
+    margin-top: 3.5em;
+    visibility: hidden;
+  }
+}
 
 #page-wrapper {
   position: relative;

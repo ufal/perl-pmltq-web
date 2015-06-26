@@ -72,6 +72,13 @@ module.exports = function(options) {
       .pipe(gulp.dest(options.dist + '/'));
   });
 
+  gulp.task('lindat-assets', function () {
+    return gulp.src('bower_components/lindat-common/dist/public/images/**/*')
+      .pipe(gulp.dest(options.dist + '/images/'));
+  });
+
+  gulp.task('assets', ['semantic-assets', 'lindat-assets']);
+
   // Only applies for fonts from bower dependencies
   // Custom fonts are handled by the "other" task
   gulp.task('fonts', function () {
@@ -92,7 +99,7 @@ module.exports = function(options) {
     $.del([options.dist + '/', options.tmp + '/'], done);
   });
 
-  gulp.task('compile', ['html', 'fonts', 'static', 'semantic-assets']);
+  gulp.task('compile', ['html', 'fonts', 'static', 'assets']);
 
   gulp.task('build', ['clean'], function () {
     options.env = 'production';

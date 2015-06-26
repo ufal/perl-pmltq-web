@@ -5,7 +5,8 @@ angular.module('pmltq.shared', [
   'restangular',
   'semanticUI',
   'ui.router',
-  'pmltq.auth'
+  'pmltq.auth',
+  'lindat'
 ]);
 
 angular.module('pmltq.shared').run(function ($rootScope) {

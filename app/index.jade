@@ -14,8 +14,10 @@ html(ng-app="pmltq")
     link(rel="stylesheet", href="pmltq.css")
     // endinject
     // endbuild
-  body
+  body#lindat-pmltq
+    header(lindat-header)
     .page-view(ui-view)
+    footer(lindat-footer)
     // build:js scripts/vendor.js
     // bower:js
     // endbower
