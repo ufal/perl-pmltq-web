@@ -48,5 +48,3 @@ main.ui.page.one.column.grid
         | Sorry, no treebanks match the current filter. Try deselect the labels or reset the filter entirely.
       .ui.divided.items(ng-hide="vm.filter.isEmpty")
         div(treebank-list-item="tb" ng-repeat="tb in vm.filter.treebanksList() track by tb.id")
-      //- .treebank-box(ng-repeat="tb in treebanks | treebankFilter : filter track by tb.id")
-      //-   treebank-box/(treebank="tb")

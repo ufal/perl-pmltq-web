@@ -24,10 +24,11 @@
     "semantic-ui": "~1.11.6",
     "snap.svg": "~0.4.1",
     "angular-http-auth": "~1.2.2",
-    "lindat-common": ">=1"
+    "lindat-common": ">=1",
+    "randomcolor": "~0.3.0"
   },
   "resolutions": {
-    "angular": "1.4.1",
+    "angular": "~1.4",
     "lodash": "~3.6.0"
   },
   "overrides": {
