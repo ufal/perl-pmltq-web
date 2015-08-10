@@ -1,9 +1,6 @@
 .item
-  .image
-    a(ng-href="{{url}}")
-      svg(width="100%" style="background: #eeeeee;")
-        text(x="0%",y="50%",dy=".3em",text-anchor="left",fill="#999999",font-size="35")
-          tspan(font-weight="bold") {{treebank.title}}
+  .treebank.image.wrapper
+    a(ng-href="{{url}}" treebank-image="image" ng-style="{color: image.color}")
   .content
     a.header(ng-href="{{url}}")
       span(ng-if="!treebank.anonymous")
@@ -11,5 +8,6 @@
       | {{treebank.title}}
     .description {{treebank.description}}
     .extra
-      .ui.label(ng-repeat="sticker in treebank.stickers | orderBy:'-name'")
+      .ui.label(ng-repeat="sticker in treebank.getStickers() | orderBy:'-name'")
+        i.flag(ng-class="sticker.cls" ng-if="sticker.cls")
         | {{sticker.name}}

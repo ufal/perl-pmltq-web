@@ -48,10 +48,11 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
     _.forEach(extractStickers(treebanksList), function(sticker) {
       var name = sticker.name,
           category = sticker.category;
+      sticker = wrapSticker(sticker);
 
       if (!categories[category]) { categories[category] = {}; }
-      if (!categories[category][name]) { categories[category][name] = wrapSticker(sticker); }
-      categories[category][name].addTotal();
+      if (!categories[category][name]) { categories[category][name] = sticker; }
+      sticker.addTotal();
     });
 
     return categories;
@@ -76,7 +77,9 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
 
   function TreebanksFilterFactory (filterName, treebanksList, options) {
     var filter = {
-          stickersByCategory: categorizeStickers(treebanksList),
+          stickersByCategory: _.mapValues(categorizeStickers(treebanksList), function (stickers) {
+            return _.sortBy(_.toArray(stickers), 'name');
+          }),
           isEmpty: true
         },
         params = filtersParams[filterName],
@@ -93,8 +96,6 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
       .value();
 
     filter.stickerCategories = _.keys(filter.stickersByCategory);
-
-    // _.transform(treebanksList, function(result, tb) { result[tb.id] = tb; }, treebankMap);
 
     filter.treebanksList = function getFilteredList () {
       var filterByStrickers = _.filter(filter.stickersList, 'selected'),
@@ -137,7 +138,7 @@ angular.module('pmltq.treebank').factory('treebanksFilter', function (localStora
 
       // TODO: save filter params and cache filter results
       if (!_.isEqual(newFiltered, oldFiltered)) {
-        oldFiltered = newFiltered;
+        oldFiltered = _.sortByOrder(newFiltered, options.sortBy, options.sortOrder);
         updateRemaining(filter.stickersList, newFiltered);
       }
 

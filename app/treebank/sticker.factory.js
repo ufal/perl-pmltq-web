@@ -14,6 +14,7 @@ angular.module('pmltq.treebank').factory('sticker', function (_) {
 
       if (!sticker) {
         sticker = stickersSet[stickerData.id] = {
+          cls: stickerData.comment, // TODO: CSS class hidden in sticker comment
           name: stickerData.name,
           category: options.defaultCategory
         };
