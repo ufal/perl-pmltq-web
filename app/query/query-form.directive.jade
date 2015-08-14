@@ -4,32 +4,35 @@
       .column(ng-hide="collapsed")
         .ui.horizontal.list
           .item
-            button.ui.compact.mini.icon.button(type="button" ng-click="collapsed = true")
+            button.ui.compact.mini.icon.button(type="button" ui-popup title="Collapse query editor" ng-click="collapsed = true")
               i.chevron.down.icon
       .right.aligned.fifteen.wide.column(ng-hide="collapsed")
         .ui.horizontal.list
           .item
             .content.aligned
-              .ui.inline.dropdown(ui-selectbox="timeoutSelect" title="Timeout" ng-model="params.timeout")
+              .ui.inline.dropdown(ui-selectbox="timeoutSelect" title="Timeout" ng-model="params.timeout" ng-change="params.cache()")
           .item
             .content.aligned
-              .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit")
+              .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit" ng-change="params.cache()")
       .sixteen.wide.column(ng-show="collapsed")
-          div.query.text(ng-show="collapsed" ng-bind="params.query" ng-click="collapsed = false" query-editor="{treebank: treebank, readonly: false}")
+        .query.text(
+          ng-show="collapsed"
+          title="Click to edit query"
+          data-variation="basic"
+          ui-popup
+          ng-click="collapsed = false")
+          | {{params.query || '&lt;query is empty&gt;'}}
     .field(ng-hide="collapsed")
-      div(
-        name="query"
-        spellcheck="false"
-        query-editor="{treebank: treebank}"
-        style="height:200px"
-        focus-element
-        id="query-text"
-        ng-model="params.query"
-        required="required"
-        rows="8"
-        tabindex="1"
-        placeholder="# Enter your query here"
-        accesskey="e")
+      .query.editor.wrapper
+        div(
+          query-editor="{treebank: treebank, adjustheight: true}"
+          focus-element
+          ng-model="params.query"
+          ng-change="params.cache()"
+          required="required"
+          tabindex="1"
+          placeholder="# Enter your query here"
+          accesskey="e")
     .field
       .two.column.ui.grid
         .left.aligned.column

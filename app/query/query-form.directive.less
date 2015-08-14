@@ -1,5 +1,22 @@
 .query.text {
   margin: 0;
-  border: none;
   cursor: pointer;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  overflow: hidden;
+  color: lighten(#333333, 30%);
+  white-space: nowrap;
+  background-color: #f5f5f5;
+  //border: 1px solid #cccccc;
+  padding: 3px;
+  border-radius: 4px;
+}
+
+.query.text:hover {
+  color: #333333;
+}
+
+.query.editor.wrapper {
+  border: 1px solid #DDD;
+  border-radius: 4px;
+  padding: 4px 0;
 }

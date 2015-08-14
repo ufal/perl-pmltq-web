@@ -16,8 +16,8 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
       history: function(historyApi) {
         return historyApi.getList();
       },
-      queryParams: function (QueryParams) {
-        return new QueryParams('', 100, 30);
+      queryParams: function (QueryParams, $stateParams) {
+        return new QueryParams($stateParams.treebankId);
       }
     }
   });

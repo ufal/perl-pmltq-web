@@ -26,6 +26,8 @@ var app = angular.module('pmltq.query')
         tabSize: 2,
         useSoftTabs: true,
         fontSize: 14,
+        minLines: 7,
+        maxLines: 40,
         // hides line numbers with background
         displayIndentGuides: false,
         showPrintMargin: false,

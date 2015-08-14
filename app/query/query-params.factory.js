@@ -1,22 +1,52 @@
 /* @ngInject */
-function QueryParamsFactory($state) {
+function QueryParamsFactory(_, $state, localStorageService) {
 
   /**
    * Encapsulation of suggest item (a query line) properties
-   * @param {String} query
-   * @param {Number} limit
-   * @param {Number} timeout
+   * @param {String} [treebankId=default]
+   * @param {String} [query=]
+   * @param {Number} [limit=100]
+   * @param {Number} [timeout=30]
    * @constructor
    */
-  function QueryParams(query, limit, timeout) {
+  function QueryParams(treebankId, query, limit, timeout) {
     if (!(this instanceof QueryParams)) {
-      return new QueryParams(query, limit, timeout);
+      return new QueryParams(treebankId, query, limit, timeout);
+    }
+    if (!treebankId) {
+      treebankId = 'default';
+    }
+    _.defaults(this, {
+      cacheKey: 'last-query-' + treebankId,
+      query: '',
+      limit: 100,
+      timeout: 30
+    });
+    this.restore();
+
+    if (query) {
+      this.query = query;
     }
 
-    this.query = query;
-    this.limit = limit;
-    this.timeout = timeout;
+    if (limit > 0) {
+      this.limit = limit;
+    }
+
+    if (timeout > 0) {
+      this.timeout = timeout;
+    }
   }
+
+  QueryParams.prototype.restore = function() {
+    var params = localStorageService.get(this.cacheKey);
+    if (params) {
+      _.assign(this, params);
+    }
+  };
+
+  QueryParams.prototype.cache = function () {
+    localStorageService.set(this.cacheKey, this.params());
+  };
 
   QueryParams.prototype.runQuery = function(query) {
     this.query = query;

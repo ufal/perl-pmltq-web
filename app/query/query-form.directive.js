@@ -12,7 +12,7 @@ angular.module('pmltq.query').directive('queryForm', function(QueryParams, Sugge
     link: function($scope) {
       if (!$scope.params) {
         // Save default params as they are changed
-        $scope.params = new QueryParams();
+        $scope.params = new QueryParams($scope.treebank.id);
       }
 
       $scope.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
