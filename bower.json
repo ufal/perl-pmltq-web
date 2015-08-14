@@ -21,7 +21,7 @@
     "angular-ui-ace": "bower",
     "angular-scroll": "~0.6.5",
     "angular-loading-bar": "~0.7.1",
-    "semantic-ui": "~1.11.6",
+    "semantic-ui": "~2",
     "snap.svg": "~0.4.1",
     "angular-http-auth": "~1.2.2",
     "lindat-common": ">=1",
