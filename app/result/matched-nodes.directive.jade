@@ -2,8 +2,9 @@
   .item(ng-repeat="node in result.queryNodes")
     button.ui.tiny.circular.button(
       type="button"
-      ng-class="{positive: result.activeNode == $index}"
+      ng-class="{active: result.activeNode == $index}"
       ng-click="result.activeNode = $index")
+      i.circle.icon(ng-class="'matched-node-' + ($index+1)")
       strong {{$index + 1}} &nbsp;
       | {{node[1]}}
       span(ng-if="node[0]") &nbsp;${{node[0]}}
