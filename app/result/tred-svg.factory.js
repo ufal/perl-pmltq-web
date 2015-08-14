@@ -4,6 +4,9 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
 
   function parseTitle(str) {
     var matches = titleTreeRe.exec(str);
+    if (!matches) {
+      return [1, 1];
+    }
     matches.shift();
     return matches;
   }
@@ -280,24 +283,25 @@ angular.module('pmltq.result').factory('tredSvg', function ($, _, Snap, sentence
 
       return data.sentence;
     },
-    title: function() {
+    title: function(original) {
       var self = this, data = self.data;
 
       if (_.isUndefined(data.title)) {
         var title = self.$content().children('title');
-        data.title = _.isEmpty(title) ? '' : title.text();
+        data.titleOriginal = _.isEmpty(title) ? '' : title.text();
+        data.title = data.titleOriginal.replace(titleTreeRe, '').trim();
         if (!_.isEmpty(title)) {
           title.remove();
         }
       }
 
-      return data.title;
+      return original ? data.titleOriginal : data.title;
     },
     tree: function() {
       var self = this, data = self.data;
 
       if (_.isUndefined(data.tree)) {
-        var arr = parseTitle(self.title());
+        var arr = parseTitle(self.title(true));
         data.tree = {
           current: parseInt(arr[0]),
           total: parseInt(arr[1])

@@ -1,31 +1,25 @@
-.ui.grid(ng-switch="state")
-  .one.column.center.aligned.row(ng-switch-when="loading")
-    .column
-      .ui.text.active.inline.loader Loading
-  .one.column.row(ng-switch-when="error")
-    .column
+.ui.one.column.grid(ng-switch="state")
+  .center.aligned.column(ng-switch-when="loading")
+    .ui.text.active.inline.loader Loading
+  .column(ng-switch-when="error")
       pre.ui.negative.message {{result.lastError ? result.lastError.data.error : ''}}
-  .one.column.row(ng-switch-when="nodes")
-    .column
-      .ui.grid(result-svg="treebank"
-        node="{{result.currentResult[result.activeNode]}}"
-        tree="{{result.tree}}"
-        svg="result.svg")
-        .fitted.three.column.row
+  .column(ng-switch-when="nodes")
+    .ui.one.column.grid(result-svg="treebank"
+      node="{{result.currentResult[result.activeNode]}}"
+      tree="{{result.tree}}"
+      svg="result.svg")
+      .fitted.column
+        .ui.three.column.stackable.grid
           .column
             div(result-controls="result")
           .column.center.aligned
             div(matched-nodes="result")
           .column.right.aligned
-            div(result-title="result")
-        .one.column.row
-          .column
-            .ui.segment(sentence="result.svg.sentence()")
-        .one.column.row
-          .white.column
-            .svg-pane(svg-content="result.svg" nodes="result.currentResult")
-
-  .one.column.row(ng-switch-when="table")
-    .column(result-table="result")
+            .result.title(result-title="result")
+      .column
+        .ui.segment(sentence="result.svg.sentence()")
+      .white.column
+        .svg-pane(svg-content="result.svg" nodes="result.currentResult")
+  .column(ng-switch-when="table" result-table="result")
 
 
