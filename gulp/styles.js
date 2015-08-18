@@ -2,17 +2,24 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
+var RewriteImportPlugin = require("less-plugin-rewrite-import");
+var path = require('path');
 
 var $ = require('gulp-load-plugins')();
 
 module.exports = function(options) {
   gulp.task('styles', function () {
     var lessOptions = {
-      options: [
-        'bower_components',
-        options.src,
-        '.'
-      ]
+      paths: [
+        path.join('bower_components', 'semantic-ui', 'src'),
+        options.src
+      ],
+      plugins: [new RewriteImportPlugin({
+        paths: {
+          '../../theme.config': path.join(options.src, 'theme.config'),
+          'app/theme/globals/site': path.join(options.src, 'theme', 'globals', 'site')
+        }
+      })]
     };
 
     var moduleFiles = /.*\/([^\/]+)\/\1\.less$/;

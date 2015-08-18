@@ -1,0 +1,6 @@
+@fontName: 'Open Sans';
+@googleFontName: 'Open+Sans';
+@googleSubset: 'latin,greek-ext,greek,latin-ext,cyrillic,vietnamese,cyrillic-ext';
+
+@imagePath : '/bower_components/semantic-ui/dist/themes/default/assets/images';
+@fontPath  : '/bower_components/semantic-ui/dist/themes/default/assets/fonts';
