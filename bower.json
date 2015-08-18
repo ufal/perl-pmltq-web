@@ -35,12 +35,6 @@
     "snap.svg": {
       "main": "dist/snap.svg.js"
     },
-    "semantic-ui": {
-      "main": [
-        "dist/semantic.css",
-        "dist/semantic.js"
-      ]
-    },
     "ace-builds": {
       "main": ["src/ace.js", "src/ext-language_tools.js"]
     }

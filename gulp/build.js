@@ -49,7 +49,7 @@ module.exports = function(options) {
       .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
       .pipe(jsFilter.restore())
       .pipe(cssFilter)
-      .pipe($.replace('themes/default/assets', '..'))
+      .pipe($.replace('/bower_components/semantic-ui/dist/themes/default/assets', '..'))
       .pipe($.csso())
       .pipe(cssFilter.restore())
       .pipe(assets.restore())

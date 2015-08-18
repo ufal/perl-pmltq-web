@@ -1,3 +1,5 @@
+@import '../bower_components/semantic-ui/src/semantic.less';
+
 // injector
 @import 'help/help.less';
 @import 'history/history.less';
@@ -8,34 +10,6 @@
 @import 'suggest/suggest.less';
 @import 'treebank/treebank.less';
 // endinjector
-
-// Variables
-
-@gray-darker: lighten(#000, 13.5%);
-@gray-dark: lighten(#000, 20%);
-@gray: lighten(#000, 33.5%);
-@gray-light: lighten(#000, 60%);
-@gray-lighter: lighten(#000, 93.5%);
-@gray-lightest: lighten(#000, 97.25%);
-@brand-primary: #428bca;
-@brand-success: #5cb85c;
-@brand-info: #5bc0de;
-@brand-warning: #f0ad4e;
-@brand-danger: #d9534f;
-
-@fa-font-path: "bower_components/font-awesome/fonts";
-@icon-font-path: "bower_components/bootstrap/fonts/";
-
-@navmenu-width: 200px;
-
-//@navbar-height: 30px;
-
-/* Required for Angular UI Bootstrap */
-.nav, .pagination, .carousel, .panel-title, .navbar-header {
-  a {
-    cursor: pointer;
-  }
-}
 
 .ui.main.menu .active.item {
   box-shadow: none;
@@ -79,14 +53,6 @@ footer, header {
     margin-top: 3.5em;
     visibility: hidden;
   }
-}
-
-#page-wrapper {
-  position: relative;
-  left: 0;
-  z-index: 2;
-  min-height: 100%;
-  background-color: white;
 }
 
 .text.mono {
