@@ -1,0 +1,84 @@
+---
+menu:
+  - Operators:
+    - Arithmetical:
+      - +
+      - -
+      - '*'
+      - div
+      - mod
+    - Comparison:
+      - =
+      - '~'
+      - '~*'
+      - <
+      - '>'
+      - '>='
+      - <=
+      - '!='
+      - '!~'
+      - '!~*'
+      - 'in {..., ...}'
+    - Logical:
+      - and
+      - or
+      - '!'
+      - ','
+    - Misc:
+      - ()
+      - '[]'
+      - :=
+      - '>>'
+      - .
+      - "'...'"
+      - '"..."'
+    - String:
+      - '&'
+  - Functions:
+    - Conditional:
+      - 'first_defined(VALUE2,VALUE2,...)'
+      - 'if(CONDITION,VALUE_IF_TRUE,VALUE_IF_FALSE)'
+    - Group:
+      - 'avg(EXP? [over COLUMNS...])'
+      - 'count([over COLUMNS...])'
+      - 'min(EXP? [over COLUMNS...])'
+      - 'max(EXP? [over COLUMNS...])'
+      - 'sum(EXP? [over COLUMNS...])'
+      - 'concat(EXP, SEPARATOR [over COLUMNS... sort by COLUMNS...])'
+      - 'ratio(EXP? [over COLUMNS...])'
+      - 'rank([over COLUMNS... sort by COLUMNS...])'
+      - 'dense_rank([over COLUMNS... sort by COLUMNS...])'
+      - 'row_number([over COLUMNS... sort by COLUMNS...])'
+    - Node Properties:
+      - descendants(NODE?)
+      - lbrothers(NODE?)
+      - rbrothers(NODE?)
+      - sons(NODE?)
+      - depth_first_order(NODE?)
+      - depth(NODE?)
+      - name(NODE?)
+      - type_of(NODE?)
+      - file(NODE?)
+      - tree_no(NODE?)
+      - address(NODE?)
+    - Numeric:
+      - ciel(NUM)
+      - floor(NUM)
+      - 'round(NUM,PLACES?)'
+      - 'trunc(NUM,PLACES?)'
+      - percnt(NUM)
+      - abs(NUM)
+      - sqrt(NUM)
+      - exp(NUM)
+      - ln(NUM)
+      - 'power(BASE?,NUM)'
+      - 'log(BASE?,NUM)'
+    - Strings:
+      - lower(STR)
+      - upper(STR)
+      - length(STR)
+      - 'substr(STR,OFFSET,LEN?),'
+      - 'tr(STR,CHARS_TO_REPLACE,REPLACEMENT_CHARS)'
+      - 'replace(STR,SUBSTR,REPLACEMENT)'
+      - 'substitute(STR,REGEXP,REPLACEMENT,FLAGS?)'
+      - 'match(STR,REGEXP,FLAGS?)'

@@ -108,6 +108,10 @@ var app = angular.module('pmltq.query')
           acee.setReadOnly(!!value || value === '');
         });
 
+        if (attrs.editor) {
+          scope[attrs.editor] = acee;
+        }
+
         // Value Blind
         if (ngModel) {
           ngModel.$formatters.push(function (value) {
@@ -164,7 +168,13 @@ var app = angular.module('pmltq.query')
         elm.editor = acee;
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
+          if (acee.completer) {
+            acee.completer.detach();
+          }
           acee.destroy();
+          if (attrs.editor) {
+            delete scope[attrs.editor];
+          }
         });
 
         scope.$watch(function() {

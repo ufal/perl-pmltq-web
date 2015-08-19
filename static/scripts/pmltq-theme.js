@@ -14,6 +14,7 @@ background: #e8e8e8;\
 .ace-pmltq {\
 background-color: #FFFFFF;\
 color: black;\
+overflow: visible;\
 }\
 .ace-pmltq .ace_cursor {\
 color: black;\
