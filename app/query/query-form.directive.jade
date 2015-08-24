@@ -1,20 +1,19 @@
 .query-form
   form.ui.form(name="form" ng-class="{collapsed: collapsed}")
-    .stackable.ui.grid
+    .one.column.ui.grid
       .column(ng-hide="collapsed")
-        .ui.horizontal.list
-          .item
-            button.ui.compact.mini.icon.button(type="button" ui-popup title="Collapse query editor" ng-click="collapsed = true")
-              i.chevron.down.icon
-      .right.aligned.fifteen.wide.column(ng-hide="collapsed")
-        .ui.horizontal.list
-          .item
-            .content.aligned
-              .ui.inline.dropdown(ui-selectbox="timeoutSelect" title="Timeout" ng-model="params.timeout" ng-change="params.cache()")
-          .item
-            .content.aligned
-              .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit" ng-change="params.cache()")
-      .sixteen.wide.column(ng-show="collapsed")
+        .ui.stackable.grid
+          .twelve.wide.column
+            query-menu(treebank="treebank" on-collapse="collapsed = true" insert="insertToEditor")
+          .middle.aligned.right.aligned.four.wide.column
+            .ui.horizontal.list
+              .item
+                .content.aligned
+                  .ui.inline.dropdown(ui-selectbox="timeoutSelect" title="Timeout" ng-model="params.timeout" ng-change="params.cache()")
+              .item
+                .content.aligned
+                  .ui.inline.dropdown(ui-selectbox="limitSelect" title="Result limit" ng-model="params.limit" ng-change="params.cache()")
+      .column(ng-show="collapsed")
         .query.text(
           ng-show="collapsed"
           title="Click to edit query"
@@ -25,7 +24,8 @@
     .field(ng-hide="collapsed")
       .query.editor.wrapper
         div(
-          query-editor="{treebank: treebank, adjustheight: true}"
+          query-editor="{treebank: treebank}"
+          editor="queryEditor"
           focus-element
           ng-model="params.query"
           ng-change="params.cache()"

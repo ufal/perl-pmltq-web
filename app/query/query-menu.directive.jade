@@ -1,1 +1,25 @@
-p Query menu
+mixin menuItem(item)
+  if item instanceof Array
+    .menu
+      each val in item
+        +menuItem(val)
+  else if item instanceof Object
+    each val, index in item
+      .item
+        i.dropdown.icon
+        span.text=index
+        +menuItem(val)
+  else
+    .item=item
+
+.ui.small.secondary.menu
+  a.icon.item(ui-popup title="Collapse query editor" ng-click="onCollapse()")
+    i.chevron.down.icon
+  .ui.dropdown.item(ui-dropdown="dropdownOpts" dropdown-tree="menuItems.relations" dropdown-label="Relations")
+  .ui.dropdown.item(ui-dropdown="dropdownOpts" dropdown-tree="menuItems.nodeTypes" dropdown-label="Node Types")
+  .ui.dropdown.item(ui-dropdown="dropdownOpts" dropdown-tree="menuItems.attributes" dropdown-label="Attributes")
+  each topItem in menu
+    each item, label in topItem
+      .ui.dropdown.item(ui-dropdown="dropdownOpts")=label
+        i.dropdown.icon
+        +menuItem(item)

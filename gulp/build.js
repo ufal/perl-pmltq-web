@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var tap = require('gulp-tap');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -26,7 +27,7 @@ module.exports = function(options) {
   });
 
   gulp.task('html', ['partials'], function () {
-    var partialsInjectFile = gulp.src(options.tmp + '/partials/templateCacheHtml.js', { read: false });
+    var partialsInjectFile = gulp.src(options.tmp + '/partials/templateCacheHtml.js', {read: false});
     var partialsInjectOptions = {
       starttag: '<!-- inject:partials-->',
       endtag: '<!-- endinject-->',
@@ -46,7 +47,7 @@ module.exports = function(options) {
       .pipe(jsFilter)
       .pipe($.ngAnnotate())
       .pipe($.wrap(options.iifeTemplate))
-      .pipe($.uglify({ preserveComments: $.uglifySaveLicense })).on('error', options.errorHandler('Uglify'))
+      .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', options.errorHandler('Uglify'))
       .pipe(jsFilter.restore())
       .pipe(cssFilter)
       .pipe($.replace('/bower_components/semantic-ui/dist/themes/default/assets', '..'))
@@ -55,16 +56,16 @@ module.exports = function(options) {
       .pipe(assets.restore())
       .pipe($.useref())
       .pipe($.revReplace())
-      .pipe(htmlFilter)
-      .pipe($.minifyHtml({
-        empty: true,
-        spare: true,
-        quotes: true,
-        conditionals: true
-      }))
-      .pipe(htmlFilter.restore())
+      //.pipe(htmlFilter)
+      //.pipe($.minifyHtml({
+      //  empty: true,
+      //  spare: true,
+      //  quotes: true,
+      //  conditionals: true
+      //}))
+      //.pipe(htmlFilter.restore())
       .pipe(gulp.dest(options.dist + '/'))
-      .pipe($.size({ title: options.dist + '/', showFiles: true }));
+      .pipe($.size({title: options.dist + '/', showFiles: true}));
   });
 
   gulp.task('semantic-assets', function () {

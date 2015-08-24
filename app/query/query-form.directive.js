@@ -27,6 +27,13 @@ angular.module('pmltq.query').directive('queryForm', function(QueryParams, Sugge
         result.submit($scope.treebank, queryParams);
       };
 
+      $scope.insertToEditor = function (text) {
+        if ($scope.queryEditor) {
+          $scope.queryEditor.focus();
+          $scope.queryEditor.insert(text);
+        }
+      };
+
       $scope.showHelp = !localStorageService.get(suggestHelpKey);
 
       $scope.hideHelp = function() {

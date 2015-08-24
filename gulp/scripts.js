@@ -45,13 +45,21 @@ module.exports = function(options) {
       .pipe($.jscs()).on('error', options.errorHandler('JSCS'))
       .pipe($.wrap(options.iifeTemplate))
       .pipe(gulp.dest(options.tmp + '/serve/'))
-      .pipe(browserSync.reload({ stream: true }));
+      .pipe(browserSync.reload({stream: true}));
   });
 
   /**
    * Create a visualizer report
    */
   gulp.task('plato', function(done) {
+    function platoCompleted(report) {
+      var overview = plato.getOverviewReport(report);
+      if (args.verbose) {
+        log(overview.summary);
+      }
+      if (done) { done(); }
+    }
+
     log('Analyzing source with Plato');
     log('Browse to /report/plato/index.html to see Plato results');
     log('Running Plato');
@@ -67,13 +75,5 @@ module.exports = function(options) {
     var outputDir = 'report/plato';
 
     plato.inspect(files, outputDir, platoOptions, platoCompleted);
-
-    function platoCompleted(report) {
-      var overview = plato.getOverviewReport(report);
-      if (args.verbose) {
-        log(overview.summary);
-      }
-      if (done) { done(); }
-    }
   });
 };
