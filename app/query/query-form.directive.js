@@ -30,7 +30,7 @@ angular.module('pmltq.query').directive('queryForm', function(QueryParams, Sugge
       $scope.insertToEditor = function (text) {
         if ($scope.queryEditor) {
           $scope.queryEditor.focus();
-          $scope.queryEditor.insert(text)
+          $scope.queryEditor.insert(text);
         }
       };
 

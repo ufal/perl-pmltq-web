@@ -22,17 +22,17 @@
           ng-click="collapsed = false")
           | {{params.query || '&lt;query is empty&gt;'}}
     .field(ng-hide="collapsed")
-      //.query.editor.wrapper
-      div(
-        query-editor="{treebank: treebank}"
-        editor="queryEditor"
-        focus-element
-        ng-model="params.query"
-        ng-change="params.cache()"
-        required="required"
-        tabindex="1"
-        placeholder="# Enter your query here"
-        accesskey="e")
+      .query.editor.wrapper
+        div(
+          query-editor="{treebank: treebank}"
+          editor="queryEditor"
+          focus-element
+          ng-model="params.query"
+          ng-change="params.cache()"
+          required="required"
+          tabindex="1"
+          placeholder="# Enter your query here"
+          accesskey="e")
     .field
       .two.column.ui.grid
         .left.aligned.column

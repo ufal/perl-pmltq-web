@@ -11,7 +11,7 @@ module.exports = function(options) {
 
     var injectStyles = gulp.src([
       options.tmp + '/serve/**/*.css'
-    ], { read: false });
+    ], {read: false});
 
     var injectScripts = gulp.src([
       options.src + '/**/*.js',

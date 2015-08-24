@@ -22,7 +22,7 @@ module.exports = function(options) {
     var browser = definedBrowser ? definedBrowser : undefined;
 
     var routes = null;
-    if(baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
+    if (baseDir === options.src || (util.isArray(baseDir) && baseDir.indexOf(options.src) !== -1)) {
       routes = {
         '/bower_components': 'bower_components',
         '/static': 'static'

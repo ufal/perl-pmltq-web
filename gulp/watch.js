@@ -13,15 +13,15 @@ module.exports = function(options) {
       options.src + '/**/*.css',
       options.src + '/**/*.less'
     ], function(event) {
-      if(isOnlyChange(event)) {
+      if (isOnlyChange(event)) {
         gulp.start('styles');
       } else {
         gulp.start('inject');
       }
     });
 
-    gulp.watch([ options.src + '/**/*.js' ], function(event) {
-      if(isOnlyChange(event)) {
+    gulp.watch([options.src + '/**/*.js'], function(event) {
+      if (isOnlyChange(event)) {
         gulp.start('scripts:watch');
       } else {
         gulp.start('inject');

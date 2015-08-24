@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
-var RewriteImportPlugin = require("less-plugin-rewrite-import");
+var RewriteImportPlugin = require('less-plugin-rewrite-import');
 var path = require('path');
 
 var $ = require('gulp-load-plugins')();
@@ -26,7 +26,7 @@ module.exports = function(options) {
 
     var injectFiles = gulp.src([
       options.src + '/**/*.less'
-    ], { read: false }).pipe($.sort());
+    ], {read: false}).pipe($.sort());
 
     var injectIndexOptions = {
       transform: function(filePath) {
@@ -43,7 +43,7 @@ module.exports = function(options) {
 
     var injectModuleOptions = {
       transform: function(filePath, file) {
-        if (!file.path.match(moduleFiles) && filePath.slice(0, 2) != '..') {
+        if (!file.path.match(moduleFiles) && filePath.slice(0, 2) !== '..') {
           return '@import \'' + filePath + '\';';
         }
         return false;
@@ -75,6 +75,6 @@ module.exports = function(options) {
     .pipe($.autoprefixer()).on('error', options.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(options.tmp + '/serve/'))
-    .pipe(browserSync.reload({ stream: true }));
+    .pipe(browserSync.reload({stream: true}));
   });
 };
