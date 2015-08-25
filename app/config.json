@@ -4,7 +4,7 @@
     "discojuiceUrl": "discojuice.html?service=PML Tree Query&target=/api/auth/shibboleth"
   },
   "production": {
-    "apiBaseUrl": "/api",
-    "discojuiceUrl": "https://lindat.mff.cuni.cz/aai/discojuice.html?service=PML Tree Query&target=/services/pmltq/api/auth/shibboleth"
+    "apiBaseUrl": "/services/pmltq/api",
+    "discojuiceUrl": "/aai/discojuice.html?service=PML Tree Query&target=/services/pmltq/api/auth/shibboleth"
   }
 }
