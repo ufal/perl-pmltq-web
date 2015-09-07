@@ -640,7 +640,7 @@ define("ace/mode/pmltq_highlight_rules",["require","exports","module","ace/lib/o
   var r_VAR_OR_SELF = "(?:"+r_Selector_name+"|\\$\\$)";
   var r_VAR_REF = "(?:\\$[0-9]+)";
 
-  var r_STRING = "(?:'(?:[^'\\\\]+|\\\\.)*'|\"(?:[^\"\\\\]+|\\\\.)*\")";
+  var r_STRING = "(?:'(?:[^'\\\\]|\\\\.)*'|\"(?:[^\"\\\\]|\\\\.)*\")";
   var r_NUMBER = "(?:-?[0-9]+(?:\\.[0-9]+)?)";
   var r_literal = "(?:"+r_STRING+"|"+r_NUMBER+")";
 
