@@ -7,11 +7,12 @@ function QueryParamsFactory(_, $state, localStorageService) {
    * @param {String} [query=]
    * @param {Number} [limit=100]
    * @param {Number} [timeout=30]
+   * @param {Boolean} [filter=true]
    * @constructor
    */
-  function QueryParams(treebankId, query, limit, timeout) {
+  function QueryParams(treebankId, query, limit, timeout, filter) {
     if (!(this instanceof QueryParams)) {
-      return new QueryParams(treebankId, query, limit, timeout);
+      return new QueryParams(treebankId, query, limit, timeout, filter);
     }
     if (!treebankId) {
       treebankId = 'default';
@@ -34,6 +35,10 @@ function QueryParamsFactory(_, $state, localStorageService) {
 
     if (timeout > 0) {
       this.timeout = timeout;
+    }
+
+    if (angular.isDefined(filter)) {
+      this.filter = filter;
     }
   }
 
@@ -60,7 +65,8 @@ function QueryParamsFactory(_, $state, localStorageService) {
     return {
       query: this.query,
       limit: this.limit,
-      timeout: this.timeout
+      timeout: this.timeout,
+      filter: this.filter
     };
   };
 

@@ -4,6 +4,7 @@ angular.module('pmltq.query').controller('QueryController', function($scope, tre
 
   if (queryParams.execute) {
     queryParams.execute = false;
+    queryParams.filter = true;
     result.submit(treebank, queryParams);
   }
 });

@@ -18,12 +18,13 @@ angular.module('pmltq.query').directive('queryForm', function(QueryParams, Sugge
       $scope.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       $scope.limitSelect = [1, 10, 100, 1000, 10000];
 
-      $scope.submit = function(queryParams) {
+      $scope.submit = function(queryParams, filter) {
         var result = $scope.result;
         if (!result) {
           return;
         }
 
+        queryParams.filter = angular.isDefined(filter) ? filter : true;
         result.submit($scope.treebank, queryParams);
       };
 
