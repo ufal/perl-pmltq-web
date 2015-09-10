@@ -45,8 +45,7 @@ mixin help-button(icon, text)
       section.ui.basic.segment#query-language
         h2 Query Language
         p A basic <b>query</b> for nodes of the type, say <code>{{treebank.doc.type}}</code>, looks like this:</p>
-        div(query-example="treebank" query="treebank.doc.type+' [ ]'")
-        //query-example
+        query-example(treebank="treebank")
           pre {{treebank.doc.type}} [ ]
         p Similarly for other node types and node-type wildcards.
         p <b>Contstraints</b> on the node go between the square brackets <code>[...]</code>. Basic constraints on <b>attribute</b> values have the following forms:
