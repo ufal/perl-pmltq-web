@@ -14,15 +14,20 @@ main.ui.container.grid
           a.large.ui.teal.disabled.button(href="#")
             i.icon.help
             |  Help
-  .ui.two.columns.grid
+  .row
     .column
-      h2.header Recently Used
-      .ui.divided.items(ng-if="vm.recentlyUsed.length > 0")
-        div(treebank-list-item="tb" ng-repeat="tb in vm.recentlyUsed track by tb.id")
-      .ui.info.message(ng-if="vm.recentlyUsed.length == 0")
-        .header No recent treebanks
-        | You will find recently used treebanks here.
-    .column
-      h2 Featured Treebanks
-      .ui.divided.items
-        div(treebank-list-item="tb" ng-repeat="tb in vm.featured track by tb.id")
+      .ui.two.column.grid
+        .column
+          h2.header Recently Used
+          .ui.divided.items(ng-if="vm.recentlyUsed.length > 0")
+            div(treebank-list-item="tb" ng-repeat="tb in vm.recentlyUsed track by tb.id")
+          .ui.info.message(ng-if="vm.recentlyUsed.length == 0")
+            .header No recent treebanks
+            | You will find recently used treebanks here.
+        .column
+          h2.header Featured Treebanks
+          .ui.divided.items(ng-if="vm.featured.length > 0")
+            div(treebank-list-item="tb" ng-repeat="tb in vm.featured track by tb.id")
+          .ui.info.message(ng-if="vm.recentlyUsed.length == 0")
+            .header No featured treebanks
+            | We have found no available featured treebanks
