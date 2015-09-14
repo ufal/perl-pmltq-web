@@ -29,14 +29,18 @@
   },
   "resolutions": {
     "angular": "~1.4",
-    "lodash": "~3.6.0"
+    "lodash": "~3.6.0",
+    "jquery": "~2.1.4"
   },
   "overrides": {
     "snap.svg": {
       "main": "dist/snap.svg.js"
     },
     "ace-builds": {
-      "main": ["src/ace.js", "src/ext-language_tools.js"]
+      "main": [
+        "src/ace.js",
+        "src/ext-language_tools.js"
+      ]
     }
   }
 }

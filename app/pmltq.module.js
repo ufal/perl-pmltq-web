@@ -24,8 +24,13 @@ angular.module('pmltq').config(function(
   $urlRouterProvider.otherwise('/home');
 });
 
-angular.module('pmltq').run(function(Auth, $state, $window, $rootScope, cfpLoadingBar) {
+angular.module('pmltq').run(function(Auth, $state, $window, $location, $rootScope, Piwik, cfpLoadingBar) {
   Auth.ping();
+
+  $rootScope.$on('$stateChangeSuccess', function () {
+    Piwik.setCustomUrl($location.absUrl());
+    Piwik.trackPageView();
+  });
 
   $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams, res) {
     cfpLoadingBar.complete();
