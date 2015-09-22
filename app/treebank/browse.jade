@@ -25,17 +25,17 @@ main.ui.container.one.column.grid
               label(for="filter-accessible") Show only publicly accessible treebanks
           .field
             .ui.list
-              .item(ng-repeat="category in vm.filter.stickerCategories")
+              .item(ng-repeat="category in ::vm.filter.categories")
                 .ui.horizontal.list
                   .item
-                    strong {{category}}:
-                  .item(ng-repeat="sticker in vm.filter.stickersByCategory[category]")
+                    strong {{::category | uppercase}}:
+                  .item(ng-repeat="label in ::vm.filter[category]")
                     .ui.clickable.lang.label(
-                      ng-class="{ green: sticker.selected }"
-                      ng-click="sticker.toggle()")
-                      i.flag(ng-class="sticker.cls" ng-if="sticker.cls")
-                      | {{sticker.name}}
-                      .detail {{sticker.remaining}}
+                      ng-class="{ green: label.selected }"
+                      ng-click="label.toggle()")
+                      span(language-icon="label.code" ng-if="label.code")
+                      | {{::label.name}}
+                      .detail {{label.total}}
 
           .ui.right.floated.column
             button.ui.basic.button(

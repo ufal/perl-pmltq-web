@@ -39,9 +39,8 @@ angular.module('pmltq.query').factory('pmltqMode', function ($cacheFactory) {
 
       }
 
-      // jscs:disable requireDotNotation
-      Object.keys(treebank['node_types']).forEach(function (type) {
-        var a = treebank['node_types'][type];
+      Object.keys(treebank.nodeTypes).forEach(function (type) {
+        var a = treebank.nodeTypes[type];
         type = 'TYPE.' + type;
         keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');
         for (var i = a.length; i--;) {
@@ -49,7 +48,6 @@ angular.module('pmltq.query').factory('pmltqMode', function ($cacheFactory) {
           completions[a[i] + '#' + type] = [a[i], type, type];
         }
       });
-      // jscs:enable requireDotNotation
       Object.keys(treebank.attributes).forEach(function (type) {
         var a = treebank.attributes[type];
         keywords[type] = a.join('|') + (keywords[type] ? '|' + keywords[type] : '');

@@ -24,8 +24,8 @@
     "semantic-ui": "~2",
     "snap.svg": "~0.4.1",
     "angular-http-auth": "~1.2.2",
-    "lindat-common": ">=1",
-    "randomcolor": "~0.3.0"
+    "randomcolor": "~0.3.0",
+    "lindat-common": "releases"
   },
   "resolutions": {
     "angular": "~1.4",

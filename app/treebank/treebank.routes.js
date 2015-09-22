@@ -7,8 +7,8 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     title: '{{treebank.title}}',
     abstract: true,
     resolve: {
-      treebank: function(treebanksApi, $stateParams) {
-        return treebanksApi.one($stateParams.treebankId).get();
+      treebank: function(treebankApi, $stateParams) {
+        return treebankApi.one($stateParams.treebankId).get();
       },
       result: function(resultHolder) {
         return resultHolder();
@@ -43,8 +43,8 @@ angular.module('pmltq.treebank').config(function($stateProvider) {
     templateUrl: 'treebank/browse.html',
     title: 'Browse Treebanks',
     resolve: {
-      treebanksList: function(treebanksApi) {
-        return treebanksApi.getList();
+      treebanksList: function(treebankApi) {
+        return treebankApi.getList();
       }
     }
   });

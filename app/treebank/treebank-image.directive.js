@@ -1,5 +1,7 @@
-angular.module('pmltq.treebank').directive('treebankImage', function($cacheFactory, _, $) {
-  var maxFontSize = 70, sizeCache = $cacheFactory('treebank-logo-size-cache');
+angular.module('pmltq.treebank').directive('treebankImage', function($cacheFactory, $timeout, _, $) {
+  var maxFontSize = 120,
+    sizeCache = $cacheFactory('treebank-logo-size-cache'),
+    imageCache = $cacheFactory('treebank-logo-cache');
 
   function testLine(line, maxWidth, property, size, interval, units, previousWidth) {
     previousWidth = _.isNumber(previousWidth) ? previousWidth : 0;
@@ -75,31 +77,57 @@ angular.module('pmltq.treebank').directive('treebankImage', function($cacheFacto
     line.css({fontSize: fontSize});
   }
 
-  function treebankImage(element) {
-    var maxWidth = element.width(),
-      children = element.children();
+  function treebankImage(element, width) {
+    var children = element.children();
 
     for (var i = 0; i < children.length; i++) {
-      setLineSizes($(children[i]), maxWidth);
+      setLineSizes($(children[i]), width);
     }
   }
+
+  $.fn.visibility.settings.verbose = true;
 
   return {
     restrict: 'A',
     scope: {
-      image: '=treebankImage'
+      image: '=treebankImage',
+      width: '@imageWidth'
     },
     link: function($scope, $element) {
-      $scope.$watch('image', function(image) {
+      var lastWidth = 0;
+
+      function renderImage(image, width) {
+        if (lastWidth === width || width === 0) {
+          return;
+        }
+
+        var cacheKey = image.text.join('') + 'w' + width,
+          cached  = imageCache.get(cacheKey);
         $element.empty();
-        if (image) {
+        if (!cached) {
           var max = image.text.length > 2 ? 2 : image.text.length;
           for (var i = 0; i < max; i++) {
             var text = image.text[i];
-            $element.append($('<span></span>').text(text).data('text', text));
+            $element.append($('<span></span>').html(text.replace(/ /g, '&nbsp;')).data('text', text));
           }
-          treebankImage($element, image.text);
+          treebankImage($element, width);
+          imageCache.put(cacheKey, $element.html());
+        } else {
+          console.log(cacheKey);
+          $element.append(cached);
         }
+
+        lastWidth = width;
+      }
+
+      $scope.$watch('image', function(image) {
+        if (!image) {
+          return;
+        }
+
+        $timeout(function () {
+          renderImage(image, $scope.width);
+        });
       });
     }
   };

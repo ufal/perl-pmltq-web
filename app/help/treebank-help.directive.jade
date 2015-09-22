@@ -37,16 +37,16 @@ mixin help-button(icon, text)
       //-     td Complex or low-selective queries may take a few seconds to evaluate; the timeout option specifies maximum time the server should spend trying to evaluate the query.
 
       section.ui.basic.segment#annotation-schema
-        h2.ui.header Annotation Schema of {{treebank.title}}
+        h2.ui.header Annotation Schema of {{::treebank.title}}
         p This treebank consists of the following <b>annotation layer(s)</b> and <b>node type(s)</b>:
         ul.ui.list
-          li(ng-repeat="schema in treebank.schemas") Layer <strong><code>{{schema}}</code></strong> consists of node types:<br>
-            strong.text.mono(ng-repeat="type in treebank.node_types[schema]") {{type}}{{$last ? '' : ', '}}
+          li(ng-repeat="schema in ::treebank.schemas") Layer <strong><code>{{::schema}}</code></strong> consists of node types:<br>
+            strong.text.mono(ng-repeat="type in ::treebank.nodeTypes[schema]") {{::type}}{{::$last ? '' : ', '}}
       section.ui.basic.segment#query-language
         h2 Query Language
-        p A basic <b>query</b> for nodes of the type, say <code>{{treebank.doc.type}}</code>, looks like this:</p>
+        p A basic <b>query</b> for nodes of the type, say <code>{{::treebank.doc.type}}</code>, looks like this:</p>
         query-example(treebank="treebank")
-          pre {{treebank.doc.type}} [ ]
+          pre {{::treebank.doc.type}} [ ]
         p Similarly for other node types and node-type wildcards.
         p <b>Contstraints</b> on the node go between the square brackets <code>[...]</code>. Basic constraints on <b>attribute</b> values have the following forms:
         table.ui.striped.table
@@ -64,7 +64,7 @@ mixin help-button(icon, text)
             td membership in an enumeration
         p For example:
         query-example(treebank="treebank")
-          pre {{treebank.doc.type}} [ {{treebank.doc.attr}} = '{{treebank.doc.value}}' ]
+          pre {{::treebank.doc.type}} [ {{::treebank.doc.attr}} = '{{::treebank.doc.value}}' ]
         p See the <span class="menu-item">Attributes</span> menu for the list of attributes for each node type.
           | Other <b>node properties</b>, such as number of sons, descendants, siblings, etc.
           | can be obtained using functions (see <span class="menu-item">Functions</span> » <span class="menu-item">Node Properties</span>).
@@ -73,36 +73,36 @@ mixin help-button(icon, text)
         p The constraints can be combined using commas (<code>and</code>) or the logical operators <code>!</code> (not), <code>and</code>,
           | <code>or</code> (see also the <span class="menu-item"> Operators</span> menu). For example:
         query-example(treebank="treebank")
-          pre {{treebank.doc.type}} [ {{treebank.doc.attr}} = '{{treebank.doc.value}}', sons()=0 or lbrothers()+rbrothers()=0  ]
-        p searches for any {{treebank.doc.type}} with {{treebank.doc.attr}}='{{treebank.doc.value}}' that is either a leaf node (has no sons) or an only child (has no left nor right siblings).
+          pre {{::treebank.doc.type}} [ {{::treebank.doc.attr}} = '{{::treebank.doc.value}}', sons()=0 or lbrothers()+rbrothers()=0  ]
+        p searches for any {{::treebank.doc.type}} with {{::treebank.doc.attr}}='{{::treebank.doc.value}}' that is either a leaf node (has no sons) or an only child (has no left nor right siblings).
         p To introduce another node into the query, include it among the constrains and specify its <b>relation</b> to the existing node.
           | The <span class="menu-item">Relation</span> menu contains a list list of available relations.
           | Here a is an example using the relation 'child':
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} [
-            |   {{treebank.doc.attr}} = '{{treebank.doc.value}}',
-            |   child {{treebank.doc.type}} [ ]
+            | {{::treebank.doc.type}} [
+            |   {{::treebank.doc.attr}} = '{{::treebank.doc.value}}',
+            |   child {{::treebank.doc.type}} [ ]
             | ]
         p <b>Additional relations</b> between a pair of nodes can be specified by assigning <b>symbolic names</b>
           | to the query nodes. The names can be used also to refer to other node's attributes, e.g.
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} $a := [
-            |   sibling {{treebank.doc.type}} [
+            | {{::treebank.doc.type}} $a := [
+            |   sibling {{::treebank.doc.type}} [
             |     depth-first-follows $a,
-            |     {{treebank.doc.attr}} = $a.{{treebank.doc.attr}}
+            |     {{::treebank.doc.attr}} = $a.{{::treebank.doc.attr}}
             |   ]
             | ]
-        p searches for any {{treebank.doc.type}} $a with a sibling {{treebank.doc.type}} having the same value of {{treebank.doc.attr}}
-          | and following the node $a. We may also search for any {{treebank.doc.type}} with no such sibling, using a so called <b>subquery</b>
+        p searches for any {{::treebank.doc.type}} $a with a sibling {{::treebank.doc.type}} having the same value of {{::treebank.doc.attr}}
+          | and following the node $a. We may also search for any {{::treebank.doc.type}} with no such sibling, using a so called <b>subquery</b>
           | by quantifying the number of occurrences:
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} $a := [
-            |   0x sibling {{treebank.doc.type}} [
+            | {{::treebank.doc.type}} $a := [
+            |   0x sibling {{::treebank.doc.type}} [
             |     depth-first-follows $a,
-            |     {{treebank.doc.attr}} = $a.{{treebank.doc.attr}}
+            |     {{::treebank.doc.attr}} = $a.{{::treebank.doc.attr}}
             |   ]
             | ]
         p The symbol <code>0x</code>, stands for 'zero times'. Similarly, <code>1x</code> stands for 'exactly one', <code>3+x</code> for 'three and more',
@@ -112,7 +112,7 @@ mixin help-button(icon, text)
         p To count number of all matches of a query, append an output filter, e.g
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} [ ]
+            | {{::treebank.doc.type}} [ ]
             | &gt;&gt; count()
 
         p Be careful when counting matches for queries with more than one node.
@@ -120,15 +120,15 @@ mixin help-button(icon, text)
           | in the query, use these output filters instead:
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} $a := [ ]
+            | {{::treebank.doc.type}} $a := [ ]
             | &gt;&gt; distinct $a
             | &gt;&gt; count()
         p Output filters are used to extract data and generate a tabular output from a query.
-          | For example, the following query lists all values of the attribute {{treebank.doc.attr}} and counts their occurrences:
+          | For example, the following query lists all values of the attribute {{::treebank.doc.attr}} and counts their occurrences:
         query-example(treebank="treebank")
           pre
-            | {{treebank.doc.type}} $a := [ ]
-            | &gt;&gt; for $a.{{treebank.doc.attr}} give $1, count()
+            | {{::treebank.doc.type}} $a := [ ]
+            | &gt;&gt; for $a.{{::treebank.doc.attr}} give $1, count()
     .four.wide.column
       .ui.sticky(ui-sticky="{context: '#help-context', offset: 30}")
         .ui.secondary.vertical.right.pointing.menu(du-spy-context)
