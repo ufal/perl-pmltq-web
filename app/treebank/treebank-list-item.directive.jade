@@ -1,13 +1,15 @@
 .item
-  .treebank.image.wrapper
-    a(ng-href="{{url}}" treebank-image="image" ng-style="{color: image.color}")
+  .treebank.logo.wrapper
+    a(ng-href="{{::url}}" treebank-image="image" image-width="175" ng-style="{color: image.color}")
   .content
-    a.header(ng-href="{{url}}")
-      span(ng-if="!treebank.anonymous")
+    a.header(ng-href="{{::url}}")
+      span(ng-if="!treebank.accessible()")
         i.icon.lock(title="Login and permission required" ui-popup="" data-position="right center")
-      | {{treebank.title}}
-    .description {{treebank.description}}
+      | {{::treebank.title}}
+    .description {{::treebank.description}}
     .extra
-      .ui.label(ng-repeat="sticker in treebank.getStickers() | orderBy:'-name'")
-        i.flag(ng-class="sticker.cls" ng-if="sticker.cls")
-        | {{sticker.name}}
+      .ui.label(ng-repeat="label in ::treebank.languages | orderBy:'-name'")
+        span(language-icon="label.code")
+        | {{::label.name}}
+      .ui.label(ng-repeat="label in ::treebank.tags | orderBy:'-name'")
+        | {{::label.name}}

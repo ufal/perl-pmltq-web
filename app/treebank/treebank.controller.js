@@ -1,9 +1,9 @@
 angular.module('pmltq.treebank')
-  .controller('TreebankController', function($scope, result, treebank, history, queryParams, treebanksApi) {
+  .controller('TreebankController', function($scope, result, treebank, history, queryParams, treebankApi) {
     $scope.treebank = treebank;
     $scope.history = history;
     $scope.result = result;
-    treebanksApi.addRecentlyUsed(treebank.id);
+    treebankApi.addRecentlyUsed(treebank.id);
 
     $scope.queryParams = queryParams;
   });

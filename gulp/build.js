@@ -2,6 +2,7 @@
 
 var gulp = require('gulp');
 var tap = require('gulp-tap');
+var runSequence = require('run-sequence');
 
 var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -74,7 +75,7 @@ module.exports = function(options) {
   });
 
   gulp.task('lindat-assets', function () {
-    return gulp.src('bower_components/lindat-common/dist/public/images/**/*')
+    return gulp.src('bower_components/lindat-common/public/images/**/*')
       .pipe(gulp.dest(options.dist + '/images/'));
   });
 
@@ -102,8 +103,8 @@ module.exports = function(options) {
 
   gulp.task('compile', ['html', 'fonts', 'static', 'assets']);
 
-  gulp.task('build', ['clean'], function () {
-    options.env = 'production';
-    gulp.start('compile');
+  gulp.task('build', ['clean'], function (done) {
+    //options.env = 'production';
+    runSequence('clean', 'compile', done);
   });
 };

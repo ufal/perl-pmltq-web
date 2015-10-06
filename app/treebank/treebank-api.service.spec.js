@@ -1,8 +1,8 @@
-describe('sticker', function() {
+describe('treebankApi', function() {
 
   beforeEach(module('pmltq.treebank'));
 
-  it('should ...', inject(function(sticker) {
+  it('should ...', inject(function(treebankApi) {
 
     //expect(treebanks.doSomething()).toEqual('something');
 

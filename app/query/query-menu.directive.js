@@ -20,10 +20,14 @@ angular.module('pmltq.query').directive('queryMenu', function(_, $timeout) {
     var items = [{
       label: 'Standard',
       items: buildMenuItems(relations.standard)
-    }, {
-      label: 'PML',
-      items: buildMenuItems(relations.pml)
     }];
+
+    if (relations.user && !_.isEmpty(relations.pml)) {
+      items.push({
+        label: 'PML',
+        items: buildMenuItems(relations.pml)
+      });
+    }
 
     if (relations.user && !_.isEmpty(relations.user)) {
       items.push({
@@ -90,9 +94,7 @@ angular.module('pmltq.query').directive('queryMenu', function(_, $timeout) {
 
         menuItems.relations = buildRelations(treebank.relations);
 
-        // jscs:disable requireDotNotation
-        menuItems.nodeTypes = buildNodeTypes(treebank['node_types']);
-        // jscs:enable requireDotNotation
+        menuItems.nodeTypes = buildNodeTypes(treebank.nodeTypes);
 
         menuItems.attributes = buildAttributes(treebank.attributes);
       });

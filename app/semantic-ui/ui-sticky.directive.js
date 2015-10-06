@@ -1,4 +1,4 @@
-angular.module('semanticUI').directive('uiSticky', function() {
+angular.module('semanticUI').directive('uiSticky', function($timeout) {
   return {
     restrict: 'A',
     scope: {
@@ -9,7 +9,9 @@ angular.module('semanticUI').directive('uiSticky', function() {
         if (angular.isUndefined(options) || options === $attrs.uiSticky) {
           options = {};
         }
-        $($element).sticky(options);
+        $timeout(function () {
+          $($element).sticky(options);
+        });
       });
     }
   };

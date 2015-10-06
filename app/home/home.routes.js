@@ -6,11 +6,11 @@ angular.module('pmltq.home').config(function($stateProvider) {
     controller: 'HomeController',
     controllerAs: 'vm',
     resolve: /*@ngInject*/ {
-      treebanks: function(treebanksApi) {
-        return treebanksApi.getList();
+      treebanks: function(treebankApi) {
+        return treebankApi.getList();
       },
-      recentlyUsed: function(treebanksApi) {
-        return treebanksApi.recentlyUsed();
+      recentlyUsed: function(treebankApi) {
+        return treebankApi.recentlyUsed();
       }
     }
   });
