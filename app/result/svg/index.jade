@@ -1,0 +1,13 @@
+.ui.one.column.grid(svg-view="vm.treebank" query-params="vm.queryParams" address="{{vm.nodeAddress}}")
+  .fitted.column
+    .ui.three.column.stackable.grid
+      .column
+        div(result-controls="vm.result")
+      .column.center.aligned
+        div(matched-nodes="vm.result")
+      .column.right.aligned
+        .result.title(file-controls)
+  .column
+    .ui.segment(result-sentence)
+  .white.column
+    .svg-pane(svg-pane nodes="vm.currentResult")

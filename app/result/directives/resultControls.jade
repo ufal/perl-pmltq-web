@@ -1,0 +1,27 @@
+.ui.small.horizontal.list.result-controls
+  .item
+    button.ui.labeled.small.icon.button(
+      type="button"
+      ng-click="result.prev()"
+      ng-disabled="!result.hasPrev")
+      i.left.arrow.icon
+      | Previous
+  .item
+    .ui.mini.input
+      input(
+        type="number"
+        ng-model="result.resultNo"
+        ng-model-options="{updateOn:'blur'}"
+        update-model-on-enter-key-pressed
+        max="{{result.total}}"
+        min="1"
+        )
+  .item
+    .content.aligned of {{result.total}}
+  .item
+    button.ui.right.labeled.small.icon.button(
+      type="button"
+      ng-click="result.next()"
+      ng-disabled="!result.hasNext")
+      i.right.arrow.icon
+      | Next
