@@ -1,0 +1,21 @@
+main.ui.horizontally.padded.one.column.grid
+  .column
+    navigation
+      a.section(breadcrumb ui-sref="browse") Browse Treebanks
+      i.right.chevron.icon.divider(breadcrumb)
+      .active.section(breadcrumb ng-bind="vm.treebank.title")
+      a.item(menu ui-sref="treebank.history" ui-sref-active="active")
+        i.history.icon
+        | History
+      a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
+        i.search.icon
+        | Query
+      a.item(menu ui-sref="treebank.help" ui-sref-active="active")
+        i.help.circle.icon
+        | Help
+      a.item(right ng-href="{{vm.treebank.homepage}}" ng-show="vm.treebank.homepage" target="_blank")
+        i.external.icon
+        | Get data
+
+  .fitted.column
+    .ui.one.column.grid(ui-view="")

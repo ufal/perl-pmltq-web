@@ -1,0 +1,20 @@
+.ui.one.column.grid(ng-switch="type")
+  .column(ng-switch-when="error")
+    pre.ui.negative.message {{result.lastError ? result.lastError.data.error : ''}}
+  .column(ng-switch-when="svg")
+    .ui.one.column.grid(svg-view="treebank"
+    node="{{result.currentResult[result.activeNode]}}"
+    tree="{{result.tree}}")
+      .fitted.column
+        .ui.three.column.stackable.grid
+          .column
+            div(result-controls="result")
+          .column.center.aligned
+            div(matched-nodes="result")
+          .column.right.aligned
+            .result.title(result-title="result")
+      .column
+        .ui.segment(sentence="result.svg.sentence()")
+      .white.column
+        .svg-pane(svg-pane nodes="result.currentResult")
+  .column(ng-switch-when="table" table-view="result")
