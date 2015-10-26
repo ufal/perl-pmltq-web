@@ -24,7 +24,6 @@ var defines = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  debug: true,
   devtool: 'cheap-source-map',
   entry: ['./app/pmltq.js', './app/pmltq.less'],
   output: {
