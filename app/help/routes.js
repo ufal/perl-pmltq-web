@@ -5,7 +5,8 @@ module.exports = function($stateProvider) {
     url: '/help',
     template: require('./index.jade'),
     controller: require('./controller'),
-    controllerAs: 'vm'
+    controllerAs: 'vm',
+    title: 'Help'
   });
 
 };
