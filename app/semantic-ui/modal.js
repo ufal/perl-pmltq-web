@@ -11,7 +11,7 @@ module.exports = function ModalFactory($rootScope, $controller, $compile, $timeo
 
     this.config = config = angular.extend({}, config);
     var modal = this,
-      template = config.template,
+      template = _.isFunction(config.template) ? config.template() : config.template,
       controller = config.controller,
       controllerAs = config.controllerAs,
       scope = modal.scope = config.scope ? config.scope : $rootScope.$new(),

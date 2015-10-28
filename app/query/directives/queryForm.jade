@@ -78,11 +78,23 @@
               | ({{vm.markedNodes.nodes.length}})
         .right.aligned.column(ng-hide="collapsed")
           button.ui.small.basic.button(
+          type="button"
+          ui-popup
+          title="Create permanent link that can be used in citations etc..."
+          data-position="bottom right"
+          tabindex="6"
+          ng-disabled="form.$invalid"
+          state="treebank.query.index"
+          state-params="vm.queryParams.params()"
+          shorten-url="")
+            i.linkify.icon
+            | Permanent link
+          button.ui.small.basic.button(
             type="button"
             ui-popup
             title="Empty the query form"
             data-position="bottom right"
-            tabindex="6"
+            tabindex="7"
             ng-click="vm.queryParams.clear()")
             i.cut.icon
             | Clear

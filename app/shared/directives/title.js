@@ -4,9 +4,9 @@ module.exports = function($interpolate, $state, $document, $timeout) {
   'ngInject';
 
   function interpolateName(state) {
-    if (state.filename) {
+    if (state.title) {
       var context = angular.isUndefined(state.locals) ? state : state.locals.globals;
-      return $interpolate(state.filename)(context);
+      return $interpolate(state.title)(context);
     }
 
     return false;

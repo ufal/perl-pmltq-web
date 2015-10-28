@@ -1,0 +1,13 @@
+.ui.small.modal
+  i.close.icon
+  .header
+    | Permalink
+  .content
+    .ui.basic.message
+      | Press <span class="ui label">ctrl + c</span> to copy
+    form.ui.form(name="form" ng-class="{'loading': vm.loading}")
+      .field
+        label(for="login-email") URL:
+        input(type="text" ng-model="vm.shortenedUrl" focus-url tabindex="1")
+      .field
+        button.ui.right.aligned.button(tabindex="2" ng-click="hide()") Close

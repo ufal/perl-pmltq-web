@@ -9,9 +9,7 @@ module.exports = function(loginModal) {
         e.preventDefault();
 
         m = loginModal();
-        m.promise.then(function () {
-          m.show();
-        });
+        m.show();
       });
 
       $scope.$on('$destroy', function () {

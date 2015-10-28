@@ -4,7 +4,7 @@ install:
 	@npm install
 
 build:
-  @rm -rf dist
+	@rm -rf dist
 	@./node_modules/.bin/webpack -p --progress --colors --devtool source-map
 
 run:

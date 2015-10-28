@@ -5,7 +5,7 @@ require('./queryForm.less');
 
 const suggestHelpKey = 'suggest-hide-help';
 
-module.exports = function (localStorageService) {
+module.exports = function (localStorageService, uiModal) {
   'ngInject';
 
   class QueryFormController {
@@ -63,6 +63,10 @@ module.exports = function (localStorageService) {
     replaceQuery() {
       this.queryParams.text = this.suggestObj.query();
       this.suggestObj = null;
+    }
+
+    shorten(query) {
+
     }
   }
 

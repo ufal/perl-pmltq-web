@@ -33,6 +33,7 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
     template: require('./index.jade'),
     controller: require('./controller'),
     controllerAs: 'vm',
+    title: 'Query',
     abstract: true,
     params: {
       query: {squash: false, value: null}
