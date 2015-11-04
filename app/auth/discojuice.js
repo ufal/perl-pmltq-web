@@ -24,8 +24,11 @@ module.exports = function DiscojuiceFactory($window, $q, discojuiceUrl) {
       .attr('src', discojuiceUrl);
 
     $($window).on('message', function (e) {
-      var oe = e.originalEvent;
-      if (oe.origin !== $window.location.origin) {
+      var oe = e.originalEvent,
+        l = $window.location,
+        origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+
+      if (oe.origin !== origin) {
         return;
       }
 

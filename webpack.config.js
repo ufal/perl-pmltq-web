@@ -68,6 +68,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'app', 'index.jade')
     }),
+    new HtmlWebpackPlugin({
+      filename: 'discojuice.html',
+      template: path.join(__dirname, 'app', 'discojuice.html'),
+      inject: false
+    }),
     new ExtractTextPlugin('[contenthash]-[name].css', {
       allChunks: true
     }),
