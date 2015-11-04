@@ -1,4 +1,5 @@
-var $ = global.$ = global.jQuery = require('jquery');
+// global jQuery for Angular
+global.jQuery = require('jquery');
 var angular = require('angular');
 
 if (!LINDAT) {
@@ -6,6 +7,8 @@ if (!LINDAT) {
 } else {
   require('lindat-common');
 }
+
+require('babel-polyfill');
 
 var pmltqModule = angular.module('pmltq', [
   require('./shared'),
