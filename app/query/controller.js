@@ -9,7 +9,5 @@ module.exports = function($stateParams, $state, treebank, queryParams) {
     $state.go('treebank.query.result.index', {query: queryParams.query});
   };
 
-  if ($stateParams.query) {
-    queryParams.text($stateParams.query);
-  }
+  queryParams.query = $stateParams.query;
 };
