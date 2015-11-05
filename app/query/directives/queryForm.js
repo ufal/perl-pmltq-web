@@ -5,12 +5,15 @@ require('./queryForm.less');
 
 const suggestHelpKey = 'suggest-hide-help';
 
-module.exports = function (localStorageService, uiModal) {
+module.exports = function (localStorageService) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   class QueryFormController {
     constructor($scope) {
-      'ngInject'
+      //noinspection BadExpressionStatementJS
+      'ngInject';
+
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
       this.showHelp = !localStorageService.get(suggestHelpKey);

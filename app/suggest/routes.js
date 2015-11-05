@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 module.exports = function($stateProvider) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   $stateProvider.state('treebank.suggest', {

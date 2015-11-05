@@ -2,6 +2,7 @@
 module.exports = class AuthService {
 
   constructor($rootScope, authService, Restangular) {
+    //noinspection BadExpressionStatementJS
     'ngInject';
 
     this.loggedIn = false;

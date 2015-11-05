@@ -1,4 +1,5 @@
-module.exports = function ShortenerModalFactory(uiModal, shortener) {
+module.exports = function ShortenerModalFactory(uiModal) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function ShortenerModal(url, title) {

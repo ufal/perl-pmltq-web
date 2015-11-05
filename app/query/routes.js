@@ -12,6 +12,7 @@ const decompressQuery = _.memoize(lz.decompressFromEncodedURIComponent);
  * @param {angular.ui.IUrlMatcherFactory} $urlMatcherFactoryProvider
  */
 module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   $urlMatcherFactoryProvider.type('compressed', {

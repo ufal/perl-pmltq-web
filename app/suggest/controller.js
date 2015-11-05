@@ -1,4 +1,5 @@
 module.exports = function SuggestController($scope, $state, treebank, suggest, result, localStorageService) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var storageKey = 'suggest-hide-help';

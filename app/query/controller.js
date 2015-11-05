@@ -1,4 +1,5 @@
 module.exports = function($stateParams, $state, treebank, queryParams) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 

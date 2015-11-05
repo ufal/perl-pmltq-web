@@ -2,6 +2,7 @@
  * @param {angular.ui.IStateProvider} $stateProvider
  */
 module.exports = function ($stateProvider) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   $stateProvider.state('treebank', {

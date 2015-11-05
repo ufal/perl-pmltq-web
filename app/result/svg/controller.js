@@ -1,4 +1,5 @@
 module.exports = function ($scope, result, queryParams) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 

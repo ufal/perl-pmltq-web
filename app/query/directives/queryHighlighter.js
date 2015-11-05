@@ -4,6 +4,7 @@ var ace = require('brace');
 require('./queryHighlighter.less');
 
 module.exports = function ($document, pmltqModeBuilder) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   const theme = require('../ace/pmltq/theme');

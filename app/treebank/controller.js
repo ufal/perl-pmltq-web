@@ -1,4 +1,5 @@
 module.exports = function(treebank, queryParams, treebankApi) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 

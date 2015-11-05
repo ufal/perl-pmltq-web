@@ -4,6 +4,7 @@ var _ = require('lodash');
 require('./treebankListItem.less');
 
 module.exports = function($state) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function stringHash(str) {

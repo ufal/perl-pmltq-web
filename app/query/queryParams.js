@@ -12,6 +12,7 @@ var angular = require('angular');
  * @constructor
  */
 module.exports = function QueryParamsFactory($state, localStorageService, rx) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   class QueryParams {

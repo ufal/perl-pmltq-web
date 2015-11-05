@@ -1,6 +1,7 @@
 require('./index.less');
 
 module.exports = function BrowseTreebanksController(treebanksFilter, treebanksList) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var vm = this;

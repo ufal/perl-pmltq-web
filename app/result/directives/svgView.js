@@ -6,6 +6,7 @@ var Rx = require('rx');
 
 class SvgViewController {
   constructor($scope) {
+    //noinspection BadExpressionStatementJS
     'ngInject';
 
     var lastAddress, lastTree, lastTreebankId;

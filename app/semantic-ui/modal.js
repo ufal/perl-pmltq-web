@@ -2,6 +2,7 @@ var angular = require('angular');
 var $ = require('jquery');
 
 module.exports = function ModalFactory($rootScope, $controller, $compile, $timeout, uiUtils) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function Modal(config) {
