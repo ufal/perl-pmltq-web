@@ -5,6 +5,8 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var LessRewriteImportPlugin = require('less-plugin-rewrite-import');
+var argv = require('minimist')(process.argv.slice(2));
+var merge = require('webpack-merge');
 
 var pgk = require('./package.json');
 
@@ -16,17 +18,20 @@ function rewriteUrl(replacePath) {
   };
 }
 
-var defines = new webpack.DefinePlugin({
+var definePlugin = new webpack.DefinePlugin({
   VERSION: JSON.stringify(pgk.version),
-  PRODUCTION: process.env.NODE_ENV === 'production',
-  DEVELOPMENT: process.env.NODE_ENV !== 'production',
+  PRODUCTION: !!argv.p,
+  DEVELOPMENT: !!argv.debug,
   LINDAT: true
 });
 
-module.exports = {
-  devtool: 'cheap-source-map',
+var definitions = definePlugin.definitions;
+
+var config = {
+  devtool: 'source-map',
   entry: ['./app/pmltq.js', './app/pmltq.less'],
   output: {
+    devtoolModuleFilenameTemplate: 'pmtlq-web:///[resource-path]?[loaders]',
     path: path.join(__dirname, 'dist'),
     filename: '[hash]-pmltq.js'
   },
@@ -39,21 +44,12 @@ module.exports = {
     }
   },
   module: {
-    //preLoaders: [{test: /\.js$/, loaders: ['jscs']}],
-    postLoaders: [{
-      test: /\.js$/,
-      exclude: /\/(node_modules|bower_components)\//,
-      loader: 'autopolyfiller',
-      query: {browsers: ['last 2 versions', 'ie >= 9']}
-    }],
     loaders: [
-      {test: /\.less$/, loader: ExtractTextPlugin.extract('css!autoprefixer!less')},
       {test: /\.yml/, loader: 'json!yaml'},
       {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader']},
       {test: /node_modules\/admin-config\/.*\.jsx?$/, loader: 'babel'},
       {test: /\.html$/, loader: 'html'},
-      {test: /\.css$/, loader: ExtractTextPlugin.extract('css!autoprefixer')},
-      {test: /\.jade$/, loader: 'jade', query: defines.definitions},
+      {test: /\.jade$/, loader: 'jade', query: definitions},
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}, // inline base64 URLs for <=8k images, direct URLs for the rest
       {test: /\.(woff|woff2)$/, loader: 'url?limit=10000&mimetype=application/font-woff&prefix=fonts'},
       {test: /\.ttf$/, loader: 'url?limit=10000&mimetype=application/octet-stream&prefix=fonts'},
@@ -65,6 +61,8 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),
+    new webpack.PrefetchPlugin('angular'),
+    new webpack.PrefetchPlugin('babel-polyfill'),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'app', 'index.jade')
     }),
@@ -73,10 +71,7 @@ module.exports = {
       template: path.join(__dirname, 'app', 'discojuice.html'),
       inject: false
     }),
-    new ExtractTextPlugin('[contenthash]-[name].css', {
-      allChunks: true
-    }),
-    defines
+    definePlugin
   ],
   lessLoader: {
     lessPlugins: [
@@ -97,3 +92,37 @@ module.exports = {
     }]
   }
 };
+
+if (definitions.PRODUCTION) {
+  // Use extract only for production
+  module.exports = merge(config, {
+    externals: [{
+      jquery: 'jQuery',
+      angular: 'angular'
+    }],
+    module: {
+      loaders: [
+        {test: /\.less$/, loader: ExtractTextPlugin.extract('css!autoprefixer!less')},
+        {test: /\.css$/, loader: ExtractTextPlugin.extract('css!autoprefixer')}
+      ]
+    },
+    plugins: [
+      new ExtractTextPlugin('[contenthash]-pmltq.css', {
+        allChunks: true
+      }),
+      new webpack.NoErrorsPlugin()]
+  });
+} else {
+  module.exports = merge(config, {
+    devtool: 'eval',
+    output: {
+      pathinfo: true
+    },
+    module: {
+      loaders: [
+        {test: /\.less$/, loader: 'style!css!autoprefixer!less'},
+        {test: /\.css$/, loader: 'style!css!autoprefixer'}
+      ]
+    }
+  });
+}
