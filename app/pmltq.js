@@ -3,9 +3,13 @@ global.jQuery = require('jquery');
 var angular = require('angular');
 
 if (!LINDAT) {
+  // Use dummy module
   angular.module('lindat', []);
 } else {
-  require('lindat-common');
+  if (DEVELOPMENT) {
+    // In production we will get lindat-common directly from lindat servers, see index.jade
+    require('lindat-common');
+  }
 }
 
 require('babel-polyfill');
