@@ -15,7 +15,7 @@ module.exports = function (Restangular, $q) {
       reportemail: 'lindat-help@ufal.mff.cuni.cz',
       subprefix: 'PMLTQ'
     }).then((data) => {
-      data.shortenedUrl = 'http://hdl.handle.net/' + data.handle;
+      data.shortenedUrl = data.handle;
       return data;
     });
   }
