@@ -13,26 +13,52 @@
               .item
                 .content.aligned
                   .ui.inline.dropdown(ui-selectbox="vm.limitSelect" title="Result limit" ng-model="vm.queryParams.limit")
+      .column(ng-hide="collapsed || !vm.loggedIn")
+        .ui.horizontal.list
+          .item(ng-if="vm.activeQueryList")
+            button.ui.icon.mini.basic.button(ng-click="vm.activeQueryList = null")
+              i.delete.icon
+          .item
+            .ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" title="Query list:")
+          .item(ng-show="vm.activeQueryList.totalQueries > 0")
+            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasPrevious" ng-click="vm.activeQueryList.previous()")
+              i.arrow.left.icon
+            span
+              span(ng-bind="vm.activeQueryList.currentQueryIndex + 1")
+              | /
+              span(ng-bind="vm.activeQueryList.totalQueries")
+            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.activeQueryList.next()")
+              i.arrow.right.icon
+          .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
+            span(ng-bind="vm.activeQueryList.activeQuery.name")
+          .item(ng-show="vm.activeQueryList")
+            button.ui.mini.button(type="button" ng-click="vm.newQuery()") New query
+            button.ui.mini.primary.button(type="button" ng-click="vm.saveQuery()") Save
+
       .column(ng-show="collapsed")
         .query.text(
-          ng-show="collapsed"
-          title="Click to edit query"
-          data-variation="basic"
-          ui-popup
-          ng-click="collapsed = false")
+        ng-show="collapsed"
+        title="Click to edit query"
+        data-variation="basic"
+        ui-popup
+        ng-click="collapsed = false")
           | {{vm.queryParams.query || '&lt;query is empty&gt;'}}
+
     .field(ng-hide="collapsed")
-      .query.editor.wrapper
-        div(
-          query-editor="{treebank: vm.treebank}"
-          editor="vm.queryEditor"
-          focus-element
-          ng-model="vm.queryParams.query"
-          ng-model-options="{allowInvalid: true}"
-          required="required"
-          tabindex="1"
-          placeholder="# Enter your query here"
-          accesskey="e")
+      .query.container
+        .editor.wrapper
+          div(
+            query-editor="{treebank: vm.treebank}"
+            editor="vm.queryEditor"
+            focus-element
+            ng-model="vm.queryParams.query"
+            ng-model-options="{allowInvalid: true}"
+            required="required"
+            tabindex="1"
+            placeholder="# Enter your query here"
+            accesskey="e")
+        .query.extras
+
     .field
       .two.column.ui.grid
         .left.aligned.column
@@ -78,17 +104,17 @@
               | ({{vm.markedNodes.nodes.length}})
         .right.aligned.column(ng-hide="collapsed")
           button.ui.small.basic.button(
-          type="button"
-          ui-popup
-          title="Create permanent link that can be used in citations etc..."
-          data-position="bottom right"
-          tabindex="6"
-          ng-disabled="form.$invalid"
-          state="treebank.query.index"
-          state-params="vm.queryParams.params()"
-          shorten-url="")
-            i.linkify.icon
-            | Permanent link
+            type="button"
+            ui-popup
+            title="Create permanent link that can be used in citations etc..."
+            data-position="bottom right"
+            tabindex="6"
+            ng-disabled="form.$invalid"
+            state="treebank.query.index"
+            state-params="vm.queryParams.params()"
+            shorten-url="")
+              i.linkify.icon
+              | Permanent link
           button.ui.small.basic.button(
             type="button"
             ui-popup
@@ -96,7 +122,7 @@
             data-position="bottom right"
             tabindex="7"
             ng-click="vm.queryParams.clear()")
-            i.cut.icon
+            i.recycle.icon
             | Clear
   .ui.secondary.segment(ng-show="vm.suggestObj")
     .one.column.ui.grid

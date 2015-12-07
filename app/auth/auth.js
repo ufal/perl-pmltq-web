@@ -1,3 +1,5 @@
+/** @type Rx  */
+var Rx = require('rx');
 
 module.exports = class AuthService {
 
@@ -5,13 +7,23 @@ module.exports = class AuthService {
     //noinspection BadExpressionStatementJS
     'ngInject';
 
-    this.loggedIn = false;
+    this._loggedIn = false;
+    this.status = new Rx.BehaviorSubject(this._loggedIn);
     this.user = {};
     this.authService = authService;
     this.authApi = Restangular.service('auth');
     this.scope = $rootScope;
 
-    this.scope.$on('event:auth-loginConfirmed', () => this.loggedIn = true);
+    this.scope.$on('event:auth-loginConfirmed', () => { this.loggedIn = true; });
+  }
+
+  get loggedIn() {
+    return this._loggedIn;
+  }
+
+  set loggedIn(value) {
+    this._loggedIn = value;
+    this.status.onNext(value);
   }
 
   ping() {

@@ -1,3 +1,6 @@
+/** @type _ */
+var _ = require('lodash');
+
 module.exports = function($stateParams, $state, treebank, queryParams) {
   //noinspection BadExpressionStatementJS
   'ngInject';

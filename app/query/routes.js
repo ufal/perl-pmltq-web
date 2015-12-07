@@ -17,16 +17,20 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
 
   $urlMatcherFactoryProvider.type('compressed', {
     encode: (item) => {
-      if (!item) { return null; }
+      if (!item) {
+        return null;
+      }
       item = compressQuery(item);
       return item;
     },
     decode: (item) => {
-      if (!item) { return null; }
+      if (!item) {
+        return null;
+      }
       item = decompressQuery(item);
       return item;
     },
-    is: (val) => val && typeof val === 'string' && val.length && !decompressQuery(val)
+    is: (val) => val && val.length && typeof val === 'string' && !decompressQuery(val)
   });
 
   $stateProvider.state('treebank.query', {
