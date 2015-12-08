@@ -13,6 +13,7 @@ if (!LINDAT) {
 }
 
 require('babel-polyfill');
+require('./pmltq.less');
 
 var pmltqModule = angular.module('pmltq', [
   require('./shared'),

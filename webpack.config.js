@@ -29,11 +29,14 @@ var definitions = definePlugin.definitions;
 
 var config = {
   devtool: 'source-map',
-  entry: ['./app/pmltq.js', './app/pmltq.less'],
+  entry: {
+    pmltq: './app/pmltq.js',
+    admin: './app/admin/index.js'
+  },
   output: {
     devtoolModuleFilenameTemplate: 'pmtlq-web:///[resource-path]?[loaders]',
     path: path.join(__dirname, 'dist'),
-    filename: '[hash]-pmltq.js'
+    filename: '[hash]-[name].js'
   },
   externals: [{
     eve: 'eve'
@@ -64,12 +67,18 @@ var config = {
     new webpack.PrefetchPlugin('angular'),
     new webpack.PrefetchPlugin('babel-polyfill'),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'app', 'index.jade')
+      template: path.join(__dirname, 'app', 'index.jade'),
+      chunks: ['pmltq']
     }),
     new HtmlWebpackPlugin({
       filename: 'discojuice.html',
       template: path.join(__dirname, 'app', 'discojuice.html'),
       inject: false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      template: path.join(__dirname, 'app', 'admin', 'index.jade'),
+      chunks: ['admin']
     }),
     definePlugin
   ],
@@ -107,8 +116,14 @@ if (definitions.PRODUCTION) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[contenthash]-pmltq.css', {
+      new ExtractTextPlugin('[contenthash]-[name].css', {
         allChunks: true
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+        exclude: [/ng-admin/]
       }),
       new webpack.NoErrorsPlugin()]
   });
