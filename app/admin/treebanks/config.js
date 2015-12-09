@@ -22,6 +22,9 @@ module.exports = function (nga, admin) {
         .label('Featured')
     ])
     .filters([
+      nga.field('q')
+        .label('Search')
+        .pinned(true),
       serverField,
       nga.field('isPublic', 'boolean')
         .label('Public'),

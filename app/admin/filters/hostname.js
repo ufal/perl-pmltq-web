@@ -8,5 +8,5 @@ module.exports = function () {
 
   return function (text) {
     return text && getHostname(text);
-  }
+  };
 };
