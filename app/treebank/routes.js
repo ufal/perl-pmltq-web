@@ -16,7 +16,7 @@ module.exports = function ($stateProvider) {
         return treebankApi.one($stateParams.treebankId).get();
       },
       history: function (historyApi) {
-        return historyApi.getList();
+        return [];
       },
       queryParams: function ($stateParams, QueryParams) {
         var query = new QueryParams($stateParams.treebankId);
