@@ -12,11 +12,18 @@ require('./filters')(pmltqAdmin);
 
 pmltqAdmin.config(['NgAdminConfigurationProvider', 'RestangularProvider', function (nga, rp) {
 
-  rp.setBaseUrl('/api');
-
   // create the admin application
-  var admin = nga.application('PML-TQ Server Administration')
-    .baseApiUrl('/api/admin/');
+  var admin = nga.application('PML-TQ Server Administration');
+
+  if (DEVELOPMENT) {
+    rp.setBaseUrl('/api');
+    admin.baseApiUrl('/api/admin/');
+  }
+
+  if (PRODUCTION) {
+    rp.setBaseUrl('/services/pmltq/api');
+    admin.baseApiUrl('/services/pmltq/api/admin/');
+  }
 
   // add entities
   admin.addEntity(nga.entity('tags'));
