@@ -1,16 +1,31 @@
 
 module.exports = class AuthService {
 
-  constructor($rootScope, authService, Restangular) {
+  constructor($rootScope, $http, $cacheFactory, authService, Restangular) {
     'ngInject';
 
-    this.loggedIn = false;
+    this.loggedInFlag = false;
     this.user = {};
     this.authService = authService;
     this.authApi = Restangular.service('auth');
     this.scope = $rootScope;
 
-    this.scope.$on('event:auth-loginConfirmed', () => this.loggedIn = true);
+    this.httpCache = $http.defaults.cache = $cacheFactory('pmltqHttpCache');
+
+    this.scope.$on('event:auth-loginConfirmed', () => {
+      this.loggedIn = true;
+    });
+  }
+
+  get loggedIn() {
+    return this.loggedInFlag;
+  }
+
+  set loggedIn(value) {
+    if (value !== this.loggedInFlag) {
+      this.loggedInFlag = value;
+      this.httpCache.removeAll(); // Status has changed, clear cache
+    }
   }
 
   ping() {

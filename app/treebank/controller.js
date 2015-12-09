@@ -1,9 +1,9 @@
-module.exports = function(treebank, history, queryParams, treebankApi) {
+module.exports = function(treebank, queryParams, treebankApi) {
   'ngInject';
   var vm = this;
 
   vm.treebank = treebank;
-  vm.history = history;
+  vm.history = [];
   vm.queryParams = queryParams;
 
   treebankApi.addRecentlyUsed(treebank.id);
