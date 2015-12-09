@@ -35,7 +35,26 @@ module.exports = function (nga, admin) {
     ])
     .sortField('title')
     .sortDir('ASC')
-    .listActions(['edit']);
+    .listActions(`
+    <ma-edit-button entry="entry" entity="entity" size="xs"></ma-edit-button>
+    <ma-create-button
+      entity-name="treebanks"
+      size="xs"
+      label="Clone"
+      default-values="{
+        serverId: entry.values.serverId,
+        database: entry.values.database,
+        name: entry.values.name,
+        title: entry.values.title,
+        homepage: entry.values.homepage,
+        isPublic: entry.values.isPublic,
+        isFree: entry.values.isFree,
+        isFeatured: entry.values.isFeatured,
+        description: entry.values.description,
+        dataSources: entry.values.dataSources,
+        manuals: entry.values.manuals
+      }"></ma-create-button>
+    `);
   treebank.creationView()
     .fields([
       serverField,
