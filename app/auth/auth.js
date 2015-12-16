@@ -7,10 +7,13 @@ module.exports = class AuthService {
     this.loggedInFlag = false;
     this.user = {};
     this.authService = authService;
-    this.authApi = Restangular.service('auth');
-    this.scope = $rootScope;
 
     this.httpCache = $http.defaults.cache = $cacheFactory('pmltqHttpCache');
+    var restangular = Restangular.withConfig(function (RestangularConfigurer) {
+      RestangularConfigurer.setDefaultHttpFields({cache: false});
+    });
+    this.authApi = restangular.service('auth');
+    this.scope = $rootScope;
 
     this.scope.$on('event:auth-loginConfirmed', () => {
       this.loggedIn = true;
