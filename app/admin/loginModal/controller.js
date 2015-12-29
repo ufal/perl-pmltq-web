@@ -3,14 +3,11 @@ module.exports =  function ($modalInstance, Restangular) {
   'ngInject';
   var vm = this;
 
-  vm.auth = {
-    username: 'admin',
-    password: 'admin'
-  };
+  vm.auth = {};
 
   vm.login = function (auth) {
     vm.error = null;
-    Restangular.one('').post('auth', { auth: vm.auth }).then((res) => {
+    Restangular.one('').post('auth', {auth: vm.auth}).then((res) => {
       var data = res.data.plain(),
         user = data.user || {};
       if (user.isAdmin) {
@@ -19,6 +16,6 @@ module.exports =  function ($modalInstance, Restangular) {
       }
 
       vm.error = 'Only administrator can login';
-    }, (res) => vm.error = res.data.error || res.statusText)
-  }
+    }, (res) => vm.error = res.data.error || res.statusText);
+  };
 };
