@@ -33,9 +33,11 @@ pmltqAdmin.config(['NgAdminConfigurationProvider', 'RestangularProvider', functi
   admin.addEntity(nga.entity('manuals'));
   admin.addEntity(nga.entity('treebanks'));
   admin.addEntity(nga.entity('languages'));
+  admin.addEntity(nga.entity('language-groups').readOnly());
   //
   // configure entities
   require('./tags/config')(nga, admin);
+  require('./languages/config')(nga, admin);
   require('./users/config')(nga, admin);
   require('./servers/config')(nga, admin);
   require('./treebanks/config')(nga, admin);
@@ -47,7 +49,13 @@ pmltqAdmin.config(['NgAdminConfigurationProvider', 'RestangularProvider', functi
   nga.configure(admin);
 }]);
 
-pmltqAdmin.run(function ($rootScope, $state, $modal, authService, progression) {
+pmltqAdmin.run(function ($rootScope, $state, $modal, $interval, authService, progression) {
+
+  if (PRODUCTION) {
+    $interval(() => {
+      Restangular.one('auth').get();
+    }, 60000, 0, false); // Ping server every 60 seconds to keep session alive
+  }
 
   var loginModalInstance;
   $rootScope.$on('event:auth-loginRequired', function () {
