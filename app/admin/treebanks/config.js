@@ -74,7 +74,7 @@ module.exports = function (nga, admin) {
       nga.field('isFeatured', 'boolean')
         .validation({required: true})
         .label('Featured'),
-      nga.field('description', 'wysiwyg'),
+      nga.field('description', 'text'),
       nga.field('dataSources', 'json'),
       nga.field('manuals', 'json'),
       nga.field('tags', 'reference_many')
