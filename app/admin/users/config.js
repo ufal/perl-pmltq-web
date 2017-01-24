@@ -60,7 +60,27 @@ export default function (nga, admin) {
         .validation({required: true}),
       nga.field('isActive', 'boolean')
         .defaultValue(true)
-        .validation({required: true})
+        .validation({required: true}),
+      nga.field('treebanks', 'reference_many')
+        .label('Treebanks')
+        .isDetailLink(true)
+        .map(treebanks => { return treebanks.map(treebank => treebank.id); })
+        .remoteComplete(true, {
+          refreshDelay: 100,
+          searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
+        })
+        .targetEntity(admin.getEntity('treebanks')) // Targeted entity
+        .targetField(nga.field('name')),
+      nga.field('tags', 'reference_many')
+        .label('Treebanks with tags')
+        .isDetailLink(true)
+        .map(tags => { return tags.map(tag => tag.id); })
+        .remoteComplete(true, {
+          refreshDelay: 100,
+          searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
+        })
+        .targetEntity(admin.getEntity('tags')) // Targeted entity
+        .targetField(nga.field('name'))
     ]);
 
   return users;
