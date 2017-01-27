@@ -42,7 +42,27 @@ export default function (nga, admin) {
         .validation({required: true}),
       nga.field('isActive', 'boolean')
         .defaultValue(true)
-        .validation({required: true})
+        .validation({required: true}),
+      nga.field('availableTreebanks', 'reference_many')
+        .label('Treebanks')
+        .isDetailLink(true)
+        .map(availableTreebanks => { return availableTreebanks.map(treebank => treebank.id); })
+        .remoteComplete(true, {
+          refreshDelay: 100,
+          searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
+        })
+        .targetEntity(admin.getEntity('treebanks')) // Targeted entity
+        .targetField(nga.field('name')),
+      nga.field('availableTags', 'reference_many')
+        .label('Treebanks with tags')
+        .isDetailLink(true)
+        .map(availableTags => { return availableTags.map(tag => tag.id); })
+        .remoteComplete(true, {
+          refreshDelay: 100,
+          searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
+        })
+        .targetEntity(admin.getEntity('tags')) // Targeted entity
+        .targetField(nga.field('name'))
     ]);
 
   users.editionView()
@@ -61,20 +81,20 @@ export default function (nga, admin) {
       nga.field('isActive', 'boolean')
         .defaultValue(true)
         .validation({required: true}),
-      nga.field('treebanks', 'reference_many')
+      nga.field('availableTreebanks', 'reference_many')
         .label('Treebanks')
         .isDetailLink(true)
-        .map(treebanks => { return treebanks.map(treebank => treebank.id); })
+        .map(availableTreebanks => { return availableTreebanks.map(treebank => treebank.id); })
         .remoteComplete(true, {
           refreshDelay: 100,
           searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
         })
         .targetEntity(admin.getEntity('treebanks')) // Targeted entity
         .targetField(nga.field('name')),
-      nga.field('tags', 'reference_many')
+      nga.field('availableTags', 'reference_many')
         .label('Treebanks with tags')
         .isDetailLink(true)
-        .map(tags => { return tags.map(tag => tag.id); })
+        .map(availableTags => { return availableTags.map(tag => tag.id); })
         .remoteComplete(true, {
           refreshDelay: 100,
           searchQuery: (input) => { return {name: {ilike: input + '%'}}; }
