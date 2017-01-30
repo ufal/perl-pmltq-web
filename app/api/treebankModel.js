@@ -33,7 +33,10 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
       }
 
       if (Auth.loggedIn) {
-        if (Auth.user.accessAll || Auth.user.availableTreebanks[this.id]) {
+        if (Auth.user.accessAll || Auth.user.availableTreebanks[this.id]
+          || this.isAllLogged
+          || this.tags.some(tbtg => Auth.user.availableTags.some(usrtg => tbtg.id == usrtg.id))
+        ) {
           return true;
         }
       }

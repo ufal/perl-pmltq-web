@@ -18,6 +18,8 @@ module.exports = function (nga, admin) {
         .label('Public'),
       nga.field('isFree', 'boolean')
         .label('Free'),
+      nga.field('isAllLogged', 'boolean')
+        .label('For all logged'),
       nga.field('isFeatured', 'boolean')
         .label('Featured')
     ])
@@ -30,6 +32,8 @@ module.exports = function (nga, admin) {
         .label('Public'),
       nga.field('isFree', 'boolean')
         .label('Free'),
+      nga.field('isAllLogged', 'boolean')
+        .label('For all logged'),
       nga.field('isFeatured', 'boolean')
         .label('Featured')
     ])
@@ -71,6 +75,9 @@ module.exports = function (nga, admin) {
       nga.field('isFree', 'boolean')
         .validation({required: true})
         .label('Free'),
+      nga.field('isAllLogged', 'boolean')
+        .validation({required: true})
+        .label('For all logged'),
       nga.field('isFeatured', 'boolean')
         .validation({required: true})
         .label('Featured'),
