@@ -17,7 +17,8 @@ export default function (nga, admin) {
       nga.field('provider', 'choice')
         .choices([
           {value: 'local', label: 'Local account'},
-          {value: 'Shibboleth', label: 'Shibboleth'}
+          {value: 'Shibboleth', label: 'Shibboleth'},
+          {value: 'ldc', label: 'LDC'}
         ])
         .validation({required: true}),
       nga.field('isAdmin', 'boolean'),
