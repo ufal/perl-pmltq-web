@@ -6,6 +6,12 @@
       = ' '
       | Required
   .content
+    span(ng-if="vm.login_with.ldc")
+      .ui.info.message
+        .h4 Not implemented !!!
+      .ui.center.aligned.basic.segment
+        button.ui.primary.huge.button(type="button" ng-click="vm.discojuice()") LDC login
+    .ui.horizontal.divider(ng-if="vm.login_with.ldc && vm.login_with.shibboleth") or
     span(ng-if="vm.login_with.shibboleth")
       .ui.info.message
         | To sign in, you can use any account with an <b>Identity Provider</b> that is a member of <b>EduGAIN</b> federation.
