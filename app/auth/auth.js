@@ -33,6 +33,7 @@ module.exports = class AuthService {
 
   ping() {
     return this.authApi.one().get().then((authData) => {
+      this.login_with = authData.login_with;
       if (authData.user === false) {
         this.loggedIn = false;
       } else {

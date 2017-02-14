@@ -6,48 +6,50 @@
       = ' '
       | Required
   .content
-    .ui.info.message
-      | To sign in, you can use any account with an <b>Identity Provider</b> that is a member of <b>EduGAIN</b> federation.
-      | If you don't have an academic account that works with us, let us know at <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a>.
-      | We will make you a local account.
-    .ui.center.aligned.basic.segment
-      button.ui.primary.huge.button(type="button" ng-click="vm.discojuice()") Academic login
-    .ui.error.message(ng-show="vm.discojuiceResult == 'noMetadata'")
-      .header Identity Provider Error
-      p
-        | Your Identity Provider (IdP) doesn't expose needed metadata to
-        | complete authentication. We require at minimum the email address to be
-        | available.
-      p
-        | If you can't influence your IdP to change the metadata policy write us at
-        | <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a> and
-        | we will make you a local account.
-    .ui.success.icon.message(ng-show="vm.discojuiceResult == 'loginSuccess'")
-      i.notched.circle.loading.icon
-      .content
-        .header Authentication Successful
-        p Please wait for the authentication process to complete.
-    .ui.error.message(ng-show="vm.discojuiceResult == 'loginFailed'")
-      .header Authentication Failed
-      p
-        | For unknown reason the authentication process failed. Repeat
-        | the process and if the problem persists please contact us at
-        | <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a>
-        | and we will try to look at the issue.
-    .ui.horizontal.divider or
-    h3.ui.center.aligned.header Local account
-    .ui.error.message(ng-if="vm.errorText")
-      .header Login Error
-      p(ng-bind="vm.errorText")
-    form.ui.form(name="form" ng-submit="vm.login(vm.auth)" ng-class="{'loading': vm.loading}")
-      .field
-        label(for="login-email") Username:
-        input#login-email(type="text" tabindex="1" required="required" ng-model="vm.auth.username")
-      .field
-        label(for="login-password") Password:
-        input#login-password(type="password" tabindex="2" required="required" ng-model="vm.auth.password")
-      .field
-        checkbox
-          input#login-remember(type="checkbox" tabindex="3" ng-model="vm.auth.remember")
-          label(for="login-remember") Remember me
-      button.ui.large.submit.button(type="submit" tabindex="4") Sign in with local account
+    span(ng-if="vm.login_with.shibboleth")
+      .ui.info.message
+        | To sign in, you can use any account with an <b>Identity Provider</b> that is a member of <b>EduGAIN</b> federation.
+        | If you don't have an academic account that works with us, let us know at <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a>.
+        | We will make you a local account.
+      .ui.center.aligned.basic.segment
+        button.ui.primary.huge.button(type="button" ng-click="vm.discojuice()") Academic login
+      .ui.error.message(ng-show="vm.discojuiceResult == 'noMetadata'")
+        .header Identity Provider Error
+        p
+          | Your Identity Provider (IdP) doesn't expose needed metadata to
+          | complete authentication. We require at minimum the email address to be
+          | available.
+        p
+          | If you can't influence your IdP to change the metadata policy write us at
+          | <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a> and
+          | we will make you a local account.
+      .ui.success.icon.message(ng-show="vm.discojuiceResult == 'loginSuccess'")
+        i.notched.circle.loading.icon
+        .content
+          .header Authentication Successful
+          p Please wait for the authentication process to complete.
+      .ui.error.message(ng-show="vm.discojuiceResult == 'loginFailed'")
+        .header Authentication Failed
+        p
+          | For unknown reason the authentication process failed. Repeat
+          | the process and if the problem persists please contact us at
+          | <a href="mailto:lindat-help@ufal.mff.cuni.cz">lindat-help@ufal.mff.cuni.cz</a>
+          | and we will try to look at the issue.
+    .ui.horizontal.divider(ng-if="vm.login_with.shibboleth && vm.login_with.local") or
+    span(ng-if="vm.login_with.local")
+      h3.ui.center.aligned.header Local account
+      .ui.error.message(ng-if="vm.errorText")
+        .header Login Error
+        p(ng-bind="vm.errorText")
+      form.ui.form(name="form" ng-submit="vm.login(vm.auth)" ng-class="{'loading': vm.loading}")
+        .field
+          label(for="login-email") Username:
+          input#login-email(type="text" tabindex="1" required="required" ng-model="vm.auth.username")
+        .field
+          label(for="login-password") Password:
+          input#login-password(type="password" tabindex="2" required="required" ng-model="vm.auth.password")
+        .field
+          checkbox
+            input#login-remember(type="checkbox" tabindex="3" ng-model="vm.auth.remember")
+            label(for="login-remember") Remember me
+        button.ui.large.submit.button(type="submit" tabindex="4") Sign in with local account

@@ -13,6 +13,8 @@ module.exports = function LoginModalController($scope, required, Discojuice, Aut
     remember: false
   };
 
+  vm.login_with = Auth.login_with;
+
   vm.discojuice = function () {
     var discojuice = new Discojuice();
     discojuice.then(function (result) {
