@@ -4,7 +4,12 @@ mixin help-button(icon, text)
     |  #{text}
 
 .ui.grid
-  .row
+  .row(ng-show="::treebank.documentation")
+    //- use treebank documentation
+    .twelve.wide.white.column#help-context
+      | {{::treebank.documentation}}
+  .row(ng-hide="::treebank.documentation") 
+    //- use default documentation
     .twelve.wide.white.column#help-context
       section.ui.basic.segment#getting-started
         h1.ui.header Getting Started
