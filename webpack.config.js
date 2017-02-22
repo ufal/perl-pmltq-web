@@ -59,7 +59,9 @@ var config = {
       {test: /\.eot$/, loader: 'url?limit=10000&mimetype=application/vnd.ms-fontobject&prefix=fonts'},
       {test: /\.svg$/, loader: 'url?limit=10000&mimetype=image/svg+xml&prefix=fonts'},
       // See https://github.com/adobe-webplatform/Snap.svg/issues/341 and remove once it's fixed
-      {test: require.resolve('snapsvg'), loader: 'imports-loader?this=>window,fix=>module.exports=0'}
+      {test: require.resolve('snapsvg'), loader: 'imports-loader?this=>window,fix=>module.exports=0'},
+      {test:   /\.md/, loader: 'markdown-it'},
+      {test:   /\.json/, loader: 'json-loader'}
     ]
   },
   plugins: [

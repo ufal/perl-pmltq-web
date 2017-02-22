@@ -7,7 +7,6 @@ mixin help-button(icon, text)
   .row(ng-show="::treebank.documentation")
     //- use treebank documentation
     .twelve.wide.white.column#help-context
-      //- {{::treebank.documentation}}
       treebank-custom-help(treebank="treebank")
   .row(ng-hide="::treebank.documentation") 
     //- use default documentation
