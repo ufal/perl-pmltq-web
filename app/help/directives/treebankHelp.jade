@@ -4,13 +4,9 @@ mixin help-button(icon, text)
     |  #{text}
 
 .ui.grid
-  .row(ng-show="::treebank.documentation")
-    //- use treebank documentation
-    .twelve.wide.white.column#help-context
-      treebank-custom-help(treebank="treebank")
-  .row(ng-hide="::treebank.documentation") 
+  .row
     //- use default documentation
-    .twelve.wide.white.column#help-context
+    .twelve.wide.white.column(ng-hide="::treebank.documentation")#help-context
       section.ui.basic.segment#getting-started
         h1.ui.header Getting Started
         .ui.info.message This quick introduction to PML-TQ is semi-automatically generated and covers the most basic topics only.
@@ -134,7 +130,7 @@ mixin help-button(icon, text)
           pre
             | {{::treebank.doc.type}} $a := [ ]
             | &gt;&gt; for $a.{{::treebank.doc.attr}} give $1, count()
-    .four.wide.column
+    .four.wide.column(ng-hide="::treebank.documentation")
       .ui.sticky(ui-sticky="{context: '#help-context', offset: 30}")
         .ui.secondary.vertical.right.pointing.menu(du-spy-context)
           a.item(href="#getting-started" du-scrollspy du-smooth-scroll) Getting Started
@@ -142,5 +138,8 @@ mixin help-button(icon, text)
           a.item(href="#annotation-schema" du-scrollspy du-smooth-scroll) Annotation Schema
           a.item(href="#query-language" du-scrollspy du-smooth-scroll) Query Language
           a.item(href="#output-filters" du-scrollspy du-smooth-scroll) Output Filters
+    //- use treebank documentation
+    .twelve.wide.white.column(ng-show="::treebank.documentation")#help-context
+      treebank-custom-help(treebank="treebank")
 
 
