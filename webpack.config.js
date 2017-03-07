@@ -22,7 +22,8 @@ var definePlugin = new webpack.DefinePlugin({
   VERSION: JSON.stringify(pgk.version),
   PRODUCTION: !!argv.p,
   DEVELOPMENT: !!argv.debug,
-  LINDAT: true
+  LINDAT: (process.env.THEME == 'LINDAT'),
+  LDC: (process.env.THEME == 'LDC')
 });
 
 var definitions = definePlugin.definitions;
