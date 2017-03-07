@@ -56,12 +56,12 @@ module.exports = function (localStorageService, uiModal) {
     }
 
     appendQuery() {
-      this.queryParams.text += '\n' + this.suggestObj.query();
+      this.queryParams.query += '\n' + this.suggestObj.query();
       this.suggestObj = null;
     }
 
     replaceQuery() {
-      this.queryParams.text = this.suggestObj.query();
+      this.queryParams.query = this.suggestObj.query();
       this.suggestObj = null;
     }
 
