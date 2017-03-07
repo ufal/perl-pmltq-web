@@ -55,5 +55,5 @@ module.exports = function () {
         $element.dropdown(opts);
       });
     }
-  }
+  };
 };

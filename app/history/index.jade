@@ -1,5 +1,38 @@
 .row
-  .column
+  .column(ng-if="!vm.loggedIn")
     .ui.info.message
-      .header Work in progress
-      | We are sorry, but the history module is not finished yet. You can track <a href="https://github.com/ufal/perl-pmltq-web/issues/9" target="_blank">the progress at GitHub</a>.
+      .header Login required
+      p Please login to be able to access query history
+      p
+        button.ui.primary.button(login) Login to PML-TQ
+  .column(ng-if="vm.loggedIn")
+    .ui.basic.segment
+      button.ui.labeled.icon.button(type="button" ng-click="vm.addList()")
+        i.plus.icon
+        | Add new list
+    .ui.info.message(ng-if="vm.files && vm.files.length == 0")
+      .header No lists
+      p Query history is organized to separated lists. It's similar
+        | to TrEd where you organize your queries to files.
+      p You don't have any lists of queries yet. Start by clicking:
+        = ' '
+        button.ui.mini.button(type="button" ng-click="vm.addList()") Add new list
+    .ui.segment(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
+      h3.ui.header(ng-bind="file.name")
+      button.ui.icon.mini.labeled.positive.button(type="button")
+        | Use list
+        i.add.icon
+      button.ui.icon.mini.labeled.button(type="button" ng-click="vm.renameList(file)")
+        | Rename
+        i.edit.icon
+      button.ui.icon.mini.labeled.button(type="button" ng-click="vm.deleteList(file)")
+        | Delete
+        i.remove.icon
+      .items(ng-if="file.queries.length > 0")
+        .item(ng-repeat="query in file.queries track by query.id")
+      .ui.message
+        p This list is empty
+
+
+
+

@@ -5,6 +5,7 @@ var SvgResult = require('./result/svg');
 var TableResult = require('./result/table');
 
 module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Suggest, Auth) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var svgCache = $cacheFactory('svg-result-cache', {capacity: 10});

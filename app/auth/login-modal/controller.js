@@ -1,4 +1,5 @@
 module.exports = function LoginModalController($scope, required, Discojuice, Auth) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 

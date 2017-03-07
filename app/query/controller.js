@@ -1,4 +1,8 @@
+/** @type _ */
+var _ = require('lodash');
+
 module.exports = function($stateParams, $state, treebank, queryParams) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 
@@ -9,7 +13,5 @@ module.exports = function($stateParams, $state, treebank, queryParams) {
     $state.go('treebank.query.result.index', {query: queryParams.query});
   };
 
-  if ($stateParams.query) {
-    queryParams.text($stateParams.query);
-  }
+  queryParams.query = $stateParams.query;
 };

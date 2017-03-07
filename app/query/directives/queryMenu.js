@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 module.exports = function($timeout) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function buildMenuItems(items) {
@@ -86,7 +87,7 @@ module.exports = function($timeout) {
             $selected.removeClass('active selected');
           });
           if (queryForm) {
-            queryForm.insertToEditor(value)
+            queryForm.insertToEditor(value);
           }
         }
       };

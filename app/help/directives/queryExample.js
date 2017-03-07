@@ -1,6 +1,7 @@
 require('./queryExample.less');
 
 module.exports = function($interpolate) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   return {

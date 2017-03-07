@@ -1,15 +1,14 @@
-module.exports = function ShortenerModalFactory(uiModal) {
+module.exports = function PromptModalFactory(uiModal) {
   //noinspection BadExpressionStatementJS
   'ngInject';
 
-  function ShortenerModal(url, title) {
-    //noinspection JSUnusedGlobalSymbols
+  function PromptModal(options, onSave) {
     var m = uiModal({
       template: require('./template.jade'),
       controller: require('./controller'),
       controllerAs: 'vm',
-      locals: {url: url, title: title},
       closable: true,
+      locals: {promptOptions: options, promptOnSave: onSave},
       onHidden: function () {
         m.destroy();
         m = null;
@@ -19,5 +18,5 @@ module.exports = function ShortenerModalFactory(uiModal) {
     return m;
   }
 
-  return ShortenerModal;
+  return PromptModal;
 };

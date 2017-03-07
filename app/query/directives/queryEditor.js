@@ -4,6 +4,7 @@ var ace = require('brace');
 require('./queryEditor.less');
 
 module.exports = function ($parse, pmltqModeBuilder) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   const DEFAULT_OPTIONS = {

@@ -1,6 +1,7 @@
 require('./treebankHelp.less');
 
 module.exports = function() {
+  //noinspection BadExpressionStatementJS
   'ngInject';
 
   return {

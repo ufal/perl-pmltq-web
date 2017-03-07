@@ -1,4 +1,5 @@
 module.exports = function($stateProvider) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   $stateProvider.state('error', {
     template: require('./error-page/template.jade'),

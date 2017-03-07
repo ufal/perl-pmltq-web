@@ -33,6 +33,7 @@ angular.module('pmltq').config(
             $urlRouterProvider,
             $urlMatcherFactoryProvider,
             RestangularProvider) {
+    //noinspection BadExpressionStatementJS
     'ngInject';
 
     $urlMatcherFactoryProvider.strictMode(true);
@@ -43,6 +44,7 @@ angular.module('pmltq').config(
 
 if (LINDAT) {
   angular.module('pmltq').run(function ($rootScope, $location, Piwik) {
+    //noinspection BadExpressionStatementJS
     'ngInject';
 
     $rootScope.$on('$stateChangeSuccess', function () {

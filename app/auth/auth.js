@@ -1,10 +1,15 @@
+/** @type Rx  */
+var Rx = require('rx');
 
 module.exports = class AuthService {
+
 
   constructor($rootScope, $http, $cacheFactory, authService, Restangular) {
     'ngInject';
 
     this.loggedInFlag = false;
+    this.status = new Rx.BehaviorSubject(this.loggedInFlag);
+
     this.user = {};
     this.authService = authService;
 

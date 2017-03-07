@@ -1,6 +1,5 @@
-var $ = require('jquery');
-
 module.exports = function ShortenerModalController($scope, shortener, url, title) {
+  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 
