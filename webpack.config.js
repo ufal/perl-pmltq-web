@@ -22,18 +22,22 @@ var definePlugin = new webpack.DefinePlugin({
   VERSION: JSON.stringify(pgk.version),
   PRODUCTION: !!argv.p,
   DEVELOPMENT: !!argv.debug,
-  LINDAT: true
+  LINDAT: (process.env.THEME == 'LINDAT'),
+  LDC: (process.env.THEME == 'LDC')
 });
 
 var definitions = definePlugin.definitions;
 
 var config = {
   devtool: 'source-map',
-  entry: ['./app/pmltq.js', './app/pmltq.less'],
+  entry: {
+    pmltq: './app/pmltq.js',
+    admin: './app/admin/index.js'
+  },
   output: {
     devtoolModuleFilenameTemplate: 'pmtlq-web:///[resource-path]?[loaders]',
     path: path.join(__dirname, 'dist'),
-    filename: '[hash]-pmltq.js'
+    filename: '[hash]-[name].js'
   },
   externals: [{
     eve: 'eve'
@@ -56,7 +60,9 @@ var config = {
       {test: /\.eot$/, loader: 'url?limit=10000&mimetype=application/vnd.ms-fontobject&prefix=fonts'},
       {test: /\.svg$/, loader: 'url?limit=10000&mimetype=image/svg+xml&prefix=fonts'},
       // See https://github.com/adobe-webplatform/Snap.svg/issues/341 and remove once it's fixed
-      {test: require.resolve('snapsvg'), loader: 'imports-loader?this=>window,fix=>module.exports=0'}
+      {test: require.resolve('snapsvg'), loader: 'imports-loader?this=>window,fix=>module.exports=0'},
+      {test:   /\.md/, loader: 'markdown-it'},
+      {test:   /\.json/, loader: 'json-loader'}
     ]
   },
   plugins: [
@@ -64,12 +70,18 @@ var config = {
     new webpack.PrefetchPlugin('angular'),
     new webpack.PrefetchPlugin('babel-polyfill'),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'app', 'index.jade')
+      template: path.join(__dirname, 'app', 'index.jade'),
+      chunks: ['pmltq']
     }),
     new HtmlWebpackPlugin({
       filename: 'discojuice.html',
       template: path.join(__dirname, 'app', 'discojuice.html'),
       inject: false
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'admin.html',
+      template: path.join(__dirname, 'app', 'admin', 'index.jade'),
+      chunks: ['admin']
     }),
     definePlugin
   ],
@@ -107,8 +119,14 @@ if (definitions.PRODUCTION) {
       ]
     },
     plugins: [
-      new ExtractTextPlugin('[contenthash]-pmltq.css', {
+      new ExtractTextPlugin('[contenthash]-[name].css', {
         allChunks: true
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: false
+        },
+        exclude: [/ng-admin/]
       }),
       new webpack.NoErrorsPlugin()]
   });

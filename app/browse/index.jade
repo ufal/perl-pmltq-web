@@ -23,6 +23,10 @@ main.ui.container.one.column.grid
             checkbox(type="toggle")
               input#filter-accessible(type="checkbox" ng-model="vm.filter.onlyAccessible")
               label(for="filter-accessible") Show only publicly accessible treebanks
+          .field(ng-show="vm.auth.loggedIn")
+            checkbox(type="toggle")
+              input#filter-user-accessible(type="checkbox" ng-model="vm.filter.onlyUserAccessible")
+              label(for="filter-user-accessible") Show only accessible treebanks
           .field
             .ui.list
               .item(ng-repeat="category in ::vm.filter.categories")

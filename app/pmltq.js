@@ -13,6 +13,7 @@ if (!LINDAT) {
 }
 
 require('babel-polyfill');
+require('./pmltq.less');
 
 var pmltqModule = angular.module('pmltq', [
   require('./shared'),
@@ -53,11 +54,16 @@ if (LINDAT) {
   });
 }
 
-angular.module('pmltq').run(function (Auth, $state, $window, $location, $rootScope, cfpLoadingBar) {
-  //noinspection BadExpressionStatementJS
+angular.module('pmltq').run(function (Auth, $state, $interval, $window, $location, $rootScope, cfpLoadingBar) {
   'ngInject';
 
   Auth.ping();
+
+  if (PRODUCTION) {
+    $interval(() => {
+      Auth.ping();
+    }, 60000, 0, false); // Ping server every 60 seconds to keep session alive
+  }
 
   $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams, res) {
     cfpLoadingBar.complete();

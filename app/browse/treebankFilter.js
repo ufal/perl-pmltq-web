@@ -10,6 +10,7 @@ module.exports = function (localStorageService) {
       filterBy: ['title', 'name', 'description'],
       filterDefaults: {
         onlyAccessible: true,
+        onlyUserAccessible: false,
         term: ''
       },
       comperator: function(obj, text) {
@@ -93,7 +94,9 @@ module.exports = function (localStorageService) {
         var tb = treebanksList[i];
 
         // Filter out inaccessible
-        if (filter.onlyAccessible && !tb.isFree) {
+        if ((filter.onlyAccessible && !tb.isFree)
+           || (filter.onlyUserAccessible && !tb.accessible())
+          ) {
           continue;
         }
 
@@ -143,6 +146,7 @@ module.exports = function (localStorageService) {
       var toSave = {
         term: filter.term,
         onlyAccessible: filter.onlyAccessible,
+        onlyUserAccessible: filter.onlyUserAccessible,
         tags: _.chain(filter.tags).filter('selected').pluck('id').value(),
         languages: _.chain(filter.languages).filter('selected').pluck('id').value()
       };
@@ -156,6 +160,7 @@ module.exports = function (localStorageService) {
     filter.restoreParams = function restoreParams(params) {
       if (params.term) { filter.term = params.term; }
       if (!_.isUndefined(params.onlyAccessible)) { filter.onlyAccessible = !!params.onlyAccessible; }
+      if (!_.isUndefined(params.onlyUserAccessible)) { filter.onlyUserAccessible = !!params.onlyUserAccessible; }
       _.forEach(['tags', 'languages'], function (key) {
         var value = params[key];
         if (!_.isEmpty(value)) {

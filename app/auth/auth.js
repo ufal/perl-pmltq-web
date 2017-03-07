@@ -3,27 +3,37 @@ var Rx = require('rx');
 
 module.exports = class AuthService {
 
-  constructor($rootScope, authService, Restangular) {
-    //noinspection BadExpressionStatementJS
+
+  constructor($rootScope, $http, $cacheFactory, authService, Restangular) {
     'ngInject';
 
-    this._loggedIn = false;
-    this.status = new Rx.BehaviorSubject(this._loggedIn);
+    this.loggedInFlag = false;
+    this.status = new Rx.BehaviorSubject(this.loggedInFlag);
+
     this.user = {};
     this.authService = authService;
-    this.authApi = Restangular.service('auth');
+
+    this.httpCache = $http.defaults.cache = $cacheFactory('pmltqHttpCache');
+    var restangular = Restangular.withConfig(function (RestangularConfigurer) {
+      RestangularConfigurer.setDefaultHttpFields({cache: false});
+    });
+    this.authApi = restangular.service('auth');
     this.scope = $rootScope;
 
-    this.scope.$on('event:auth-loginConfirmed', () => { this.loggedIn = true; });
+    this.scope.$on('event:auth-loginConfirmed', () => {
+      this.loggedIn = true;
+    });
   }
 
   get loggedIn() {
-    return this._loggedIn;
+    return this.loggedInFlag;
   }
 
   set loggedIn(value) {
-    this._loggedIn = value;
-    this.status.onNext(value);
+    if (value !== this.loggedInFlag) {
+      this.loggedInFlag = value;
+      this.httpCache.removeAll(); // Status has changed, clear cache
+    }
   }
 
   ping() {

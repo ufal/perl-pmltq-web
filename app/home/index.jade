@@ -8,12 +8,25 @@ main.ui.container.grid
           a.large.ui.blue.button(ui-sref="browse")
             i.icon.tree
             |  Browse Treebanks
-          a.large.ui.orange.disabled.button(href="#")
-            i.info.circle.icon
-            |  Guided Tour
-          a.large.ui.teal.disabled.button(href="#")
-            i.icon.help
-            |  Help
+          button.large.ui.green.button(type="button" ng-show="!vm.auth.loggedIn" login)
+            i.sign.in.icon
+            |  Login
+          a.large.ui.green.button(ng-show="vm.auth.user.isAdmin" href="admin.html")
+            i.database.icon
+            |  Administration
+          button.large.ui.olive.button(ng-show="vm.auth.loggedIn" logout)
+            i.sign.out.icon
+            |  Logout
+          a.large.ui.teal.button(href="http://ufal.mff.cuni.cz/pmltq/doc/pmltq_tutorial_web_client.html", target="_blank")
+            i.icon.book
+            |  Tutorial
+
+          //a.large.ui.orange.disabled.button(href="#")
+          //  i.info.circle.icon
+          //  |  Guided Tour
+          //a.large.ui.teal.disabled.button(href="#")
+          //  i.icon.help
+          //  |  Help
   .row
     .column
       .ui.two.column.grid

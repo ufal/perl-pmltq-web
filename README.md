@@ -6,7 +6,7 @@ Currently work in progress...
 
 ## Development
 
-Node environment, Gulp and Bower is required.
+Node environment and Bower is required.
 
 1. Install Node (skip if you have Node installed)
 
@@ -14,9 +14,8 @@ Node environment, Gulp and Bower is required.
         nvm install stable
         nvm use stable
 
-2. Install Gulp & Bower
+2. Install Bower
 
-        npm install -g gulp
         npm install -g bower
 
 3. Clone repository
@@ -26,17 +25,21 @@ Node environment, Gulp and Bower is required.
         npm install
         bower install
 
-4. Start development server
+4. Install dependencies
 
-        gulp serve
+        make install
 
 5. Run you own PML-TQ server or tunnel one from euler or euler-dev (if you have ssh access)
 
-        ssh -t -L 9090:127.0.0.1:9090 euler-dev or euler.ms.mff.cuni.cz
+        ssh -t -L 3000:127.0.0.1:9090 euler-dev or euler.ms.mff.cuni.cz
 
-6. For TDD run
+6. Run webpack-dev-server
 
-        gulp tdd
+        make run
+
+7. Open browser
+
+        http://localhost:8080/webpack-dev-server/
 
 ## Deploy
 
