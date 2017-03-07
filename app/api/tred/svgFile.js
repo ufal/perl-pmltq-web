@@ -6,7 +6,6 @@ var Snap = require('snapsvg');
 var TredTree = require('./tree');
 
 module.exports = function () {
-  //noinspection BadExpressionStatementJS
   'ngInject';
   var titleTreeRe = new RegExp('\\((\\d+)/(\\d+)\\)$');
 

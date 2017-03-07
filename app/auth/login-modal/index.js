@@ -1,5 +1,4 @@
 module.exports = function LoginModalFactory(uiModal, authService, Auth) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function LoginModal(rejectedResponse) {

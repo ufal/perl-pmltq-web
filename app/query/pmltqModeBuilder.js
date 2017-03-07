@@ -2,7 +2,6 @@ var _ = require('lodash');
 var PmltqMode = require('./ace/pmltq/mode');
 
 module.exports = function pmltqModeBuilder($cacheFactory) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   const modeCache = $cacheFactory('mode-cache');

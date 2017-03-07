@@ -1,6 +1,5 @@
 var _ = require('lodash');
 module.exports = function ErrorPageController($stateParams, $sce) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this;
 

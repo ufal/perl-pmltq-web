@@ -1,5 +1,4 @@
 module.exports = function($stateProvider) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   $stateProvider.state('treebank.help', {

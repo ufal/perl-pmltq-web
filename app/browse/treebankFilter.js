@@ -1,7 +1,6 @@
 var _ = require('lodash');
 
 module.exports = function (localStorageService) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var defaultOptions = {

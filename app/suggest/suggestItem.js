@@ -2,7 +2,6 @@ var angular = require('angular');
 var _ = require('lodash');
 
 module.exports = function SuggestItemFactory() {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var extend = angular.extend;

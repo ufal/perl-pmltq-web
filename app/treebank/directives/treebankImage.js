@@ -2,7 +2,6 @@ var _ = require('lodash');
 var $ = require('jquery');
 
 module.exports = function($cacheFactory, $timeout) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var maxFontSize = 120,

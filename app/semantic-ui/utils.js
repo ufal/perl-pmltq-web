@@ -1,5 +1,4 @@
 module.exports = function UtilsFactory($templateCache, $http) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   var fetchPromises = {};

@@ -1,7 +1,6 @@
 var _ = require('lodash');
 
 module.exports = function (Restangular, treebankModelFactory, treebankCollectionFactory, localStorageService) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
   var recentStorageKey = 'recently-used-treebanks';
   var restangular = Restangular.withConfig(function (RestangularConfigurer) {

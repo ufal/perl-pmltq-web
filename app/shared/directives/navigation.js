@@ -1,5 +1,4 @@
 module.exports = function(Auth) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   return {
