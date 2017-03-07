@@ -10,6 +10,18 @@ var md = require('markdown-it')({
       token.type = 'html_block';
       token.content = '<query-example treebank="treebank"><pre>'+token.content+'</pre></query-example>';
       break;
+    case 'blockquote_open':
+      token.tag = '';
+      token.markup = '';
+      token.type = 'html_block';
+      token.content = '<div class="ui info message">';
+      break;
+    case 'blockquote_close':
+      token.tag = '';
+      token.markup = '';
+      token.type = 'html_block';
+      token.content = '</div>';
+      break;
     case 'link_open':
       token.attrObj.target = '_blank'; // set all links to open in new window
       break;
