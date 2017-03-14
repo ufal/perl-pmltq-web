@@ -29,14 +29,17 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
   });
 
   $stateProvider.state('treebank.query', {
-    url: '/query/{query:compressed}',
+    url: '/query/{query:compressed}?{filter}&{timeout}&{limit}',
     template: require('./index.jade'),
     controller: require('./controller'),
     controllerAs: 'vm',
     title: 'Query',
     abstract: true,
     params: {
-      query: {squash: false, value: null}
+      query: {squash: false, value: null},
+      filter: {squash: false},
+      timeout: {squash: false},
+      limit: {squash: false},
     }
   });
 
