@@ -21,8 +21,8 @@ pmltqAdmin.config(['NgAdminConfigurationProvider', 'RestangularProvider', functi
   }
 
   if (PRODUCTION) {
-    rp.setBaseUrl('/services/pmltq/api');
-    admin.baseApiUrl('/services/pmltq/api/admin/');
+    rp.setBaseUrl(BASEAPI);
+    admin.baseApiUrl(BASEAPI+'/admin/');
   }
 
   // add entities

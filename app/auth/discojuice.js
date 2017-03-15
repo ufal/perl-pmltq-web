@@ -1,7 +1,6 @@
 var $ = require('jquery');
 
 module.exports = function DiscojuiceFactory($window, $q, discojuiceUrl) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function Discojuice() {

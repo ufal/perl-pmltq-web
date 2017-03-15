@@ -1,7 +1,6 @@
 var _ = require('lodash');
 
 module.exports = function SuggestFactory(SuggestItem) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   /**

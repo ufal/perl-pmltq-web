@@ -9,7 +9,6 @@ function port($location) {
 }
 
 module.exports = function ($location, $document, $state, baseUrl, shortenerModal) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   return {

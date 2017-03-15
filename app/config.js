@@ -7,9 +7,9 @@ module.exports = function configure(module) {
   }
 
   if (PRODUCTION) {
-    module.constant('baseUrl', '/services/pmltq/');
-    module.constant('apiBaseUrl', '/services/pmltq/api');
+    module.constant('baseUrl', BASE);
+    module.constant('apiBaseUrl', BASEAPI);
     module.constant('discojuiceUrl',
-      '/aai/discojuice.html?service=PML Tree Query&target=/services/pmltq/api/auth/shibboleth');
+      '/aai/discojuice.html?service=PML Tree Query&target='+BASEAPI+'/auth/shibboleth');
   }
 };

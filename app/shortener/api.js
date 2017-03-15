@@ -1,5 +1,6 @@
-module.exports = function (Restangular) {
-  //noinspection BadExpressionStatementJS
+var _ = require('lodash');
+
+module.exports = function (Restangular, $q) {
   'ngInject';
   var restangular = Restangular.withConfig(function (RestangularConfigurer) {
     RestangularConfigurer.setBaseUrl('https://lindat.mff.cuni.cz/services/shortener/api/v1/');

@@ -1,5 +1,4 @@
 module.exports = function($timeout) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   return {

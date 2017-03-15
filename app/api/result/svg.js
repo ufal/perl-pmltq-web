@@ -18,7 +18,7 @@ class SvgResult {
 
     this._currentResult = this.currentRx
       .filter((index) => !!this.resultData[index])
-      .do((index) => { this._resultNo = index + 1; })
+      .do((index) => { this._resultNo = index + 1 })
       .map((index) => this.resultData[index]);
 
     this._nodeAddress = Rx.Observable.combineLatest(this._currentResult, this.activeNodeRx)
@@ -64,7 +64,7 @@ class SvgResult {
   }
 
   next() {
-    this.resultNo = this.resultNo + 1;
+    this.resultNo = this.resultNo + 1
   }
 
   get hasPrev() {

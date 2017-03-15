@@ -23,7 +23,9 @@ var definePlugin = new webpack.DefinePlugin({
   PRODUCTION: !!argv.p,
   DEVELOPMENT: !!argv.debug,
   LINDAT: (process.env.THEME == 'LINDAT'),
-  LDC: (process.env.THEME == 'LDC')
+  LDC: (process.env.THEME == 'LDC'),
+  BASE: JSON.stringify((process.env.THEME == 'LINDAT') ? '/services/pmltq/' : '/'),
+  BASEAPI: JSON.stringify('/services/pmltq/api')
 });
 
 var definitions = definePlugin.definitions;

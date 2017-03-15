@@ -5,7 +5,6 @@ require('restangular');
 
 module.exports = angular.module('pmltq.auth', ['http-auth-interceptor', 'restangular', require('../semantic-ui')])
   .run(($rootScope, authService, loginModal) => {
-    //noinspection BadExpressionStatementJS
     'ngInject';
 
     $rootScope.$on('event:auth-loginRequired', function(e, response) {

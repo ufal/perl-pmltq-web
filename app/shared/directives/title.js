@@ -1,7 +1,6 @@
 var angular = require('angular');
 
 module.exports = function($interpolate, $state, $document, $timeout) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function interpolateName(state) {

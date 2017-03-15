@@ -2,7 +2,6 @@
  * @param {angular.ui.IStateProvider} $stateProvider
  */
 module.exports = function ($stateProvider) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   $stateProvider.state('treebank', {
@@ -27,14 +26,15 @@ module.exports = function ($stateProvider) {
     }
   });
 
+  //noinspection JSUnusedGlobalSymbols
   $stateProvider.state('treebank.index', {
     url: '',
-    onEnter: function ($state, $stateParams, queryParams, $timeout) {
+    onEnter: function ($state, $stateParams, $timeout, history) {
       $timeout(function () {
-        if (!queryParams.query) {
-          $state.go('^.help', {}, {location: 'replace'});
+        if (history.length === 0) {
+          $state.go('^.help', $stateParams, {location: 'replace'});
         } else {
-          $state.go('^.query.index', {query: queryParams.query}, {location: 'replace'});
+          $state.go('^.query.index', $stateParams, {location: 'replace'});
         }
       });
     }

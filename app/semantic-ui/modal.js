@@ -2,7 +2,6 @@ var angular = require('angular');
 var $ = require('jquery');
 
 module.exports = function ModalFactory($rootScope, $controller, $compile, $timeout, uiUtils) {
-  //noinspection BadExpressionStatementJS
   'ngInject';
 
   function Modal(config) {
@@ -86,7 +85,6 @@ module.exports = function ModalFactory($rootScope, $controller, $compile, $timeo
 
   Modal.prototype.destroy = function () {
     if (this.modalElement) {
-      this.hide();
       this.modalElement.modal('destroy');
       this.modalElement.remove();
       this.modalElement = null;
@@ -115,9 +113,6 @@ module.exports = function ModalFactory($rootScope, $controller, $compile, $timeo
   };
 
   Modal.prototype.hide = function () {
-    if (!this.modalElement) {
-      return;
-    }
     this.modalElement.modal('hide');
   };
 

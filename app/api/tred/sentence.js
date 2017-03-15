@@ -116,7 +116,7 @@ function TredSentenceFactory(tokens, tree) {
 
   tokens = tokens.map((index, tokenEl) => {
     tokenEl = $(tokenEl);
-    return Token.fromCssClass(tokenEl.text(), tree, tokenEl.attr('class'));
+    return Token.fromCssClass(tokenEl.text(), tree, tokenEl.attr('class'))
   }).toArray();
 
   return new Sentence(tokens, tree);

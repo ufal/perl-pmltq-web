@@ -1,7 +1,5 @@
-module.exports = function($scope, result) {
-  //noinspection BadExpressionStatementJS
+module.exports = function($scope, result, treebank) {
   'ngInject';
-
   var vm = this;
 
   vm.result = result;
