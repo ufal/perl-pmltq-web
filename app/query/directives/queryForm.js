@@ -138,6 +138,27 @@ console.log('deleteQuery',this);
       this.activeQueryList.deleteQuery(this.activeQueryList.activeQuery);
     }
 
+
+    previousQuery() {
+      // Sanity check
+      if (!this.activeQueryList) {
+        return;
+      }
+
+      this.activeQueryList.previous();
+      this.queryParams.query = this.activeQueryList.activeQuery.query;
+    }
+
+    nextQuery() {
+      // Sanity check
+      if (!this.activeQueryList) {
+        return;
+      }
+
+      this.activeQueryList.next();
+      this.queryParams.query = this.activeQueryList.activeQuery.query;
+    }
+
     hideHelp() {
       localStorageService.set(suggestHelpKey, true);
       this.showHelp = false;

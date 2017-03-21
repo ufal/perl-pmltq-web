@@ -22,13 +22,13 @@
           .item
             .ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" title="Query list:")
           .item(ng-show="vm.activeQueryList.totalQueries > 0")
-            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasPrevious" ng-click="vm.activeQueryList.previous()")
+            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasPrevious" ng-click="vm.previousQuery()")
               i.arrow.left.icon
             span
               span(ng-bind="vm.activeQueryList.currentQueryIndex + 1")
               | /
               span(ng-bind="vm.activeQueryList.totalQueries")
-            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.activeQueryList.next()")
+            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.nextQuery()")
               i.arrow.right.icon
           .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
             span(ng-bind="vm.activeQueryList.activeQuery.name")
