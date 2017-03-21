@@ -109,6 +109,7 @@ console.log('queryForm saveQuery', this, this.queryParams.query);
     }
 
     editQuery(query) {
+console.log('TODO: fix edit query');
       // Sanity check
       if (!this.activeQueryList) {
         return;
@@ -125,6 +126,16 @@ console.log('queryForm saveQuery', this, this.queryParams.query);
       });
 
       m.show();
+    }
+
+    deleteQuery(query) {
+console.log('deleteQuery',this);
+
+      if (!this.activeQueryList || !this.activeQueryList.activeQuery) {
+        return;
+      }
+
+      this.activeQueryList.deleteQuery(this.activeQueryList.activeQuery);
     }
 
     hideHelp() {

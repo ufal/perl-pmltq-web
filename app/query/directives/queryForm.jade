@@ -33,8 +33,17 @@
           .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
             span(ng-bind="vm.activeQueryList.activeQuery.name")
           .item(ng-show="vm.activeQueryList")
-            button.ui.mini.button(type="button" ng-click="vm.newQuery()") New query
-            button.ui.mini.primary.button(type="button" ng-click="vm.saveQuery()") Save
+            button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()") 
+              | New query
+              i.add.icon
+            button.ui.icon.mini.primary.labeled.button(type="button" ng-click="vm.saveQuery()") 
+              | Save
+              i.edit.icon
+            button.ui.icon.mini.negative.labeled.button(type="button" ng-click="vm.deleteQuery()") 
+              | Delete
+              i.remove.icon
+            //-            button.ui.icon.mini.primary.labeled.button(type="button" ng-click="vm.renameQuery()") 
+            //-              | Rename
 
       .column(ng-show="collapsed")
         .query.text(

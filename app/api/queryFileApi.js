@@ -65,6 +65,19 @@ module.exports = function (Restangular, $q) {
         }, (res) => $q.reject(res.data.error));
       };
 
+      model.deleteQuery = function(query) {
+        return this.one('queries', query.id).remove()
+          .then(aaa => {
+            console.log(this.queries);
+            this.queries = this.queries.filter(q => q.id != query.id);
+            this.currentQueryIndex = 0;
+            this.totalQueries = this.queries.length;
+            this._update();
+
+            return null;
+          }, (res) => $q.reject(res.data.error));
+      };
+
       model.currentQueryIndex = 0;
       model.totalQueries = model.queries.length;
       model.currentQuery = new Rx.ReplaySubject(1);
