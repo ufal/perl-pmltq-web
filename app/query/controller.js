@@ -18,6 +18,6 @@ module.exports = function($stateParams, $state, treebank, queryParams) {
   }
 
   if ($stateParams.query) {
-    queryParams.text($stateParams.query);
+    queryParams.query = $stateParams.query;
   }
 };
