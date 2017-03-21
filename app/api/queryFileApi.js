@@ -43,8 +43,8 @@ module.exports = function (Restangular, $q) {
         this._update();
       };
 
-      model.newQuery = function(name) {
-        return this.post('queries', {name: name})
+      model.newQuery = function(name, querytext) {
+        return this.post('queries', {name: name, query: querytext})
           .then(query => {
             this.queries.push(query);
             this.currentQueryIndex = this.queries.length - 1;
@@ -55,11 +55,12 @@ module.exports = function (Restangular, $q) {
           }, (res) => $q.reject(res.data.error));
       };
 
-      model.saveQuery = function(name, query) {
-        return this.one('queries', query.id).put({
-          name: query.name
-        }).then(q => {
+      model.saveQuery = function(query, querytext) {
+        var qr = this.one('queries', query.id);
+        qr.query = querytext;
+        return qr.put().then(q => {
           query.name = q.name;
+          query.query = q.query;
           return q;
         }, (res) => $q.reject(res.data.error));
       };

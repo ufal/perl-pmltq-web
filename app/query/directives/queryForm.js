@@ -79,6 +79,8 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
     }
 
     newQuery() {
+console.log('queryForm newQuery', this);
+
       // Sanity check
       if (!this.activeQueryList) {
         return;
@@ -90,10 +92,20 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
         required: 'required',
         label: 'Name'
       }, (name) => {
-        return this.activeQueryList.newQuery(name);
+        return this.activeQueryList.newQuery(name,this.queryParams.query);
       });
 
       m.show();
+    }
+
+    saveQuery() {
+console.log('queryForm saveQuery', this, this.queryParams.query);
+      // Sanity check
+      if (!this.activeQueryList || !this.activeQueryList.activeQuery) {
+        return;
+      }
+
+      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, this.queryParams.query);
     }
 
     editQuery(query) {
