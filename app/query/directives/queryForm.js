@@ -15,7 +15,6 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
     constructor($scope) {
       //noinspection BadExpressionStatementJS
       'ngInject';
-
       this.loggedIn = false;
       this.queryLists = [];
 
@@ -79,8 +78,6 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
     }
 
     newQuery() {
-console.log('queryForm newQuery', this);
-
       // Sanity check
       if (!this.activeQueryList) {
         return;
@@ -99,7 +96,6 @@ console.log('queryForm newQuery', this);
     }
 
     saveQuery() {
-console.log('queryForm saveQuery', this, this.queryParams.query);
       // Sanity check
       if (!this.activeQueryList || !this.activeQueryList.activeQuery) {
         return;
@@ -129,8 +125,6 @@ console.log('TODO: fix edit query');
     }
 
     deleteQuery(query) {
-console.log('deleteQuery',this);
-
       if (!this.activeQueryList || !this.activeQueryList.activeQuery) {
         return;
       }
@@ -209,6 +203,7 @@ console.log('deleteQuery',this);
     scope: {
       treebank: '=queryForm',
       queryParams: '=',
+      queryFileParams: '=',
       onSubmit: '&'
     },
     controller: QueryFormController,

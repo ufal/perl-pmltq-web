@@ -60,4 +60,38 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
       });
     }
   });
+
+
+  $stateProvider.state('treebank.queryfile', {
+    url: '/queryfile/{fileID}?{queryID}',
+    template: require('./index.jade'),
+    controller: require('./controller'),
+    controllerAs: 'vm',
+    title: 'QueryFile',
+    abstract: true,
+    params: {
+      fileID: {squash: false, value: null},
+      queryID: {squash: false, value: null}
+    }
+  });
+
+  $stateProvider.state('treebank.queryfile.index', {
+    url: '',
+    /**
+     * @param {angular.ui.IStateService} $state
+     * @param {angular.ui.IStateParamsService} $stateParams
+     * @param {angular.ITimeoutService} $timeout
+     * @param {QueryParams} queryParams
+     */
+    onEnter: function ($state, $stateParams, $timeout, queryFileParams) {
+      /* TODO
+      $timeout(function () {
+        if (queryParams.query && _.isEmpty($stateParams.query)) {
+          $stateParams.query = queryParams.query;
+          $state.go($state.current.name, $stateParams, {location: 'replace'});
+        }
+      });
+      */
+    }
+  });
 };

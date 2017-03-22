@@ -1,9 +1,9 @@
-module.exports = function($stateParams, $state, treebank, queryParams) {
+module.exports = function($stateParams, $state, treebank, queryParams, queryFileParams) {
   'ngInject';
   var vm = this;
-
   vm.treebank = treebank;
   vm.queryParams = queryParams;
+  vm.queryFileParams = queryFileParams;
 
   vm.showResult = function () {
     $state.go('treebank.query.result.index', {query: queryParams.query, filter: queryParams.filter, timeout: queryParams.timeout, limit: queryParams.limit});
@@ -20,4 +20,13 @@ module.exports = function($stateParams, $state, treebank, queryParams) {
   if ($stateParams.query) {
     queryParams.query = $stateParams.query;
   }
+
+  if ($stateParams.fileID) {
+    queryFileParams.fileID = $stateParams.fileID;
+    if ($stateParams.queryID) {
+      queryFileParams.queryID = $stateParams.queryID;
+    }
+  }
+console.log('Query Controller',vm,$stateParams);
+
 };

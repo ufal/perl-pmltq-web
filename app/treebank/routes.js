@@ -22,6 +22,11 @@ module.exports = function ($stateProvider) {
         var query = new QueryParams($stateParams.treebankId);
         query.restore();
         return query;
+      },
+      queryFileParams: function ($stateParams, QueryFileParams) {
+        var queryFile = new QueryFileParams($stateParams.treebankId);
+        queryFile.restore();
+        return queryFile;
       }
     }
   });
