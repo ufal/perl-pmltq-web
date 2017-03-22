@@ -19,18 +19,21 @@
         button.ui.mini.button(type="button" ng-click="vm.addList()") Add new list
     .ui.segment(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
       h3.ui.header(ng-bind="file.name")
-      button.ui.icon.mini.labeled.positive.button(type="button")
+      button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.useList(file)")
         | Use list
         i.add.icon
       button.ui.icon.mini.labeled.button(type="button" ng-click="vm.renameList(file)")
         | Rename
         i.edit.icon
-      button.ui.icon.mini.labeled.button(type="button" ng-click="vm.deleteList(file)")
+      button.ui.icon.mini.labeled.negative.button(type="button" ng-click="vm.deleteList(file)")
         | Delete
         i.remove.icon
+      //- not works. file.queries are alwais empty
       .items(ng-if="file.queries.length > 0")
         .item(ng-repeat="query in file.queries track by query.id")
-      .ui.message
+          | TEXT
+          h4.ui.header(ng-bind="query.name")
+      .ui.message(ng-if="file.queries.length = 0")
         p This list is empty
 
 

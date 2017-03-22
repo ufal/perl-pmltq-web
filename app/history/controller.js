@@ -39,6 +39,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     })
     .subscribe();
 
+  vm.useList = function(file) {
+    console.log('TODO useList',vm,file);
+  };
+
   vm.addList = function() {
     m = promptModal({
       title: 'New List',
