@@ -44,6 +44,12 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
         .safeApply($scope, (loggedIn) => {
           this.loggedIn = loggedIn;
           if (loggedIn) {
+            if($stateParams.queryID) {
+              localStorageService.set(lastQueryIdKey, parseInt($stateParams.queryID));
+            }
+            if($stateParams.fileID) {
+              localStorageService.set(lastQueryListKey, parseInt($stateParams.fileID));
+            }
             this.loadQueryLists();
           } else {
             this.queryLists = [];
