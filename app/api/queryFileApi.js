@@ -68,7 +68,6 @@ module.exports = function (Restangular, $q) {
       model.deleteQuery = function(query) {
         return this.one('queries', query.id).remove()
           .then(aaa => {
-            console.log(this.queries);
             this.queries = this.queries.filter(q => q.id != query.id);
             this.currentQueryIndex = 0;
             this.totalQueries = this.queries.length;

@@ -27,6 +27,5 @@ module.exports = function($stateParams, $state, treebank, queryParams, queryFile
       queryFileParams.queryID = $stateParams.queryID;
     }
   }
-console.log('Query Controller',vm,$stateParams);
 
 };
