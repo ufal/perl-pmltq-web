@@ -3,18 +3,21 @@ var Rx = require('rx');
 /** @type _ */
 var _ = require('lodash');
 
-module.exports = function (Restangular, $q) {
+module.exports = function (Restangular, $q, $cacheFactory) {
   //noinspection BadExpressionStatementJS
   'ngInject';
 
   var restangular = Restangular.withConfig(function (RestangularConfigurer) {
-    RestangularConfigurer.setDefaultHttpFields({cache: true});
+    //RestangularConfigurer.setDefaultHttpFields({cache: true});
+    var cache = $cacheFactory('http');
+    RestangularConfigurer.setDefaultHttpFields({cache: cache});
     RestangularConfigurer.extendModel('user/query-files', function (model) {
       model.toString = function() {
         return this.name;
       };
 
       model._update = function() {
+        cache.removeAll();
         if (this.totalQueries) {
           this.activeQuery = this.queries[this.currentQueryIndex];
         } else {
