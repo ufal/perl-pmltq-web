@@ -1,6 +1,38 @@
 .query-form
   form.ui.form(name="form" ng-class="{collapsed: collapsed}")
     .one.column.ui.grid
+      .column(ng-hide="!vm.loggedIn")
+        .ui.segment
+          .ui.horizontal.list
+            .item(ng-if="vm.activeQueryList")
+              button.ui.icon.mini.basic.button(ng-click="vm.activeQueryList = null")
+                i.delete.icon
+            .item
+              .ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" title="Query list:")
+            .item(ng-show="vm.activeQueryList.totalQueries > 0")
+              button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasPrevious" ng-click="vm.previousQuery()")
+                i.arrow.left.icon
+              span
+                span(ng-bind="vm.activeQueryList.currentQueryIndex + 1")
+                | /
+                span(ng-bind="vm.activeQueryList.totalQueries")
+              button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.nextQuery()")
+                i.arrow.right.icon
+            .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
+              .ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()")
+            .item(ng-show="vm.activeQueryList")
+              button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()")
+                | New query
+                i.add.icon
+              button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.renameQuery()")
+                | Rename
+                i.edit.icon
+              button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery || vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()")
+                | Save
+                i.save.icon
+              button.ui.icon.mini.negative.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.deleteQuery()")
+                | Delete
+                i.remove.icon
       .column(ng-hide="collapsed")
         .ui.stackable.grid
           .twelve.wide.column
@@ -13,39 +45,6 @@
               .item
                 .content.aligned
                   .ui.inline.dropdown(ui-selectbox="vm.limitSelect" title="Result limit" ng-model="vm.queryParams.limit" ng-change="vm.queryParams.cache()")
-
-      .column(ng-hide="collapsed || !vm.loggedIn")
-        .ui.horizontal.list
-          .item(ng-if="vm.activeQueryList")
-            button.ui.icon.mini.basic.button(ng-click="vm.activeQueryList = null")
-              i.delete.icon
-          .item
-            .ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" title="Query list:")
-          .item(ng-show="vm.activeQueryList.totalQueries > 0")
-            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasPrevious" ng-click="vm.previousQuery()")
-              i.arrow.left.icon
-            span
-              span(ng-bind="vm.activeQueryList.currentQueryIndex + 1")
-              | /
-              span(ng-bind="vm.activeQueryList.totalQueries")
-            button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.nextQuery()")
-              i.arrow.right.icon
-          .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
-            .ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()")
-          .item(ng-show="vm.activeQueryList")
-            button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()") 
-              | New query
-              i.add.icon
-            button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.renameQuery()") 
-              | Rename
-              i.edit.icon
-            button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery || vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()") 
-              | Save
-              i.save.icon
-            button.ui.icon.mini.negative.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.deleteQuery()") 
-              | Delete
-              i.remove.icon
-
       .column(ng-show="collapsed")
         .query.text(
           ng-show="collapsed"
@@ -55,7 +54,6 @@
           ng-click="collapsed = false")
           | {{vm.queryParams.query || '&lt;query is empty&gt;'}}
     .field(ng-hide="collapsed")
-
       .query.editor.wrapper
         div(
           query-editor="{treebank: vm.treebank}"
