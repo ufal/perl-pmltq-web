@@ -31,7 +31,7 @@
             button.ui.icon.mini.button(ng-disabled="!vm.activeQueryList.hasNext" ng-click="vm.nextQuery()")
               i.arrow.right.icon
           .item(ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
-            span(ng-bind="vm.activeQueryList.activeQuery.name")
+            .ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()")
           .item(ng-show="vm.activeQueryList")
             button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()") 
               | New query

@@ -158,6 +158,15 @@ console.log('TODO: fix edit query');
       this.activeQueryList.deleteQuery(this.activeQueryList.activeQuery);
     }
 
+    selectQuery() {
+      // Sanity check
+      if (!this.activeQueryList) {
+        return;
+      }
+
+      this.activeQueryList.setActiveQuery(this.activeQueryList.activeQuery.id);
+      this.queryParams.query = this.activeQueryList.activeQuery.query;
+    }
 
     previousQuery() {
       // Sanity check
