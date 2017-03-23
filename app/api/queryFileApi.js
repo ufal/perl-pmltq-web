@@ -58,9 +58,10 @@ module.exports = function (Restangular, $q, $cacheFactory) {
           }, (res) => $q.reject(res.data.error));
       };
 
-      model.saveQuery = function(query, querytext) {
+      model.saveQuery = function(query, name, querytext) {
         var qr = this.one('queries', query.id);
-        qr.query = querytext;
+        qr.query = querytext ? querytext : query.query;
+        qr.name = name ? name : query.name;
         return qr.put().then(q => {
           query.name = q.name;
           query.query = q.query;

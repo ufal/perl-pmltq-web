@@ -107,8 +107,28 @@ module.exports = function ($stateParams, $state, observeOnScope, localStorageSer
         return;
       }
 
-      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, this.queryParams.query);
+      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, undefined, this.queryParams.query);
     }
+
+    renameQuery() {
+      // Sanity check
+      if (!this.activeQueryList) {
+        return;
+      }
+
+      var m = promptModal({
+        title: 'Rename Query',
+        placeholder: 'Query name',
+        required: 'required',
+        label: 'Name',
+        value: this.activeQueryList.activeQuery.name
+      }, (name) => {
+        return this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, name);
+      });
+
+      m.show();
+    }
+
 
     editQuery(query) {
 console.log('TODO: fix edit query');

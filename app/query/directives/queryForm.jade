@@ -36,14 +36,15 @@
             button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()") 
               | New query
               i.add.icon
+            button.ui.icon.mini.primary.labeled.button(type="button" ng-click="vm.renameQuery()") 
+              | Rename
+              i.edit.icon
             button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()") 
               | Save
-              i.edit.icon
+              i.save.icon
             button.ui.icon.mini.negative.labeled.button(type="button" ng-click="vm.deleteQuery()") 
               | Delete
               i.remove.icon
-            //-            button.ui.icon.mini.primary.labeled.button(type="button" ng-click="vm.renameQuery()") 
-            //-              | Rename
 
       .column(ng-show="collapsed")
         .query.text(
