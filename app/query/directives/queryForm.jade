@@ -36,13 +36,13 @@
             button.ui.icon.mini.labeled.positive.button(type="button" ng-click="vm.newQuery()") 
               | New query
               i.add.icon
-            button.ui.icon.mini.primary.labeled.button(type="button" ng-click="vm.renameQuery()") 
+            button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.renameQuery()") 
               | Rename
               i.edit.icon
-            button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()") 
+            button.ui.icon.mini.primary.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery || vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()") 
               | Save
               i.save.icon
-            button.ui.icon.mini.negative.labeled.button(type="button" ng-click="vm.deleteQuery()") 
+            button.ui.icon.mini.negative.labeled.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.deleteQuery()") 
               | Delete
               i.remove.icon
 
