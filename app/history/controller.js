@@ -10,7 +10,38 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   vm.loggedIn = false;
 
   function load() {
-    queryFileApi.getList().then((files) => { vm.files = files; });
+    queryFileApi.getList().then((files) => {
+      vm.files = files;
+      vm.files.sort((a, b) => a.name.localeCompare(b.name));
+      console.log('history',$scope,vm.files);
+      vm.files.forEach(function(qs) {
+        var query={};
+        qs.queries.forEach( function(q) {query[q.id]=q});
+        qs.queries_ = query;
+        qs.queryIds=Object.keys(qs.queries_);
+      });
+    });
+  }
+
+  vm.renameQuery = function(file,query) {
+      var m = promptModal({
+        title: 'Rename Query',
+        placeholder: 'Query name',
+        required: 'required',
+        label: 'Name',
+        value: query.name
+      }, (name) => {
+        return file.saveQuery(query, name);
+      });
+
+      m.show();
+    }
+
+  vm.deleteQuery = function(file,query) {
+     file.deleteQuery(query);
+
+     delete file.queries_[query.id];
+     file.queryIds=Object.keys(file.queries_);
   }
 
   function saveFileList(name, file) {

@@ -29,10 +29,18 @@
         | Delete
         i.remove.icon
       //- not works. file.queries are alwais empty
-      .items(ng-if="file.queries.length > 0")
-        .item(ng-repeat="query in file.queries track by query.id")
-          | TEXT
+      .items(ng-if="file.queryIds.length > 0")
+        .item(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
           h4.ui.header(ng-bind="query.name")
+          a.ui.icon.mini.labeled.positive.button(type="button" ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
+            | Use query
+            i.add.icon
+          button.ui.icon.mini.labeled.button(type="button" ng-click="vm.renameQuery(file, query)")
+            | Rename
+            i.edit.icon
+          button.ui.icon.mini.labeled.negative.button(type="button" ng-click="vm.deleteQuery(file, query)")
+            | Delete
+            i.remove.icon
       .ui.message(ng-if="file.queries.length = 0")
         p This list is empty
 
