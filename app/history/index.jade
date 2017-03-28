@@ -24,7 +24,7 @@
           i.chevron.down.icon(ng-if="notcollapsed")
           i.chevron.up.icon(ng-if="!notcollapsed")
         //-        .ui.item {{file.queryIds.length}}
-        .ui.item.header(ng-bind="file.name")
+        .ui.item.header.filelist(ng-bind="file.name")
         .right.menu
           a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
             i.add.icon
@@ -39,7 +39,7 @@
         .items(ng-if="file.queryIds.length > 0")
           .ui.menu(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
             .ui.item.header(ng-bind="query.name")
-            .query.preview {{query.query || '&lt;query is empty&gt;'}}
+            .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
             .right.menu
               a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
                 i.add.icon
