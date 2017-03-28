@@ -21,8 +21,8 @@
     span(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
       .ui.top.menu.attached
         .ui.item.button(ui-popup type="button" title="Collapse query list" ng-click="notcollapsed = ! notcollapsed" ng-class="{disabled: file.queryIds.length==0}")
-          i.chevron.down.icon(ng-if="notcollapsed")
-          i.chevron.up.icon(ng-if="!notcollapsed")
+          i.chevron.down.icon(ng-if="!notcollapsed")
+          i.chevron.up.icon(ng-if="notcollapsed")
         //-        .ui.item {{file.queryIds.length}}
         .ui.item.header.filelist(ng-bind="file.name")
         .right.menu
