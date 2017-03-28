@@ -8,7 +8,7 @@ const lastQueryListKey = 'last-query-list';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, observeOnScope, localStorageService, Auth, queryFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, promptModal) {
   'ngInject';
 
   class QueryFormController {
@@ -154,8 +154,10 @@ console.log('TODO: fix edit query');
       if (!this.activeQueryList || !this.activeQueryList.activeQuery) {
         return;
       }
-
-      this.activeQueryList.deleteQuery(this.activeQueryList.activeQuery);
+      var result = $window.confirm('Do you want to delete this query?');
+      if (result) {
+        this.activeQueryList.deleteQuery(this.activeQueryList.activeQuery);
+      }
     }
 
     selectQuery() {
