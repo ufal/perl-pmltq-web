@@ -22,13 +22,13 @@
             .ui.item.button(type="button" ng-click="vm.newQuery()")
               i.add.icon
               | New query
-            .ui.item.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.renameQuery()")
+            .ui.item.button(type="button" ng-class="{disabled: (!vm.activeQueryList.activeQuery)}" ng-click="vm.renameQuery()")
               i.edit.icon
               | Rename
-            .ui.item.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery || vm.activeQueryList.activeQuery.query == vm.queryParams.query" ng-click="vm.saveQuery()")
+            .ui.item.button(type="button" ng-class="{disabled: (!vm.activeQueryList.activeQuery || vm.activeQueryList.activeQuery.query == vm.queryParams.query)}" ng-click="vm.saveQuery()")
               i.save.icon
               | Save
-            .ui.item.button(type="button" ng-disabled="!vm.activeQueryList.activeQuery" ng-click="vm.deleteQuery()")
+            .ui.item.button(type="button" ng-class="{disabled: (!vm.activeQueryList.activeQuery)}" ng-click="vm.deleteQuery()")
               i.remove.icon
               | Delete
 
