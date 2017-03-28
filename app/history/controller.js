@@ -1,5 +1,6 @@
 /** @type _ */
 var _ = require('lodash');
+require('./index.less');
 
 module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth) {
   //noinspection BadExpressionStatementJS
@@ -38,15 +39,19 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     }
 
   vm.deleteQuery = function(file,query) {
-     file.deleteQuery(query);
-
-     delete file.queries_[query.id];
-     file.queryIds=Object.keys(file.queries_);
+    var result = $window.confirm('Do you want to delete this query?');
+    if (result) {
+      file.deleteQuery(query);
+      delete file.queries_[query.id];
+      file.queryIds=Object.keys(file.queries_);
+      file.totalQueries = file.queryIds.length;
+    }
   }
 
   function saveFileList(name, file) {
     if (file && _.all(vm.files, f => f.name !== name || f.id === file.id)) {
       file.name = name;
+      delete file.queries_;
       return file.put();
     }
     else if (!file && _.all(vm.files, f => f.name !== name)) {
