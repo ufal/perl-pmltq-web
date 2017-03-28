@@ -44,13 +44,16 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         .safeApply($scope, (loggedIn) => {
           this.loggedIn = loggedIn;
           if (loggedIn) {
+            var setquery=false;
             if($stateParams.queryID) {
               localStorageService.set(lastQueryIdKey, parseInt($stateParams.queryID));
+              setquery=true;
             }
             if($stateParams.fileID) {
               localStorageService.set(lastQueryListKey, parseInt($stateParams.fileID));
+              setquery=true;
             }
-            this.loadQueryLists();
+            this.loadQueryLists(setquery);
           } else {
             this.queryLists = [];
           }
@@ -67,17 +70,20 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         .subscribe();
     }
 
-    loadQueryLists() {
+    loadQueryLists(setquery) {
       queryFileApi.getList().then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
         var lastQueryListId = localStorageService.get(lastQueryListKey);
-        var lastQueryId = localStorageService.get(lastQueryListKey);
+        var lastQueryId = localStorageService.get(lastQueryIdKey);
         if (lastQueryListId) {
           this.activeQueryList = _.find(lists, 'id', lastQueryListId);
 
           if (this.activeQueryList && lastQueryId) {
             this.activeQueryList.setActiveQuery(lastQueryId);
+            if(setquery) {
+              this.queryParams.query = this.activeQueryList.activeQuery.query;
+            }
           }
         }
       });
