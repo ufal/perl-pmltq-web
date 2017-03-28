@@ -39,6 +39,7 @@
         .items(ng-if="file.queryIds.length > 0")
           .ui.menu(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
             .ui.item.header(ng-bind="query.name")
+            .query.preview {{query.query || '&lt;query is empty&gt;'}}
             .right.menu
               a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
                 i.add.icon
