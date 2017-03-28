@@ -20,9 +20,9 @@
 
     span(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
       .ui.top.menu.attached
-        a.icon.item(ui-popup title="Collapse query list" ng-click="collapsed = ! collapsed")
-          i.chevron.down.icon(ng-if="collapsed")
-          i.chevron.up.icon(ng-if="!collapsed")
+        .ui.item.button(ui-popup type="button" title="Collapse query list" ng-click="notcollapsed = ! notcollapsed" ng-class="{disabled: file.queryIds.length==0}")
+          i.chevron.down.icon(ng-if="notcollapsed")
+          i.chevron.up.icon(ng-if="!notcollapsed")
         //-        .ui.item {{file.queryIds.length}}
         .ui.item.header(ng-bind="file.name")
         .right.menu
@@ -33,9 +33,9 @@
             i.edit.icon
             | Rename
           a.ui.item(ng-click="vm.deleteList(file)")
-            i.remove.icon.red
+            i.remove.icon
             | Delete
-      .ui.bottom.segment.secondary.attached(ng-hide="collapsed")
+      .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
         .items(ng-if="file.queryIds.length > 0")
           .ui.menu(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
             .ui.item.header(ng-bind="query.name")
@@ -49,8 +49,6 @@
               a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
                 i.remove.icon   
                 | Delete
-
-
 
 
 
