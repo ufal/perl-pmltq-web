@@ -14,7 +14,6 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     queryFileApi.getList().then((files) => {
       vm.files = files;
       vm.files.sort((a, b) => a.name.localeCompare(b.name));
-      console.log('history',$scope,vm.files);
       vm.files.forEach(function(qs) {
         var query={};
         qs.queries.forEach( function(q) {query[q.id]=q});
