@@ -4,9 +4,12 @@ main.ui.horizontally.padded.one.column.grid
       a.section(breadcrumb ui-sref="browse") Browse Treebanks
       i.right.chevron.icon.divider(breadcrumb)
       .active.section(breadcrumb ng-bind="vm.treebank.title")
+      //-a.item(menu ui-sref="treebank.history" ui-sref-active="active")
+      //-  i.history.icon
+      //-  | History
       a.item(menu ui-sref="treebank.history" ui-sref-active="active")
-        i.history.icon
-        | History
+        i.bookmark.icon
+        | Bookmarks
       a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
         i.search.icon
         | Query

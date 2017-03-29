@@ -1,0 +1,19 @@
+.ui.small.top.aligned.modal
+  i.close.icon
+  .header(ng-bind="::vm.title")
+  .content
+    .ui.error.message(ng-show="vm.error")
+      .header Error
+      p(ng-bind="vm.error")
+    form.ui.form(ng-submit="vm.save(vm.value)" name="form")
+      .field
+        label(ng-bind="::vm.label")
+        input(
+          type="text"
+          placeholder="{{::vm.placeholder || ''}}"
+          name="name"
+          required="{{::vm.required || ''}}"
+          ng-model="vm.value"
+        )
+      button.ui.button(type="submit" ng-disabled="form.$invalid || vm.saving") Save
+      button.ui.button(type="button" ng-click="hide()") Cancel

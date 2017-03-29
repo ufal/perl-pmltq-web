@@ -1,3 +1,4 @@
+var Rx = require('rx');
 
 module.exports = class AuthService {
 
@@ -5,6 +6,7 @@ module.exports = class AuthService {
     'ngInject';
 
     this.loggedInFlag = false;
+    this.status = new Rx.BehaviorSubject(this.loggedInFlag);
     this.user = {};
     this.authService = authService;
 
@@ -29,6 +31,7 @@ module.exports = class AuthService {
       this.loggedInFlag = value;
       this.httpCache.removeAll(); // Status has changed, clear cache
     }
+    this.status.onNext(value);
   }
 
   ping() {
