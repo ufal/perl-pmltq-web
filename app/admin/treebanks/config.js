@@ -82,8 +82,11 @@ module.exports = function (nga, admin) {
         .validation({required: true})
         .label('Featured'),
       nga.field('description', 'text'),
+      nga.field('documentation', 'text'),
       nga.field('dataSources', 'json'),
       nga.field('manuals', 'json'),
+      nga.field('treebankProviderIds', 'json')
+        .label('Identificators'),
       nga.field('tags', 'reference_many')
         .label('Tags')
         .isDetailLink(true)

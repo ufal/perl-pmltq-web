@@ -7,7 +7,8 @@ module.exports = function($timeout) {
     replace: true,
     scope: {
       items: '=uiSelectbox',
-      title: '@'
+      title: '@',
+      valuekey: '@'
     },
     template: require('./selectbox.jade'),
     link: function($scope, $element, $attrs, ngModelCtrl) {

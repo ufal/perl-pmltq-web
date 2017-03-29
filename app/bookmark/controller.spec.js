@@ -1,12 +1,12 @@
-describe('HistoryCtrl', function() {
+describe('BookmarkCtrl', function() {
 
-  beforeEach(module('pmltq.history'));
+  beforeEach(module('pmltq.bookmark'));
 
   var scope, ctrl;
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('HistoryCtrl', {$scope: scope});
+      ctrl = $controller('BookmarkCtrl', {$scope: scope});
     }));
 
   it('should ...', inject(function() {

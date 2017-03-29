@@ -8,7 +8,7 @@ class SvgViewController {
   constructor($scope) {
     'ngInject';
 
-    var lastAddress, lastTree, lastTreebankId;
+    var lastAddress, lastTree, lastTreebankId, lastNodes;
     if (!$scope.tree) {
       lastTree = $scope.tree = 0;
     }
@@ -18,21 +18,24 @@ class SvgViewController {
 
     var suggestSubscription;
 
-    $scope.$toObservableGroup(['address', 'tree', 'treebank'])
+    $scope.$toObservableGroup(['address', 'tree', 'treebank', 'nodes'])
+
       .filter((change) => {
         var value = change.newValue,
           address = value[0],
           tree = value[1],
-          treebank = value[2];
+          treebank = value[2],
+          nodes = value[3];
 
         if (_.any(change.newValue, (item) => _.isEmpty(item) && !_.isNumber(item)) ||
-          (address === lastAddress && tree === lastTree && lastTreebankId === treebank.id)) {
+          (address === lastAddress && _.isEqual(nodes,lastNodes) && tree === lastTree && lastTreebankId === treebank.id)) {
           return false;
         }
 
         lastAddress = address;
         lastTree = tree;
         lastTreebankId = treebank.id;
+        lastNodes = nodes;
 
         return true;
       })
@@ -71,7 +74,8 @@ module.exports = function () {
       treebank: '=svgView',
       queryParams: '=?',
       tree: '@',
-      address: '@'
+      address: '@',
+      nodes: '=?'
     },
     controller: SvgViewController
   };

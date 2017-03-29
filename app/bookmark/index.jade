@@ -1,0 +1,55 @@
+.row
+  .column(ng-if="!vm.loggedIn")
+    .ui.info.message
+      .header Login required
+      p Please login to be able to access query bookmarks
+      p
+        button.ui.primary.button(login) Login to PML-TQ
+  .column(ng-if="vm.loggedIn")
+    .ui.basic.segment
+      button.ui.labeled.icon.button(type="button" ng-click="vm.addList()")
+        i.plus.icon
+        | Add new list
+    .ui.info.message(ng-if="vm.files && vm.files.length == 0")
+      .header No lists
+      p Query bookmarks are organized to separated lists. It's similar
+        | to TrEd where you organize your queries to files.
+      p You don't have any lists of queries yet. Start by clicking:
+        = ' '
+        button.ui.mini.button(type="button" ng-click="vm.addList()") Add new list
+
+    span(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
+      .ui.top.menu.attached
+        .ui.item.button(ui-popup type="button" title="Collapse query list" ng-click="notcollapsed = ! notcollapsed" ng-class="{disabled: file.queryIds.length==0}")
+          i.chevron.down.icon(ng-if="!notcollapsed")
+          i.chevron.up.icon(ng-if="notcollapsed")
+        //-        .ui.item {{file.queryIds.length}}
+        .ui.item.header.filelist(ng-bind="file.name")
+        .right.menu
+          a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
+            i.add.icon
+            | Use list
+          a.ui.item(type="button" ng-click="vm.renameList(file)")
+            i.edit.icon
+            | Rename
+          a.ui.item(ng-click="vm.deleteList(file)")
+            i.remove.icon
+            | Delete
+      .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
+        .items(ng-if="file.queryIds.length > 0")
+          .ui.menu(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
+            .ui.item.header(ng-bind="query.name")
+            .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
+            .right.menu
+              a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
+                i.add.icon
+                | Use query
+              a.ui.item(type="button" ng-click="vm.renameQuery(file, query)")
+                i.edit.icon
+                | Rename
+              a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
+                i.remove.icon   
+                | Delete
+
+
+

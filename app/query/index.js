@@ -9,6 +9,7 @@ module.exports = angular.module('pmltq.query', [
 ])
   .config(require('./routes'))
   .factory('QueryParams', require('./queryParams'))
+  .factory('QueryFileParams', require('./queryFileParams'))
   .factory('pmltqModeBuilder', require('./pmltqModeBuilder'))
   .directive({
     queryEditor: require('./directives/queryEditor'),

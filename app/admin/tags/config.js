@@ -12,7 +12,8 @@ module.exports = function (nga, admin) {
   tags.creationView()
     .fields([
       nga.field('name').validation({required: true }),
-      nga.field('comment', 'text')
+      nga.field('comment', 'text'),
+      nga.field('documentation', 'text')
     ]);
 
   tags.editionView()

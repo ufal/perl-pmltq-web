@@ -29,14 +29,17 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
   });
 
   $stateProvider.state('treebank.query', {
-    url: '/query/{query:compressed}',
+    url: '/query/{query:compressed}?{filter}&{timeout}&{limit}',
     template: require('./index.jade'),
     controller: require('./controller'),
     controllerAs: 'vm',
     title: 'Query',
     abstract: true,
     params: {
-      query: {squash: false, value: null}
+      query: {squash: false, value: null},
+      filter: {squash: false},
+      timeout: {squash: false},
+      limit: {squash: false},
     }
   });
 
@@ -50,11 +53,45 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
      */
     onEnter: function ($state, $stateParams, $timeout, queryParams) {
       $timeout(function () {
-        if (queryParams.present() && _.isEmpty($stateParams.query)) {
+        if (queryParams.query && _.isEmpty($stateParams.query)) {
           $stateParams.query = queryParams.query;
           $state.go($state.current.name, $stateParams, {location: 'replace'});
         }
       });
+    }
+  });
+
+
+  $stateProvider.state('treebank.queryfile', {
+    url: '/queryfile/{fileID}?{queryID}',
+    template: require('./index.jade'),
+    controller: require('./controller'),
+    controllerAs: 'vm',
+    title: 'QueryFile',
+    abstract: true,
+    params: {
+      fileID: {squash: false, value: null},
+      queryID: {squash: false, value: null}
+    }
+  });
+
+  $stateProvider.state('treebank.queryfile.index', {
+    url: '',
+    /**
+     * @param {angular.ui.IStateService} $state
+     * @param {angular.ui.IStateParamsService} $stateParams
+     * @param {angular.ITimeoutService} $timeout
+     * @param {QueryParams} queryParams
+     */
+    onEnter: function ($state, $stateParams, $timeout, queryFileParams) {
+      /* TODO
+      $timeout(function () {
+        if (queryParams.query && _.isEmpty($stateParams.query)) {
+          $stateParams.query = queryParams.query;
+          $state.go($state.current.name, $stateParams, {location: 'replace'});
+        }
+      });
+      */
     }
   });
 };
