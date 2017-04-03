@@ -10,6 +10,9 @@ var Rx = require('rx');
 var sentenceFactory = require('./sentence');
 
 function parseNodeName(name) {
+  if(name === null){
+    return null;
+  }
   name = name.substring(name.indexOf('/') + 1, name.length);
   var splitPos = name.indexOf('@'); // new syntax
   if (splitPos < 0) {
@@ -202,7 +205,11 @@ class TredTree {
     var processed = {};
     for (var i = nodes.length - 1; i >= 0; i--) {
       var node = parseNodeName(nodes[i]),
-        id = node.id;
+        id;
+      if(node === null) {
+        continue;
+      }
+      id = node.id;
 
       if (processed[id]) {
         continue;

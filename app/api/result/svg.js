@@ -23,7 +23,13 @@ class SvgResult {
 
     this._nodeAddress = Rx.Observable.combineLatest(this._currentResult, this.activeNodeRx)
       .filter((prop) => _.has(prop[0], prop[1]))
-      .do((prop) => { this._activeNode = prop[1]; })
+      .do((prop) => {
+        if(this.matched(prop[1])) {
+          this._activeNode = prop[1];
+        } else {
+          prop[1]=0;
+        }
+      })
       .map((prop) => prop[0][prop[1]])
       .shareReplay(1);
 
@@ -31,12 +37,16 @@ class SvgResult {
     this._resultNo = 1;
   }
 
+  matched(node) {
+    return this.resultData[this._resultNo - 1][node] !== null;
+  }
+
   get activeNode() {
     return this._activeNode;
   }
 
   set activeNode(node) {
-    if (node >= 0 && node < this.queryNodes.length) {
+    if (node >= 0 && node < this.queryNodes.length && this.matched(node)) {
       this.activeNodeRx.onNext(node);
     }
   }
