@@ -46,8 +46,8 @@ module.exports = function (Restangular, $q, $cacheFactory) {
         this._update();
       };
 
-      model.newQuery = function(name, querytext) {
-        return this.post('queries', {name: name, query: querytext})
+      model.newQuery = function(name, querytext, first_used_treebank) {
+        return this.post('queries', {name: name, query: querytext, first_used_treebank: first_used_treebank})
           .then(query => {
             this.queries.push(query);
             this.currentQueryIndex = this.queries.length - 1;
@@ -80,6 +80,7 @@ module.exports = function (Restangular, $q, $cacheFactory) {
             return null;
           }, (res) => $q.reject(res.data.error));
       };
+console.log(model);
 
       model.currentQueryIndex = 0;
       model.totalQueries = model.queries.length;

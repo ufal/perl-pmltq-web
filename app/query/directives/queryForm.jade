@@ -2,7 +2,7 @@
   form.ui.form(name="form" ng-class="{collapsed: collapsed}")
     .one.column.ui.grid
       .column(ng-hide="!vm.loggedIn")
-
+        // bookmarks
         .ui.menu
           a.ui.item(ng-if="vm.activeQueryList" type="button" ng-click="vm.activeQueryList = null" title="Close query list")
             i.delete.icon
@@ -15,8 +15,6 @@
             span(ng-bind="vm.activeQueryList.totalQueries")
           .item.ui.button(type="button" ng-class="{disabled: !vm.activeQueryList.hasNext}" ng-click="vm.nextQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")
             i.arrow.right.icon
-          
-
           .item.ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name"  title="Query:" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
           .right.menu(ng-show="vm.activeQueryList")
             .ui.item.button(type="button" ng-click="vm.newQuery()" title="Create new query in current list")
@@ -31,9 +29,15 @@
             .ui.item.button(type="button" ng-class="{disabled: (!vm.activeQueryList.activeQuery)}" ng-click="vm.deleteQuery()" title="Delete query from list")
               i.remove.icon
               | Delete
-
-
+      .column(ng-hide="!vm.loggedIn")
+        // history
+        .ui.left.floated.menu(ng-model="vm.queryHistory")
+          .item.ui.button(type="button" ng-class="{disabled: !vm.queryHistory.hasPrevious}" ng-click="vm.undo()")
+            i.undo.icon
+          .item.ui.button(type="button" ng-class="{disabled: !vm.queryHistory.hasNext}" ng-click="vm.repeat()")
+            i.repeat.icon
       .column(ng-hide="collapsed")
+        // editor menu
         .ui.stackable.grid
           .twelve.wide.column
             query-menu(treebank="vm.treebank" on-collapse="collapsed = true" on-insert="vm.insertToEditor")
@@ -46,6 +50,7 @@
                 .content.aligned
                   .ui.inline.dropdown(ui-selectbox="vm.limitSelect" title="Result limit" ng-model="vm.queryParams.limit" ng-change="vm.queryParams.cache()")
       .column(ng-show="collapsed")
+        // editor
         .query.text(
           ng-show="collapsed"
           title="Click to edit query"

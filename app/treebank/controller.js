@@ -3,7 +3,7 @@ module.exports = function(treebank, queryParams, queryFileParams, treebankApi) {
   var vm = this;
 
   vm.treebank = treebank;
-  vm.history = []; // TODO fix this
+  //vm.history = []; // TODO fix this
   vm.queryFileParams = queryFileParams;
   vm.queryParams = queryParams;
 

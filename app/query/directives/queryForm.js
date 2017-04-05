@@ -8,7 +8,7 @@ const lastQueryListKey = 'last-query-list';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, promptModal) {
   'ngInject';
 
   class QueryFormController {
@@ -17,6 +17,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       'ngInject';
       this.loggedIn = false;
       this.queryLists = [];
+      this.queryHistory = [];
 
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
@@ -54,8 +55,10 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               setquery=true;
             }
             this.loadQueryLists(setquery);
+            this.loadQueryHistory();
           } else {
             this.queryLists = [];
+            this.queryHistory = [];
           }
         })
         .subscribe();
@@ -71,6 +74,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
     }
 
     loadQueryLists(setquery) {
+      console.log(queryFileApi);      
       queryFileApi.getList().then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
@@ -89,6 +93,12 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       });
     }
 
+    loadQueryHistory() {
+      historyApi.getList().then(history => {
+        this.queryHistory = history[0];
+      });
+    }
+
     newQuery() {
       // Sanity check
       if (!this.activeQueryList) {
@@ -101,7 +111,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         required: 'required',
         label: 'Name'
       }, (name) => {
-        return this.activeQueryList.newQuery(name,this.queryParams.query);
+        return this.activeQueryList.newQuery(name,this.queryParams.query, this.treebank.id);
       });
 
       m.show();
@@ -194,6 +204,26 @@ console.log('TODO: fix edit query');
 
       this.activeQueryList.next();
       this.queryParams.query = this.activeQueryList.activeQuery.query;
+    }
+
+    undo() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.previous();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
+    }
+
+    repeat() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.next();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
     }
 
     hideHelp() {
