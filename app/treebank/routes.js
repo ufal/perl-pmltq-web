@@ -34,7 +34,7 @@ module.exports = function ($stateProvider) {
   //noinspection JSUnusedGlobalSymbols
   $stateProvider.state('treebank.index', {
     url: '',
-    onEnter: function ($state, $stateParams, $timeout, history) {
+    onEnter: function ($state, $stateParams, $timeout /*, history*/) {
       $timeout(function () {
         if (history.length === 0) {
           $state.go('^.help', $stateParams, {location: 'replace'});
