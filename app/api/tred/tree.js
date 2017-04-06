@@ -216,7 +216,7 @@ class TredTree {
       }
 
       processed[id] = true;
-      id = id.replace(/([^-_A-Za-z0-9])/g, ''); // Not sure if this is needed
+      // id = id.replace(/([^-_A-Za-z0-9])/g, ''); // Not sure if this is needed
       var svgNode = this.nodesMap[id];
       if (svgNode) {
         svgNode.addClass('matched-node-' + (i + 1));
