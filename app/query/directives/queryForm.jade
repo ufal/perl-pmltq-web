@@ -7,6 +7,17 @@
           .item.ui.button(type="button" ng-class="{disabled: !vm.queryHistory.hasPrevious}" ng-click="vm.undo()")
             i.undo.icon
             | Undo
+          .item(
+            title="Not created for this treebank"
+            ui-popup
+            ng-hide="vm.validQuery()")
+            i.empty.star.icon.red
+          .item(
+            title="Created for this treebank"
+            ui-popup
+            ng-show="vm.validQuery()")
+            i.star.icon.green
+
           .item.ui.button(type="button" ng-class="{disabled: !vm.queryHistory.hasNext}" ng-click="vm.repeat()")
             i.repeat.icon
             | Repeat

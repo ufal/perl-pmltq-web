@@ -226,6 +226,11 @@ console.log('TODO: fix edit query');
       this.queryParams.query = this.queryHistory.activeQuery.query;
     }
 
+    validQuery() {
+      return (this.queryHistory && this.queryHistory.activeQuery && this.queryHistory.activeQuery.firstUsedTreebank == this.treebank.id && this.queryHistory.activeQuery.query == this.queryParams.query)
+        || (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.firstUsedTreebank == this.treebank.id && this.activeQueryList.activeQuery.query == this.queryParams.query)
+    }
+
     hideHelp() {
       localStorageService.set(suggestHelpKey, true);
       this.showHelp = false;
