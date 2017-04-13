@@ -46,8 +46,8 @@ module.exports = function (Restangular, $q, $cacheFactory) {
         this._update();
       };
 
-      model.newQuery = function(name, querytext, first_used_treebank) {
-        return this.post('queries', {name: name, query: querytext, first_used_treebank: first_used_treebank})
+      model.newQuery = function(name, querytext) {
+        return this.post('queries', {name: name, query: querytext})
           .then(query => {
             this.queries.push(query);
             this.currentQueryIndex = this.queries.length - 1;
