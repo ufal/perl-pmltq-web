@@ -111,7 +111,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         required: 'required',
         label: 'Name'
       }, (name) => {
-        return this.activeQueryList.newQuery(name,this.queryParams.query, this.treebank.id);
+        return this.activeQueryList.newQuery(name,this.queryParams.query);
       });
 
       m.show();
@@ -227,8 +227,8 @@ console.log('TODO: fix edit query');
     }
 
     validQuery() {
-      return (this.queryHistory && this.queryHistory.activeQuery && this.queryHistory.activeQuery.firstUsedTreebank == this.treebank.id && this.queryHistory.activeQuery.query == this.queryParams.query)
-        || (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.firstUsedTreebank == this.treebank.id && this.activeQueryList.activeQuery.query == this.queryParams.query)
+      return (this.queryHistory && this.queryHistory.activeQuery && this.queryHistory.activeQuery.treebanks[this.treebank.id] && this.queryHistory.activeQuery.query == this.queryParams.query)
+        || (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.treebanks[this.treebank.id] && this.activeQueryList.activeQuery.query == this.queryParams.query)
     }
 
     hideHelp() {
@@ -246,6 +246,10 @@ console.log('TODO: fix edit query');
     submit(filter) {
       if (!this.treebank) {
         return;
+      }
+      this.queryParams.queryRecordId = null;
+      if (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.query == this.queryParams.query) {
+        this.queryParams.queryRecordId = this.activeQueryList.activeQuery.id;
       }
 
       this.queryParams.filter = !_.isUndefined(filter) ? filter : true;
