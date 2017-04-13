@@ -23,7 +23,7 @@ module.exports = function QueryParamsFactory($state, localStorageService, rx) {
      * @param {Boolean} [filter=true]
      * @constructor
     */
-    constructor(treebankId, query, limit = 30, timeout = 100, filter = true) {
+    constructor(treebankId, query, limit = 100, timeout = 30, filter = true) {
       if (!treebankId) {
         treebankId = 'default';
       }
