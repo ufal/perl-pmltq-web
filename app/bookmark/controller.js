@@ -11,7 +11,7 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   vm.loggedIn = false;
 
   function load() {
-    queryFileApi.getList().then((files) => {
+    queryFileApi.getList({history_list: true}).then((files) => {
       vm.files = files;
       vm.files.sort((a, b) => a.name.localeCompare(b.name));
       vm.files.forEach(function(qs) {

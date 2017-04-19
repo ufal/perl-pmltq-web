@@ -15,9 +15,9 @@ module.exports = function ($stateProvider) {
       treebank: function (treebankApi, $stateParams) {
         return treebankApi.one($stateParams.treebankId).get();
       },
-      history: function (historyApi) {
-        return [];
-      },
+//      history: function (historyApi) {
+//        return [];
+//      },
       queryParams: function ($stateParams, QueryParams) {
         var query = new QueryParams($stateParams.treebankId);
         query.restore();
@@ -34,7 +34,7 @@ module.exports = function ($stateProvider) {
   //noinspection JSUnusedGlobalSymbols
   $stateProvider.state('treebank.index', {
     url: '',
-    onEnter: function ($state, $stateParams, $timeout, history) {
+    onEnter: function ($state, $stateParams, $timeout /*, history*/) {
       $timeout(function () {
         if (history.length === 0) {
           $state.go('^.help', $stateParams, {location: 'replace'});

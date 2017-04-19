@@ -8,7 +8,7 @@ const lastQueryListKey = 'last-query-list';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, promptModal) {
   'ngInject';
 
   class QueryFormController {
@@ -17,6 +17,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       'ngInject';
       this.loggedIn = false;
       this.queryLists = [];
+      this.queryHistory = [];
 
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
@@ -54,8 +55,10 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               setquery=true;
             }
             this.loadQueryLists(setquery);
+            this.loadQueryHistory();
           } else {
             this.queryLists = [];
+            this.queryHistory = [];
           }
         })
         .subscribe();
@@ -71,6 +74,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
     }
 
     loadQueryLists(setquery) {
+      console.log(queryFileApi);      
       queryFileApi.getList().then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
@@ -86,6 +90,12 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
             }
           }
         }
+      });
+    }
+
+    loadQueryHistory() {
+      historyApi.getList().then(history => {
+        this.queryHistory = history[0];
       });
     }
 
@@ -196,6 +206,31 @@ console.log('TODO: fix edit query');
       this.queryParams.query = this.activeQueryList.activeQuery.query;
     }
 
+    undo() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.previous();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
+    }
+
+    repeat() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.next();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
+    }
+
+    validQuery() {
+      return (this.queryHistory && this.queryHistory.activeQuery && this.queryHistory.activeQuery.treebanks[this.treebank.id] && this.queryHistory.activeQuery.query == this.queryParams.query)
+        || (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.treebanks[this.treebank.id] && this.activeQueryList.activeQuery.query == this.queryParams.query)
+    }
+
     hideHelp() {
       localStorageService.set(suggestHelpKey, true);
       this.showHelp = false;
@@ -211,6 +246,10 @@ console.log('TODO: fix edit query');
     submit(filter) {
       if (!this.treebank) {
         return;
+      }
+      this.queryParams.queryRecordId = null;
+      if (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.query == this.queryParams.query) {
+        this.queryParams.queryRecordId = this.activeQueryList.activeQuery.id;
       }
 
       this.queryParams.filter = !_.isUndefined(filter) ? filter : true;
