@@ -26,6 +26,8 @@
         //-        .ui.item {{file.queryIds.length}}
         .ui.item.header.filelist(ng-bind="file.name")
         .right.menu
+          a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
+            i.share.alternate.icon(ng-class="{green: file.isPublic}")
           a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
             i.add.icon
             | Use list
@@ -41,6 +43,8 @@
             .ui.item.header(ng-bind="query.name")
             .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
             .right.menu
+              a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
+                i.share.alternate.icon(ng-class="{green: query.isPublic}")
               a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
                 i.add.icon
                 | Use query

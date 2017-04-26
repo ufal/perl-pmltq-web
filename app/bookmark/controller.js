@@ -37,6 +37,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
       m.show();
     }
 
+  vm.shareQuery = function(file, query) {
+      return file.saveQuery(query, undefined, undefined, !query.isPublic);
+    }
+
   vm.deleteQuery = function(file,query) {
     var result = $window.confirm('Do you want to delete this query?');
     if (result) {
@@ -105,6 +109,14 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     var result = $window.confirm('Do you want to delete this list?');
     if (result) {
       file.remove().then(() => { _.remove(vm.files, f => f.id === file.id); });
+    }
+  };
+
+  vm.shareList = function(file) {
+    if (file) {
+      file.isPublic = !file.isPublic;
+      delete file.queries_;
+      return file.put();
     }
   };
 
