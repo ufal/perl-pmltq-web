@@ -1,4 +1,4 @@
-module.exports = function(treebank, queryParams, queryFileParams, treebankApi) {
+module.exports = function(treebank, queryParams, queryFileParams, treebankApi, publicFileTreeApi) {
   'ngInject';
   var vm = this;
 
@@ -7,5 +7,6 @@ module.exports = function(treebank, queryParams, queryFileParams, treebankApi) {
   vm.queryFileParams = queryFileParams;
   vm.queryParams = queryParams;
 
+  publicFileTreeApi.getList().then(lists => {this.publicLists = lists});
   treebankApi.addRecentlyUsed(treebank.id);
 };

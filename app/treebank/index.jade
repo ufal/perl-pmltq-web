@@ -19,6 +19,15 @@ main.ui.horizontally.padded.one.column.grid
       a.item(right ng-href="{{vm.treebank.homepage}}" ng-show="vm.treebank.homepage" target="_blank")
         i.external.icon
         | Get data
-
+      .ui.dropdown.item(drop ui-dropdown)
+        i.book.icon
+        | Public queries
+        i.dropdown.icon
+        .menu
+          .ui.item.dropdown(ng-repeat="user in vm.publicLists | orderBy:'name' track by user.id")
+            | {{user.name}} {{user.id}}
+            .menu
+              a.item(ng-repeat="list in user.files | orderBy:'name' track by list.id" ui-sref="treebank.queryfile.index({fileID: list.id, userID: user.id})")
+                | {{list.name}}
   .fitted.column
     .ui.one.column.grid(ui-view="")
