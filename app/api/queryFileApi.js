@@ -82,7 +82,6 @@ module.exports = function (Restangular, $q, $cacheFactory) {
             return null;
           }, (res) => $q.reject(res.data.error));
       };
-console.log(model);
 
       model.currentQueryIndex = 0;
       model.totalQueries = model.queries.length;
