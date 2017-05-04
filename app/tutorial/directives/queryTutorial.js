@@ -8,15 +8,12 @@ module.exports = function() {
     replace: true,
     scope: {
       treebank: '=',
-      query: '='
+      query: '=',
+      file: '='
     },
     template: require('./queryTutorial.jade'),
     link: function ($scope) {
-      $scope.queryText = $scope.query.query;
-      console.log("$scope=",$scope);
-      console.log("query=",$scope.query);
-      console.log("treebank=",$scope.treebank);
-        // TODO resize minimized readonly editor
+      $scope.urlparam = {userID: $scope.file.userId, fileID: $scope.file.id, queryID: $scope.query.id};
     }
   };
 };

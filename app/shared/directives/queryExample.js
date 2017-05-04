@@ -9,7 +9,8 @@ module.exports = function($interpolate) {
     replace: true,
     scope: {
       treebank: '=',
-      title: '=' 
+      title: '=',
+      queryrecord: '='
     },
     template: require('./queryExample.jade'),
     link: function ($scope, $element, $attr, $controller, $transclude) {
