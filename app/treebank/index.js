@@ -5,6 +5,7 @@ module.exports = angular.module('pmltq.treebank',
     require('../shared'),
     require('../api'),
     require('../bookmark'),
+    require('../tutorial'),
     require('../query'),
     require('../help')
   ])

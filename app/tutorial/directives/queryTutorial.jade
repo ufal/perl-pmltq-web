@@ -1,0 +1,6 @@
+.query-tutorial
+  section.ui.basic.segment#annotation-schema
+    h2.ui.header {{::query.name}}
+    query-example(treebank="treebank" query="query")
+      pre
+        | {{::query.query}}

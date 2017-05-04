@@ -25,9 +25,16 @@ main.ui.horizontally.padded.one.column.grid
         i.dropdown.icon
         .menu
           .ui.item.dropdown(ng-repeat="user in vm.publicLists | orderBy:'name' track by user.id")
-            | {{user.name}} {{user.id}}
+            | {{user.name}}
             .menu
-              a.item(ng-repeat="list in user.files | orderBy:'name' track by list.id" ui-sref="treebank.queryfile.index({fileID: list.id, userID: user.id})")
+              .ui.item(ng-repeat="list in user.files | orderBy:'name' track by list.id")
                 | {{list.name}}
+                .menu
+                  .item.ui(ui-sref="treebank.queryfile.index({fileID: list.id, userID: user.id})")
+                    i.search.icon
+                    | Use list
+                  .item.ui(ui-sref="treebank.queryfiletutorial({fileID: list.id, userID: user.id})")
+                    i.info.circle.icon
+                    | View list
   .fitted.column
     .ui.one.column.grid(ui-view="")
