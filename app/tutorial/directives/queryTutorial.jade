@@ -1,6 +1,6 @@
 .query-tutorial
-  section.ui.basic.segment#annotation-schema
-    h2.ui.header {{::query.name}}
+  section.ui.basic.segment
+    h2.ui.header(id="{{query.id}}") {{::query.name}}
     query-example(treebank="treebank" queryrecord="urlparam" title="'Use query'")
       pre
         | {{::query.query}}

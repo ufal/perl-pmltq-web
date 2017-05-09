@@ -9,6 +9,6 @@
         .four.wide.column()
           .ui.sticky(ui-sticky="{context: '#context', offset: 30}")
             .ui.secondary.vertical.right.pointing.menu(du-spy-context)
-              a.item(ng-repeat="query in vm.file.queries | orderBy:'ord' track by query.id" href="#query.id" du-scrollspy du-smooth-scroll) {{query.name}}
+              a.item(ng-repeat="query in vm.file.queries | orderBy:'ord' track by query.id" href="#{{query.id}}" du-scrollspy du-smooth-scroll) {{query.name}}
 
 
