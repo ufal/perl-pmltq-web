@@ -14,12 +14,6 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     queryFileApi.getList({history_list: true}).then((files) => {
       vm.files = files;
       vm.files.sort((a, b) => a.name.localeCompare(b.name));
-      vm.files.forEach(function(qs) {
-        var query={};
-        qs.queries.forEach( function(q) {query[q.id]=q});
-        qs.queries_ = query;
-        qs.queryIds=Object.keys(qs.queries_);
-      });
     });
   }
 
@@ -45,16 +39,12 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     var result = $window.confirm('Do you want to delete this query?');
     if (result) {
       file.deleteQuery(query);
-      delete file.queries_[query.id];
-      file.queryIds=Object.keys(file.queries_);
-      file.totalQueries = file.queryIds.length;
     }
   }
 
   function saveFileList(name, file) {
     if (file && _.all(vm.files, f => f.name !== name || f.id === file.id)) {
       file.name = name;
-      delete file.queries_;
       return file.put();
     }
     else if (!file && _.all(vm.files, f => f.name !== name)) {
@@ -115,7 +105,6 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   vm.shareList = function(file) {
     if (file) {
       file.isPublic = !file.isPublic;
-      delete file.queries_;
       return file.put();
     }
   };

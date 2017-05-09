@@ -38,8 +38,8 @@
             i.remove.icon
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
-        .items(ng-if="file.queryIds.length > 0")
-          .ui.menu(ng-repeat="id in file.queryIds" ng-init="query = file.queries_[id]")
+        .items(ng-if="file.queries.length > 0")
+          .ui.menu(ng-repeat="query in file.queries | orderBy:'ord' track by query.id")
             .ui.item.header(ng-bind="query.name")
             .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
             .right.menu
