@@ -1,4 +1,6 @@
 var angular = require('angular');
+var $ = require('jquery');
+require('jquery-ui-bundle');
 
 require('angular-loading-bar');
 require('angular-scroll');
@@ -6,6 +8,7 @@ require('angular-local-storage');
 require('restangular');
 require('snapsvg');
 require('rx-angular');
+require('angular-ui-sortable');
 
 module.exports = angular.module('pmltq.shared', [
   'angular-loading-bar',
@@ -14,6 +17,7 @@ module.exports = angular.module('pmltq.shared', [
   'restangular',
   //require('rx-angular/index'),
   'rx',
+  'ui.sortable',
   require('angular-ui-router'),
   require('../semantic-ui'),
   require('../auth')
