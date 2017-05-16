@@ -83,6 +83,21 @@ module.exports = function (Restangular, $q, $cacheFactory) {
           }, (res) => $q.reject(res.data.error));
       };
 
+      model.updateQueryOrder = function() {
+        console.log("TODO updateQueryOrder",this);
+        var ql = this.all('queries');
+        console.log("TODO updateQueryOrder ql=",ql);
+        var data = {
+          'id': this.id,
+          'userId': this.userId,
+          'queries': this.queries.map(function(q){return {'id': q.id, 'ord': q.ord}})
+        }
+        return ql.customPUT(data).then(querylist => {
+          return querylist;
+        }, (res) => $q.reject(res.data.error));
+
+      };
+
       model.currentQueryIndex = 0;
       model.totalQueries = model.queries.length;
       model.currentQuery = new Rx.ReplaySubject(1);

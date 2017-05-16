@@ -14,6 +14,7 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     queryFileApi.getList({history_list: true}).then((files) => {
       vm.files = files;
       vm.files.sort((a, b) => a.name.localeCompare(b.name));
+      vm.files.forEach(function(file){file.queries.sort((a,b) => (a.ord - b.ord))})
     });
   }
 
@@ -109,9 +110,34 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     }
   };
 
+  vm.updateQueryOrder = function(file) {
+    for (var index in file.queries) {
+          console.log('QUERY ',index,file.queries[index]);
+          file.queries[index].ord = index;
+        }
+    return file.updateQueryOrder();
+  }
+
   $scope.$on('$destroy', () => {
     if (m) {
       m.destroy();
     }
   });
+
+  $scope.sortableOptions = {
+    connectWith: ".queryfile",
+    start: function(e, ui) {
+      $scope.$apply(function(){
+        $scope.lastSourceFile = ui.item.parent().scope();
+      });
+    },
+      stop: function(e, ui) {
+        if(! ui.item.sortable.droptarget) {
+          return;
+        }
+        var target_file = ui.item.sortable.droptarget.scope();
+        vm.updateQueryOrder(target_file.file);
+        var source_file = $scope.lastSourceFile;
+      }
+  };
 };

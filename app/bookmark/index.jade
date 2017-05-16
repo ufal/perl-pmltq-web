@@ -38,7 +38,7 @@
             i.remove.icon
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
-        .items(ui-sortable ng-model="file.queries")
+        .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
           .ui.menu(ng-repeat="query in file.queries")
             .ui.item.header(ng-bind="query.name")
             .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
