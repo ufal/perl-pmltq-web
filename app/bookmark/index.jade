@@ -62,8 +62,7 @@
                   i.remove.icon   
                   | Delete
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
-              .ui.label(ng-repeat="tb in vm.getTreebanks(query)")
-                | {{::tb}}
+              .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo" image-width="75")
               .ui.form
                 .ui.top.attached.tabular.menu
                   .ui.item.button(ng-class="{active: !!editor}" ng-click="editor=true")

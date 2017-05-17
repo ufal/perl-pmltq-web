@@ -122,6 +122,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     return Object.keys(query.treebanks).map(function (key) {return query.treebanks[key];})
   }
 
+  vm.logo = function(text) {
+    return {'logotext': text};
+  }
+
   $scope.$on('$destroy', () => {
     if (m) {
       m.destroy();
