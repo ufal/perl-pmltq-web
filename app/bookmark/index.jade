@@ -71,10 +71,9 @@
                     | Preview
                 .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
                   .ui.field
-                    textarea
+                    textarea(ng-model="query.description")
                 .ui.botton.attached.tab.segment(ng-class="{active: !editor}")
-                  .ui.field
-                    | preview
+                  .markdownView(ng-model="query.description")
               button.ui.labeled.icon.button(type="button" ng-click="vm.saveQuery(file, query)")
                 i.save.icon
                 | Save query
