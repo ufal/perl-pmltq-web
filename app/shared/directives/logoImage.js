@@ -145,6 +145,7 @@ module.exports = function($cacheFactory, $timeout) {
         var cacheKey = image.text.join('') + 'w' + width,
           cached  = imageCache.get(cacheKey);
         $element.empty();
+        $element.css({'color': image.color});
         if (!cached) {
           var max = image.text.length > 2 ? 2 : image.text.length;
           for (var i = 0; i < max; i++) {
