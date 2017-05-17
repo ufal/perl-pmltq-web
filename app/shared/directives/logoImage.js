@@ -1,3 +1,4 @@
+import randomColor from 'randomcolor';
 var _ = require('lodash');
 var $ = require('jquery');
 
@@ -90,10 +91,30 @@ module.exports = function($cacheFactory, $timeout) {
     }
   }
 
+  function stringHash(str) {
+    var hash = 0;
+    if (str.length === 0) {
+      return hash;
+    }
+    for (var i = 0; i < str.length; i++) {
+      var char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+  }
+
+  var colors = randomColor({seed: stringHash('pmltq'), count: 200, luminosity: 'dark'});
+
+  function itemColor(text) {
+    var rnd = Math.abs(stringHash(text)) % colors.length;
+    return colors[rnd];
+  }
+
   return {
     restrict: 'A',
     scope: {
-      image: '=treebankImage',
+      image: '=logoImage',
       width: '@imageWidth'
     },
     link: function($scope, $element) {
@@ -103,7 +124,24 @@ module.exports = function($cacheFactory, $timeout) {
         if (lastWidth === width || width === 0) {
           return;
         }
-
+        image.text = _.chain(image.logotext)
+          .words()
+          .thru(function (val) {
+            var w = [];
+            for (var i = 0; i < val.length; i++) {
+              var word = val[i];
+              if (word.length === 2) {
+                w.push(_.pad(word, 6));
+              } else if (word.length === 3) {
+                w.push(_.pad(word, 5));
+              } else if (word.length > 2) {
+                w.push(word);
+              }
+            }
+            return w;
+          })
+          .value()
+        image.color = itemColor(image.logotext);
         var cacheKey = image.text.join('') + 'w' + width,
           cached  = imageCache.get(cacheKey);
         $element.empty();

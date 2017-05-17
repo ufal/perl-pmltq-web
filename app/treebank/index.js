@@ -12,7 +12,6 @@ module.exports = angular.module('pmltq.treebank',
   .config(require('./routes'))
   .directive({
     languageIcon: require('./directives/languageIcon'),
-    treebankImage: require('./directives/treebankImage'),
     treebankListItem: require('./directives/treebankListItem')
   })
   .name;

@@ -29,7 +29,8 @@ module.exports = angular.module('pmltq.shared', [
     title: require('./directives/title'),
     updateModelOnEnterKeyPressed: require('./directives/updateOnKeyPressed'),
     transcludeSelect: require('./directives/transcludeSelect'),
-    queryExample: require('./directives/queryExample')
+    queryExample: require('./directives/queryExample'),
+    logoImage: require('./directives/logoImage')
   })
   .factory('promptModal', require('./prompt'))
   .name;
