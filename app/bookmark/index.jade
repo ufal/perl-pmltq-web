@@ -39,21 +39,46 @@
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
         .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
-          .ui.menu(ng-repeat="query in file.queries")
-            .ui.item.header(ng-bind="query.name")
-            .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
-            .right.menu
-              a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
-                i.share.alternate.icon(ng-class="{green: query.isPublic}")
-              a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
-                i.add.icon
-                | Use query
-              a.ui.item(type="button" ng-click="vm.renameQuery(file, query)")
-                i.edit.icon
-                | Rename
-              a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
-                i.remove.icon   
-                | Delete
+          .item(ng-repeat="query in file.queries")
+            .ui.top.menu.attached
+              .ui.item.button(ui-popup type="button" title="Collapse query" ng-click="notcollapsedquery = ! notcollapsedquery" )
+                i.chevron.down.icon(ng-if="!notcollapsedquery")
+                i.chevron.up.icon(ng-if="notcollapsedquery")
+              .ui.item.button
+                i.handle.move.icon
+              
+              .ui.item.header(ng-bind="query.name")
+              .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
+              .right.menu
+                a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
+                  i.share.alternate.icon(ng-class="{green: query.isPublic}")
+                a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
+                  i.add.icon
+                  | Use query
+                a.ui.item(type="button" ng-click="vm.renameQuery(file, query)")
+                  i.edit.icon
+                  | Rename
+                a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
+                  i.remove.icon   
+                  | Delete
+            .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
+              .ui.label(ng-repeat="tb in vm.getTreebanks(query)")
+                | {{::tb}}
+              .ui.form
+                .ui.top.attached.tabular.menu
+                  .ui.item.button(ng-class="{active: !!editor}" ng-click="editor=true")
+                    | Editor
+                  .ui.item.button(type="button" ng-class="{active: !editor}" ng-click="editor=false")
+                    | Preview
+                .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
+                  .ui.field
+                    textarea
+                .ui.botton.attached.tab.segment(ng-class="{active: !editor}")
+                  .ui.field
+                    | preview
+              button.ui.labeled.icon.button(type="button" ng-click="vm.saveQuery(file, query)")
+                i.save.icon
+                | Save query
 
 
 

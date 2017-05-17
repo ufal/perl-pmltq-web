@@ -118,6 +118,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     return file.updateQueryOrder();
   }
 
+  vm.getTreebanks = function(query) {
+    return Object.keys(query.treebanks).map(function (key) {return query.treebanks[key];})
+  }
+
   $scope.$on('$destroy', () => {
     if (m) {
       m.destroy();
@@ -131,13 +135,15 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
         $scope.lastSourceFile = ui.item.parent().scope();
       });
     },
-      stop: function(e, ui) {
-        if(! ui.item.sortable.droptarget) {
-          return;
-        }
-        var target_file = ui.item.sortable.droptarget.scope();
-        vm.updateQueryOrder(target_file.file);
-        var source_file = $scope.lastSourceFile;
+    stop: function(e, ui) {
+      if(! ui.item.sortable.droptarget) {
+        return;
       }
+      var target_file = ui.item.sortable.droptarget.scope();
+      vm.updateQueryOrder(target_file.file);
+      var source_file = $scope.lastSourceFile;
+    },
+    handle: '.handle',
+    cursor: 'move'
   };
 };
