@@ -46,8 +46,12 @@
                 i.chevron.up.icon(ng-if="notcollapsedquery")
               .ui.item.button
                 i.handle.move.icon
-              
-              .ui.item.header(ng-bind="query.name")
+              .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsedquery}")
+                input(
+                      type="text"
+                      ng-model="query.name"
+                      required
+                    )
               .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
               .right.menu
                 a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
@@ -55,9 +59,9 @@
                 a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
                   i.add.icon
                   | Use query
-                a.ui.item(type="button" ng-click="vm.renameQuery(file, query)")
-                  i.edit.icon
-                  | Rename
+                a.ui.item(ng-click="vm.saveQuery(file, query)")
+                  i.save.icon
+                  | Save
                 a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
                   i.remove.icon   
                   | Delete
@@ -72,10 +76,6 @@
                     | Editor
                   .ui.item.button(type="button" ng-class="{active: !editor}" ng-click="editor=false")
                     | Preview
-                  .right.menu
-                    a.ui.item(ng-click="vm.saveQuery(file, query)")
-                      i.save.icon
-                      | Save description
                 .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
                   .ui.field
                     textarea(ng-model="query.description")
