@@ -26,14 +26,14 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
         label: 'Name',
         value: query.name
       }, (name) => {
-        return file.saveQuery(query, name);
+        return file.saveQuery(query, {name: name});
       });
 
       m.show();
     }
 
   vm.shareQuery = function(file, query) {
-      return file.saveQuery(query, undefined, undefined, !query.isPublic);
+      return file.saveQuery(query, {isPublic: !query.isPublic});
     }
 
   vm.deleteQuery = function(file,query) {

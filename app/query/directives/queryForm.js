@@ -141,7 +141,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         return;
       }
 
-      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, undefined, this.queryParams.query);
+      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, {query: this.queryParams.query});
     }
 
     renameQuery() {
@@ -157,7 +157,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         label: 'Name',
         value: this.activeQueryList.activeQuery.name
       }, (name) => {
-        return this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, name);
+        return this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, {name: name});
       });
 
       m.show();
