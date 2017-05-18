@@ -32,6 +32,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
       m.show();
     }
 
+  vm.saveQuery = function(file,query) {
+      return file.saveQuery(query, query);
+    }
+
   vm.shareQuery = function(file, query) {
       return file.saveQuery(query, {isPublic: !query.isPublic});
     }

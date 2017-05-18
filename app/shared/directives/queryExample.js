@@ -10,11 +10,13 @@ module.exports = function($interpolate) {
     scope: {
       treebank: '=',
       title: '=',
-      queryrecord: '='
+      queryrecord: '=',
+      hideUse: '='
     },
     template: require('./queryExample.jade'),
     link: function ($scope, $element, $attr, $controller, $transclude) {
-      console.log("TITLE", $scope.title);
+      $scope.hideUse = !!$scope.hideUse;
+
       if(! $scope.title) {
         $scope.title = "Try query";
       }

@@ -62,21 +62,26 @@
                   i.remove.icon   
                   | Delete
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
-              .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo" image-width="75")
+              .ui.basic.segment
+                .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo" image-width="75")
               .ui.form
                 .ui.top.attached.tabular.menu
+                  h4.ui.item.header
+                    | Description:
                   .ui.item.button(ng-class="{active: !!editor}" ng-click="editor=true")
                     | Editor
                   .ui.item.button(type="button" ng-class="{active: !editor}" ng-click="editor=false")
                     | Preview
+                  .right.menu
+                    a.ui.item(ng-click="vm.saveQuery(file, query)")
+                      i.save.icon
+                      | Save description
                 .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
                   .ui.field
                     textarea(ng-model="query.description")
                 .ui.botton.attached.tab.segment(ng-class="{active: !editor}")
                   .markdownView(ng-model="query.description")
-              button.ui.labeled.icon.button(type="button" ng-click="vm.saveQuery(file, query)")
-                i.save.icon
-                | Save query
+              
 
 
 

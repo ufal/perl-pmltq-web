@@ -1,4 +1,4 @@
 .query-example
-  a.clickable.try-button(ng-hide="queryrecord" ui-sref="treebank.query.index({query: query})") {{title}}
-  a.clickable.try-button(ng-show="queryrecord" ui-sref="treebank.queryfile.index(queryrecord)") {{title}}
+  a.clickable.try-button(ng-hide="queryrecord" ng-if="!hideUse" ui-sref="treebank.query.index({query: query})") {{title}}
+  a.clickable.try-button(ng-show="queryrecord" ng-if="!hideUse" ui-sref="treebank.queryfile.index(queryrecord)") {{title}}
   .code-listing(query-highlighter="treebank" ng-model="query")
