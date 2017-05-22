@@ -24,13 +24,21 @@
           i.chevron.down.icon(ng-if="!notcollapsed")
           i.chevron.up.icon(ng-if="notcollapsed")
         //-        .ui.item {{file.queryIds.length}}
-        .ui.item.header.filelist(ng-bind="file.name")
+        .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsed}")
+          input(
+                type="text"
+                ng-model="file.name"
+                required
+              )
         .right.menu
           a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
             i.share.alternate.icon(ng-class="{green: file.isPublic}")
           a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
             i.add.icon
             | Use list
+          a.ui.item(ng-click="vm.saveFile(file)")
+            i.save.icon
+            | Save
           a.ui.item(type="button" ng-click="vm.renameList(file)")
             i.edit.icon
             | Rename
@@ -38,6 +46,7 @@
             i.remove.icon
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
+        markdown-editor(title="'Description'" text="file.description")
         .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
           .item(ng-repeat="query in file.queries")
             .ui.top.menu.attached

@@ -47,13 +47,17 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     }
   }
 
-  function saveFileList(name, file) {
-    if (file && _.all(vm.files, f => f.name !== name || f.id === file.id)) {
-      file.name = name;
+  vm.saveFile = function(file) {
+      return saveFileList(file, file);
+    }
+
+  function saveFileList(file, data) {
+    if (file && _.all(vm.files, f => f.name !== data.name || f.id === file.id)) {
+      file.name = data.name;
       return file.put();
     }
-    else if (!file && _.all(vm.files, f => f.name !== name)) {
-      return queryFileApi.post({name: name}).then(
+    else if (!file && _.all(vm.files, f => f.name !== data.name)) {
+      return queryFileApi.post(data).then(
         file => { vm.files.push(file); },
         res  => res.data.error
       );
@@ -94,7 +98,7 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
       label: 'Name',
       value: file.name
     }, function(name) {
-      return saveFileList(name, file);
+      return saveFileList(file, {name: name});
     });
 
     m.show();
