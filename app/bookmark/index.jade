@@ -68,19 +68,7 @@
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
               .ui.basic.segment
                 .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo" image-width="75")
-              .ui.form
-                .ui.top.attached.tabular.menu
-                  h4.ui.item.header
-                    | Description:
-                  .ui.item.button(ng-class="{active: !!editor}" ng-click="editor=true")
-                    | Editor
-                  .ui.item.button(type="button" ng-class="{active: !editor}" ng-click="editor=false")
-                    | Preview
-                .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
-                  .ui.field
-                    textarea(ng-model="query.description")
-                .ui.botton.attached.tab.segment(ng-class="{active: !editor}")
-                  .markdownView(ng-model="query.description")
+              markdown-editor(title="'Description'" text="query.description")
               
 
 
