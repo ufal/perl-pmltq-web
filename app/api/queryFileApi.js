@@ -65,6 +65,7 @@ module.exports = function (Restangular, $q, $cacheFactory) {
           query.name = q.name;
           query.query = q.query;
           query.isPublic = q.isPublic;
+          query.queryFileId = q.queryFileId; // moving query to other file
           return q;
         }, (res) => $q.reject(res.data.error));
       };

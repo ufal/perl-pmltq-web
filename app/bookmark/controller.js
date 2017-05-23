@@ -145,6 +145,7 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     start: function(e, ui) {
       $scope.$apply(function(){
         $scope.lastSourceFile = ui.item.parent().scope();
+        $scope.currentQuery = ui.item.scope().query;
       });
     },
     stop: function(e, ui) {
@@ -152,8 +153,11 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
         return;
       }
       var target_file = ui.item.sortable.droptarget.scope();
-      vm.updateQueryOrder(target_file.file);
       var source_file = $scope.lastSourceFile;
+      if(source_file !== target_file ) {
+        source_file.file.saveQuery($scope.currentQuery, {queryFileId: target_file.file.id})
+      }
+      vm.updateQueryOrder(target_file.file);
     },
     handle: '.handle',
     cursor: 'move'
