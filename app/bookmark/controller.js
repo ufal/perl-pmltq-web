@@ -7,6 +7,7 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   'ngInject';
   var vm = this, m;
 
+  vm.user = Auth.user
   vm.files = false;
   vm.loggedIn = false;
 

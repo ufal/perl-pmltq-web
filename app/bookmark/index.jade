@@ -36,6 +36,9 @@
           a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
             i.add.icon
             | Use list
+          a.ui.item(ui-sref="treebank.queryfiletutorial({fileID: file.id, userID: vm.user.id})")
+            i.info.circle.icon
+            | View list
           a.ui.item(ng-click="vm.saveFile(file)")
             i.save.icon
             | Save
