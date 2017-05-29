@@ -49,7 +49,7 @@
             i.remove.icon
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
-        markdown-editor(title="'Description'" text="file.description")
+        markdown-editor(itemname="'Description'" text="file.description")
         .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
           .item(ng-repeat="query in file.queries")
             .ui.top.menu.attached
@@ -69,18 +69,30 @@
                 a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
                   i.share.alternate.icon(ng-class="{green: query.isPublic}")
                 a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
-                  i.add.icon
+                  i.search.icon
                   | Use query
-                a.ui.item(ng-click="vm.saveQuery(file, query)")
-                  i.save.icon
-                  | Save
-                a.ui.item(type="button" ng-click="vm.deleteQuery(file, query)")
-                  i.remove.icon   
-                  | Delete
+                .ui.dropdown.item(drop ui-dropdown)
+                  i.content.icon
+                  .menu
+                    .ui.item.dropdown
+                      i.move.icon
+                      | Move to list
+                      .menu.left
+                        a.ui.item.dropdown(ng-repeat="fl in vm.files | orderBy:'name' track by fl.id" ng-click="vm.moveQuery(file, fl, query)")
+                          | {{fl.name}}
+                    .ui.item.dropdown
+                      i.copy.icon
+                      | Copy to list
+                      .menu.left
+                        a.ui.item.dropdown(ng-repeat="fl in vm.files | orderBy:'name' track by fl.id" ng-click="vm.copyQuery(file, fl, query)")
+                          | {{fl.name}}
+                    a.ui.item.dropdown(type="button" ng-click="vm.deleteQuery(file, query)")
+                      i.remove.icon
+                      | Delete
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
-              .ui.basic.segment
-                .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo" image-width="75")
-              markdown-editor(title="'Description'" text="query.description")
+              markdown-editor(itemname="'Description'" text="query.description")
+                 div(topmenu)
+                   .ui.label(ng-repeat="tb in vm.getTreebanks(query)" ng-init="logo=vm.logo(tb)" logo-image="logo"  image-width="75")
               
 
 

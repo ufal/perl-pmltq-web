@@ -6,10 +6,11 @@ module.exports = function() {
   return {
     restrict: 'AE',
     replace: true,
+    transclude: true,
     scope: {
       treebank: '=',
       text: '=',
-      title: '='
+      itemname: '='
     },
     template: require('./markdownEditor.jade'),
   };
