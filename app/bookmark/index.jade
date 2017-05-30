@@ -29,19 +29,20 @@
                 type="text"
                 ng-model="file.name"
                 required
+                ng-blur="vm.saveFile(file)"
               )
         .right.menu
           a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
             i.share.alternate.icon(ng-class="{green: file.isPublic}")
           a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
-            i.add.icon
+            i.search.icon
             | Use list
           a.ui.item(ui-sref="treebank.queryfiletutorial({fileID: file.id, userID: vm.user.id})")
             i.info.circle.icon
             | View list
-          a.ui.item(ng-click="vm.saveFile(file)")
-            i.save.icon
-            | Save
+          //- a.ui.item(ng-click="vm.saveFile(file)")
+          //-   i.save.icon
+          //-   | Save
           //- a.ui.item(type="button" ng-click="vm.renameList(file)")
           //-   i.edit.icon
           //-   | Rename
@@ -63,6 +64,7 @@
                       type="text"
                       ng-model="query.name"
                       required
+                      ng-blur="vm.saveQuery(file,query)"
                     )
               .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
               .right.menu
