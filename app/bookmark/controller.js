@@ -49,7 +49,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   }
 
   vm.moveQuery = function(source_file, target_file,query) {
-
+    source_file.saveQuery(query, {queryFileId: target_file.id}).then((qr) => {
+      target_file.queries.push(qr);
+      source_file.queries.splice(source_file.queries.indexOf(query),1);
+    });
   }
 
   vm.copyQuery = function(source_file, target_file,query) {
