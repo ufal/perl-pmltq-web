@@ -129,7 +129,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         required: 'required',
         label: 'Name'
       }, (name) => {
-        return this.activeQueryList.newQuery(name,this.queryParams.query);
+        return this.activeQueryList.newQuery( {name: name, query: this.queryParams.query});
       });
 
       m.show();

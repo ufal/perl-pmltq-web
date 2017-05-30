@@ -46,8 +46,8 @@ module.exports = function (Restangular, $q, $cacheFactory) {
         this._update();
       };
 
-      model.newQuery = function(name, querytext) {
-        return this.post('queries', {name: name, query: querytext})
+      model.newQuery = function(queryData) {
+        return this.post('queries', queryData)
           .then(query => {
             this.queries.push(query);
             this.currentQueryIndex = this.queries.length - 1;
