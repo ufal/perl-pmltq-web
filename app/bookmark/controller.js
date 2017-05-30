@@ -48,6 +48,14 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
     }
   }
 
+  vm.moveQuery = function(source_file, target_file,query) {
+
+  }
+
+  vm.copyQuery = function(source_file, target_file,query) {
+    target_file.newQuery(query).then((newQuery) => { });
+  }
+
   vm.saveFile = function(file) {
       return saveFileList(file, file);
     }
