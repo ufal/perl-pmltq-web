@@ -10,7 +10,7 @@
       div(transclude-select="[topmenu]")
   .ui.botton.attached.tab.segment(ng-class="{active: !!editor}")
     .ui.field
-      textarea(ng-model="text")
+      textarea(ng-model="text" ng-blur="$emit('action')")
   .ui.botton.attached.tab.segment(ng-class="{active: !editor}")
     .markdownView(ng-model="text")
 

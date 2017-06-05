@@ -13,5 +13,10 @@ module.exports = function() {
       itemname: '='
     },
     template: require('./markdownEditor.jade'),
+    link: function($scope,$element){
+      $scope.$on('action', function(){
+        $element.trigger('blur')
+      });
+    }
   };
 };
