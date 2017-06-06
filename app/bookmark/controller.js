@@ -2,7 +2,7 @@
 var _ = require('lodash');
 require('./index.less');
 
-module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth) {
+module.exports = function ($scope, $state, $window, $q, promptModal, queryFileApi, treebankApi, Auth) {
   //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this, m;
@@ -10,12 +10,24 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
   vm.user = Auth.user
   vm.files = false;
   vm.loggedIn = false;
+  vm.treebanks = {};
+
 
   function load() {
+    treebankApi.getList().then((treebanks) => {
+      treebanks.forEach(function(tb){vm.treebanks[tb.id]=tb})
+    });
     queryFileApi.getList({history_list: true}).then((files) => {
       vm.files = files;
       vm.files.sort((a, b) => a.name.localeCompare(b.name));
-      vm.files.forEach(function(file){file.queries.sort((a,b) => (a.ord - b.ord))})
+      vm.files.forEach(function(file){
+        file.queries.sort((a,b) => (a.ord - b.ord));
+        file.queries.forEach(function(query){
+          query.treebanks = Object.keys(query.treebanks)
+                                  .filter( tbid => (tbid in vm.treebanks) )
+                                  .map(function(tbid){ return {name: vm.treebanks[tbid].name, url: vm.getQueryTreebankUrl(file,query,vm.treebanks[tbid])}})
+        })
+      })
     });
   }
 
@@ -140,6 +152,10 @@ module.exports = function ($scope, $window, $q, promptModal, queryFileApi, Auth)
 
   vm.getTreebanks = function(query) {
     return Object.keys(query.treebanks).map(function (key) {return query.treebanks[key];})
+  }
+
+  vm.getQueryTreebankUrl = function(file, query, treebank) {
+    return $state.href('treebank.queryfile.index', {treebankId: treebank.name, fileID: file.id, queryID: query.id})
   }
 
   vm.logo = function(text) {
