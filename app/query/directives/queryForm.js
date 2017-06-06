@@ -93,7 +93,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
     }
 
     loadQueryLists(setquery) {
-      queryFileApi.getList().then(lists => {
+      queryFileApi.getList({history_list: true}).then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
         var lastQueryListId = localStorageService.get(lastQueryListKey);
