@@ -25,7 +25,7 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
         file.queries.forEach(function(query){
           query.treebanks = Object.keys(query.treebanks)
                                   .filter( tbid => (tbid in vm.treebanks) )
-                                  .map(function(tbid){ return {name: vm.treebanks[tbid].name, url: vm.getQueryTreebankUrl(file,query,vm.treebanks[tbid])}})
+                                  .map(function(tbid){ return vm.treebanks[tbid]})
         })
       })
     });
