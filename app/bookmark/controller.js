@@ -45,8 +45,8 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
       m.show();
     }
 
-  vm.saveQuery = function(file,query) {
-      return file.saveQuery(query, query);
+  vm.saveQuery = function(file,query,field) {
+      return file.saveQuery(query, {[field]: query[field]});
     }
 
   vm.shareQuery = function(file, query) {
@@ -71,16 +71,17 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
     target_file.newQuery(query).then((newQuery) => { });
   }
 
-  vm.saveFile = function(file) {
-      return saveFileList(file, file);
+  vm.saveFile = function(file,field) {
+      return saveFileList(file, {[field]: file[field]});
     }
 
   function saveFileList(file, data) {
     if (file && _.all(vm.files, f => f.name !== data.name || f.id === file.id)) {
-      file.name = data.name;
-      return file.put();
+      var fl = vm.files.one('', file.id);
+      fl = _.merge(fl,data);
+      return fl.put();
     }
-    else if (!file && _.all(vm.files, f => f.name !== data.name)) {
+    else if (!file &&   _.all(vm.files, f => f.name !== data.name)) { // creates a new list
       return queryFileApi.post(data).then(
         file => { vm.files.push(file); },
         res  => res.data.error
@@ -108,7 +109,7 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
       required: 'required',
       label: 'Name'
     }, function(name) {
-      return saveFileList(name);
+      return saveFileList(undefined,{name: name});
     });
 
     m.show();

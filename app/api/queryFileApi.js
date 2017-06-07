@@ -67,9 +67,6 @@ module.exports = function (Restangular, $q, $cacheFactory) {
       model.saveQuery = function(query, updateData) {
         var qr = this.one('queries', query.id);
         qr = _.merge(qr,updateData);
-        if(qr.treebanks.constructor === Array) {
-          qr.treebanks = qr.treebanks.map(function(tb){return {id: tb.id} })
-        }
         return qr.put().then(q => {
           query.name = q.name;
           query.query = q.query;
