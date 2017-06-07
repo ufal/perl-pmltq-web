@@ -1,7 +1,7 @@
 .query-tutorial
   section.ui.basic.segment
     h2.ui.header(id="{{query.id}}") {{::query.name}}
-    .markdownView(ng-model="query.description" treebank="treebank" hide-use="true")
+    .markdownView(ng-model="query.description" treebank="treebank" hide-use="true"  title="'Query example'")
     p
     query-example(treebank="treebank" queryrecord="urlparam" title="'Use query'")
       pre

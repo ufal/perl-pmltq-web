@@ -5,7 +5,7 @@
         .twelve.wide.white.column()#context
           section.ui.basic.segment
             h1.ui.header {{vm.file.name}}
-            .markdownView(ng-model="vm.file.description" treebank="vm.treebank" hide-use="true")
+            .markdownView(ng-model="vm.file.description" treebank="vm.treebank" hide-use="true" title="'Query example'")
           query-tutorial(query="query" file="vm.file" treebank="vm.treebank" ng-repeat="query in vm.file.queries | orderBy:'ord' track by query.id")
         .four.wide.column()
           .ui.sticky(ui-sticky="{context: '#context', offset: 30}")
