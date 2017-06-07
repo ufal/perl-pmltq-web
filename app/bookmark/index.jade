@@ -94,7 +94,7 @@
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
               markdown-editor(itemname="'Description'" text="query.description" ng-blur="vm.saveQuery(file,query)")
                  div(topmenu)
-                   a.ui.clickable.label(ng-repeat="tb in query.treebanks" ng-href="{{vm.getQueryTreebankUrl(file,qutb)}}" ng-init="logo=vm.logo(tb.name)" logo-image="logo"  image-width="75")
+                   a.ui.clickable.label(ng-repeat="tb in query.treebanks" ng-href="{{vm.getQueryTreebankUrl(file, query, tb)}}" ng-init="logo=vm.logo(tb.name)" logo-image="logo"  image-width="75")
 
 
 
