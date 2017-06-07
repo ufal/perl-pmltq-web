@@ -79,7 +79,9 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
     if (file && _.all(vm.files, f => f.name !== data.name || f.id === file.id)) {
       var fl = vm.files.one('', file.id);
       fl = _.merge(fl,data);
-      return fl.put();
+      return fl.put().then((f) => {
+        file.isPublic = f.isPublic;
+      });
     }
     else if (!file &&   _.all(vm.files, f => f.name !== data.name)) { // creates a new list
       return queryFileApi.post(data).then(
@@ -137,10 +139,7 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
   };
 
   vm.shareList = function(file) {
-    if (file) {
-      file.isPublic = !file.isPublic;
-      return file.put();
-    }
+    return saveFileList(file, {isPublic: !file.isPublic})
   };
 
   vm.updateQueryOrder = function(file) {
