@@ -20,10 +20,8 @@
 
     span(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
       .ui.top.menu.attached
-        .ui.item.button(ui-popup type="button" title="Collapse query list" ng-click="notcollapsed = ! notcollapsed" ng-class="{disabled: file.queryIds.length==0}")
-          i.chevron.down.icon(ng-if="!notcollapsed")
-          i.chevron.up.icon(ng-if="notcollapsed")
-        //-        .ui.item {{file.queryIds.length}}
+        .ui.item.button(ui-popup type="button" ng-click="notcollapsed = ! notcollapsed")
+          i.chevron.icon(ng-class="{down: !notcollapsed, up: notcollapsed}")
         .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsed}")
           input(
                 type="text"
@@ -51,9 +49,8 @@
         .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
           .item(ng-repeat="query in file.queries")
             .ui.top.menu.attached
-              .ui.item.button(ui-popup type="button" title="Collapse query" ng-click="notcollapsedquery = ! notcollapsedquery" )
-                i.chevron.down.icon(ng-if="!notcollapsedquery")
-                i.chevron.up.icon(ng-if="notcollapsedquery")
+              .ui.item.button(ui-popup type="button" title="Edit query" ng-click="notcollapsedquery = ! notcollapsedquery" )
+                i.chevron.icon(ng-class="{down: !notcollapsedquery, up: notcollapsedquery}")
               .ui.item.button
                 i.handle.move.icon
               .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsedquery}")
@@ -91,7 +88,7 @@
             .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
               markdown-editor(itemname="'Description'" text="query.description" ng-blur="vm.saveQuery(file, query,'description')")
                  div(topmenu)
-                   a.ui.clickable.label(ng-repeat="tb in query.treebanks" ng-href="{{vm.getQueryTreebankUrl(file, query, tb)}}" ng-init="logo=vm.logo(tb.name)" logo-image="logo"  image-width="75")
+                   a.ui.clickable.label(ng-repeat="tb in query.treebanks" ng-href="{{vm.getQueryTreebankUrl(file, query, tb)}}" ng-init="logo=vm.logo(tb.name)" logo-image="logo"  image-width="75" title="Use query")
 
 
 
