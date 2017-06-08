@@ -71,9 +71,9 @@
             query-menu(treebank="vm.treebank" on-collapse="collapsed = true" on-insert="vm.insertToEditor")
           .middle.aligned.right.aligned.four.wide.column
             .ui.horizontal.list
-              .item
-                .content.aligned
-                  .ui.inline.dropdown(ui-selectbox="vm.timeoutSelect" title="Timeout" ng-model="vm.queryParams.timeout" ng-change="vm.queryParams.cache()")
+              //- .item
+              //-   .content.aligned
+              //-     .ui.inline.dropdown(ui-selectbox="vm.timeoutSelect" title="Timeout" ng-model="vm.queryParams.timeout" ng-change="vm.queryParams.cache()")
               .item
                 .content.aligned
                   .ui.inline.dropdown(ui-selectbox="vm.limitSelect" title="Result limit" ng-model="vm.queryParams.limit" ng-change="vm.queryParams.cache()")
