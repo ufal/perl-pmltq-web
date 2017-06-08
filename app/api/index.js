@@ -6,5 +6,7 @@ module.exports = angular.module('pmltq.api', [require('../shared')])
   .factory('treebankModelFactory', require('./treebankModel'))
   .factory('treebankApi', require('./treebankApi'))
   .factory('queryFileApi', require('./queryFileApi'))
+  .factory('publicFileTreeApi', require('./publicFileTreeApi'))
+  .factory('publicFileApi', require('./publicFileApi'))
   .factory('historyApi', require('./historyApi'))
   .name;
