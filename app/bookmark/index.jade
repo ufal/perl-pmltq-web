@@ -27,7 +27,8 @@
                 type="text"
                 ng-model="file.name"
                 required
-                ng-blur="vm.saveFile(file, 'name')"
+                ng-change="vm.saveFile(file, 'name')"
+                ng-model-options="{updateOn: 'blur'}"
               )
         .right.menu
           a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
@@ -58,7 +59,8 @@
                       type="text"
                       ng-model="query.name"
                       required
-                      ng-blur="vm.saveQuery(file, query, 'name')"
+                      ng-change="vm.saveQuery(file, query, 'name')"
+                      ng-model-options="{updateOn: 'blur'}"
                     )
               .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
               .right.menu
