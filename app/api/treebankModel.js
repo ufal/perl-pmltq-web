@@ -50,7 +50,9 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
           nodes = data.nodes;
 
         if (resultData.length === 0) {
-          return new ErrorResult(this, 'Result is empty. No nodes are matching the query.');
+          return new ErrorResult(this, nodes
+                                       ? 'Result is empty. No nodes are matching the query.'
+                                       : 'Result is empty.');
         }
 
         if (nodes) {
