@@ -34,6 +34,20 @@ function extractNodeId(str, prefix) {
   return str[0];
 }
 
+function highlightNode(node, index) {
+  var mark = createNodeMark(node);
+  mark.addClass('matched-node-highlight-' + (index + 1));
+  mark.attr({
+    fill: 'none',
+    strokeWidth: 2
+  });
+  node.parent().append(mark);
+  mark.animate({rx: '*=2', ry: '*=2', r: '*=2'}, 1000, window.mina.easein, function () {
+    mark.remove();
+  });
+
+}
+
 /**
  * @param {Snap.Element} node
  */
@@ -221,7 +235,7 @@ class TredTree {
       if (svgNode) {
         svgNode.addClass('matched-node-' + (i + 1));
         // TODO: replace with better animation
-        animateNode(svgNode);
+        highlightNode(svgNode,i);
       }
     }
   }
