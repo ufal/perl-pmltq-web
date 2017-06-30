@@ -42,6 +42,9 @@
           a.ui.item(ng-if="vm.activeQueryList " type="button" ng-click="vm.activeQueryList = null" title="Close query list")
             i.delete.icon
           .item.ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" menutitle="Query list:" title='Use the "My queries" menu to organize and annotate your query lists')
+            .ui.item.button(enditem type="button" ng-click="vm.newQueryList()")
+              i.plus.icon
+              | New
           .item.ui.button(type="button" ng-class="{disabled: !vm.activeQueryList.hasPrevious}" ng-click="vm.previousQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")
             i.arrow.left.icon
           .item(ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")

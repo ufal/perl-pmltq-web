@@ -117,6 +117,29 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       });
     }
 
+    newQueryList() {
+      var m = promptModal({
+        title: 'New Query',
+        placeholder: 'Query name',
+        required: 'required',
+        label: 'Name'
+      }, (name) => {      if (_.all(this.files, f => f.name !== name)) { // creates a new list
+        return queryFileApi.post({name: name}).then(
+          file => { 
+            this.queryLists.push(file); 
+            this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
+            this.activeQueryList = file;
+          },
+          res  => res.data.error
+        );
+        }
+
+        return $q.reject('List with the same name already exists');
+      });
+
+      m.show();
+    }
+
     newQuery() {
       // Sanity check
       if (!this.activeQueryList) {
