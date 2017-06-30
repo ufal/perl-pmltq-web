@@ -2,7 +2,7 @@
   .column(ng-if="!vm.loggedIn")
     .ui.info.message
       .header Login required
-      p Please login to be able to access query bookmarks
+      p Please login to be able to access My queries
       p
         button.ui.primary.button(login) Login to PML-TQ
   .column(ng-if="vm.loggedIn")
@@ -12,7 +12,7 @@
         | Add new list
     .ui.info.message(ng-if="vm.files && vm.files.length == 0")
       .header No lists
-      p Query bookmarks are organized to separated lists. It's similar
+      p My queries are organized to separated lists. It's similar
         | to TrEd where you organize your queries to files.
       p You don't have any lists of queries yet. Start by clicking:
         = ' '

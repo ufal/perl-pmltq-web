@@ -1,12 +1,12 @@
-describe('BookmarkCtrl', function() {
+describe('MyQueryCtrl', function() {
 
-  beforeEach(module('pmltq.bookmark'));
+  beforeEach(module('pmltq.myquery'));
 
   var scope, ctrl;
 
   beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('BookmarkCtrl', {$scope: scope});
+      ctrl = $controller('MyQueryCtrl', {$scope: scope});
     }));
 
   it('should ...', inject(function() {
