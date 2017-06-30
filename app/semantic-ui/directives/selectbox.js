@@ -5,6 +5,7 @@ module.exports = function($timeout) {
     restrict: 'A',
     require: '?ngModel',
     replace: true,
+    transclude: true,
     scope: {
       items: '=uiSelectbox',
       menutitle: '@',

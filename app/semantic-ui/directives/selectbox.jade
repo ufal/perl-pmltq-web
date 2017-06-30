@@ -5,3 +5,4 @@ div
   i.dropdown.icon
   .menu
     .item(ng-repeat="item in items" data-value="{{$index}}" ng-bind="valuekey ? item[valuekey] : item")
+    div(transclude-select="[enditem]")
