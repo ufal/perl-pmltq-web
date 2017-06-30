@@ -7,7 +7,7 @@ module.exports = function($timeout) {
     replace: true,
     scope: {
       items: '=uiSelectbox',
-      title: '@',
+      menutitle: '@',
       valuekey: '@'
     },
     template: require('./selectbox.jade'),
