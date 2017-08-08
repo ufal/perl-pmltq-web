@@ -34,5 +34,6 @@ module.exports = angular.module('pmltq.shared', [
     markdownView: require('./directives/markdownView')
   })
   .factory('promptModal', require('./prompt'))
+  .factory('notify',  require('./notify'))
   .name;
 

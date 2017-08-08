@@ -8,7 +8,7 @@ const lastQueryListKey = 'last-query-list';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, publicFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, publicFileApi, promptModal, notify) {
   'ngInject';
 
   class QueryFormController {
@@ -119,8 +119,8 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
 
     newQueryList() {
       var m = promptModal({
-        title: 'New Query',
-        placeholder: 'Query name',
+        title: 'New List',
+        placeholder: 'List name',
         required: 'required',
         label: 'Name'
       }, (name) => {      if (_.all(this.files, f => f.name !== name)) { // creates a new list
@@ -129,8 +129,12 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
             this.queryLists.push(file); 
             this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
             this.activeQueryList = file;
+            notify.success('List has been created');
           },
-          res  => res.data.error
+          res  => {
+            notify.error('ERROR: '+res.data.error);
+            res.data.error
+          }
         );
         }
 

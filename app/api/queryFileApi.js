@@ -3,7 +3,7 @@ var Rx = require('rx');
 /** @type _ */
 var _ = require('lodash');
 
-module.exports = function (Restangular, $q, $cacheFactory) {
+module.exports = function (Restangular, $q, $cacheFactory, notify) {
   //noinspection BadExpressionStatementJS
   'ngInject';
 
@@ -72,6 +72,7 @@ module.exports = function (Restangular, $q, $cacheFactory) {
           query.query = q.query;
           query.isPublic = q.isPublic;
           query.queryFileId = q.queryFileId; // moving query to other file
+          notify.success('Query has been saved');
           return q;
         }, (res) => $q.reject(res.data.error));
       };
@@ -83,7 +84,7 @@ module.exports = function (Restangular, $q, $cacheFactory) {
             this.currentQueryIndex = 0;
             this.totalQueries = this.queries.length;
             this._update();
-
+            notify.success('Query has been removed');
             return null;
           }, (res) => $q.reject(res.data.error));
       };
