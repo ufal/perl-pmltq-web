@@ -4,7 +4,7 @@ var ErrorResult = require('./result/error');
 var SvgResult = require('./result/svg');
 var TableResult = require('./result/table');
 
-module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Suggest, Auth) {
+module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Suggest, Auth, notify) {
   'ngInject';
 
   var svgCache = $cacheFactory('svg-result-cache', {capacity: 10});
@@ -94,6 +94,9 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
         //  svgCache.put(key, svg);
         //}
         //deferred.resolve(svg);
+      },
+      (response) => {
+        notify.error(["Error while loading tree.", response.data.error]);
       });
       //}, deferred.reject);
       //}
