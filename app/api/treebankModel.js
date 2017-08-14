@@ -81,7 +81,7 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
       //  //cachedSvg.reattachEvents();
       //  deferred.resolve(cachedSvg);
       //} else {
-      return this.post('svg', {
+      return this.one('svg').get({
         nodes: [address],
         tree: tree
       }).then((svg) => {
