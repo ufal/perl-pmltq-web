@@ -8,7 +8,7 @@ const lastQueryListKey = 'last-query-list';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, publicFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, publicFileApi, promptModal, notify) {
   'ngInject';
 
   class QueryFormController {
@@ -115,6 +115,33 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       historyApi.getList().then(history => {
         this.queryHistory = history[0];
       });
+    }
+
+    newQueryList() {
+      var m = promptModal({
+        title: 'New List',
+        placeholder: 'List name',
+        required: 'required',
+        label: 'Name'
+      }, (name) => {      if (_.all(this.files, f => f.name !== name)) { // creates a new list
+        return queryFileApi.post({name: name}).then(
+          file => { 
+            this.queryLists.push(file); 
+            this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
+            this.activeQueryList = file;
+            notify.success('List has been created');
+          },
+          res  => {
+            notify.error('ERROR: '+res.data.error);
+            res.data.error
+          }
+        );
+        }
+
+        return $q.reject('List with the same name already exists');
+      });
+
+      m.show();
     }
 
     newQuery() {

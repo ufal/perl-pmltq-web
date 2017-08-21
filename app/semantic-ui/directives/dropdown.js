@@ -34,7 +34,6 @@ module.exports = function () {
     link: function($scope, $element, $attrs) {
       var opts = {},
         label = $attrs.dropdownLabel;
-
       $scope.$watch($attrs.dropdownTree, function (tree) {
         if (_.isEmpty(tree)) {
           return;

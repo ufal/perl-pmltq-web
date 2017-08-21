@@ -35,13 +35,16 @@
             span(ng-bind="vm.publicQueryList.queries.length")
           .item.ui.button(type="button" ng-class="{disabled: !vm.publicQueryList.hasNext}" ng-click="vm.nextQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")
             i.arrow.right.icon
-          .item.ui.inline.dropdown(ui-selectbox="vm.publicQueryList.queries" valuekey="name"  title="Query:" ng-model="vm.publicQueryList.activeQuery" ng-change="vm.selectQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.activeQuery")
+          .item.ui.inline.dropdown(ui-selectbox="vm.publicQueryList.queries" valuekey="name"  menutitle="Query:" ng-model="vm.publicQueryList.activeQuery" ng-change="vm.selectQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.activeQuery")
 
         .ui.floated.menu(ng-show="vm.loggedIn")
-          // bookmarks        
+          // My queries
           a.ui.item(ng-if="vm.activeQueryList " type="button" ng-click="vm.activeQueryList = null" title="Close query list")
             i.delete.icon
-          .item.ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" title="Query list:")
+          .item.ui.inline.dropdown(ui-selectbox="vm.queryLists" ng-model="vm.activeQueryList" menutitle="Query list:" title='Use the "My queries" menu to organize and annotate your query lists')
+            .ui.item.button(enditem type="button" ng-click="vm.newQueryList()")
+              i.plus.icon
+              | New
           .item.ui.button(type="button" ng-class="{disabled: !vm.activeQueryList.hasPrevious}" ng-click="vm.previousQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")
             i.arrow.left.icon
           .item(ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")
@@ -50,7 +53,7 @@
             span(ng-bind="vm.activeQueryList.totalQueries")
           .item.ui.button(type="button" ng-class="{disabled: !vm.activeQueryList.hasNext}" ng-click="vm.nextQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.totalQueries > 0")
             i.arrow.right.icon
-          .item.ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name"  title="Query:" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
+          .item.ui.inline.dropdown(ui-selectbox="vm.activeQueryList.queries" valuekey="name"  menutitle="Query:" ng-model="vm.activeQueryList.activeQuery" ng-change="vm.selectQuery()" ng-show="vm.activeQueryList && vm.activeQueryList.activeQuery")
           .ui.item.button(type="button" ng-click="vm.newQuery()" title="Save current query in current list" ng-show="vm.activeQueryList")
             i.add.icon
             | Save as...
@@ -73,10 +76,10 @@
             .ui.horizontal.list
               //- .item
               //-   .content.aligned
-              //-     .ui.inline.dropdown(ui-selectbox="vm.timeoutSelect" title="Timeout" ng-model="vm.queryParams.timeout" ng-change="vm.queryParams.cache()")
+              //-     .ui.inline.dropdown(ui-selectbox="vm.timeoutSelect" menutitle="Timeout" ng-model="vm.queryParams.timeout" ng-change="vm.queryParams.cache()")
               .item
                 .content.aligned
-                  .ui.inline.dropdown(ui-selectbox="vm.limitSelect" title="Result limit" ng-model="vm.queryParams.limit" ng-change="vm.queryParams.cache()")
+                  .ui.inline.dropdown(ui-selectbox="vm.limitSelect" menutitle="Result limit" ng-model="vm.queryParams.limit" ng-change="vm.queryParams.cache()")
       .column(ng-show="collapsed")
         // editor
         .query.text(

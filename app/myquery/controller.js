@@ -2,7 +2,7 @@
 var _ = require('lodash');
 require('./index.less');
 
-module.exports = function ($scope, $state, $window, $q, promptModal, queryFileApi, treebankApi, Auth) {
+module.exports = function ($scope, $state, $window, $q, promptModal, queryFileApi, treebankApi, Auth, notify) {
   //noinspection BadExpressionStatementJS
   'ngInject';
   var vm = this, m;
@@ -81,11 +81,15 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
       fl = _.merge(fl,data);
       return fl.put().then((f) => {
         file.isPublic = f.isPublic;
+        notify.success('List has been saved');
       });
     }
     else if (!file &&   _.all(vm.files, f => f.name !== data.name)) { // creates a new list
       return queryFileApi.post(data).then(
-        file => { vm.files.push(file); },
+        file => {
+          vm.files.push(file);
+          notify.success('List has been created');
+        },
         res  => res.data.error
       );
     }
@@ -134,7 +138,10 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
   vm.deleteList = function(file) {
     var result = $window.confirm('Do you want to delete this list?');
     if (result) {
-      file.remove().then(() => { _.remove(vm.files, f => f.id === file.id); });
+      file.remove().then(() => {
+        _.remove(vm.files, f => f.id === file.id);
+        notify.success('List has removed');
+      });
     }
   };
 
@@ -144,7 +151,6 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
 
   vm.updateQueryOrder = function(file) {
     for (var index in file.queries) {
-          console.log('QUERY ',index,file.queries[index]);
           file.queries[index].ord = index;
         }
     return file.updateQueryOrder();

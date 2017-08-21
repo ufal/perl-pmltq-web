@@ -41,7 +41,7 @@ module.exports = function (Restangular) {
         this.currentQueryIndex += 1;
         this._update();
       };
-console.log(model);
+
       model.currentQueryIndex = model.queries.length -1;
       model.totalQueries = model.queries.length;
       model.currentQuery = new Rx.ReplaySubject(1);

@@ -7,19 +7,10 @@ main.ui.horizontally.padded.one.column.grid
       //-a.item(menu ui-sref="treebank.history" ui-sref-active="active")
       //-  i.history.icon
       //-  | History
-      a.item(menu ui-sref="treebank.bookmark" ui-sref-active="active")
+      a.item(menu ui-sref="treebank.myquery" ui-sref-active="active")
         i.bookmark.icon
-        | Bookmarks
-      a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
-        i.search.icon
-        | Query
-      a.item(menu ui-sref="treebank.help" ui-sref-active="active")
-        i.help.circle.icon
-        | Help
-      a.item(right ng-href="{{vm.treebank.homepage}}" ng-show="vm.treebank.homepage" target="_blank")
-        i.external.icon
-        | Get data
-      .ui.dropdown.item(drop ui-dropdown)
+        | My queries
+      .ui.dropdown.item(menu ui-dropdown)
         i.book.icon
         | Public queries
         i.dropdown.icon
@@ -36,5 +27,14 @@ main.ui.horizontally.padded.one.column.grid
                   .item.ui(ui-sref="treebank.queryfiletutorial({fileID: list.id, userID: user.id})")
                     i.info.circle.icon
                     | View list
+      a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
+        i.search.icon
+        | Query
+      a.item(menu ui-sref="treebank.help" ui-sref-active="active")
+        i.help.circle.icon
+        | Help
+      a.item(right ng-href="{{vm.treebank.homepage}}" ng-show="vm.treebank.homepage" target="_blank")
+        i.external.icon
+        | Get data
   .fitted.column
     .ui.one.column.grid(ui-view="")
