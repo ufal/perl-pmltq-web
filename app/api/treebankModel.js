@@ -106,7 +106,7 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
 
     // TODO: rewrite to change to file not address
     model.loadSvgTree = function (address, tree) {
-      return this.post('svg', {
+      return thisone('svg').get({
         nodes: [address],
         tree: tree
       });
