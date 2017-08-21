@@ -54,8 +54,11 @@
   .matched-node-@{index} {
     color: @color;
     stroke: @color;
-    fill: @color;
+    fill: none;
     stroke-width: 3;
+  }
+  .matched-node-highlight-@{index} {
+    stroke: @color;
   }
   .generate-node-classes ((@index - 1));
 }
