@@ -7,6 +7,7 @@ require('angular-scroll');
 require('angular-local-storage');
 require('restangular');
 require('snapsvg');
+require('svg-pan-zoom');
 require('rx-angular');
 require('angular-ui-sortable');
 

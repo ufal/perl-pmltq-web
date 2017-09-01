@@ -1,6 +1,7 @@
 var _ = require('lodash');
 
 require('./svgPane.less');
+var spz = require('svg-pan-zoom');
 
 module.exports = function () {
   return {
@@ -15,7 +16,12 @@ module.exports = function () {
         tree.reattachEvents();
         tree.highlightNodes($scope.nodes);
         $element.html(fragment.node);
-        tree.resize();
+        //tree.resize();
+        var pan = spz(fragment.node,{
+            zoomEnabled: true ,
+            controlIconsEnabled: true,
+            maxZoom: 5
+        });
       });
     }
   };
