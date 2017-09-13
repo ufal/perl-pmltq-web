@@ -72,6 +72,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
           }
           if($stateParams.userID && $stateParams.fileID) { // load public query list if set
             publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
+              list.queries.sort((a,b) => (a.ord - b.ord));
               this.publicQueryList = list;
               this.activeQueryList = null;
               var lastQueryId = 0;//localStorageService.get(lastQueryIdKey);
@@ -96,6 +97,9 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       queryFileApi.getList({history_list: true}).then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
+        this.queryLists.forEach(function(list){
+          list.queries.sort((a,b) => (a.ord - b.ord));
+        });
         var lastQueryListId = localStorageService.get(lastQueryListKey);
         var lastQueryId = localStorageService.get(lastQueryIdKey);
         if (lastQueryListId) {
