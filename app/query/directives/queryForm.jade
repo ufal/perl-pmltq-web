@@ -130,7 +130,6 @@
             i.filter.icon
             | w/o Filters
           button.ui.submit.button(
-            ng-if="vm.markedNodes.any"
             ng-class="{small: !collapsed, mini: collapsed}"
             type="button"
             ui-popup
@@ -142,7 +141,7 @@
             ng-click="vm.suggest(vm.markedNodes.nodes)")
             i.life.ring.icon
             | Suggest
-            span(ng-show="vm.markedNodes.any")
+            span
               = ' '
               | ({{vm.markedNodes.nodes.length}})
         .right.aligned.column(ng-hide="collapsed")
