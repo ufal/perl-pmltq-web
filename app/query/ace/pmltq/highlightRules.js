@@ -86,7 +86,9 @@ function detectVariables(value, currentSate, stack) {
 var oop = ace.acequire('ace/lib/oop');
 var TextHighlightRules = ace.acequire('ace/mode/text_highlight_rules').TextHighlightRules;
 
-const BaseChar = '\\u0041-\\u005A\\u0061-\\u007A\\u00C0-\\u00D6\\u00D8-\\u00F6' +
+const BaseChar = !!window.webkitURL
+  ? 'a-zA-Z'
+  : '\\u0041-\\u005A\\u0061-\\u007A\\u00C0-\\u00D6\\u00D8-\\u00F6' +
   '\\u00F8-\\u00FF\\u0100-\\u0131\\u0134-\\u013E\\u0141-\\u0148\\u014A-\\u017E' +
   '\\u0180-\\u01C3\\u01CD-\\u01F0\\u01F4-\\u01F5\\u01FA-\\u0217\\u0250-\\u02A8' +
   '\\u02BB-\\u02C1\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u03A1\\u03A3-\\u03CE' +
