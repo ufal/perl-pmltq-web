@@ -124,12 +124,14 @@ const BaseChar = !!window.webkitURL
   '\\u3094\\u30A1-\\u30FA\\u3105-\\u312C\\uAC00-\\uD7A3';
 const Ideographic = '\\u4E00-\\u9FA5\\u3007\\u3021-\\u3029';
 const Letter = BaseChar + Ideographic;
-const Digit =
-  '\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u0966-\\u096F\\u09E6-\\u09EF' +
+const Digit = !!window.webkitURL
+  ? '0-9'
+  : '0-9\\u0660-\\u0669\\u06F0-\\u06F9\\u0966-\\u096F\\u09E6-\\u09EF' +
   '\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE7-\\u0BEF\\u0C66-\\u0C6F' +
   '\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29';
-const CombiningChar =
-  '\\u0300-\\u0345\\u0360-\\u0361\\u0483-\\u0486\\u0591-\\u05A1\\u05A3-\\u05B9' +
+const CombiningChar = !!window.webkitURL
+  ? ''
+  : '\\u0300-\\u0345\\u0360-\\u0361\\u0483-\\u0486\\u0591-\\u05A1\\u05A3-\\u05B9' +
   '\\u05BB-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4\\u064B-\\u0652\\u0670\\u06D6-\\u06DC' +
   '\\u06DD-\\u06DF\\u06E0-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0901-\\u0903' +
   '\\u093C\\u093E-\\u094C\\u094D\\u0951-\\u0954\\u0962-\\u0963\\u0981-\\u0983\\u09BC' +
