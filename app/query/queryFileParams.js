@@ -65,6 +65,7 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
     clear() {
       this._query = null;
       this._file = null;
+      this._user = null;
       this.cache();
     }
 

@@ -41,6 +41,15 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
           localStorageService.set(lastQueryIdKey, query === null ? 0 : query.id);
         });
 
+      $scope.$toObservable('vm.publicQueryList')
+        .subscribe((list) => {
+          list = list.newValue;
+          if (_.isUndefined(list)) {
+            return;
+          }
+          localStorageService.set(lastQueryListKey, list === null ? 0 : list.id);
+        });
+
       $scope.$toObservable('vm.publicQueryList.activeQuery')
         .subscribe((query) => {
           query = query.newValue;
@@ -70,7 +79,8 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
             this.queryLists = [];
             this.queryHistory = [];
           }
-          if($stateParams.userID && $stateParams.fileID) { // load public query list if set
+          if($stateParams.userID
+             && ( $stateParams.fileID == 'public' ||  ($stateParams.fileID && $stateParams.userID != Auth.user.id))) { // load public query list if set
             publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
               list.queries.sort((a,b) => (a.ord - b.ord));
               this.publicQueryList = list;
@@ -82,6 +92,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
           }
         })
         .subscribe();
+
 
       this.queryParams.suggest
         .safeApply($scope, (nodes) => {
@@ -300,7 +311,6 @@ console.log('TODO: fix edit query');
       if (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.query == this.queryParams.query) {
         this.queryParams.queryRecordId = this.activeQueryList.activeQuery.id;
       }
-
       this.queryParams.filter = !_.isUndefined(filter) ? filter : true;
       this.onSubmit();
     }
