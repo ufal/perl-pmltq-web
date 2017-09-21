@@ -23,7 +23,7 @@ module.exports = function SuggestItemFactory() {
       indent: text.length - _.trimLeft(text).length,
       parsedQuery: list,
       enabledValue: !/^\s*#/.test(text),
-      canEnable: !/^\s*],?\s*$/.test(text),
+      canEnable: !/^\s*][,;]?\s*$/.test(text),
       hidden: false,
       textValue: _.trim(text, ' \t#'),
       /**
