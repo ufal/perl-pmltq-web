@@ -10,7 +10,7 @@ module.exports = function() {
       for (var col = 0; col < dataTable[row].length; col++) {
         var td = $('<td/>')
         td.text(dataTable[row][col]);
-        if(! dataTable[row][col] ){
+        if(dataTable[row][col] == undefined){
           td.append($('<i/>').text('undef'));
         }
         tr.append(td);
