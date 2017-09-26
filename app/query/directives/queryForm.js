@@ -82,6 +82,9 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
           if($stateParams.userID
              && ( $stateParams.fileID == 'public' ||  ($stateParams.fileID && $stateParams.userID != Auth.user.id))) { // load public query list if set
             publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
+              if(! list.queries.length){
+                return;
+              }
               list.queries.sort((a,b) => (a.ord - b.ord));
               this.publicQueryList = list;
               this.activeQueryList = null;
