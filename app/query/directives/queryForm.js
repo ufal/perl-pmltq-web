@@ -85,8 +85,15 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               list.queries.sort((a,b) => (a.ord - b.ord));
               this.publicQueryList = list;
               this.activeQueryList = null;
-              var lastQueryId = 0;//localStorageService.get(lastQueryIdKey);
-              this.publicQueryList.setActiveQuery(this.publicQueryList.queries[0].id);
+              if($stateParams.queryID) {
+                localStorageService.set(lastQueryIdKey, parseInt($stateParams.queryID));
+              }
+
+              var activeQuery = _.find(this.publicQueryList.queries, 'id', localStorageService.get(lastQueryIdKey));
+              // setting query from param or first query
+              var lastQueryId = activeQuery ? activeQuery.id : this.publicQueryList.queries[0].id;
+
+              this.publicQueryList.setActiveQuery(lastQueryId);
               this.queryParams.query = this.publicQueryList.activeQuery.query;
             });
           }
