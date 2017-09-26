@@ -13,8 +13,7 @@ module.exports = function () {
         if (!_.isPlainObject(options)) {
           options = {};
         }
-
-        options.inline = true;
+//        options.inline = true;
         $element.popup(options);
       });
 

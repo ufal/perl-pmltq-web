@@ -129,21 +129,24 @@
             ng-click="vm.submit(false)")
             i.filter.icon
             | w/o Filters
-          button.ui.submit.button(
-            ng-class="{small: !collapsed, mini: collapsed}"
-            type="button"
-            ui-popup
-            title="Suggest query based on nodes marked by you"
-            data-position="bottom left"
-            tabindex="4"
-            disabled=true
-            ng-disabled="!vm.markedNodes.any"
-            ng-click="vm.suggest(vm.markedNodes.nodes)")
-            i.life.ring.icon
-            | Suggest
-            span
-              = ' '
-              | ({{vm.markedNodes.nodes.length}})
+          span.ui(
+            title="{{vm.markedNodes.any ? '' : 'Mark some nodes and press this button to create a sample query'}}"
+            ui-popup)
+            button.ui.submit.button(
+              ng-class="{small: !collapsed, mini: collapsed}"
+              type="button"
+              ui-popup
+              title="Suggest a query based on the marked nodes"
+              data-position="bottom left"
+              tabindex="4"
+              disabled=true
+              ng-disabled="!vm.markedNodes.any"
+              ng-click="vm.suggest(vm.markedNodes.nodes)")
+              i.life.ring.icon
+              | Suggest
+              span
+                = ' '
+                | ({{vm.markedNodes.nodes.length}})
         .right.aligned.column(ng-hide="collapsed")
           button.ui.small.basic.button(
           type="button"
