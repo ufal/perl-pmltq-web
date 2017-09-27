@@ -1,7 +1,9 @@
 main.ui.container.one.column.grid
   .column.filter-form
     navigation
-      .active.section(breadcrumb) Browse Treebanks
+      .active.section(breadcrumb)
+        i.icon.tree
+        | Browse Treebanks
 
     div(ng-if="vm.noTreebanks")
       .ui.negative.message

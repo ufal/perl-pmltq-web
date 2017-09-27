@@ -1,7 +1,10 @@
 main.ui.horizontally.padded.one.column.grid
   .column
     navigation
-      a.section(breadcrumb ui-sref="browse") Browse Treebanks
+      a.section(breadcrumb ui-sref="browse")
+        i.icon.tree(
+          title="Browse Treebanks"
+          ui-popup)
       i.right.chevron.icon.divider(breadcrumb)
       .active.section(breadcrumb ng-bind="vm.treebank.title")
       //-a.item(menu ui-sref="treebank.history" ui-sref-active="active")
