@@ -8,6 +8,13 @@
   div(transclude-select="[menu]")
   .right.menu
     div(transclude-select="[right]")
+    a.item(
+      href="https://github.com/ufal/perl-pmltq-web/issues"
+      target="_blank"
+      title="Report a bug on github"
+      ui-popup)
+      i.icon.bug
+      |  Report a bug
     .ui.dropdown.item(ui-dropdown ng-show="loggedIn")
       i.user.icon
       | {{username}}
