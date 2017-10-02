@@ -10,6 +10,7 @@ module.exports = function(Auth) {
     link: function($scope) {
       $scope.loggedIn = Auth.loggedIn;
       $scope.username = Auth.user.name;
+      $scope.devml='pmltq%40'+['ufal','mff','cuni','cz'].join('.');
 
       $scope.$on('event:auth-loginConfirmed', function (e, user) {
         $scope.username = user.name;
