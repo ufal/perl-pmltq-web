@@ -100,6 +100,9 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               this.queryParams.query = this.publicQueryList.activeQuery.query;
             });
           }
+          $stateParams.queryID=undefined;
+          $stateParams.fileID=undefined;
+          $stateParams.queryID=undefined;
         })
         .subscribe();
 
