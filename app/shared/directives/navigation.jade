@@ -1,4 +1,10 @@
 .ui.main.pointing.menu
+  .ui.inverted.red.menu(ng-if="DEVELOPMENT")
+    .ui.dropdown.item(ui-dropdown)
+      i.warning.sign.yellow.icon
+      .menu
+        a.item(ng-click="PING()")
+          | PING
   .header.item
     .ui.large.breadcrumb
       a.section(ui-sref="home")
