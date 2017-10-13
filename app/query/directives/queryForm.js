@@ -18,7 +18,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       this.loggedIn = false;
       this.queryLists = [];
       this.queryHistory = [];
-
+      Auth.ping(); // hack: avoid revriting modified public query
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
       this.showHelp = !localStorageService.get(suggestHelpKey);
@@ -83,6 +83,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
              && ( $stateParams.fileID == 'public' ||  ($stateParams.fileID && $stateParams.userID != Auth.user.id))) { // load public query list if set
             publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
               if(! list.queries.length){
+                this.clearParams($stateParams);
                 return;
               }
               list.queries.sort((a,b) => (a.ord - b.ord));
@@ -100,9 +101,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               this.queryParams.query = this.publicQueryList.activeQuery.query;
             });
           }
-          $stateParams.queryID=undefined;
-          $stateParams.fileID=undefined;
-          $stateParams.queryID=undefined;
+          this.clearParams($stateParams);
         })
         .subscribe();
 
@@ -143,6 +142,12 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       historyApi.getList().then(history => {
         this.queryHistory = history[0];
       });
+    }
+
+    clearParams($stateParams) {
+      $stateParams.queryID=undefined;
+      $stateParams.fileID=undefined;
+      $stateParams.queryID=undefined;
     }
 
     newQueryList() {
