@@ -25,7 +25,7 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
       item = decompressQuery(item);
       return item;
     },
-    is: (val) => val && typeof val === 'string' && val.length && (!decompressQuery(val) || val.indexOf('#') >= 0)
+    is: (val) => val && typeof val === 'string' && val.length && (!decompressQuery(val) || val.indexOf('#') >= 0 || val.match(/\[.*\]/))
   });
 
   $stateProvider.state('treebank.query', {
