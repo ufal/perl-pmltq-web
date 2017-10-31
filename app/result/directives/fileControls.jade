@@ -1,13 +1,18 @@
-.file-controls
-  .prev-tree
+.ui.small.horizontal.list.right.floated.file-controls
+  .item.context-title
+    | Context:
+  .item.prev-tree(
+    title="Preceding context"
+    ui-popup)
     button.ui.tiny.icon.button(type="button" ng-click="file.prevTree()" ng-disabled="!file.hasPrevTree")
       i.left.angle.double.icon
-  .file-title(title="{{file.filename}}" data-position="top center" data-variation="basic wide" ui-popup)
+  .item.file-title(title="{{file.filename}}" data-position="top center" data-variation="basic wide" ui-popup)
     .position
       span(ng-bind="file.treeNo")
       = ' / '
       span(ng-bind="file.totalTrees")
-    .filename(ng-bind="file.filename")
-  .next-tree
+  .item.next-tree(
+    title="Following context"
+    ui-popup)
     button.ui.tiny.icon.button(type="button" ng-click="file.nextTree()" ng-disabled="!file.hasNextTree")
       i.right.angle.double.icon

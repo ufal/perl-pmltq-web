@@ -1,4 +1,5 @@
 var _ = require('lodash');
+require('./resultControls.less');
 
 module.exports = function() {
   return {

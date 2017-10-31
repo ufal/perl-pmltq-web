@@ -1,11 +1,14 @@
 .ui.small.horizontal.list.result-controls
+  .item.title
+    | Result:&nbsp
   .item
-    button.ui.labeled.small.icon.button(
+    button.ui.small.icon.button(
       type="button"
       ng-click="result.prev()"
-      ng-disabled="!result.hasPrev")
+      ng-disabled="!result.hasPrev"
+      title="Preceding sentence matching the query"
+      ui-popup)
       i.left.arrow.icon
-      | Previous
   .item
     .ui.mini.input
       input(
@@ -17,11 +20,12 @@
         min="1"
         )
   .item
-    .content.aligned of {{result.total}}
+    .content.aligned / {{result.total}}
   .item
-    button.ui.right.labeled.small.icon.button(
+    button.ui.small.icon.button(
       type="button"
       ng-click="result.next()"
-      ng-disabled="!result.hasNext")
+      ng-disabled="!result.hasNext"
+      title="Following sentence matching the query"
+      ui-popup)
       i.right.arrow.icon
-      | Next
