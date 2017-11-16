@@ -35,7 +35,7 @@
               | -
             | /
             span(ng-bind="vm.publicQueryList.queries.length")
-          .item.ui.button(type="button" ng-class="{disabled: !vm.publicQueryList.hasNext}" ng-click="vm.nextQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")
+          .item.ui.button(type="button" ng-class="{disabled: (!vm.publicQueryList.hasNext && vm.publicQueryList.currentQueryIndex >= 0)}" ng-click="vm.nextQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")
             i.arrow.right.icon
           .item.ui.inline.dropdown(ui-selectbox="vm.publicQueryList.queries" valuekey="name"  menutitle="Query:" ng-model="vm.publicQueryList.activeQuery" ng-change="vm.selectQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.activeQuery")
 
