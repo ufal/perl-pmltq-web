@@ -30,7 +30,9 @@
           .item.ui.button(type="button" ng-class="{disabled: !vm.publicQueryList.hasPrevious}" ng-click="vm.previousQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")
             i.arrow.left.icon
           .item(ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")
-            span(ng-bind="vm.publicQueryList.currentQueryIndex + 1")
+            span(ng-bind="vm.publicQueryList.currentQueryIndex + 1" ng-if="vm.publicQueryList.activeQuery")
+            span(ng-if="! vm.publicQueryList.activeQuery" title="Query is not saved in this list")
+              | -
             | /
             span(ng-bind="vm.publicQueryList.queries.length")
           .item.ui.button(type="button" ng-class="{disabled: !vm.publicQueryList.hasNext}" ng-click="vm.nextQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.queries.length > 0")

@@ -6,7 +6,7 @@ module.exports = function($stateParams, $state, treebank, queryParams, queryFile
   vm.queryFileParams = queryFileParams;
 
   vm.showResult = function () {
-console.log('query->showResult', queryParams);
+console.log('query->showResult', queryParams, queryFileParams, $stateParams);
     $state.go('treebank.query.result.index', {query: queryParams.query, filter: queryParams.filter, timeout: queryParams.timeout, limit: queryParams.limit});
   };
 

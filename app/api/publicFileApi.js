@@ -45,7 +45,7 @@ module.exports = function (Restangular) {
         this._update();
       };
 
-      model.currentQueryIndex = 0;
+      model.currentQueryIndex = -1;
       model.currentQuery = new Rx.ReplaySubject(1);
      // model._update();
 

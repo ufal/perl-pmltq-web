@@ -5,6 +5,7 @@ require('./queryForm.less');
 
 const suggestHelpKey = 'suggest-hide-help';
 const lastQueryListKey = 'last-query-list';
+const lastQueryListUserKey = 'last-query-list-user';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
@@ -48,6 +49,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
             return;
           }
           localStorageService.set(lastQueryListKey, list === null ? 0 : list.id);
+          localStorageService.set(lastQueryListUserKey, list === null ? 0 : list.userId);
         });
 
       $scope.$toObservable('vm.publicQueryList.activeQuery')
@@ -100,6 +102,23 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               this.publicQueryList.setActiveQuery(lastQueryId);
               this.queryParams.query = this.publicQueryList.activeQuery.query;
             });
+          } else {
+            var lastQueryUserId = localStorageService.get(lastQueryListUserKey);
+            var lastQueryListId = localStorageService.get(lastQueryListKey);
+            var lastQueryId = localStorageService.get(lastQueryIdKey);
+            if(lastQueryListId && lastQueryUserId){
+              publicFileApi.one(lastQueryUserId).get({'file': lastQueryListId}).then(list => {
+                list.queries.sort((a,b) => (a.ord - b.ord));
+                this.publicQueryList = list;
+                this.activeQueryList = null;
+                var activeQuery = _.find(this.publicQueryList.queries, 'id', localStorageService.get(lastQueryIdKey));
+                if(activeQuery.query == this.queryParams.query){
+                  var lastQueryId = activeQuery ? activeQuery.id : this.publicQueryList.queries[0].id;
+                  this.publicQueryList.setActiveQuery(lastQueryId);
+                }
+              });
+
+            }
           }
           this.clearParams($stateParams);
         })
@@ -145,9 +164,9 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
     }
 
     clearParams($stateParams) {
-      $stateParams.queryID=undefined;
+      // $stateParams.queryID=undefined;
       $stateParams.fileID=undefined;
-      $stateParams.queryID=undefined;
+      $stateParams.userID=undefined;
     }
 
     newQueryList() {
