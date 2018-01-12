@@ -5,14 +5,18 @@ html(ng-app="pmltq" ng-strict-di="true")
     meta(name="keywords",content="treebank search query tree constituency dependency")
     meta(name="viewport",content="width=device-width, initial-scale=1.0")
     meta(charset="utf-8")
+    link(rel="stylesheet" type="text/css" href="https://lindat.mff.cuni.cz/aai/discojuice/discojuice.css")
   body#lindat-pmltq
     if LINDAT
       header(lindat-header)
     .page-view(ui-view)
     if LINDAT
       footer(lindat-footer)
+    script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+    script(src="https://lindat.mff.cuni.cz/aai/discojuice/discojuice.js" type="text/javascript")
+    script(src="https://lindat.mff.cuni.cz/aai/aai.js" type="text/javascript")
     if PRODUCTION
-      script(src="https://code.jquery.com/jquery-2.1.4.min.js")
+      //- script(src="https://code.jquery.com/jquery-2.1.4.min.js")
       script(src="https://cdn.jsdelivr.net/lodash/3.10.1/lodash.min.js")
       script(src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular.min.js")
       if LINDAT

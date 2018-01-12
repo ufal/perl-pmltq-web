@@ -1,4 +1,4 @@
-module.exports = function LoginModalController($scope, required, Discojuice, Auth) {
+module.exports = function LoginModalController($scope, required, Discojuice, TestDiscojuice, Auth) {
   'ngInject';
   var vm = this;
 
@@ -15,6 +15,18 @@ module.exports = function LoginModalController($scope, required, Discojuice, Aut
 
   vm.discojuice = function () {
     var discojuice = new Discojuice();
+    discojuice.then(function (result) {
+      vm.discojuiceResult = result;
+      Auth.ping().then(function () {
+        $scope.hide();
+      });
+    }).catch(function () {
+      vm.discojuiceResult = null;
+    });
+  };
+
+  vm.testdiscojuice = function () {
+    var discojuice = new TestDiscojuice();
     discojuice.then(function (result) {
       vm.discojuiceResult = result;
       Auth.ping().then(function () {
