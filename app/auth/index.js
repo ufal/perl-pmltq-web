@@ -15,7 +15,6 @@ module.exports = angular.module('pmltq.auth', ['http-auth-interceptor', 'restang
   .service('Auth', require('./auth'))
   .constant('discojuiceUrl', '')
   .factory('Discojuice', require('./discojuice.js'))
-  .factory('TestDiscojuice', require('./testdiscojuice.js'))
   .factory('loginModal', require('./login-modal'))
   .directive({
     login: require('./directives/login.js'),

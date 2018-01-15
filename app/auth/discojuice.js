@@ -1,48 +1,42 @@
 var $ = require('jquery');
+require('./discojuice.less');
 
 module.exports = function DiscojuiceFactory($window, $q, discojuiceUrl) {
   'ngInject';
-
   function Discojuice() {
-    if (!discojuiceUrl) {
-      throw new Error('discojuiceUrl not defined');
+    var l = $window.location,
+      ORIGIN = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+      var deferred = $q.defer();
+      var hash = l.hash,
+        service = 'PML Tree Query',
+        target = '/services/pmltq/api/auth/shibboleth?loc=' + ORIGIN + l.pathname;
+
+      document.title = service + ' Authentication';
+      console.log("target", target);
+      var opts = {
+        target: target,
+        responseUrl: ORIGIN + "/xmlui/themes/UFAL/lib/html/disco-juice.html?",
+        metadataFeed: ORIGIN + "/xmlui/discojuice/feeds",
+        serviceName: service,
+        selector: '#discojuice',
+        autoInitialize: false
+      };
+
+      if (!window.aai) {
+        throw 'Failed to find AAI.';
+      }
+
+      var djc = aai.setup(opts);
+
+      djc.always = true;
+
+      DiscoJuice.Utils.options.set(djc);
+      
+      DiscoJuice.Control.ui = DiscoJuice.UI;
+      DiscoJuice.UI.control = DiscoJuice.Control;
+      DiscoJuice.UI.enable(this);
+      return deferred.promise;
     }
-
-    var $frame = $('<iframe></iframe>'), deferred = $q.defer();
-    $frame
-      .appendTo($('body'))
-      .css({
-        position: 'fixed',
-        background: 'white',
-        zIndex: '1099',
-        border: '0',
-        width: '100%',
-        height: '100%',
-        left: '0',
-        top: '0'
-      })
-      .attr('src', discojuiceUrl);
-
-    $($window).on('message', function (e) {
-      var oe = e.originalEvent,
-        l = $window.location,
-        origin = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
-
-      if (oe.origin !== origin) {
-        return;
-      }
-
-      if (oe.data) {
-        deferred.resolve(oe.data);
-      } else {
-        deferred.reject();
-      }
-      $frame.remove();
-      $(this).off(e);
-    });
-
-    return deferred.promise;
-  }
 
   return Discojuice;
 };
