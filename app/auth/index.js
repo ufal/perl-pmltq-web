@@ -13,7 +13,6 @@ module.exports = angular.module('pmltq.auth', ['http-auth-interceptor', 'restang
     });
   })
   .service('Auth', require('./auth'))
-  .constant('discojuiceUrl', '')
   .factory('Discojuice', require('./discojuice.js'))
   .factory('loginModal', require('./login-modal'))
   .directive({
@@ -21,4 +20,3 @@ module.exports = angular.module('pmltq.auth', ['http-auth-interceptor', 'restang
     logout: require('./directives/logout.js')
   })
   .name;
-

@@ -76,11 +76,6 @@ var config = {
       chunks: ['pmltq']
     }),
     new HtmlWebpackPlugin({
-      filename: 'discojuice.html',
-      template: path.join(__dirname, 'app', 'discojuice.html'),
-      inject: false
-    }),
-    new HtmlWebpackPlugin({
       filename: 'admin.html',
       template: path.join(__dirname, 'app', 'admin', 'index.jade'),
       chunks: ['admin']
