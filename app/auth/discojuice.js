@@ -1,7 +1,7 @@
 var $ = require('jquery');
 require('./discojuice.less');
 
-module.exports = function DiscojuiceFactory($window, $q, discojuiceUrl) {
+module.exports = function DiscojuiceFactory($window, $q) {
   'ngInject';
   function Discojuice() {
     var l = $window.location,
