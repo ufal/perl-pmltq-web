@@ -1,4 +1,10 @@
 .ui.main.pointing.menu
+  .ui.inverted.red.menu(ng-if="DEVELOPMENT")
+    .ui.dropdown.item(ui-dropdown)
+      i.warning.sign.yellow.icon
+      .menu
+        a.item(ng-click="PING()")
+          | PING
   .header.item
     .ui.large.breadcrumb
       a.section(ui-sref="home")
@@ -8,6 +14,21 @@
   div(transclude-select="[menu]")
   .right.menu
     div(transclude-select="[right]")
+    .ui.dropdown.item(ui-dropdown)
+      i.mail.icon
+      .menu
+        a.item(
+          href="https://github.com/ufal/perl-pmltq-web/issues"
+          target="_blank"
+          title="Report a bug on github"
+          ui-popup)
+          i.icon.bug
+          |  Report a bug
+        a.item(
+          ng-href="mailto:{{devml}}"
+          target="_blank")
+          i.icon.mail
+          |  Contact
     .ui.dropdown.item(ui-dropdown ng-show="loggedIn")
       i.user.icon
       | {{username}}

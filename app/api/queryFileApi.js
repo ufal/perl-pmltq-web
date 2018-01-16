@@ -104,7 +104,7 @@ module.exports = function (Restangular, $q, $cacheFactory, notify) {
 
       };
 
-      model.currentQueryIndex = 0;
+      model.currentQueryIndex = -1;
       model.totalQueries = model.queries.length;
       model.currentQuery = new Rx.ReplaySubject(1);
       model._update();

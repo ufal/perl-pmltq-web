@@ -46,7 +46,7 @@
             i.remove.icon
             | Delete
       .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
-        markdown-editor(itemname="'Description'" text="file.description" ng-blur="vm.saveFile(file, 'description')")
+        markdown-editor(itemname="'Description'" ng-model="file" text="file.description" ng-blur="vm.saveFile(file, 'description')")
         .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
           .item(ng-repeat="query in file.queries")
             .ui.top.menu.attached
