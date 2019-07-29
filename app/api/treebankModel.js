@@ -13,7 +13,7 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
       var map;
       return function (objectOrId) {
         if (!map) {
-          map = _.indexBy(this[collectionName], 'name');
+          map = _.keyBy(this[collectionName], 'name');
         }
 
         if (_.isObject(objectOrId)) {

@@ -25,7 +25,7 @@ module.exports = function (Restangular, treebankModelFactory, treebankCollection
   service.recentlyUsed = function () {
     var recent = localStorageService.get(recentStorageKey) || [];
     return service.getList().then(function(list) {
-      var tbIndex = _.indexBy(list, 'id'), result = [];
+      var tbIndex = _.keyBy(list, 'id'), result = [];
 
       for (var i = 0; i < recent.length; i++) {
         var tbId = recent[i];
