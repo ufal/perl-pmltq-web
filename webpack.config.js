@@ -68,7 +68,7 @@ var config = {
     ]
   },
   plugins: [
-    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.DedupePlugin(), // NOT IN WEBPACK v4
     new webpack.PrefetchPlugin('angular'),
     new webpack.PrefetchPlugin('babel-polyfill'),
     new HtmlWebpackPlugin({
@@ -94,11 +94,12 @@ var config = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
-    proxy: [{
-      path: new RegExp('/api/(.*)'),
-      rewrite: rewriteUrl('v1/$1'),
+    proxy: {
+      '/api': {
+      pathRewrite: function (path, req) { return path.replace('/api', '/v1') },
       target: 'http://localhost:3000/'
-    }]
+      }
+    }
   }
 };
 
