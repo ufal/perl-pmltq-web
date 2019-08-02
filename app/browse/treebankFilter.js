@@ -146,8 +146,8 @@ module.exports = function (localStorageService) {
         term: filter.term,
         onlyAccessible: filter.onlyAccessible,
         onlyUserAccessible: filter.onlyUserAccessible,
-        tags: _.chain(filter.tags).filter('selected').pluck('id').value(),
-        languages: _.chain(filter.languages).filter('selected').pluck('id').value()
+        tags: _.chain(filter.tags).filter('selected').map('id').value(),
+        languages: _.chain(filter.languages).filter('selected').map('id').value()
       };
 
       if (!_.isEqual(filtersParams[filterName], toSave)) {
