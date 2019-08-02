@@ -131,7 +131,7 @@ module.exports = function (localStorageService) {
 
       // TODO: save filter params and cache filter results
       if (!_.isEqual(newFiltered, oldFiltered)) {
-        oldFiltered = _.sortByOrder(newFiltered, options.sortBy, options.sortOrder);
+        oldFiltered = _.orderBy(newFiltered, options.sortBy, options.sortOrder);
         updateRemaining(newFiltered);
       }
 
