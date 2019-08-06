@@ -27,7 +27,7 @@ class SvgViewController {
           treebank = value[2],
           nodes = value[3];
 
-        if (_.any(change.newValue, (item) => _.isEmpty(item) && !_.isNumber(item)) ||
+        if (_.some(change.newValue, (item) => _.isEmpty(item) && !_.isNumber(item)) ||
           (address === lastAddress && _.isEqual(nodes,lastNodes) && tree === lastTree && lastTreebankId === treebank.id)) {
           return false;
         }
