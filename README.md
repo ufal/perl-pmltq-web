@@ -54,3 +54,10 @@ TODO: move this to wiki
         rsync --verbose  --progress --stats --recursive dist/* pmltq@euler-dev:/opt/pmltq-web
 
   - Use `--delete` if you need clean deployment directory
+
+
+## Contact
+
+**Report a bug**: [issue tracker](https://github.com/ufal/perl-pmltq-web/issues)
+
+**Questions**: pmltq at ufal.mff.cuni.cz

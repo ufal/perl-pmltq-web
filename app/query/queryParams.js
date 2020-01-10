@@ -23,7 +23,7 @@ module.exports = function QueryParamsFactory($state, localStorageService, rx) {
      * @param {Boolean} [filter=true]
      * @constructor
     */
-    constructor(treebankId, query, limit = 30, timeout = 100, filter = true) {
+    constructor(treebankId, query, limit = 100, timeout = 30, filter = true) {
       if (!treebankId) {
         treebankId = 'default';
       }
@@ -39,6 +39,7 @@ module.exports = function QueryParamsFactory($state, localStorageService, rx) {
       this._limit = limit > 0 ? limit : 100;
       this._timeout = timeout > 0 ? timeout : 30;
       this._filter = angular.isDefined(filter) ? filter : true;
+      this._queryRecordId = undefined;
       this._oldParams = this.params();
 
       this.suggest = new rx.ReplaySubject(1);
@@ -80,6 +81,15 @@ module.exports = function QueryParamsFactory($state, localStorageService, rx) {
       this.cache();
     }
 
+    get queryRecordId() {
+      return this._queryRecordId;
+    }
+
+    set queryRecordId(queryRecordId) {
+      this._queryRecordId = queryRecordId;
+      this.cache();
+    }
+
     clear() {
       this._query = '';
       this._filter = false;
@@ -109,7 +119,8 @@ module.exports = function QueryParamsFactory($state, localStorageService, rx) {
         filter: this.filter,
         limit: this.limit,
         query: this.query,
-        timeout: this.timeout
+        timeout: this.timeout,
+        queryRecordId: this.queryRecordId
       };
     } 
   }

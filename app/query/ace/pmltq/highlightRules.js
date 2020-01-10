@@ -86,7 +86,9 @@ function detectVariables(value, currentSate, stack) {
 var oop = ace.acequire('ace/lib/oop');
 var TextHighlightRules = ace.acequire('ace/mode/text_highlight_rules').TextHighlightRules;
 
-const BaseChar = '\\u0041-\\u005A\\u0061-\\u007A\\u00C0-\\u00D6\\u00D8-\\u00F6' +
+const BaseChar = !!window.webkitURL
+  ? 'a-zA-Z'
+  : '\\u0041-\\u005A\\u0061-\\u007A\\u00C0-\\u00D6\\u00D8-\\u00F6' +
   '\\u00F8-\\u00FF\\u0100-\\u0131\\u0134-\\u013E\\u0141-\\u0148\\u014A-\\u017E' +
   '\\u0180-\\u01C3\\u01CD-\\u01F0\\u01F4-\\u01F5\\u01FA-\\u0217\\u0250-\\u02A8' +
   '\\u02BB-\\u02C1\\u0386\\u0388-\\u038A\\u038C\\u038E-\\u03A1\\u03A3-\\u03CE' +
@@ -122,12 +124,14 @@ const BaseChar = '\\u0041-\\u005A\\u0061-\\u007A\\u00C0-\\u00D6\\u00D8-\\u00F6' 
   '\\u3094\\u30A1-\\u30FA\\u3105-\\u312C\\uAC00-\\uD7A3';
 const Ideographic = '\\u4E00-\\u9FA5\\u3007\\u3021-\\u3029';
 const Letter = BaseChar + Ideographic;
-const Digit =
-  '\\u0030-\\u0039\\u0660-\\u0669\\u06F0-\\u06F9\\u0966-\\u096F\\u09E6-\\u09EF' +
+const Digit = !!window.webkitURL
+  ? '0-9'
+  : '0-9\\u0660-\\u0669\\u06F0-\\u06F9\\u0966-\\u096F\\u09E6-\\u09EF' +
   '\\u0A66-\\u0A6F\\u0AE6-\\u0AEF\\u0B66-\\u0B6F\\u0BE7-\\u0BEF\\u0C66-\\u0C6F' +
   '\\u0CE6-\\u0CEF\\u0D66-\\u0D6F\\u0E50-\\u0E59\\u0ED0-\\u0ED9\\u0F20-\\u0F29';
-const CombiningChar =
-  '\\u0300-\\u0345\\u0360-\\u0361\\u0483-\\u0486\\u0591-\\u05A1\\u05A3-\\u05B9' +
+const CombiningChar = !!window.webkitURL
+  ? ''
+  : '\\u0300-\\u0345\\u0360-\\u0361\\u0483-\\u0486\\u0591-\\u05A1\\u05A3-\\u05B9' +
   '\\u05BB-\\u05BD\\u05BF\\u05C1-\\u05C2\\u05C4\\u064B-\\u0652\\u0670\\u06D6-\\u06DC' +
   '\\u06DD-\\u06DF\\u06E0-\\u06E4\\u06E7-\\u06E8\\u06EA-\\u06ED\\u0901-\\u0903' +
   '\\u093C\\u093E-\\u094C\\u094D\\u0951-\\u0954\\u0962-\\u0963\\u0981-\\u0983\\u09BC' +

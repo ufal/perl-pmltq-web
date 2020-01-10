@@ -39,8 +39,13 @@ module.exports = function($compile) {
       treebank: '='
     },
     link: function($scope, $element, $attr) {
-      var res = md.render($scope.treebank.documentation);
-      $element.html($compile(res)($scope));
+      var documentation;
+      if($scope.treebank.documentation) {
+        $scope.treebank.one('documentation').get().then(doc => {
+          var res = md.render(doc.documentation);
+          $element.html($compile(res)($scope));
+        })
+      }
     }
   };
 };

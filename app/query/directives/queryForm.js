@@ -5,10 +5,11 @@ require('./queryForm.less');
 
 const suggestHelpKey = 'suggest-hide-help';
 const lastQueryListKey = 'last-query-list';
+const lastQueryListUserKey = 'last-query-list-user';
 const lastQueryIdKey = 'last-query-id';
 
 //module.exports = function (localStorageService, uiModal) {
-module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, promptModal) {
+module.exports = function ($stateParams, $state, $window, observeOnScope, localStorageService, Auth, queryFileApi, historyApi, publicFileApi, promptModal, notify) {
   'ngInject';
 
   class QueryFormController {
@@ -17,7 +18,8 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       'ngInject';
       this.loggedIn = false;
       this.queryLists = [];
-
+      this.queryHistory = [];
+      Auth.ping(); // hack: avoid revriting modified public query
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
       this.showHelp = !localStorageService.get(suggestHelpKey);
@@ -31,6 +33,26 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
           localStorageService.set(lastQueryListKey, list === null ? 0 : list.id);
         });
       $scope.$toObservable('vm.activeQueryList.activeQuery')
+        .subscribe((query) => {
+          query = query.newValue;
+          if (_.isUndefined(query)) {
+            return;
+          }
+
+          localStorageService.set(lastQueryIdKey, query === null ? 0 : query.id);
+        });
+
+      $scope.$toObservable('vm.publicQueryList')
+        .subscribe((list) => {
+          list = list.newValue;
+          if (_.isUndefined(list)) {
+            return;
+          }
+          localStorageService.set(lastQueryListKey, list === null ? 0 : list.id);
+          localStorageService.set(lastQueryListUserKey, list === null ? 0 : list.userId);
+        });
+
+      $scope.$toObservable('vm.publicQueryList.activeQuery')
         .subscribe((query) => {
           query = query.newValue;
           if (_.isUndefined(query)) {
@@ -54,11 +76,54 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               setquery=true;
             }
             this.loadQueryLists(setquery);
+            this.loadQueryHistory();
           } else {
             this.queryLists = [];
+            this.queryHistory = [];
           }
+          if($stateParams.userID
+             && ( $stateParams.fileID == 'public' ||  ($stateParams.fileID && $stateParams.userID != Auth.user.id))) { // load public query list if set
+            publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
+              if(! list.queries.length){
+                this.clearParams($stateParams);
+                return;
+              }
+              list.queries.sort((a,b) => (a.ord - b.ord));
+              this.publicQueryList = list;
+              this.activeQueryList = null;
+              if($stateParams.queryID) {
+                localStorageService.set(lastQueryIdKey, parseInt($stateParams.queryID));
+              }
+
+              var activeQuery = _.find(this.publicQueryList.queries, 'id', localStorageService.get(lastQueryIdKey));
+              // setting query from param or first query
+              var lastQueryId = activeQuery ? activeQuery.id : this.publicQueryList.queries[0].id;
+
+              this.publicQueryList.setActiveQuery(lastQueryId);
+              this.queryParams.query = this.publicQueryList.activeQuery.query;
+            });
+          } else {
+            var lastQueryUserId = localStorageService.get(lastQueryListUserKey);
+            var lastQueryListId = localStorageService.get(lastQueryListKey);
+            var lastQueryId = localStorageService.get(lastQueryIdKey);
+            if(lastQueryListId && lastQueryUserId){
+              publicFileApi.one(lastQueryUserId).get({'file': lastQueryListId}).then(list => {
+                list.queries.sort((a,b) => (a.ord - b.ord));
+                this.publicQueryList = list;
+                this.activeQueryList = null;
+                var activeQuery = _.find(this.publicQueryList.queries, 'id', localStorageService.get(lastQueryIdKey));
+                if(activeQuery.query == this.queryParams.query){
+                  var lastQueryId = activeQuery ? activeQuery.id : this.publicQueryList.queries[0].id;
+                  this.publicQueryList.setActiveQuery(lastQueryId);
+                }
+              });
+
+            }
+          }
+          this.clearParams($stateParams);
         })
         .subscribe();
+
 
       this.queryParams.suggest
         .safeApply($scope, (nodes) => {
@@ -71,9 +136,12 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
     }
 
     loadQueryLists(setquery) {
-      queryFileApi.getList().then(lists => {
+      queryFileApi.getList({history_list: true}).then(lists => {
         this.queryLists = lists;
         this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
+        this.queryLists.forEach(function(list){
+          list.queries.sort((a,b) => (a.ord - b.ord));
+        });
         var lastQueryListId = localStorageService.get(lastQueryListKey);
         var lastQueryId = localStorageService.get(lastQueryIdKey);
         if (lastQueryListId) {
@@ -89,6 +157,45 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       });
     }
 
+    loadQueryHistory() {
+      historyApi.getList().then(history => {
+        this.queryHistory = history[0];
+      });
+    }
+
+    clearParams($stateParams) {
+      // $stateParams.queryID=undefined;
+      $stateParams.fileID=undefined;
+      $stateParams.userID=undefined;
+    }
+
+    newQueryList() {
+      var m = promptModal({
+        title: 'New List',
+        placeholder: 'List name',
+        required: 'required',
+        label: 'Name'
+      }, (name) => {      if (_.all(this.files, f => f.name !== name)) { // creates a new list
+        return queryFileApi.post({name: name}).then(
+          file => { 
+            this.queryLists.push(file); 
+            this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
+            this.activeQueryList = file;
+            notify.success('List has been created');
+          },
+          res  => {
+            notify.error('ERROR: '+res.data.error);
+            res.data.error
+          }
+        );
+        }
+
+        return $q.reject('List with the same name already exists');
+      });
+
+      m.show();
+    }
+
     newQuery() {
       // Sanity check
       if (!this.activeQueryList) {
@@ -101,7 +208,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         required: 'required',
         label: 'Name'
       }, (name) => {
-        return this.activeQueryList.newQuery(name,this.queryParams.query);
+        return this.activeQueryList.newQuery( {name: name, query: this.queryParams.query});
       });
 
       m.show();
@@ -113,7 +220,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         return;
       }
 
-      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, undefined, this.queryParams.query);
+      this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, {query: this.queryParams.query});
     }
 
     renameQuery() {
@@ -129,7 +236,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         label: 'Name',
         value: this.activeQueryList.activeQuery.name
       }, (name) => {
-        return this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, name);
+        return this.activeQueryList.saveQuery(this.activeQueryList.activeQuery, {name: name});
       });
 
       m.show();
@@ -166,34 +273,59 @@ console.log('TODO: fix edit query');
       }
     }
 
-    selectQuery() {
+    selectQuery(queryList = this.activeQueryList) {
       // Sanity check
-      if (!this.activeQueryList) {
+      if (!queryList) {
         return;
       }
 
-      this.activeQueryList.setActiveQuery(this.activeQueryList.activeQuery.id);
-      this.queryParams.query = this.activeQueryList.activeQuery.query;
+      queryList.setActiveQuery(queryList.activeQuery.id);
+      this.queryParams.query = queryList.activeQuery.query;
     }
 
-    previousQuery() {
+    previousQuery(queryList = this.activeQueryList) {
       // Sanity check
-      if (!this.activeQueryList) {
+      if (!queryList) {
         return;
       }
 
-      this.activeQueryList.previous();
-      this.queryParams.query = this.activeQueryList.activeQuery.query;
+      queryList.previous();
+      this.queryParams.query = queryList.activeQuery.query;
     }
 
-    nextQuery() {
+    nextQuery(queryList = this.activeQueryList) {
       // Sanity check
-      if (!this.activeQueryList) {
+      if (!queryList) {
         return;
       }
 
-      this.activeQueryList.next();
-      this.queryParams.query = this.activeQueryList.activeQuery.query;
+      queryList.next();
+      this.queryParams.query = queryList.activeQuery.query;
+    }
+
+    undo() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.previous();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
+    }
+
+    repeat() {
+      // Sanity check
+      if (!this.queryHistory) {
+        return;
+      }
+
+      this.queryHistory.next();
+      this.queryParams.query = this.queryHistory.activeQuery.query;
+    }
+
+    validQuery() {
+      return (this.queryHistory && this.queryHistory.activeQuery && this.queryHistory.activeQuery.treebanks[this.treebank.id] && this.queryHistory.activeQuery.query == this.queryParams.query)
+        || (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.treebanks[this.treebank.id] && this.activeQueryList.activeQuery.query == this.queryParams.query)
     }
 
     hideHelp() {
@@ -212,7 +344,10 @@ console.log('TODO: fix edit query');
       if (!this.treebank) {
         return;
       }
-
+      this.queryParams.queryRecordId = null;
+      if (this.activeQueryList && this.activeQueryList.activeQuery && this.activeQueryList.activeQuery.query == this.queryParams.query) {
+        this.queryParams.queryRecordId = this.activeQueryList.activeQuery.id;
+      }
       this.queryParams.filter = !_.isUndefined(filter) ? filter : true;
       this.onSubmit();
     }

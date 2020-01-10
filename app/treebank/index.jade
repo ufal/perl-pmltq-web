@@ -1,15 +1,35 @@
 main.ui.horizontally.padded.one.column.grid
   .column
     navigation
-      a.section(breadcrumb ui-sref="browse") Browse Treebanks
+      a.section(breadcrumb ui-sref="browse")
+        i.icon.tree(
+          title="Browse Treebanks"
+          ui-popup)
       i.right.chevron.icon.divider(breadcrumb)
       .active.section(breadcrumb ng-bind="vm.treebank.title")
       //-a.item(menu ui-sref="treebank.history" ui-sref-active="active")
       //-  i.history.icon
       //-  | History
-      a.item(menu ui-sref="treebank.bookmark" ui-sref-active="active")
+      a.item(menu ui-sref="treebank.myquery" ui-sref-active="active")
         i.bookmark.icon
-        | Bookmarks
+        | My queries
+      .ui.dropdown.item(menu ui-dropdown)
+        i.book.icon
+        | Public queries
+        i.dropdown.icon
+        .menu
+          .ui.item.dropdown(ng-repeat="user in vm.publicLists | orderBy:'name' track by user.id")
+            | {{user.name}}
+            .menu
+              .ui.item(ng-repeat="list in user.files | orderBy:'name' track by list.id")
+                | {{list.name}}
+                .menu
+                  .item.ui(ui-sref="treebank.queryfile.index({fileID: list.id, userID: user.id})")
+                    i.search.icon
+                    | Use list
+                  .item.ui(ui-sref="treebank.queryfiletutorial({fileID: list.id, userID: user.id})")
+                    i.info.circle.icon
+                    | View list
       a.item(menu ui-sref="treebank.query.index" ui-sref-active="active")
         i.search.icon
         | Query
@@ -19,6 +39,5 @@ main.ui.horizontally.padded.one.column.grid
       a.item(right ng-href="{{vm.treebank.homepage}}" ng-show="vm.treebank.homepage" target="_blank")
         i.external.icon
         | Get data
-
   .fitted.column
     .ui.one.column.grid(ui-view="")

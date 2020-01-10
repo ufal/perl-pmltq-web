@@ -10,6 +10,9 @@ var Rx = require('rx');
 var sentenceFactory = require('./sentence');
 
 function parseNodeName(name) {
+  if(name === null){
+    return null;
+  }
   name = name.substring(name.indexOf('/') + 1, name.length);
   var splitPos = name.indexOf('@'); // new syntax
   if (splitPos < 0) {
@@ -202,14 +205,19 @@ class TredTree {
     var processed = {};
     for (var i = nodes.length - 1; i >= 0; i--) {
       var node = parseNodeName(nodes[i]),
-        id = node.id;
+        id;
+      if(node === null) {
+        continue;
+      }
+      id = node.id;
 
       if (processed[id]) {
         continue;
       }
 
       processed[id] = true;
-      id = id.replace(/([^-_A-Za-z0-9])/g, ''); // Not sure if this is needed
+      id = id.replace(/\//g, '.');
+      // id = id.replace(/([^-_A-Za-z0-9])/g, ''); // Not sure if this is needed
       var svgNode = this.nodesMap[id];
       if (svgNode) {
         svgNode.addClass('matched-node-' + (i + 1));

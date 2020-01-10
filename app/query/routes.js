@@ -25,7 +25,7 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
       item = decompressQuery(item);
       return item;
     },
-    is: (val) => val && typeof val === 'string' && val.length && !decompressQuery(val)
+    is: (val) => val && typeof val === 'string' && val.length && (!decompressQuery(val) || val.indexOf('#') >= 0 || val.match(/\[.*\]/))
   });
 
   $stateProvider.state('treebank.query', {
@@ -63,7 +63,7 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
 
 
   $stateProvider.state('treebank.queryfile', {
-    url: '/queryfile/{fileID}?{queryID}',
+    url: '/queryfile/{fileID}?{queryID}&{userID}',
     template: require('./index.jade'),
     controller: require('./controller'),
     controllerAs: 'vm',
@@ -71,7 +71,8 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
     abstract: true,
     params: {
       fileID: {squash: false, value: null},
-      queryID: {squash: false, value: null}
+      queryID: {squash: false, value: null},
+      userID: {squash: false, value: null}
     }
   });
 

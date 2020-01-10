@@ -1,7 +1,8 @@
 div
-  span(ng-bind="title")
+  span(ng-bind="menutitle")
   | &nbsp;
   .default.text(ng-bind="valuekey ? selected[valuekey] : selected")
   i.dropdown.icon
   .menu
     .item(ng-repeat="item in items" data-value="{{$index}}" ng-bind="valuekey ? item[valuekey] : item")
+    div(transclude-select="[enditem]")

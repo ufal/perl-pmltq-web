@@ -1,0 +1,97 @@
+.row
+  .column(ng-if="!vm.loggedIn")
+    .ui.info.message
+      .header Login required
+      p Please login to be able to access My queries
+      p
+        button.ui.primary.button(login) Login to PML-TQ
+  .column(ng-if="vm.loggedIn")
+    .ui.basic.segment
+      button.ui.labeled.icon.button(type="button" ng-click="vm.addList()")
+        i.plus.icon
+        | Add new list
+    .ui.info.message(ng-if="vm.files && vm.files.length == 0")
+      .header No lists
+      p My queries are organized to separated lists. It's similar
+        | to TrEd where you organize your queries to files.
+      p You don't have any lists of queries yet. Start by clicking:
+        = ' '
+        button.ui.mini.button(type="button" ng-click="vm.addList()") Add new list
+
+    span(ng-repeat="file in vm.files | orderBy:'name' track by file.id")
+      .ui.top.menu.attached
+        .ui.item.button(ui-popup type="button" ng-click="notcollapsed = ! notcollapsed")
+          i.chevron.icon(ng-class="{down: !notcollapsed, up: notcollapsed}")
+        .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsed}")
+          input(
+                type="text"
+                ng-model="file.name"
+                required
+                ng-change="vm.saveFile(file, 'name')"
+                ng-model-options="{updateOn: 'blur'}"
+              )
+        .right.menu
+          a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
+            i.share.alternate.icon(ng-class="{green: file.isPublic}")
+          a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
+            i.search.icon
+            | Use list
+          a.ui.item(ui-sref="treebank.queryfiletutorial({fileID: file.id, userID: vm.user.id})")
+            i.info.circle.icon
+            | View list
+          //- a.ui.item(type="button" ng-click="vm.renameList(file)")
+          //-   i.edit.icon
+          //-   | Rename
+          a.ui.item(ng-click="vm.deleteList(file)")
+            i.remove.icon
+            | Delete
+      .ui.bottom.segment.secondary.attached(ng-show="notcollapsed")
+        markdown-editor(itemname="'Description'" ng-model="file" text="file.description" ng-blur="vm.saveFile(file, 'description')")
+        .items.queryfile(ui-sortable="sortableOptions" ng-model="file.queries")
+          .item(ng-repeat="query in file.queries")
+            .ui.top.menu.attached
+              .ui.item.button(ui-popup type="button" title="Edit query" ng-click="notcollapsedquery = ! notcollapsedquery" )
+                i.chevron.icon(ng-class="{down: !notcollapsedquery, up: notcollapsedquery}")
+              .ui.item.button
+                i.handle.move.icon
+              .ui.item.header.form.transparent.input.small(ng-class="{disabled: !notcollapsedquery}")
+                input(
+                      type="text"
+                      ng-model="query.name"
+                      required
+                      ng-change="vm.saveQuery(file, query, 'name')"
+                      ng-model-options="{updateOn: 'blur'}"
+                    )
+              .ui.item.query.preview {{query.query || '&lt;query is empty&gt;'}}
+              .right.menu
+                a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
+                  i.share.alternate.icon(ng-class="{green: query.isPublic}")
+                a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
+                  i.search.icon
+                  | Use query
+                .ui.dropdown.item(drop ui-dropdown)
+                  i.content.icon
+                  .menu
+                    .ui.item.dropdown
+                      i.move.icon
+                      | Move to list
+                      .menu.left
+                        a.ui.item.dropdown(ng-repeat="fl in vm.files | orderBy:'name' track by fl.id" ng-click="vm.moveQuery(file, fl, query)")
+                          | {{fl.name}}
+                    .ui.item.dropdown
+                      i.copy.icon
+                      | Copy to list
+                      .menu.left
+                        a.ui.item.dropdown(ng-repeat="fl in vm.files | orderBy:'name' track by fl.id" ng-click="vm.copyQuery(file, fl, query)")
+                          | {{fl.name}}
+                    a.ui.item.dropdown(type="button" ng-click="vm.deleteQuery(file, query)")
+                      i.remove.icon
+                      | Delete
+            .ui.bottom.segment.tertiary.attached(ng-show="notcollapsedquery")
+              markdown-editor(itemname="'Description'" text="query.description" ng-blur="vm.saveQuery(file, query,'description')")
+                 div(topmenu)
+                   a.ui.clickable.label(ng-repeat="tb in query.treebanks" ng-href="{{vm.getQueryTreebankUrl(file, query, tb)}}" ng-init="logo=vm.logo(tb.name)" logo-image="logo"  image-width="75" title="Use query")
+
+
+
+

@@ -8,7 +8,8 @@ export default function (nga, admin) {
       nga.field('provider'),
       nga.field('isAdmin', 'boolean'),
       nga.field('isActive', 'boolean'),
-      nga.field('accessAll', 'boolean')
+      nga.field('accessAll', 'boolean'),
+      nga.field('lastLogin', 'datetime')
     ])
     .filters([
       nga.field('q')

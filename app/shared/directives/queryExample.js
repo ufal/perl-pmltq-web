@@ -8,10 +8,18 @@ module.exports = function($interpolate) {
     transclude: true,
     replace: true,
     scope: {
-      treebank: '='
+      treebank: '=',
+      title: '=',
+      queryrecord: '=',
+      hideUse: '='
     },
     template: require('./queryExample.jade'),
     link: function ($scope, $element, $attr, $controller, $transclude) {
+      $scope.hideUse = !!$scope.hideUse;
+
+      if(! $scope.title) {
+        $scope.title = "Try query";
+      }
       $transclude(function (clone, tScope) {
         var queryText = clone.filter(function () {
           return this.nodeType !== 3;

@@ -3,7 +3,7 @@ var Rx = require('rx');
 /** @type _ */
 var _ = require('lodash');
 
-module.exports = function (Restangular, $q, $cacheFactory) {
+module.exports = function (Restangular, $q, $cacheFactory, notify) {
   //noinspection BadExpressionStatementJS
   'ngInject';
 
@@ -46,8 +46,14 @@ module.exports = function (Restangular, $q, $cacheFactory) {
         this._update();
       };
 
-      model.newQuery = function(name, querytext) {
-        return this.post('queries', {name: name, query: querytext})
+      model.newQuery = function(queryData) {
+        var newQuery = {
+          name: queryData.name,
+          query: queryData.query,
+          description: queryData.description,
+          isPublic: queryData.isPublic
+        }
+        return this.post('queries', newQuery)
           .then(query => {
             this.queries.push(query);
             this.currentQueryIndex = this.queries.length - 1;
@@ -58,13 +64,15 @@ module.exports = function (Restangular, $q, $cacheFactory) {
           }, (res) => $q.reject(res.data.error));
       };
 
-      model.saveQuery = function(query, name, querytext) {
+      model.saveQuery = function(query, updateData) {
         var qr = this.one('queries', query.id);
-        qr.query = querytext ? querytext : query.query;
-        qr.name = name ? name : query.name;
+        qr = _.merge(qr,updateData);
         return qr.put().then(q => {
           query.name = q.name;
           query.query = q.query;
+          query.isPublic = q.isPublic;
+          query.queryFileId = q.queryFileId; // moving query to other file
+          notify.success('Query has been saved');
           return q;
         }, (res) => $q.reject(res.data.error));
       };
@@ -76,12 +84,27 @@ module.exports = function (Restangular, $q, $cacheFactory) {
             this.currentQueryIndex = 0;
             this.totalQueries = this.queries.length;
             this._update();
-
+            notify.success('Query has been removed');
             return null;
           }, (res) => $q.reject(res.data.error));
       };
 
-      model.currentQueryIndex = 0;
+      model.updateQueryOrder = function() {
+        console.log("TODO updateQueryOrder",this);
+        var ql = this.all('queries');
+        console.log("TODO updateQueryOrder ql=",ql);
+        var data = {
+          'id': this.id,
+          'userId': this.userId,
+          'queries': this.queries.map(function(q){return {'id': q.id, 'ord': q.ord}})
+        }
+        return ql.customPUT(data).then(querylist => {
+          return querylist;
+        }, (res) => $q.reject(res.data.error));
+
+      };
+
+      model.currentQueryIndex = -1;
       model.totalQueries = model.queries.length;
       model.currentQuery = new Rx.ReplaySubject(1);
       model._update();

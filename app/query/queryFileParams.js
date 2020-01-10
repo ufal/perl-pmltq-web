@@ -21,7 +21,7 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
      * @param {Number} [fileID=0]
      * @constructor
     */
-    constructor(treebankId, fileID, queryID = null) {
+    constructor(treebankId, fileID, queryID = null, userID = null) {
       if (!treebankId) {
         treebankId = 'default';
       }
@@ -32,6 +32,7 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
 
       this._file = angular.isDefined(fileID) ? fileID : null;
       this._query = angular.isDefined(queryID) ? queryID : null;
+      this._user = angular.isDefined(userID) ? userID : null;
     }
 
     get queryID() {
@@ -52,9 +53,19 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
       this.cache();
     }
 
+    get userID() {
+      return this._user;
+    }
+
+    set userID(user) {
+      this._user = user;
+      this.cache();
+    }
+
     clear() {
       this._query = null;
       this._file = null;
+      this._user = null;
       this.cache();
     }
 
@@ -63,6 +74,7 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
       if (params) {
         this._file = params.fileID;
         this._query = params.queryID;
+        this._user = params.userID;
       }
     }
 
@@ -77,7 +89,8 @@ module.exports = function QueryFileParamsFactory($state, localStorageService, rx
     params() {
       return {
         fileID: this.fileID,
-        queryID: this.queryID
+        queryID: this.queryID,
+        userID: this.userID
       };
     } 
   }
