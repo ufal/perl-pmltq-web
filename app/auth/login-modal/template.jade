@@ -8,9 +8,9 @@
   .content
     span(ng-if="vm.login_with.ldc")
       .ui.info.message
-        .h4 Not implemented !!!
+        | Use your LDC account
       .ui.center.aligned.basic.segment
-        button.ui.primary.huge.button(type="button" ng-click="") LDC login
+        button.ui.primary.huge.button(type="button" ng-click="vm.oauth('ldc')") LDC login
     .ui.horizontal.divider(ng-if="vm.login_with.ldc && vm.login_with.shibboleth") or
     span(ng-if="vm.login_with.shibboleth")
       .ui.info.message

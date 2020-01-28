@@ -10,6 +10,7 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
   vm.user = Auth.user
   vm.files = false;
   vm.loggedIn = false;
+  vm.allowQueryLists = false;
   vm.treebanks = {};
 
 
@@ -100,7 +101,8 @@ module.exports = function ($scope, $state, $window, $q, promptModal, queryFileAp
   Auth.status
     .safeApply($scope, (loggedIn) => {
       vm.loggedIn = loggedIn;
-      if (loggedIn) {
+      if (loggedIn && Auth.user.allowQueryLists) {
+        vm.allowQueryLists = true;
         load();
       } else {
         vm.files = false;

@@ -5,7 +5,11 @@
       p Please login to be able to access My queries
       p
         button.ui.primary.button(login) Login to PML-TQ
-  .column(ng-if="vm.loggedIn")
+  .column(ng-if="!vm.allowQueryLists")
+    .ui.info.message
+      .header Permission required
+      p Current user is not allowed to manage Query lists
+  .column(ng-if="vm.loggedIn && vm.allowQueryLists")
     .ui.basic.segment
       button.ui.labeled.icon.button(type="button" ng-click="vm.addList()")
         i.plus.icon
@@ -33,7 +37,7 @@
         .right.menu
           a.ui.item(ng-click="vm.shareList(file)" title="{{file.isPublic ? 'Disable sharing' : 'Share query list'}}")
             i.share.alternate.icon(ng-class="{green: file.isPublic}")
-          a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})") 
+          a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id})")
             i.search.icon
             | Use list
           a.ui.item(ui-sref="treebank.queryfiletutorial({fileID: file.id, userID: vm.user.id})")
@@ -66,7 +70,7 @@
               .right.menu
                 a.ui.item(ng-click="vm.shareQuery(file,query)" title="{{query.isPublic ? 'Disable sharing' : 'Share query'}}")
                   i.share.alternate.icon(ng-class="{green: query.isPublic}")
-                a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})") 
+                a.ui.item(ui-sref="treebank.queryfile.index({fileID: file.id, queryID: query.id})")
                   i.search.icon
                   | Use query
                 .ui.dropdown.item(drop ui-dropdown)
