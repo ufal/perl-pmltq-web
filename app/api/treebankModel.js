@@ -28,12 +28,13 @@ module.exports = function treebankModelFactory($q, $cacheFactory, tredSvg, Sugge
     model.hasLanguage = predicate('languages');
 
     model.accessible = function () {
-      if (this.isFree) {
+      var self = this;
+      if (self.isFree) {
         return true;
       }
 
       if (Auth.loggedIn) {
-        if (Auth.user.accessAll || Auth.user.availableTreebanks[this.id]
+        if (Auth.user.accessAll || Auth.user.availableTreebanks.some(tb => tb.id == self.id)
           || this.isAllLogged
           || this.tags.some(tbtg => Auth.user.availableTags.some(usrtg => tbtg.id == usrtg.id))
         ) {
