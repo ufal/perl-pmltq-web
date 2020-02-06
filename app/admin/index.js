@@ -54,7 +54,7 @@ pmltqAdmin.run(function ($rootScope, $state, $modal, $interval, authService, pro
   if (PRODUCTION) {
     $interval(() => {
       Restangular.one('auth').get();
-    }, 60000, 0, false); // Ping server every 60 seconds to keep session alive
+    }, 600000, 0, false); // Ping server every 600 seconds to keep session alive
   }
 
   var loginModalInstance;
