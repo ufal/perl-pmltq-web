@@ -119,13 +119,13 @@ if (definitions.PRODUCTION) {
       new ExtractTextPlugin('[contenthash]-[name].css', {
         allChunks: true
       }),
-      new webpack.optimize.UglifyJsPlugin({
+      /*new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         },
         exclude: [/ng-admin/]
       }),
-      new webpack.NoErrorsPlugin()]
+      new webpack.NoErrorsPlugin()*/]
   });
 } else {
   module.exports = merge(config, {
