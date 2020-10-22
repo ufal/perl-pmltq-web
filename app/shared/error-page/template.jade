@@ -9,6 +9,10 @@
         .ui.huge.warning.message
           .header Sorry about that!
           P Double check the URL in the browser. If you keep running into this page, let us know...
+      div(ng-switch-when="403")
+        h1.ui.huge.center.aligned.icon.red.header
+          i.lock.icon
+          .content Forbidden
       div(ng-switch-default)
         h1.ui.huge.center.aligned.icon.red.header
           i.bomb.icon
@@ -18,7 +22,7 @@
           .header We are sorry. Some bad things happened and we are unable to recover.
           P The incident has been recorded and we most likely already working on it.
           p If however you keep running into this page, please let us know...
-      .ui.huge.selection.list
+      .ui.huge.selection.list(ng-if="vm.status != 403")
         a.item(href="https://github.com/ufal/perl-pmltq-web/issues" target="_blank")
           i.github.icon
           .content
