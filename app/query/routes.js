@@ -54,8 +54,8 @@ module.exports = function ($stateProvider, $urlMatcherFactoryProvider) {
     onEnter: function ($state, $stateParams, $timeout, queryParams) {
       $timeout(function () {
         if (queryParams.query && _.isEmpty($stateParams.query)) {
-          $stateParams.query = queryParams.query;
-          $state.go($state.current.name, $stateParams, {location: 'replace'});
+          const stateParamsClone = {...$stateParams, query: queryParams.query};
+          $state.go($state.current.name, stateParamsClone, {location: 'replace'});
         }
       });
     }

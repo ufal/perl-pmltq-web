@@ -131,7 +131,7 @@ module.exports = function (localStorageService) {
 
       // TODO: save filter params and cache filter results
       if (!_.isEqual(newFiltered, oldFiltered)) {
-        oldFiltered = _.sortByOrder(newFiltered, options.sortBy, options.sortOrder);
+        oldFiltered = _.orderBy(newFiltered, options.sortBy, options.sortOrder);
         updateRemaining(newFiltered);
       }
 
@@ -146,8 +146,8 @@ module.exports = function (localStorageService) {
         term: filter.term,
         onlyAccessible: filter.onlyAccessible,
         onlyUserAccessible: filter.onlyUserAccessible,
-        tags: _.chain(filter.tags).filter('selected').pluck('id').value(),
-        languages: _.chain(filter.languages).filter('selected').pluck('id').value()
+        tags: _.chain(filter.tags).filter('selected').map('id').value(),
+        languages: _.chain(filter.languages).filter('selected').map('id').value()
       };
 
       if (!_.isEqual(filtersParams[filterName], toSave)) {

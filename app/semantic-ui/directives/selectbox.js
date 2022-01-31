@@ -25,9 +25,11 @@ module.exports = function($timeout) {
         ngModelCtrl.$render = function() {
           $scope.selected = ngModelCtrl.$modelValue;
           $timeout(function() {
-            var index = $scope.items.indexOf($scope.selected);
-            if (index >= 0) {
-              $element.dropdown('set selected', index);
+            if($scope.items){
+              var index = $scope.items.indexOf($scope.selected);
+              if (index >= 0) {
+                $element.dropdown('set selected', index);
+              }
             }
           });
         };
