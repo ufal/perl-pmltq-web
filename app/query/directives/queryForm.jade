@@ -3,7 +3,7 @@
     .one.column.ui.grid
       .column(ng-show="vm.loggedIn || vm.publicQueryList")
         // history
-        .ui.left.floated.menu(ng-model="vm.queryHistory" ng-hide="!vm.loggedIn")
+        .ui.left.floated.menu(ng-model="vm.queryHistory" ng-hide="!vm.loggedIn || !vm.allowHistory")
           .item.ui.button(type="button" ng-class="{disabled: !vm.queryHistory.hasPrevious}" ng-click="vm.undo()")
             i.undo.icon
             | Undo
@@ -23,7 +23,7 @@
             | Repeat
 
         .ui.floated.menu(ng-show="vm.publicQueryList && !vm.activeQueryList")
-          // public query list        
+          // public query list
           a.ui.item(ng-if="vm.publicQueryList " type="button" ng-click="vm.publicQueryList = null" title="Close query list")
             i.delete.icon
           .item.ui {{vm.publicQueryList.name}}
@@ -39,7 +39,7 @@
             i.arrow.right.icon
           .item.ui.inline.dropdown(ui-selectbox="vm.publicQueryList.queries" valuekey="name"  menutitle="Query:" ng-model="vm.publicQueryList.activeQuery" ng-change="vm.selectQuery(vm.publicQueryList)" ng-show="vm.publicQueryList && vm.publicQueryList.activeQuery")
 
-        .ui.floated.menu(ng-show="vm.loggedIn")
+        .ui.floated.menu(ng-show="vm.loggedIn && vm.allowQueryLists")
           // My queries
           a.ui.item(ng-if="vm.activeQueryList " type="button" ng-click="vm.activeQueryList = null" title="Close query list")
             i.delete.icon

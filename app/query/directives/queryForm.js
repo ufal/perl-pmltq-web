@@ -19,6 +19,8 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       this.loggedIn = false;
       this.queryLists = [];
       this.queryHistory = [];
+      this.allowHistory = false;
+      this.allowQueryLists = false;
       Auth.ping(); // hack: avoid revriting modified public query
       this.timeoutSelect = [20, 30, 45, 60, 90, 120, 200, 300];
       this.limitSelect = [1, 10, 100, 1000, 10000];
@@ -65,7 +67,7 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
       Auth.status
         .safeApply($scope, (loggedIn) => {
           this.loggedIn = loggedIn;
-          if (loggedIn) {
+          if (loggedIn && Auth.user.allowQueryLists) {
             var setquery=false;
             if($stateParams.queryID) {
               localStorageService.set(lastQueryIdKey, parseInt($stateParams.queryID));
@@ -75,12 +77,19 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
               localStorageService.set(lastQueryListKey, parseInt($stateParams.fileID));
               setquery=true;
             }
+            this.allowQueryLists = true;
             this.loadQueryLists(setquery);
-            this.loadQueryHistory();
           } else {
             this.queryLists = [];
+          }
+
+          if (loggedIn && Auth.user.allowHistory) {
+            this.allowHistory = true;
+            this.loadQueryHistory();
+          } else {
             this.queryHistory = [];
           }
+
           if($stateParams.userID
              && ( $stateParams.fileID == 'public' ||  ($stateParams.fileID && $stateParams.userID != Auth.user.id))) { // load public query list if set
             publicFileApi.one($stateParams.userID).get({'file': $stateParams.fileID}).then(list => {
@@ -177,8 +186,8 @@ module.exports = function ($stateParams, $state, $window, observeOnScope, localS
         label: 'Name'
       }, (name) => {      if (_.all(this.files, f => f.name !== name)) { // creates a new list
         return queryFileApi.post({name: name}).then(
-          file => { 
-            this.queryLists.push(file); 
+          file => {
+            this.queryLists.push(file);
             this.queryLists.sort((a, b) => a.name.localeCompare(b.name));
             this.activeQueryList = file;
             notify.success('List has been created');

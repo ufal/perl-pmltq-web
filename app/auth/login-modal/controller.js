@@ -1,4 +1,4 @@
-module.exports = function LoginModalController($scope, required, Discojuice, Auth) {
+module.exports = function LoginModalController($scope, $window, required, Discojuice, Auth, apiBaseUrl) {
   'ngInject';
   var vm = this;
 
@@ -13,6 +13,8 @@ module.exports = function LoginModalController($scope, required, Discojuice, Aut
     remember: false
   };
 
+  vm.login_with = Auth.login_with;
+
   vm.discojuice = function () {
     var discojuice = new Discojuice();
     discojuice.then(function (result) {
@@ -23,6 +25,12 @@ module.exports = function LoginModalController($scope, required, Discojuice, Aut
     }).catch(function () {
       vm.discojuiceResult = null;
     });
+  };
+
+  vm.oauth = function (service) {
+     var l = $window.location,
+      ORIGIN = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '');
+    location.href = apiBaseUrl + '/auth/'+service + '?loc=' + l;
   };
 
   vm.login = function (data) {
