@@ -1,0 +1,14 @@
+{
+  "name": "pmltqWeb",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "https://github.com/ufal/perl-pmltq-web",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
