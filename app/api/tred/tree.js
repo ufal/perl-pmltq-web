@@ -3,7 +3,7 @@ var _ = require('lodash');
 /** @type jQuery */
 var $ = require('jquery');
 /** @type Snap */
-var Snap = require('snapsvg');
+var Snap = require('snapsvg-cjs');
 /** @type Rx  */
 var Rx = require('rx');
 

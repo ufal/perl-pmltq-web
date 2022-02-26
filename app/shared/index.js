@@ -6,7 +6,7 @@ require('angular-loading-bar');
 require('angular-scroll');
 require('angular-local-storage');
 require('restangular');
-require('snapsvg');
+require('snapsvg-cjs');
 require('rx-angular');
 require('angular-ui-sortable');
 

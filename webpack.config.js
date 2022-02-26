@@ -6,8 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var LessRewriteImportPlugin = require('less-plugin-rewrite-import');
 var argv = require('minimist')(process.argv.slice(2));
-var merge = require('webpack-merge');
-
+const { merge } = require('webpack-merge')
 var pgk = require('./package.json');
 
 function rewriteUrl(replacePath) {
@@ -50,25 +49,24 @@ var config = {
     }
   },
   module: {
-    loaders: [
-      {test: /\.yml/, loader: 'json!yaml'},
-      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['ng-annotate', 'babel-loader']},
-      {test: /node_modules\/admin-config\/.*\.jsx?$/, loader: 'babel'},
-      {test: /\.html$/, loader: 'html'},
-      {test: /\.jade$/, loader: 'jade', query: definitions},
-      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'}, // inline base64 URLs for <=8k images, direct URLs for the rest
-      {test: /\.(woff|woff2)$/, loader: 'url?limit=10000&mimetype=application/font-woff&prefix=fonts'},
-      {test: /\.ttf$/, loader: 'url?limit=10000&mimetype=application/octet-stream&prefix=fonts'},
-      {test: /\.eot$/, loader: 'url?limit=10000&mimetype=application/vnd.ms-fontobject&prefix=fonts'},
-      {test: /\.svg$/, loader: 'url?limit=10000&mimetype=image/svg+xml&prefix=fonts'},
+    rules: [
+      {test: /\.yml/, use: ['json-loader', 'yaml-loader']},
+      {test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader'},
+      {test: /node_modules\/admin-config\/.*\.jsx?$/, loader: 'babel-loader'},
+      {test: /\.html$/, loader: 'html-loader'},
+      {test: /\.jade$/, loader: 'jade-loader'},
+      {test: /\.(png|jpg)$/, use: { loader: 'url-loader', options: { limit : 8192 } } }, // inline base64 URLs for <=8k images, direct URLs for the rest
+      {test: /\.(woff|woff2)$/, use: { loader: 'url-loader', options: { limit: 10000, mimetype: "application/font-woff" } } },
+      {test: /\.ttf$/, use: { loader: 'url-loader', options: { limit: 10000, mimetype: "application/octet-stream" } } },
+      {test: /\.eot$/, use: { loader: 'url-loader', options: { limit: 10000, mimetype: "application/vnd.ms-fontobject" } } },
+      {test: /\.svg$/, use: { loader: 'url-loader', options: { limit: 10000, mimetype: "image/svg+xml" } } },
       // See https://github.com/adobe-webplatform/Snap.svg/issues/341 and remove once it's fixed
-      {test: require.resolve('snapsvg'), loader: 'imports-loader?this=>window,fix=>module.exports=0'},
-      {test:   /\.md/, loader: 'markdown-it'},
-      {test:   /\.json/, loader: 'json-loader'}
+      //{test: require.resolve('snapsvg'), use: { loader: 'imports-loader', options: {  } } },
+      {test: /\.md/, loader: 'markdown-it'},
     ]
   },
   plugins: [
-    new webpack.optimize.DedupePlugin(), // NOT IN WEBPACK v4
+    //new webpack.optimize.DedupePlugin(), // NOT IN WEBPACK v4
     new webpack.PrefetchPlugin('angular'),
     new webpack.PrefetchPlugin('babel-polyfill'),
     new HtmlWebpackPlugin({
@@ -82,18 +80,10 @@ var config = {
     }),
     definePlugin
   ],
-  lessLoader: {
-    lessPlugins: [
-      new LessRewriteImportPlugin({
-        paths: {
-          '../../theme.config': path.join(__dirname, 'app', 'theme.config'),
-          'app/theme/globals/site': path.join(__dirname, 'app', 'theme', 'globals', 'site')
-        }
-      })
-    ]
-  },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     proxy: {
       '/api': {
       pathRewrite: function (path, req) { return path.replace('/api', '/v1') },
@@ -111,7 +101,7 @@ if (definitions.PRODUCTION) {
       angular: 'angular'
     }],
     module: {
-      loaders: [
+      rules: [
         {test: /\.less$/, loader: ExtractTextPlugin.extract('css!autoprefixer!less')},
         {test: /\.css$/, loader: ExtractTextPlugin.extract('css!autoprefixer')}
       ]
@@ -135,9 +125,9 @@ if (definitions.PRODUCTION) {
       pathinfo: true
     },
     module: {
-      loaders: [
-        {test: /\.less$/, loader: 'style!css!autoprefixer!less'},
-        {test: /\.css$/, loader: 'style!css!autoprefixer'}
+      rules: [
+        {test: /\.less$/, use: ["style-loader", "css-loader", { loader: "less-loader", options: { lessOptions: { math: "always"}}}] },
+        {test: /\.css$/, use: ["style-loader", "css-loader"] }
       ]
     }
   });

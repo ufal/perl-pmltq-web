@@ -2,7 +2,7 @@ var _ = require('lodash');
 var $ = require('jquery');
 /** @type Rx  */
 var Rx = require('rx');
-var Snap = require('snapsvg');
+var Snap = require('snapsvg-cjs');
 var TredTree = require('./tree');
 
 module.exports = function () {
